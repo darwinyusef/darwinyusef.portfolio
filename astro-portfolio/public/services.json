@@ -1,0 +1,272 @@
+[
+  {
+    "id": 0,
+    "name": "Arquitectura de Software Escalable",
+    "description": "Diseño de arquitecturas modernas en capas, hexagonal o microservicios con enfoque en resiliencia y alta disponibilidad.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "layers"
+  },
+  {
+    "id": 1,
+    "name": "Implantación de Microservicios",
+    "description": "Diseño, desacoplamiento, contratos API, versionado y gobernanza para plataformas orientadas a servicios.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "server"
+  },
+  {
+    "id": 2,
+    "name": "MLOps y Despliegue de Modelos IA",
+    "description": "Integración de modelos IA en producción, pipelines de entrenamiento, monitoreo, versionado y endpoints de inferencia.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "cpu"
+  },
+  {
+    "id": 3,
+    "name": "Visión Computacional",
+    "description": "Modelos y soluciones de detección, clasificación, OCR y visión embebida con TensorFlow Lite / ONNX.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "eye"
+  },
+  {
+    "id": 4,
+    "name": "Desarrollo Full-Stack Profesional",
+    "description": "Aplicaciones modernas con React, Astro, Node/FastAPI, PostgreSQL y despliegues escalables.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "code2"
+  },
+  {
+    "id": 5,
+    "name": "Backend en Go de Alta Concurrencia",
+    "description": "Servicios de alta carga, workers, goroutines y sistemas concurrentes diseñados para rendimiento extremo.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "zap"
+  },
+  {
+    "id": 6,
+    "name": "Data Engineering",
+    "description": "Modelado de datos, ETL/ELT, pipelines, orquestación y almacenamiento optimizado para IA.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "database"
+  },
+  {
+    "id": 7,
+    "name": "DevOps, CI/CD y Dockers",
+    "description": "Automatización de despliegues, pipelines CI/CD, Docker y prácticas DevOps completas.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "docker"
+  },
+  {
+    "id": 8,
+    "name": "Infraestructura como Código",
+    "description": "Automatización de infraestructura con Terraform, Pulumi y GitOps para despliegues reproducibles.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "box"
+  },
+  {
+    "id": 9,
+    "name": "Agentes Cognitivos con IA",
+    "description": "Desarrollo de agentes inteligentes, embeddings, clasificación de leads y asistentes autónomos.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "robot"
+  },
+  {
+    "id": 10,
+    "name": "Integración IoT con ESP32",
+    "description": "Sistemas IoT conectados, telemetría, control de hardware, MQTT, WebSockets e integración con backend.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "wifi"
+  },
+  {
+    "id": 11,
+    "name": "APIs en Tiempo Real",
+    "description": "Streaming, notificaciones en vivo, sincronización cliente-servidor con WebSockets/MQTT.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "broadcast"
+  },
+  {
+    "id": 12,
+    "name": "Aplicaciones Móviles Nativas (iOS/Android)",
+    "description": "Desarrollo de apps nativas con Swift y Kotlin integradas a APIs modernas y modelos IA.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "smartphone"
+  },
+  {
+    "id": 13,
+    "name": "Sistemas Multitenant",
+    "description": "Diseño de plataformas multicliente con aislamiento de datos, particionado y escalabilidad masiva.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "users"
+  },
+  {
+    "id": 14,
+    "name": "Observabilidad y Monitoreo",
+    "description": "Implementación de métricas, logs centralizados, trazabilidad y dashboards productivos.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "activity"
+  },
+  {
+    "id": 15,
+    "name": "Optimización de Performance",
+    "description": "Aceleración de sistemas backend, frontend, queries y arquitecturas optimizadas para carga real.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "gauge"
+  },
+  {
+    "id": 16,
+    "name": "Seguridad Aplicativa",
+    "description": "Protección de APIs, autenticación, autorización, roles, cifrado y mitigación de ataques comunes.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "shield"
+  },
+  {
+    "id": 17,
+    "name": "Modelado de Bases de Datos",
+    "description": "Diseño de esquemas, normalización, optimización de consultas y estrategias de indexación avanzada.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "table"
+  },
+  {
+    "id": 18,
+    "name": "Testing Automatizado",
+    "description": "Pruebas unitarias, integración, E2E, test contract y pipelines con calidad continua.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "checkcircle"
+  },
+  {
+    "id": 19,
+    "name": "Sistemas de Control Láser con IA",
+    "description": "Integración de corte láser, control electrónico, sensores y backend inteligente con IA.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "scan"
+  },
+  {
+    "id": 20,
+    "name": "Plataformas CRM Inteligentes",
+    "description": "Construcción de CRM con agentes, embudos automáticos, clasificación de leads y reporting real-time.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "linechart"
+  },
+  {
+    "id": 21,
+    "name": "Sistemas de Mensajería y Notificaciones",
+    "description": "Diseño de mensajería interna, colas, WebPush, FCM/APNs y notificaciones inteligentes.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "bell"
+  },
+  {
+    "id": 22,
+    "name": "Integración con S3 y Almacenamiento",
+    "description": "Implementación de capas de archivos, uploads grandes, versiones y seguridad en buckets S3.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "folder"
+  },
+  {
+    "id": 23,
+    "name": "Sistemas de Autenticación",
+    "description": "Implementación de login avanzado, OAuth2, tokens, roles, MFA y sesiones seguras.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "lock"
+  },
+  {
+    "id": 24,
+    "name": "Desarrollo de Dashboards y Paneles",
+    "description": "Dashboards en tiempo real con datos vivos, IA y analítica integrada para negocio.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "barchart2"
+  },
+  {
+    "id": 25,
+    "name": "Integración con Pagos",
+    "description": "Pasarelas de pago, manejo de tokens, conciliación y seguridad para transacciones digitales.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "creditcard"
+  },
+  {
+    "id": 26,
+    "name": "Automatización de Procesos",
+    "description": "Scripts, bots y flujos automáticos para liberar carga operativa y ejecutar procesos complejos.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "repeat"
+  },
+  {
+    "id": 27,
+    "name": "Integración Multi-plataforma",
+    "description": "APIs, móviles, IoT, web y escritorio sincronizados bajo una misma arquitectura multiplataforma.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "layers2"
+  },
+  {
+    "id": 28,
+    "name": "Prototipos y MVPs",
+    "description": "Desarrollo rápido de MVP técnicos para validar arquitectura, IA o flujo de producto digital.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "rocket"
+  },
+  {
+    "id": 29,
+    "name": "Aceleración de Startups Tech",
+    "description": "Mentoría técnica, definición de stack, arquitectura inicial y roadmap de tecnología para lanzamientos rápidos.",
+    "price": 30000,
+    "duration": "Por hora",
+    "is_active": true,
+    "icon": "sparkles"
+  }
+]
