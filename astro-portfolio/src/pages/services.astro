@@ -1,0 +1,116 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const servicesFromContent = await getCollection('services');
+---
+
+<Layout title={t('services.title')}>
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-6 pb-8 max-w-6xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">{t('services.title')}</h1>
+      </div>
+
+      <div id="services-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="text-center py-8 col-span-full">
+          <p class="text-gray-600 dark:text-gray-400">Cargando servicios...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Service {
+    id: number;
+    name: string;
+    description: string;
+    price?: number;
+    duration?: string;
+    is_active: boolean;
+    icon?: string;
+  }
+
+  async function loadServices() {
+    const container = document.getElementById('services-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/services`);
+      if (!response.ok) throw new Error('Failed to load services');
+
+      const services: Service[] = await response.json();
+      const activeServices = services.filter(service => service.is_active);
+
+      const html = activeServices.map(service => `
+        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
+              ${service.icon || '🚀'}
+            </div>
+            <div class="flex-1">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-white">${service.name}</h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">${service.description}</p>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+            ${service.price ? `<span class="text-primary font-bold">$${service.price}</span>` : '<span class="text-gray-500">Consultar</span>'}
+            ${service.duration ? `<span class="text-sm text-gray-500 dark:text-gray-400">${service.duration}</span>` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error('Error loading services:', error);
+      container.innerHTML = `
+        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
+              🌐
+            </div>
+            <div class="flex-1">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-white">Desarrollo Web Full Stack</h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Desarrollo de aplicaciones web modernas y escalables con React, Astro y Python/FastAPI.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+            <span class="text-primary font-bold">$1500+</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">2-4 semanas</span>
+          </div>
+        </div>
+        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
+          <div class="flex items-start gap-4 mb-4">
+            <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
+              🤖
+            </div>
+            <div class="flex-1">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-white">Integración de IA</h3>
+            </div>
+          </div>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Implementación de chatbots con LangChain, OpenAI y soluciones de IA personalizadas.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+            <span class="text-primary font-bold">$2000+</span>
+            <span class="text-sm text-gray-500 dark:text-gray-400">3-6 semanas</span>
+          </div>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadServices);
+</script>

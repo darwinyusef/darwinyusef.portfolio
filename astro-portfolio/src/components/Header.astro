@@ -1,0 +1,91 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<header class="p-4 flex justify-between items-center sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200/50 dark:border-gray-700/50">
+  <a href={`/${lang === 'es' ? '' : lang}`} class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+    <span class="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white text-sm">SS</span>
+    <span class="hidden sm:block">Portfolio</span>
+  </a>
+
+  <nav class="hidden lg:flex gap-6 items-center">
+    <a href={`${lang === 'es' ? '' : lang}`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      {t('nav.home')}
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/skills`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      {t('nav.skills')}
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/services`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      {t('nav.services')}
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/podcast`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      Podcast
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/videos`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      Videos
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/blog`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      Blog
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/resources`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      {lang === 'es' ? 'Recursos' : lang === 'en' ? 'Resources' : 'Recursos'}
+    </a>
+    <a href={`${lang === 'es' ? '' : lang}/#contact`} class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-primary transition-colors">
+      {t('nav.contact')}
+    </a>
+
+    <div class="flex gap-2 border-l border-gray-300 dark:border-gray-600 pl-4">
+      <a href="/" class={`px-2 py-1 rounded text-sm ${lang === 'es' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>ES</a>
+      <a href="/en" class={`px-2 py-1 rounded text-sm ${lang === 'en' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>EN</a>
+      <a href="/pt" class={`px-2 py-1 rounded text-sm ${lang === 'pt' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800'}`}>PT</a>
+    </div>
+  </nav>
+
+  <button id="mobile-menu-btn" class="lg:hidden p-2 rounded-full text-gray-900 dark:text-white hover:bg-primary/10 dark:hover:bg-primary/20">
+    <span class="material-symbols-outlined">menu</span>
+  </button>
+</header>
+
+<div id="mobile-menu" class="hidden lg:hidden bg-background-light dark:bg-background-dark border-b border-gray-200 dark:border-gray-700 shadow-lg">
+  <nav class="p-4 space-y-3">
+    <a href={`/${lang === 'es' ? '' : lang}`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      {t('nav.home')}
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/skills`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      {t('nav.skills')}
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/services`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      {t('nav.services')}
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/podcast`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      Podcast
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/videos`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      Videos
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/blog`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      Blog
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/resources`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      {lang === 'es' ? 'Recursos' : lang === 'en' ? 'Resources' : 'Recursos'}
+    </a>
+    <a href={`/${lang === 'es' ? '' : lang}/#contact`} class="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-primary hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors">
+      {t('nav.contact')}
+    </a>
+
+    <div class="flex gap-2 pt-3 border-t border-gray-200 dark:border-gray-700 px-4">
+      <a href="/" class={`flex-1 text-center px-2 py-2 rounded ${lang === 'es' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800'}`}>ES</a>
+      <a href="/en" class={`flex-1 text-center px-2 py-2 rounded ${lang === 'en' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800'}`}>EN</a>
+      <a href="/pt" class={`flex-1 text-center px-2 py-2 rounded ${lang === 'pt' ? 'bg-primary text-white' : 'text-gray-600 dark:text-gray-400 bg-gray-100 dark:bg-gray-800'}`}>PT</a>
+    </div>
+  </nav>
+</div>
+
+<script>
+  document.getElementById('mobile-menu-btn')?.addEventListener('click', () => {
+    document.getElementById('mobile-menu')?.classList.toggle('hidden');
+  });
+</script>

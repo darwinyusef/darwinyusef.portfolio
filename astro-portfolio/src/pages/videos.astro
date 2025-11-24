@@ -1,0 +1,223 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title={lang === 'es' ? 'Videos' : lang === 'en' ? 'Videos' : 'Vídeos'}>
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-6 pb-8 max-w-6xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
+          {lang === 'es' ? 'Videos' : lang === 'en' ? 'Videos' : 'Vídeos'}
+        </h1>
+      </div>
+
+      <div id="videos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="col-span-full text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">Cargando videos...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="video-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+    <div class="bg-white dark:bg-[#1a1a2e] rounded-lg w-full max-w-4xl">
+      <div class="flex items-center justify-between p-4 border-b border-gray-200 dark:border-gray-700">
+        <h3 id="modal-title" class="font-bold text-gray-900 dark:text-white"></h3>
+        <button id="close-modal-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+          <span class="material-symbols-outlined">close</span>
+        </button>
+      </div>
+      <div class="p-4">
+        <div id="video-player" class="aspect-video bg-black rounded-lg overflow-hidden"></div>
+        <p id="modal-description" class="mt-4 text-sm text-gray-600 dark:text-gray-400"></p>
+      </div>
+    </div>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Video {
+    id: number;
+    title: string;
+    description: string;
+    youtube_url: string;
+    thumbnail?: string;
+    duration?: string;
+    pubDate: string;
+    is_active: boolean;
+  }
+
+  function getYouTubeVideoId(url: string): string | null {
+    const patterns = [
+      /(?:youtube\.com\/watch\?v=|youtu\.be\/)([^&\s]+)/,
+      /youtube\.com\/embed\/([^&\s]+)/
+    ];
+
+    for (const pattern of patterns) {
+      const match = url.match(pattern);
+      if (match) return match[1];
+    }
+    return null;
+  }
+
+  function getYouTubeThumbnail(url: string): string {
+    const videoId = getYouTubeVideoId(url);
+    return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
+  }
+
+  function openVideoModal(video: Video) {
+    const modal = document.getElementById('video-modal');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDescription = document.getElementById('modal-description');
+    const videoPlayer = document.getElementById('video-player');
+
+    if (!modal || !modalTitle || !modalDescription || !videoPlayer) return;
+
+    const videoId = getYouTubeVideoId(video.youtube_url);
+    if (!videoId) return;
+
+    modalTitle.textContent = video.title;
+    modalDescription.textContent = video.description;
+    videoPlayer.innerHTML = `
+      <iframe
+        width="100%"
+        height="100%"
+        src="https://www.youtube.com/embed/${videoId}?autoplay=1"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    `;
+
+    modal.classList.remove('hidden');
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const videoPlayer = document.getElementById('video-player');
+
+    if (!modal || !videoPlayer) return;
+
+    modal.classList.add('hidden');
+    videoPlayer.innerHTML = '';
+  }
+
+  async function loadVideos() {
+    const container = document.getElementById('videos-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/multimedia?type=video`);
+
+      let videos: Video[] = [];
+
+      if (response.ok) {
+        const data = await response.json();
+        videos = data.filter((v: any) => v.is_active && v.youtube_url);
+      }
+
+      if (videos.length === 0) {
+        videos = [
+          {
+            id: 1,
+            title: 'Tutorial: Desarrollo con Astro',
+            description: 'Aprende a crear sitios web super rápidos con Astro y SSG.',
+            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            duration: '15:30',
+            pubDate: new Date().toISOString(),
+            is_active: true
+          },
+          {
+            id: 2,
+            title: 'Implementando i18n en tu proyecto',
+            description: 'Guía completa para agregar múltiples idiomas a tu aplicación.',
+            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            duration: '20:45',
+            pubDate: new Date().toISOString(),
+            is_active: true
+          },
+          {
+            id: 3,
+            title: 'Chatbots con LangChain',
+            description: 'Crea chatbots inteligentes usando LangChain y OpenAI.',
+            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            duration: '25:00',
+            pubDate: new Date().toISOString(),
+            is_active: true
+          }
+        ];
+      }
+
+      const html = videos.map(video => {
+        const thumbnail = video.thumbnail || getYouTubeThumbnail(video.youtube_url);
+
+        return `
+          <div class="bg-white dark:bg-[#1a1a2e] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer video-card"
+               data-video='${JSON.stringify(video).replace(/'/g, "&apos;")}'>
+            <div class="relative group">
+              <img src="${thumbnail}" alt="${video.title}" class="w-full h-48 object-cover" />
+              <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-white text-4xl">play_arrow</span>
+                </div>
+              </div>
+              ${video.duration ? `
+                <div class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
+                  ${video.duration}
+                </div>
+              ` : ''}
+            </div>
+            <div class="p-4">
+              <h3 class="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${video.title}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">${video.description}</p>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+
+      document.querySelectorAll('.video-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const videoData = JSON.parse(card.getAttribute('data-video') || '{}');
+          openVideoModal(videoData);
+        });
+      });
+    } catch (error) {
+      console.error('Error loading videos:', error);
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">No hay videos disponibles en este momento.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadVideos();
+
+    const closeModalBtn = document.getElementById('close-modal-btn');
+    const modal = document.getElementById('video-modal');
+
+    closeModalBtn?.addEventListener('click', closeVideoModal);
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeVideoModal();
+      }
+    });
+  });
+</script>

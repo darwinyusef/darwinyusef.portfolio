@@ -1,0 +1,120 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<div class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-md overflow-hidden p-6">
+  <div class="flex justify-between items-center mb-4">
+    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+      {lang === 'es' ? 'Eventos Próximos' : lang === 'en' ? 'Upcoming Events' : 'Próximos Eventos'}
+    </h2>
+  </div>
+
+  <div id="events-container" class="space-y-4">
+    <p class="text-gray-600 dark:text-gray-400 text-sm">Cargando eventos...</p>
+  </div>
+
+  <div class="mt-6">
+    <a
+      href={`/${lang === 'es' ? '' : lang}/events`}
+      class="w-full block text-center bg-primary text-white font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
+    >
+      {lang === 'es' ? 'Ver Todos los Eventos' : lang === 'en' ? 'View All Events' : 'Ver Todos os Eventos'}
+    </a>
+  </div>
+</div>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Event {
+    id: number;
+    title: string;
+    date: string;
+    description?: string;
+    location?: string;
+    is_active: boolean;
+  }
+
+  async function loadEvents() {
+    const container = document.getElementById('events-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/activities?upcoming=true&limit=3`);
+
+      let events: Event[] = [];
+
+      if (response.ok) {
+        const activities = await response.json();
+        events = activities
+          .filter((a: any) => a.is_active && new Date(a.date) >= new Date())
+          .slice(0, 3)
+          .map((a: any) => ({
+            id: a.id,
+            title: a.title,
+            date: a.date,
+            description: a.description,
+            location: a.location,
+            is_active: true
+          }));
+      }
+
+      if (events.length === 0) {
+        events = [
+          {
+            id: 1,
+            title: 'Tech Meetup',
+            date: '2024-07-15',
+            location: 'Virtual',
+            is_active: true
+          },
+          {
+            id: 2,
+            title: 'Webinar: Advanced JavaScript',
+            date: '2024-08-22',
+            location: 'Online',
+            is_active: true
+          },
+          {
+            id: 3,
+            title: 'AI Conference',
+            date: '2024-09-10',
+            location: 'San Francisco',
+            is_active: true
+          }
+        ];
+      }
+
+      const html = events.map(event => {
+        const eventDate = new Date(event.date);
+        const formattedDate = eventDate.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        return `
+          <div class="flex items-center gap-4">
+            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg flex-shrink-0">
+              <span class="material-symbols-outlined text-primary">event</span>
+            </div>
+            <div class="flex-1 min-w-0">
+              <p class="font-semibold text-gray-900 dark:text-white truncate">${event.title}</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">${formattedDate}</p>
+              ${event.location ? `<p class="text-xs text-gray-400 dark:text-gray-500">${event.location}</p>` : ''}
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html || '<p class="text-gray-600 dark:text-gray-400 text-sm">No hay eventos próximos.</p>';
+    } catch (error) {
+      console.error('Error loading events:', error);
+      container.innerHTML = '<p class="text-gray-600 dark:text-gray-400 text-sm">No hay eventos disponibles.</p>';
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadEvents);
+</script>

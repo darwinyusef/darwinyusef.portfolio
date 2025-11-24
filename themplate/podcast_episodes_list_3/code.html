@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design - Podcast Episode</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1919e6",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111121",
+            },
+            fontFamily: {
+              "display": ["Inter"],
+            },
+            borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          },
+        },
+      };
+    </script>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display text-white">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 z-10 bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center justify-between p-4">
+<button class="text-white">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-lg font-bold text-white">Now Playing</h1>
+<button class="text-white">
+<span class="material-symbols-outlined"> more_horiz </span>
+</button>
+</div>
+</header>
+<main class="flex-1 flex flex-col justify-between p-4">
+<div class="flex flex-col items-center space-y-6 flex-grow">
+<div class="w-full max-w-xs aspect-square mt-8 shadow-2xl shadow-primary/20">
+<img alt="Podcast episode artwork for The Journey Begins" class="object-cover w-full h-full rounded-xl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBl6UjdcIk1kQJ8YETmFdIak5pPge3AyNCoUNAitpjQtvH14AFTlo9JVcmfd_rxCw2Ajnr8RoZBvWL2hjXVFsYXwTS_zY1-uWJNLKkB7so9KiVu34uZ2JcbTs3wGmp3RwOkFGyiAYuJwSyjp4b1RRUEabe3CcbNZx2Umc7XrFu0oX6GLBzPzb__yWD-RODvYrCCXsOk0aj2d7kc-M1xYt6GloelnWYKNEH0yXKcuuN2-CS7p-Q-Ugas2L4RGF6FioQyGwA_nOnRxman"/>
+</div>
+<div class="text-center">
+<h2 class="text-2xl font-bold">The Journey Begins</h2>
+<p class="text-base text-white/70">Alex Doe</p>
+</div>
+<div class="w-full px-2">
+<div class="relative pt-1">
+<div class="overflow-hidden h-2 mb-2 text-xs flex rounded bg-zinc-700">
+<div class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-primary" style="width: 30%"></div>
+</div>
+<div class="flex justify-between text-xs text-white/50">
+<span>10:45</span>
+<span>35:50</span>
+</div>
+</div>
+<div class="flex items-center justify-center space-x-6 mt-4">
+<button class="text-white/70">
+<span class="material-symbols-outlined text-3xl">replay_10</span>
+</button>
+<button class="flex items-center justify-center w-20 h-20 rounded-full bg-primary text-white shadow-lg shadow-primary/40">
+<span class="material-symbols-outlined text-6xl">pause</span>
+</button>
+<button class="text-white/70">
+<span class="material-symbols-outlined text-3xl">forward_10</span>
+</button>
+</div>
+</div>
+</div>
+<div class="bg-zinc-800 p-6 rounded-xl mt-8">
+<h3 class="text-lg font-bold mb-2">Episode Description</h3>
+<p class="text-sm text-white/70 leading-relaxed">
+                Join me as I share my journey into software development, from my initial curiosity to my current projects. We'll explore the challenges, the breakthroughs, and the lessons learned along the way. This episode sets the stage for a series dedicated to exploring the nuances of creating meaningful and impactful software.
+            </p>
+</div>
+</main>
+<footer class="sticky bottom-0 bg-background-dark/90 backdrop-blur-sm border-t border-white/10">
+<nav class="flex justify-around p-2">
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined"> home </span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined"> article </span>
+<span class="text-xs">Blog</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-primary" href="#">
+<span class="material-symbols-outlined"> mic </span>
+<span class="text-xs">Podcast</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-white/60 hover:text-primary" href="#">
+<span class="material-symbols-outlined"> person </span>
+<span class="text-xs">About</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>

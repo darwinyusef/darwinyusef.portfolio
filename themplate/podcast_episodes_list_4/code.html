@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Stitch Design</title>
+<link href="data:image/x-icon;base64," rel="icon" type="image/x-icon"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#1919e6",
+              "background-light": "#f6f6f8",
+              "background-dark": "#111121",
+            },
+            fontFamily: {
+              "display": ["Inter"],
+            },
+            borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" },
+          },
+        },
+      };
+    </script>
+<link crossorigin="" href="https://fonts.gstatic.com/" rel="preconnect"/>
+<link as="style" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Inter%3Awght%40400%3B500%3B700%3B900&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900" onload="this.rel='stylesheet'" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet"/>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background-light dark:bg-background-dark font-display">
+<div class="flex flex-col min-h-screen">
+<header class="sticky top-0 z-10 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm">
+<div class="flex items-center justify-between p-4">
+<button class="text-black dark:text-white">
+<span class="material-symbols-outlined"> arrow_back </span>
+</button>
+<h1 class="text-lg font-bold text-black dark:text-white">Blog</h1>
+<div class="w-8"></div>
+</div>
+</header>
+<main class="flex-1 p-6">
+<div class="space-y-6">
+<div class="relative">
+<input class="w-full py-3 pl-10 pr-4 text-sm bg-gray-100 border-gray-200 rounded-full dark:bg-zinc-800 dark:border-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary" placeholder="Search articles..." type="search"/>
+<span class="absolute text-gray-400 -translate-y-1/2 material-symbols-outlined left-3 top-1/2"> search </span>
+</div>
+<div class="flex space-x-2">
+<button class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full dark:bg-zinc-800 dark:text-gray-300">
+            Categories
+            <span class="ml-1 material-symbols-outlined"> expand_more </span>
+</button>
+<button class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full dark:bg-zinc-800 dark:text-gray-300">
+            Tags
+            <span class="ml-1 material-symbols-outlined"> expand_more </span>
+</button>
+<button class="flex items-center px-4 py-2 text-sm font-medium text-gray-700 bg-gray-200 rounded-full dark:bg-zinc-800 dark:text-gray-300">
+            Date
+            <span class="ml-1 material-symbols-outlined"> expand_more </span>
+</button>
+</div>
+<div class="space-y-6">
+<div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-zinc-800">
+<img alt="Blog post thumbnail" class="object-cover w-full h-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRm01zy5l-6Qt0z68fvPGV5iFc0w-VMfpDfjPmnZZKKYxAVMMfo6d4yiVz3PHqtvEgN25rfU9rqdDh5kz_hsZnpxhcX2I2FIR513OAHgA_TCx_Fv__karn0TVvTrS_rbHaMl4VJHJKJhwSl4KpsX-GWOOXV5PTdTfKzwlCypLDh_zUiPKnCTnTrhEwPv11ZFI7af71ndmhV9QwE--J6ABAU04oUewmRpRhzfJLFGYpmjOcgsgWwRhC-cs3iwC_1HSO0fipN-uevB_l"/>
+<div class="p-4">
+<p class="mb-1 text-sm text-gray-500 dark:text-gray-400">October 26, 2023</p>
+<h3 class="text-xl font-bold text-black dark:text-white">The Future of Web Development</h3>
+<p class="mt-2 text-gray-600 dark:text-gray-300">Exploring the latest trends and technologies shaping the web, from serverless to WebAssembly.</p>
+</div>
+</div>
+<div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-zinc-800">
+<img alt="Blog post thumbnail" class="object-cover w-full h-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3oRQIEUaiemoP5izJDmgJso3VlMmz489_OJR1Z2xQpbdPJQXQhIb057WGSHYRx4-1f1vFxQSMg6PBeOCYOqpre7UGEq23CyJECYOoxnLWqHZWQntmGGwxw5R_ouF2T3repMiXWYD2AGngP82G2o-3eW-TeY2O_zcN9YusCzWYBQ5Nbimrxgu2it3HWu9vmN4HykN5oly5I_1MZPlYEZJCQWOF_z0vb8g1eHR5gXPVAP-njwoaa2QHzINywq0Vnt7qvUhcHpcsFzzN"/>
+<div class="p-4">
+<p class="mb-1 text-sm text-gray-500 dark:text-gray-400">October 20, 2023</p>
+<h3 class="text-xl font-bold text-black dark:text-white">A Guide to Minimalist Design</h3>
+<p class="mt-2 text-gray-600 dark:text-gray-300">Discover the principles of minimalist design and how to apply them for a clean, elegant user experience.</p>
+</div>
+</div>
+<div class="overflow-hidden bg-white rounded-lg shadow-md dark:bg-zinc-800">
+<img alt="Blog post thumbnail" class="object-cover w-full h-40" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDi-8z1gdju2XP0Xc6qEkDpH19AZLfqk0Q4fslwjHcS2FdD1vIMCUH6RrYpx87mvyych26ErCNgQDJK1c2C1VaTH6QE8Qzs2F7tGkzCoN6qVde-J3H0DCvSLZbIRMym7fsVkbJ1HgONpjUnYDPNMqEBGeiD_MTSki5XPAtFp4fUt9T7S0EgXnZhu2ppQK2BAQ4zQFrmtq6DM5E8dLY-BlbR3lRvbnROi7XCXrWswjFpGotmeqUkR0qEN5AaD9gHOTtwhL3Z1vr_dV5R"/>
+<div class="p-4">
+<p class="mb-1 text-sm text-gray-500 dark:text-gray-400">October 15, 2023</p>
+<h3 class="text-xl font-bold text-black dark:text-white">The Power of Podcasting</h3>
+<p class="mt-2 text-gray-600 dark:text-gray-300">How to start your own podcast and build a loyal audience in the ever-growing world of audio content.</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<footer class="sticky bottom-0 bg-background-light/90 dark:bg-background-dark/90 backdrop-blur-sm border-t border-black/10 dark:border-white/10">
+<nav class="flex justify-around p-2">
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-black/60 dark:text-white/60 hover:text-primary dark:hover:text-primary" href="#">
+<span class="material-symbols-outlined"> home </span>
+<span class="text-xs">Home</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-primary dark:text-primary" href="#">
+<span class="material-symbols-outlined"> article </span>
+<span class="text-xs">Blog</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-black/60 dark:text-white/60 hover:text-primary dark:hover:text-primary" href="#">
+<span class="material-symbols-outlined"> mic </span>
+<span class="text-xs">Podcast</span>
+</a>
+<a class="flex flex-col items-center flex-1 gap-1 p-2 transition-colors rounded-lg text-black/60 dark:text-white/60 hover:text-primary dark:hover:text-primary" href="#">
+<span class="material-symbols-outlined"> person </span>
+<span class="text-xs">About</span>
+</a>
+</nav>
+</footer>
+</div>
+
+</body></html>

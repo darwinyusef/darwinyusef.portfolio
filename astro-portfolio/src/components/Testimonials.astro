@@ -1,0 +1,146 @@
+---
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<section class="py-12">
+  <div class="max-w-4xl mx-auto px-4">
+    <div class="mb-8">
+      <h2 class="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white">
+        {lang === 'es' ? 'Lo que dicen mis clientes' : lang === 'en' ? 'What my clients are saying' : 'O que meus clientes dizem'}
+      </h2>
+      <p class="mt-2 text-slate-500 dark:text-slate-400">
+        {lang === 'es' ? 'Escucha directamente de quienes han experimentado mi trabajo.' :
+         lang === 'en' ? 'Hear directly from those who\'ve experienced my work.' :
+         'Ouça diretamente daqueles que experimentaram meu trabalho.'}
+      </p>
+    </div>
+
+    <div id="testimonials-container" class="flex flex-col gap-6">
+      <div class="text-center py-8">
+        <p class="text-gray-600 dark:text-gray-400">Cargando testimonios...</p>
+      </div>
+    </div>
+
+    <div class="mt-8 text-center">
+      <a
+        href={`/${lang === 'es' ? '' : lang}/testimonial-form`}
+        class="inline-flex items-center gap-2 bg-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+      >
+        <span class="material-symbols-outlined">rate_review</span>
+        {lang === 'es' ? 'Dejar un Testimonio' : lang === 'en' ? 'Leave a Testimonial' : 'Deixar um Depoimento'}
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Testimonial {
+    id: number;
+    name: string;
+    role: string;
+    company: string;
+    content: string;
+    avatar?: string;
+    rating?: number;
+    is_active: boolean;
+  }
+
+  async function loadTestimonials() {
+    const container = document.getElementById('testimonials-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/interaction?type=testimonial`);
+
+      let testimonials: Testimonial[] = [];
+
+      if (response.ok) {
+        const interactions = await response.json();
+        testimonials = interactions
+          .filter((i: any) => i.interaction_type === 'testimonial' && i.metadata?.is_active !== false)
+          .map((i: any) => ({
+            id: i.id,
+            name: i.metadata?.name || 'Cliente',
+            role: i.metadata?.role || '',
+            company: i.metadata?.company || '',
+            content: i.content,
+            avatar: i.metadata?.avatar,
+            rating: i.metadata?.rating || 5,
+            is_active: true
+          }));
+      }
+
+      if (testimonials.length === 0) {
+        testimonials = [
+          {
+            id: 1,
+            name: 'Sarah Chen',
+            role: 'CEO',
+            company: 'Innovate Solutions',
+            content: 'Working with Alex on our project was a game-changer. Their technical expertise and problem-solving skills are truly impressive. They delivered high-quality work on time and within budget, exceeding our expectations.',
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlOQhuK8Q15qTpQla2R740Flw4xkjn9c0gaK8c273ADYslrjSXE_dP7k6F9JuNGbXtOzzDbF81GlKUHgNsy8OEkvYtnqGLrrSNe5TQeuvL9IENfgEManyeYsxAK7XFOrl9wOPDoxTa42-m_gx_GbCbK7NDttgtg_kYWehcwysMVJHchgKL2VVlLsYTuGasoLxCgqCfT4CVzB0o0uDZxoK6YnDxuS0KUjtzDPHc8dmKXmagC0YR0iuy_VkkgsF9-U46kSuWhGTFnaY8',
+            rating: 5,
+            is_active: true
+          },
+          {
+            id: 2,
+            name: 'David Lee',
+            role: 'Founder',
+            company: 'Tech Startup',
+            content: 'Alex is a talented and dedicated developer. Their communication throughout the project was excellent, and they were always responsive to our feedback. The final product was exactly what we envisioned, and we\'re thrilled with the results.',
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCf9LxTGe1iR1HbFQN-ziIKA1GyrA6i4zgO0mXbhfQoRUT6ivi-jWOyFBbO5-bdy9ABMPcDjniR6-PXUSXK8f_VdQp61XKp4w1pFw3AUWfvMIETI-QVUit3mVTbfz3KqDEioCAzJW2q31iY23ngf4PWsM_y3lD--mYJz5hWQfXdJpc1XOCd4I2YJmvjNcwo7Kz6EWpKMggwJCVDU63sEYKgcdzIq9zzwPT1vNKa2VHJX_7HAPNoYFIgtmjhQiF_hoi0intsEAfWpox6',
+            rating: 5,
+            is_active: true
+          },
+          {
+            id: 3,
+            name: 'Emily Wong',
+            role: 'Project Manager',
+            company: 'Global Corp',
+            content: 'Alex is a true professional. They are knowledgeable, reliable, and a pleasure to work with. Their attention to detail and commitment to quality are evident in their work. We were impressed with their ability to understand our requirements and deliver a solution that perfectly met our needs.',
+            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAinMLITooJkqR0fuOu_IHrZNxPlyhEkw8G5gXMftg_r2hjUXXTNbd5cnDFHSRo1gfUNYwN2XbwouxE8NwPXPZ16HQUOMkZY20ub5EHEnHhMeF4NG2YaFg4bidPyfxCKKNd5rhPK9Yx2n5TSkbh8gNAtD1KXV7VM8OC7S8ZZTBH7I-E9ULoqLbrckwPhkfBsLGnke8WCAvFw7uwsQW8oqlF4iGeT8nRCx-gr3Bpqo1pfbGvVysXYMO13TsjoqvZAl9DU0ikbfeDPNCL',
+            rating: 5,
+            is_active: true
+          }
+        ];
+      }
+
+      const html = testimonials.map(testimonial => `
+        <div class="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6">
+          <div class="flex items-start gap-4">
+            ${testimonial.avatar ? `
+              <img class="h-12 w-12 rounded-full object-cover" src="${testimonial.avatar}" alt="${testimonial.name}" />
+            ` : `
+              <div class="h-12 w-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
+                ${testimonial.name.charAt(0)}
+              </div>
+            `}
+            <div>
+              <p class="font-semibold text-slate-900 dark:text-white">${testimonial.name}</p>
+              <p class="text-sm text-slate-500 dark:text-slate-400">${testimonial.role}${testimonial.company ? ', ' + testimonial.company : ''}</p>
+            </div>
+          </div>
+          <blockquote class="mt-4 text-slate-700 dark:text-slate-300">
+            <span class="text-6xl font-serif text-primary leading-[0] relative top-4 left-0">"</span>
+            <p class="ml-6 text-base leading-relaxed italic">${testimonial.content}</p>
+          </blockquote>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error('Error loading testimonials:', error);
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">No hay testimonios disponibles en este momento.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadTestimonials);
+</script>

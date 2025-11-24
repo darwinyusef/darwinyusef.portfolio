@@ -1,0 +1,240 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const podcastsFromContent = await getCollection('podcasts');
+---
+
+<Layout title={t('podcast.title')}>
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-6 pb-8 max-w-4xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">{t('podcast.title')}</h1>
+      </div>
+
+      <div id="podcast-container" class="space-y-6">
+        <div class="text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">Cargando episodios...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div id="audio-player" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1a1a2e] border-t border-gray-200 dark:border-gray-700 p-4 shadow-lg hidden">
+    <div class="max-w-4xl mx-auto flex items-center gap-4">
+      <button id="play-pause-btn" class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white hover:opacity-90">
+        <span class="material-symbols-outlined" id="play-pause-icon">play_arrow</span>
+      </button>
+
+      <div class="flex-1">
+        <div class="text-sm font-semibold text-gray-900 dark:text-white" id="current-title">Título del episodio</div>
+        <div class="flex items-center gap-2 mt-1">
+          <span class="text-xs text-gray-500 dark:text-gray-400" id="current-time">0:00</span>
+          <div class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer" id="progress-bar">
+            <div class="h-1 bg-primary" id="progress" style="width: 0%"></div>
+          </div>
+          <span class="text-xs text-gray-500 dark:text-gray-400" id="duration-time">0:00</span>
+        </div>
+      </div>
+
+      <button id="close-player-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
+
+    <audio id="audio-element" preload="metadata"></audio>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Podcast {
+    id: number;
+    title: string;
+    description: string;
+    duration: string;
+    audio_url: string;
+    cover_image?: string;
+    pubDate: string;
+    is_active: boolean;
+  }
+
+  let currentAudio: HTMLAudioElement | null = null;
+  let isPlaying = false;
+
+  function formatTime(seconds: number): string {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${mins}:${secs.toString().padStart(2, '0')}`;
+  }
+
+  function playPodcast(podcast: Podcast) {
+    const audioElement = document.getElementById('audio-element') as HTMLAudioElement;
+    const audioPlayer = document.getElementById('audio-player');
+    const currentTitle = document.getElementById('current-title');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+
+    if (!audioElement || !audioPlayer || !currentTitle || !playPauseIcon) return;
+
+    if (currentAudio && currentAudio.src === podcast.audio_url) {
+      if (isPlaying) {
+        audioElement.pause();
+        playPauseIcon.textContent = 'play_arrow';
+        isPlaying = false;
+      } else {
+        audioElement.play();
+        playPauseIcon.textContent = 'pause';
+        isPlaying = true;
+      }
+    } else {
+      audioElement.src = podcast.audio_url;
+      currentTitle.textContent = podcast.title;
+      audioElement.play();
+      playPauseIcon.textContent = 'pause';
+      isPlaying = true;
+      audioPlayer.classList.remove('hidden');
+    }
+
+    currentAudio = audioElement;
+  }
+
+  async function loadPodcasts() {
+    const container = document.getElementById('podcast-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/multimedia?type=podcast`);
+
+      let podcasts: Podcast[] = [];
+
+      if (response.ok) {
+        podcasts = await response.json();
+        podcasts = podcasts.filter(p => p.is_active);
+      }
+
+      if (podcasts.length === 0) {
+        podcasts = [
+          {
+            id: 1,
+            title: 'Introducción al Desarrollo Full Stack',
+            description: 'En este episodio exploramos los fundamentos del desarrollo Full Stack y las tecnologías más demandadas.',
+            duration: '25:30',
+            audio_url: '/audio/episode-1.mp3',
+            cover_image: '/images/podcast-cover.jpg',
+            pubDate: new Date().toISOString(),
+            is_active: true
+          }
+        ];
+      }
+
+      const html = podcasts.map(podcast => `
+        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm hover:shadow-md transition-shadow">
+          <div class="flex gap-4">
+            ${podcast.cover_image ? `
+              <img src="${podcast.cover_image}" alt="${podcast.title}" class="w-24 h-24 rounded-lg object-cover flex-shrink-0" />
+            ` : `
+              <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center flex-shrink-0">
+                <span class="material-symbols-outlined text-4xl text-white">podcast</span>
+              </div>
+            `}
+            <div class="flex-1 min-w-0">
+              <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2">${podcast.title}</h3>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">${podcast.description}</p>
+              <div class="flex items-center gap-4">
+                <button
+                  class="play-podcast-btn flex items-center gap-2 text-primary hover:opacity-80 transition-opacity"
+                  data-podcast='${JSON.stringify(podcast).replace(/'/g, "&apos;")}'
+                >
+                  <span class="material-symbols-outlined">play_circle</span>
+                  <span class="text-sm font-medium">Escuchar</span>
+                </button>
+                <span class="text-sm text-gray-500 dark:text-gray-400">${podcast.duration}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+
+      document.querySelectorAll('.play-podcast-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const target = e.currentTarget as HTMLButtonElement;
+          const podcastData = JSON.parse(target.dataset.podcast || '{}');
+          playPodcast(podcastData);
+        });
+      });
+    } catch (error) {
+      console.error('Error loading podcasts:', error);
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">No hay episodios disponibles en este momento.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadPodcasts();
+
+    const audioElement = document.getElementById('audio-element') as HTMLAudioElement;
+    const playPauseBtn = document.getElementById('play-pause-btn');
+    const playPauseIcon = document.getElementById('play-pause-icon');
+    const closePlayerBtn = document.getElementById('close-player-btn');
+    const progressBar = document.getElementById('progress-bar');
+    const progress = document.getElementById('progress');
+    const currentTime = document.getElementById('current-time');
+    const durationTime = document.getElementById('duration-time');
+    const audioPlayer = document.getElementById('audio-player');
+
+    if (audioElement && playPauseBtn && playPauseIcon && closePlayerBtn && progressBar && progress && currentTime && durationTime && audioPlayer) {
+      playPauseBtn.addEventListener('click', () => {
+        if (isPlaying) {
+          audioElement.pause();
+          playPauseIcon.textContent = 'play_arrow';
+          isPlaying = false;
+        } else {
+          audioElement.play();
+          playPauseIcon.textContent = 'pause';
+          isPlaying = true;
+        }
+      });
+
+      closePlayerBtn.addEventListener('click', () => {
+        audioElement.pause();
+        audioElement.src = '';
+        audioPlayer.classList.add('hidden');
+        isPlaying = false;
+        playPauseIcon.textContent = 'play_arrow';
+      });
+
+      audioElement.addEventListener('timeupdate', () => {
+        const percent = (audioElement.currentTime / audioElement.duration) * 100;
+        progress.style.width = `${percent}%`;
+        currentTime.textContent = formatTime(audioElement.currentTime);
+      });
+
+      audioElement.addEventListener('loadedmetadata', () => {
+        durationTime.textContent = formatTime(audioElement.duration);
+      });
+
+      progressBar.addEventListener('click', (e) => {
+        const rect = progressBar.getBoundingClientRect();
+        const percent = (e.clientX - rect.left) / rect.width;
+        audioElement.currentTime = percent * audioElement.duration;
+      });
+    }
+  });
+</script>

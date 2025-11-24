@@ -1,0 +1,246 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+---
+
+<Layout title={lang === 'es' ? 'Enviar Testimonio' : lang === 'en' ? 'Submit Testimonial' : 'Enviar Depoimento'}>
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-4 pb-8 max-w-2xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
+          {lang === 'es' ? 'Enviar Testimonio' : lang === 'en' ? 'Submit Testimonial' : 'Enviar Depoimento'}
+        </h1>
+      </div>
+
+      <div class="bg-white dark:bg-slate-900/40 rounded-lg shadow-md p-6">
+        <div class="mb-6">
+          <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+            {lang === 'es' ? 'Comparte tu experiencia' : lang === 'en' ? 'Share your experience' : 'Compartilhe sua experiência'}
+          </h2>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            {lang === 'es' ? 'Tu opinión es muy importante. Por favor comparte tu experiencia trabajando conmigo.' :
+             lang === 'en' ? 'Your feedback is very important. Please share your experience working with me.' :
+             'Sua opinião é muito importante. Por favor, compartilhe sua experiência trabalhando comigo.'}
+          </p>
+        </div>
+
+        <form id="testimonial-form" class="space-y-6">
+          <div>
+            <label for="name" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              {lang === 'es' ? 'Nombre completo' : lang === 'en' ? 'Full name' : 'Nome completo'} *
+            </label>
+            <input
+              type="text"
+              id="name"
+              name="name"
+              required
+              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white"
+              placeholder={lang === 'es' ? 'Juan Pérez' : lang === 'en' ? 'John Doe' : 'João Silva'}
+            />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label for="role" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? 'Cargo' : lang === 'en' ? 'Role' : 'Cargo'} *
+              </label>
+              <input
+                type="text"
+                id="role"
+                name="role"
+                required
+                class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white"
+                placeholder={lang === 'es' ? 'CEO, CTO, etc.' : lang === 'en' ? 'CEO, CTO, etc.' : 'CEO, CTO, etc.'}
+              />
+            </div>
+
+            <div>
+              <label for="company" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? 'Empresa' : lang === 'en' ? 'Company' : 'Empresa'}
+              </label>
+              <input
+                type="text"
+                id="company"
+                name="company"
+                class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white"
+                placeholder={lang === 'es' ? 'Nombre de la empresa' : lang === 'en' ? 'Company name' : 'Nome da empresa'}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="email" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              Email *
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              required
+              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white"
+              placeholder="email@example.com"
+            />
+          </div>
+
+          <div>
+            <label for="rating" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              {lang === 'es' ? 'Calificación' : lang === 'en' ? 'Rating' : 'Avaliação'} *
+            </label>
+            <div class="flex gap-2">
+              {[1, 2, 3, 4, 5].map(num => (
+                <button
+                  type="button"
+                  class="rating-btn w-12 h-12 rounded-lg border-2 border-gray-300 dark:border-gray-700 hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
+                  data-rating={num}
+                >
+                  <span class="text-2xl">{num === 1 ? '😞' : num === 2 ? '😐' : num === 3 ? '🙂' : num === 4 ? '😊' : '😍'}</span>
+                </button>
+              ))}
+            </div>
+            <input type="hidden" id="rating" name="rating" value="5" required />
+          </div>
+
+          <div>
+            <label for="content" class="block text-sm font-medium text-gray-900 dark:text-white mb-2">
+              {lang === 'es' ? 'Tu testimonio' : lang === 'en' ? 'Your testimonial' : 'Seu depoimento'} *
+            </label>
+            <textarea
+              id="content"
+              name="content"
+              rows="6"
+              required
+              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent text-gray-900 dark:text-white"
+              placeholder={lang === 'es' ? 'Comparte tu experiencia trabajando conmigo...' :
+                           lang === 'en' ? 'Share your experience working with me...' :
+                           'Compartilhe sua experiência trabalhando comigo...'}
+            ></textarea>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              {lang === 'es' ? 'Mínimo 50 caracteres' : lang === 'en' ? 'Minimum 50 characters' : 'Mínimo 50 caracteres'}
+            </p>
+          </div>
+
+          <div class="flex items-start gap-3">
+            <input
+              type="checkbox"
+              id="consent"
+              name="consent"
+              required
+              class="mt-1 w-4 h-4 text-primary rounded focus:ring-primary"
+            />
+            <label for="consent" class="text-sm text-gray-600 dark:text-gray-400">
+              {lang === 'es' ? 'Autorizo la publicación de este testimonio en el sitio web y acepto los términos de uso.' :
+               lang === 'en' ? 'I authorize the publication of this testimonial on the website and accept the terms of use.' :
+               'Autorizo a publicação deste depoimento no site e aceito os termos de uso.'}
+            </label>
+          </div>
+
+          <button
+            type="submit"
+            class="w-full bg-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
+          >
+            <span class="material-symbols-outlined">send</span>
+            {lang === 'es' ? 'Enviar Testimonio' : lang === 'en' ? 'Submit Testimonial' : 'Enviar Depoimento'}
+          </button>
+
+          <p id="form-message" class="text-center text-sm hidden"></p>
+        </form>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+  let selectedRating = 5;
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const ratingButtons = document.querySelectorAll('.rating-btn');
+    const ratingInput = document.getElementById('rating') as HTMLInputElement;
+    const form = document.getElementById('testimonial-form') as HTMLFormElement;
+    const message = document.getElementById('form-message');
+
+    ratingButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        ratingButtons.forEach(b => {
+          b.classList.remove('border-primary', 'bg-primary/10');
+          b.classList.add('border-gray-300', 'dark:border-gray-700');
+        });
+
+        btn.classList.remove('border-gray-300', 'dark:border-gray-700');
+        btn.classList.add('border-primary', 'bg-primary/10');
+
+        const rating = btn.dataset.rating;
+        if (rating && ratingInput) {
+          selectedRating = parseInt(rating);
+          ratingInput.value = rating;
+        }
+      });
+    });
+
+    ratingButtons[4]?.classList.add('border-primary', 'bg-primary/10');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const data = {
+        entity_type: 'portfolio',
+        entity_id: 1,
+        interaction_type: 'testimonial',
+        content: formData.get('content'),
+        metadata: {
+          name: formData.get('name'),
+          role: formData.get('role'),
+          company: formData.get('company'),
+          email: formData.get('email'),
+          rating: selectedRating,
+          is_active: false,
+          date: new Date().toISOString()
+        }
+      };
+
+      try {
+        const response = await fetch(`${backendUrl}/api/v1/interaction`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+
+        if (message) {
+          message.classList.remove('hidden');
+          if (response.ok) {
+            message.textContent = '✓ ¡Gracias por tu testimonio! Será revisado antes de ser publicado.';
+            message.classList.add('text-green-600', 'dark:text-green-400');
+            message.classList.remove('text-red-600', 'dark:text-red-400');
+            form.reset();
+            selectedRating = 5;
+            ratingButtons.forEach(b => {
+              b.classList.remove('border-primary', 'bg-primary/10');
+            });
+            ratingButtons[4]?.classList.add('border-primary', 'bg-primary/10');
+          } else {
+            message.textContent = '✗ Error al enviar el testimonio. Por favor intenta de nuevo.';
+            message.classList.add('text-red-600', 'dark:text-red-400');
+            message.classList.remove('text-green-600', 'dark:text-green-400');
+          }
+        }
+      } catch (error) {
+        if (message) {
+          message.classList.remove('hidden');
+          message.textContent = '✗ Error de conexión. Por favor intenta más tarde.';
+          message.classList.add('text-red-600', 'dark:text-red-400');
+        }
+      }
+    });
+  });
+</script>

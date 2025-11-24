@@ -1,0 +1,9 @@
+{
+  "name": "React & Next.js",
+  "category": "Frontend",
+  "proficiency": 95,
+  "description": "Desarrollo avanzado con React y Next.js",
+  "icon": "⚛️",
+  "is_active": true,
+  "order": 1
+}

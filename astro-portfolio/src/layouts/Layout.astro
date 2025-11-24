@@ -1,0 +1,55 @@
+---
+import '../styles/global.css';
+import { getLangFromUrl } from '../i18n/utils';
+import CookieConsent from '../components/CookieConsent.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Portfolio de Desarrollo Full Stack' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen">
+    <slot />
+    <CookieConsent />
+
+    <button
+      id="accessibility-btn"
+      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
+      aria-label="Accessibility"
+      title="Accessibility Options"
+    >
+      <span class="material-symbols-outlined">accessibility</span>
+    </button>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: #1919e6;
+    --background-light: #f6f6f8;
+    --background-dark: #111121;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+</style>

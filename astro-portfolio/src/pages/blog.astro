@@ -1,0 +1,152 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const postsFromContent = await getCollection('posts');
+---
+
+<Layout title="Blog">
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-6 pb-8 max-w-6xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
+          {lang === 'es' ? 'Blog' : lang === 'en' ? 'Blog' : 'Blog'}
+        </h1>
+      </div>
+
+      <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="col-span-full text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">Cargando artículos...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Post {
+    id: number;
+    title: string;
+    description: string;
+    content: string;
+    image?: string;
+    author: string;
+    pubDate: string;
+    tags: string[];
+    is_active: boolean;
+  }
+
+  async function loadPosts() {
+    const container = document.getElementById('blog-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/post`);
+
+      let posts: Post[] = [];
+
+      if (response.ok) {
+        const data = await response.json();
+        posts = data.filter((p: any) => p.is_active);
+      }
+
+      if (posts.length === 0) {
+        posts = [
+          {
+            id: 1,
+            title: 'Introducción a Astro y SSG',
+            description: 'Aprende cómo Astro revoluciona el desarrollo web con su enfoque de generación estática.',
+            content: 'Contenido del post...',
+            image: '/images/blog-1.jpg',
+            author: 'Admin',
+            pubDate: new Date().toISOString(),
+            tags: ['Astro', 'SSG', 'Web Development'],
+            is_active: true
+          },
+          {
+            id: 2,
+            title: 'Implementando i18n en tu aplicación',
+            description: 'Guía completa para implementar internacionalización en aplicaciones modernas.',
+            content: 'Contenido del post...',
+            author: 'Admin',
+            pubDate: new Date().toISOString(),
+            tags: ['i18n', 'JavaScript', 'Best Practices'],
+            is_active: true
+          },
+          {
+            id: 3,
+            title: 'Chatbots con LangChain y OpenAI',
+            description: 'Crea chatbots inteligentes usando LangChain y la API de OpenAI.',
+            content: 'Contenido del post...',
+            author: 'Admin',
+            pubDate: new Date().toISOString(),
+            tags: ['AI', 'LangChain', 'OpenAI'],
+            is_active: true
+          }
+        ];
+      }
+
+      const html = posts.map(post => {
+        const postDate = new Date(post.pubDate);
+        const formattedDate = postDate.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+
+        return `
+          <article class="bg-white dark:bg-[#1a1a2e] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+            ${post.image ? `
+              <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover" />
+            ` : `
+              <div class="w-full h-48 bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-6xl">article</span>
+              </div>
+            `}
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3 flex-wrap">
+                ${post.tags.slice(0, 3).map(tag => `
+                  <span class="inline-block bg-primary/10 dark:bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded">${tag}</span>
+                `).join('')}
+              </div>
+              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${post.title}</h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">${post.description}</p>
+              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
+                <span>${post.author}</span>
+                <span>${formattedDate}</span>
+              </div>
+              <a href="/blog/${post.id}" class="mt-4 inline-flex items-center gap-2 text-primary hover:underline font-medium">
+                Leer más
+                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error('Error loading posts:', error);
+      container.innerHTML = `
+        <div class="col-span-full text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">No hay artículos disponibles en este momento.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadPosts);
+</script>

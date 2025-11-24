@@ -1,0 +1,153 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getCollection } from 'astro:content';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const skillsFromContent = await getCollection('skills');
+---
+
+<Layout title={t('skills.title')}>
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-6 pb-8 max-w-4xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18l-6-6 6-6"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">{t('skills.title')}</h1>
+      </div>
+
+      <div id="skills-container" class="space-y-8">
+        <div class="text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">Cargando habilidades...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Skill {
+    id: number;
+    name: string;
+    category: string;
+    proficiency: number;
+    description?: string;
+    icon?: string;
+    is_active: boolean;
+  }
+
+  async function loadSkills() {
+    const container = document.getElementById('skills-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/skills`);
+      if (!response.ok) throw new Error('Failed to load skills');
+
+      const skills: Skill[] = await response.json();
+      const activeSkills = skills.filter(skill => skill.is_active);
+
+      const categories: Record<string, Skill[]> = {};
+      activeSkills.forEach(skill => {
+        if (!categories[skill.category]) {
+          categories[skill.category] = [];
+        }
+        categories[skill.category].push(skill);
+      });
+
+      let html = '';
+      for (const [category, categorySkills] of Object.entries(categories)) {
+        html += `
+          <section>
+            <h2 class="text-lg font-semibold text-primary mb-4">${category}</h2>
+            <div class="space-y-4">
+              ${categorySkills.map(skill => `
+                <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
+                  <div class="flex items-start gap-4">
+                    <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
+                      ${skill.icon || '🔧'}
+                    </div>
+                    <div class="flex-1">
+                      <h3 class="font-semibold text-gray-900 dark:text-white">${skill.name}</h3>
+                      ${skill.description ? `<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${skill.description}</p>` : ''}
+                      <div class="mt-3 flex items-center gap-2">
+                        <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                          <div class="h-2 rounded-full bg-primary transition-all duration-500" style="width: ${skill.proficiency}%"></div>
+                        </div>
+                        <span class="text-xs font-mono text-gray-500 dark:text-gray-400">${skill.proficiency}%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </section>
+        `;
+      }
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error('Error loading skills:', error);
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-red-500">Error al cargar las habilidades. Mostrando datos de ejemplo...</p>
+        </div>
+        <section>
+          <h2 class="text-lg font-semibold text-primary mb-4">Backend</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
+              <div class="flex items-start gap-4">
+                <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary">
+                  <span class="material-symbols-outlined">data_object</span>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900 dark:text-white">Python & FastAPI</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Experto en desarrollo de servicios backend escalables y APIs RESTful.</p>
+                  <div class="mt-3 flex items-center gap-2">
+                    <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                      <div class="h-2 rounded-full bg-primary" style="width: 95%"></div>
+                    </div>
+                    <span class="text-xs font-mono text-gray-500 dark:text-gray-400">95%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <section>
+          <h2 class="text-lg font-semibold text-primary mb-4">Frontend</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
+              <div class="flex items-start gap-4">
+                <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
+                  ⚛️
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-semibold text-gray-900 dark:text-white">React & Astro</h3>
+                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Desarrollo de aplicaciones web modernas con React, Next.js y Astro.</p>
+                  <div class="mt-3 flex items-center gap-2">
+                    <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                      <div class="h-2 rounded-full bg-primary" style="width: 90%"></div>
+                    </div>
+                    <span class="text-xs font-mono text-gray-500 dark:text-gray-400">90%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadSkills);
+</script>

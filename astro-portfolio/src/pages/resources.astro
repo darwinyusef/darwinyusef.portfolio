@@ -1,0 +1,181 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<Layout title="Proofs & Exercises">
+  <div class="min-h-screen">
+    <Header />
+
+    <main class="px-4 pb-8 max-w-4xl mx-auto">
+      <div class="flex items-center mb-8 mt-4">
+        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
+          <svg fill="currentColor" height="24" viewBox="0 0 256 256" width="24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M224,128a8,8,0,0,1-8,8H59.31l58.35,58.34a8,8,0,0,1-11.32,11.32l-72-72a8,8,0,0,1,0-11.32l72-72a8,8,0,0,1,11.32,11.32L59.31,120H216A8,8,0,0,1,224,128Z"></path>
+          </svg>
+        </a>
+        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
+          {lang === 'es' ? 'Pruebas y Ejercicios' : lang === 'en' ? 'Proofs & Exercises' : 'Provas e Exercícios'}
+        </h1>
+      </div>
+
+      <div id="resources-container" class="space-y-6">
+        <div class="text-center py-8">
+          <p class="text-gray-600 dark:text-gray-400">Cargando recursos...</p>
+        </div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Resource {
+    id: number;
+    title: string;
+    description?: string;
+    category: string;
+    file_url?: string;
+    github_url?: string;
+    colab_url?: string;
+    rating?: number;
+    is_active: boolean;
+  }
+
+  function renderStars(rating: number) {
+    const fullStars = Math.floor(rating);
+    const emptyStars = 5 - fullStars;
+    let html = '';
+
+    for (let i = 0; i < fullStars; i++) {
+      html += '<span class="material-symbols-outlined text-base text-amber-400">star</span>';
+    }
+    for (let i = 0; i < emptyStars; i++) {
+      html += '<span class="material-symbols-outlined text-base text-slate-500">star_border</span>';
+    }
+    html += `<span class="text-xs font-bold text-slate-500 dark:text-slate-400 ml-1">${rating}/5</span>`;
+
+    return html;
+  }
+
+  async function loadResources() {
+    const container = document.getElementById('resources-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/files?type=resource`);
+
+      let resources: Resource[] = [];
+
+      if (response.ok) {
+        const files = await response.json();
+        resources = files
+          .filter((f: any) => f.is_active && f.file_type === 'resource')
+          .map((f: any) => ({
+            id: f.id,
+            title: f.file_name,
+            description: f.description,
+            category: f.category || 'General',
+            file_url: f.file_path,
+            rating: 4,
+            is_active: true
+          }));
+      }
+
+      if (resources.length === 0) {
+        resources = [
+          {
+            id: 1,
+            title: 'Proof of Correctness for Binary Search',
+            description: 'Formal proof demonstrating the correctness of a binary search algorithm using Hoare logic.',
+            category: 'Hoare Logic',
+            github_url: '#',
+            colab_url: '#',
+            rating: 4,
+            is_active: true
+          },
+          {
+            id: 2,
+            title: 'Dynamic Programming Exercises',
+            description: 'Collection of exercises covering dynamic programming techniques and optimization problems.',
+            category: 'Algorithms',
+            github_url: '#',
+            colab_url: '#',
+            rating: 5,
+            is_active: true
+          },
+          {
+            id: 3,
+            title: 'Graph Theory Proofs',
+            description: 'Mathematical proofs for graph theory algorithms including shortest path and minimum spanning tree.',
+            category: 'Graph Theory',
+            github_url: '#',
+            rating: 4,
+            is_active: true
+          }
+        ];
+      }
+
+      const html = resources.map(resource => `
+        <div class="bg-white dark:bg-slate-900/40 rounded-lg shadow-md overflow-hidden">
+          <div class="p-4">
+            <div class="flex items-start gap-4">
+              <div class="flex-shrink-0">
+                <span class="material-symbols-outlined text-4xl text-primary">verified</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="text-base font-bold text-slate-900 dark:text-white">${resource.title}</h3>
+                <div class="flex items-center gap-2 mt-1">
+                  <span class="inline-block bg-blue-100 dark:bg-blue-900 text-blue-800 dark:text-blue-200 text-xs font-semibold px-2 py-0.5 rounded">${resource.category}</span>
+                </div>
+                ${resource.description ? `<p class="text-sm text-gray-600 dark:text-gray-400 mt-2">${resource.description}</p>` : ''}
+              </div>
+              ${resource.rating ? `
+                <div class="flex items-center gap-1">
+                  ${renderStars(resource.rating)}
+                </div>
+              ` : ''}
+            </div>
+          </div>
+          <div class="px-4 pb-4 flex items-center gap-4 flex-wrap">
+            ${resource.github_url ? `
+              <a class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary text-white text-sm font-medium h-10 px-4 hover:opacity-90" href="${resource.github_url}">
+                <span>View on GitHub</span>
+                <svg fill="currentColor" height="16" viewBox="0 0 256 256" width="16" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M221.66,133.66l-72,72a8,8,0,0,1-11.32-11.32L196.69,136H40a8,8,0,0,1,0-16H196.69L138.34,61.66a8,8,0,0,1,11.32-11.32l72,72A8,8,0,0,1,221.66,133.66Z"></path>
+                </svg>
+              </a>
+            ` : ''}
+            ${resource.colab_url ? `
+              <a class="inline-flex items-center justify-center gap-2 rounded-lg bg-primary/20 dark:bg-primary/30 text-primary dark:text-white text-sm font-medium h-10 px-4 hover:opacity-80" href="${resource.colab_url}">
+                <span>Google Colab</span>
+              </a>
+            ` : ''}
+            ${resource.file_url ? `
+              <a class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium h-10 px-4 hover:bg-gray-100 dark:hover:bg-gray-800" href="${resource.file_url}" download>
+                <span class="material-symbols-outlined text-lg">download</span>
+                <span>Download</span>
+              </a>
+            ` : ''}
+          </div>
+        </div>
+      `).join('');
+
+      container.innerHTML = html;
+    } catch (error) {
+      console.error('Error loading resources:', error);
+      container.innerHTML = `
+        <div class="bg-white dark:bg-slate-900/40 rounded-lg shadow-md p-6">
+          <p class="text-center text-gray-600 dark:text-gray-400">No hay recursos disponibles en este momento.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', loadResources);
+</script>

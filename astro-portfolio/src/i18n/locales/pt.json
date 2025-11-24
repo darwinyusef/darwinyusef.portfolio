@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Início",
+    "about": "Sobre",
+    "skills": "Habilidades",
+    "services": "Serviços",
+    "podcast": "Podcast",
+    "contact": "Contato"
+  },
+  "home": {
+    "title": "Engenheiro Desenvolvedor Full Stack",
+    "subtitle": "Sou um engenheiro de software especializado em construir experiências digitais excepcionais. Atualmente focado em criar produtos acessíveis e centrados no usuário.",
+    "downloadCV": "Baixar CV",
+    "aboutMe": "Sobre Mim",
+    "contactMe": "Entre em Contato",
+    "letConnect": "Vamos nos conectar!"
+  },
+  "skills": {
+    "title": "Habilidades e Experiência",
+    "techStack": "Stack Tecnológico"
+  },
+  "services": {
+    "title": "Serviços",
+    "viewDetails": "Ver Detalhes"
+  },
+  "podcast": {
+    "title": "Podcast",
+    "episodes": "Episódios",
+    "duration": "Duração",
+    "listen": "Ouvir"
+  },
+  "chatbot": {
+    "title": "Assistente Virtual",
+    "placeholder": "Digite sua pergunta aqui...",
+    "send": "Enviar",
+    "close": "Fechar"
+  },
+  "newsletter": {
+    "title": "Assine a Newsletter",
+    "placeholder": "Seu email",
+    "subscribe": "Assinar",
+    "success": "Inscrição realizada com sucesso!"
+  },
+  "contact": {
+    "email": "Email",
+    "message": "Mensagem",
+    "send": "Enviar"
+  },
+  "footer": {
+    "rights": "Todos os direitos reservados"
+  }
+}

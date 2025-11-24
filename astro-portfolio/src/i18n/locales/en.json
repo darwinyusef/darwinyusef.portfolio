@@ -1,0 +1,52 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "services": "Services",
+    "podcast": "Podcast",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Full Stack Developer Engineer",
+    "subtitle": "I'm a software engineer specializing in building exceptional digital experiences. Currently focused on building accessible, human-centered products.",
+    "downloadCV": "Download CV",
+    "aboutMe": "About Me",
+    "contactMe": "Contact Me",
+    "letConnect": "Let's connect!"
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "techStack": "Tech Stack"
+  },
+  "services": {
+    "title": "Services",
+    "viewDetails": "View Details"
+  },
+  "podcast": {
+    "title": "Podcast",
+    "episodes": "Episodes",
+    "duration": "Duration",
+    "listen": "Listen"
+  },
+  "chatbot": {
+    "title": "Virtual Assistant",
+    "placeholder": "Type your question here...",
+    "send": "Send",
+    "close": "Close"
+  },
+  "newsletter": {
+    "title": "Subscribe to Newsletter",
+    "placeholder": "Your email",
+    "subscribe": "Subscribe",
+    "success": "Successfully subscribed!"
+  },
+  "contact": {
+    "email": "Email",
+    "message": "Message",
+    "send": "Send"
+  },
+  "footer": {
+    "rights": "All rights reserved"
+  }
+}

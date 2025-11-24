@@ -1,0 +1,85 @@
+---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<section class="bg-gradient-to-r from-primary to-purple-600 rounded-lg p-8 text-center">
+  <h2 class="text-2xl font-bold text-white mb-4">{t('newsletter.title')}</h2>
+  <p class="text-white/90 mb-6 max-w-md mx-auto">
+    {lang === 'es' ? 'Recibe las últimas actualizaciones, artículos y recursos directamente en tu correo.' :
+     lang === 'en' ? 'Get the latest updates, articles, and resources directly in your inbox.' :
+     'Receba as últimas atualizações, artigos e recursos diretamente no seu e-mail.'}
+  </p>
+
+  <form id="newsletter-form" class="max-w-md mx-auto flex gap-2">
+    <input
+      type="email"
+      id="newsletter-email"
+      placeholder={t('newsletter.placeholder')}
+      class="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/60 rounded-lg p-3 focus:ring-2 focus:ring-white/50 focus:outline-none"
+      required
+    />
+    <button
+      type="submit"
+      class="bg-white text-primary px-6 py-3 rounded-lg hover:bg-white/90 transition-colors font-medium whitespace-nowrap"
+    >
+      {t('newsletter.subscribe')}
+    </button>
+  </form>
+
+  <p id="newsletter-message" class="mt-4 text-white/80 text-sm hidden"></p>
+</section>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('newsletter-form') as HTMLFormElement;
+    const emailInput = document.getElementById('newsletter-email') as HTMLInputElement;
+    const message = document.getElementById('newsletter-message');
+
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      if (!email) return;
+
+      try {
+        const response = await fetch(`${backendUrl}/api/v1/comunications`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            email,
+            type: 'newsletter',
+            preferences: { subscribed: true },
+          }),
+        });
+
+        if (message) {
+          message.classList.remove('hidden');
+          if (response.ok) {
+            message.textContent = '✓ ¡Suscripción exitosa! Revisa tu correo.';
+            message.classList.add('text-green-300');
+            message.classList.remove('text-red-300');
+            emailInput.value = '';
+          } else {
+            message.textContent = '✗ Error al suscribirse. Intenta de nuevo.';
+            message.classList.add('text-red-300');
+            message.classList.remove('text-green-300');
+          }
+        }
+      } catch (error) {
+        if (message) {
+          message.classList.remove('hidden');
+          message.textContent = '✗ Error de conexión. Intenta más tarde.';
+          message.classList.add('text-red-300');
+          message.classList.remove('text-green-300');
+        }
+      }
+    });
+  });
+</script>
