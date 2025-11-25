@@ -4,24 +4,55 @@ import { getLangFromUrl } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<section class="py-12">
-  <div class="max-w-4xl mx-auto px-4">
-    <div class="mb-8">
-      <h2 class="text-3xl font-bold tracking-tighter text-slate-900 dark:text-white">
+<section class="py-12 overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4">
+    <div class="mb-8 text-center">
+      <h2 class="text-3xl md:text-4xl font-bold tracking-tighter text-slate-900 dark:text-white">
         {lang === 'es' ? 'Lo que dicen mis clientes' : lang === 'en' ? 'What my clients are saying' : 'O que meus clientes dizem'}
       </h2>
-      <p class="mt-2 text-slate-500 dark:text-slate-400">
-        {lang === 'es' ? 'Escucha directamente de quienes han experimentado mi trabajo.' :
-         lang === 'en' ? 'Hear directly from those who\'ve experienced my work.' :
-         'Ouça diretamente daqueles que experimentaram meu trabalho.'}
+      <p class="mt-3 text-lg text-slate-500 dark:text-slate-400">
+        {lang === 'es' ? 'Escucha directamente de quienes han experimentado mi trabajo' :
+         lang === 'en' ? 'Hear directly from those who\'ve experienced my work' :
+         'Ouça diretamente daqueles que experimentaram meu trabalho'}
       </p>
     </div>
 
-    <div id="testimonials-container" class="flex flex-col gap-6">
-      <div class="text-center py-8">
-        <p class="text-gray-600 dark:text-gray-400">Cargando testimonios...</p>
+    <div class="relative">
+      <!-- Botón anterior -->
+      <button
+        id="prev-btn"
+        class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed -ml-4 md:-ml-6"
+        aria-label="Anterior"
+      >
+        <svg class="w-6 h-6 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+        </svg>
+      </button>
+
+      <!-- Slider container -->
+      <div class="overflow-hidden">
+        <div id="testimonials-slider" class="flex gap-6 transition-transform duration-500 ease-out">
+          <!-- Loading state -->
+          <div class="min-w-full flex items-center justify-center py-20">
+            <p class="text-gray-600 dark:text-gray-400">Cargando testimonios...</p>
+          </div>
+        </div>
       </div>
+
+      <!-- Botón siguiente -->
+      <button
+        id="next-btn"
+        class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-white dark:bg-slate-800 p-3 rounded-full shadow-lg hover:shadow-xl transition-all hover:scale-110 disabled:opacity-50 disabled:cursor-not-allowed -mr-4 md:-mr-6"
+        aria-label="Siguiente"
+      >
+        <svg class="w-6 h-6 text-slate-900 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+        </svg>
+      </button>
     </div>
+
+    <!-- Indicadores de posición -->
+    <div id="slider-indicators" class="flex justify-center gap-2 mt-8"></div>
 
     <div class="mt-8 text-center">
       <a
@@ -35,9 +66,30 @@ const lang = getLangFromUrl(Astro.url);
   </div>
 </section>
 
-<script>
-  const backendUrl = 'http://localhost:8000';
+<!-- Modal para videos de YouTube -->
+<div id="video-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+  <div class="relative w-full max-w-4xl">
+    <button
+      id="close-modal"
+      class="absolute -top-12 right-0 text-white hover:text-primary transition-colors"
+      aria-label="Cerrar"
+    >
+      <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <div class="bg-white dark:bg-slate-900 rounded-2xl overflow-hidden shadow-2xl">
+      <div id="video-container" class="aspect-video">
+        <!-- YouTube iframe will be inserted here -->
+      </div>
+      <div id="video-info" class="p-6">
+        <!-- Video info will be inserted here -->
+      </div>
+    </div>
+  </div>
+</div>
 
+<script>
   interface Testimonial {
     id: number;
     name: string;
@@ -46,101 +98,245 @@ const lang = getLangFromUrl(Astro.url);
     content: string;
     avatar?: string;
     rating?: number;
+    youtube_id?: string;
+    has_video?: boolean;
     is_active: boolean;
   }
 
-  async function loadTestimonials() {
-    const container = document.getElementById('testimonials-container');
-    if (!container) return;
+  let currentIndex = 0;
+  let testimonials: Testimonial[] = [];
 
-    try {
-      const response = await fetch(`${backendUrl}/api/v1/interaction?type=testimonial`);
-
-      let testimonials: Testimonial[] = [];
-
-      if (response.ok) {
-        const interactions = await response.json();
-        testimonials = interactions
-          .filter((i: any) => i.interaction_type === 'testimonial' && i.metadata?.is_active !== false)
-          .map((i: any) => ({
-            id: i.id,
-            name: i.metadata?.name || 'Cliente',
-            role: i.metadata?.role || '',
-            company: i.metadata?.company || '',
-            content: i.content,
-            avatar: i.metadata?.avatar,
-            rating: i.metadata?.rating || 5,
-            is_active: true
-          }));
-      }
-
-      if (testimonials.length === 0) {
-        testimonials = [
-          {
-            id: 1,
-            name: 'Sarah Chen',
-            role: 'CEO',
-            company: 'Innovate Solutions',
-            content: 'Working with Alex on our project was a game-changer. Their technical expertise and problem-solving skills are truly impressive. They delivered high-quality work on time and within budget, exceeding our expectations.',
-            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAlOQhuK8Q15qTpQla2R740Flw4xkjn9c0gaK8c273ADYslrjSXE_dP7k6F9JuNGbXtOzzDbF81GlKUHgNsy8OEkvYtnqGLrrSNe5TQeuvL9IENfgEManyeYsxAK7XFOrl9wOPDoxTa42-m_gx_GbCbK7NDttgtg_kYWehcwysMVJHchgKL2VVlLsYTuGasoLxCgqCfT4CVzB0o0uDZxoK6YnDxuS0KUjtzDPHc8dmKXmagC0YR0iuy_VkkgsF9-U46kSuWhGTFnaY8',
-            rating: 5,
-            is_active: true
-          },
-          {
-            id: 2,
-            name: 'David Lee',
-            role: 'Founder',
-            company: 'Tech Startup',
-            content: 'Alex is a talented and dedicated developer. Their communication throughout the project was excellent, and they were always responsive to our feedback. The final product was exactly what we envisioned, and we\'re thrilled with the results.',
-            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCf9LxTGe1iR1HbFQN-ziIKA1GyrA6i4zgO0mXbhfQoRUT6ivi-jWOyFBbO5-bdy9ABMPcDjniR6-PXUSXK8f_VdQp61XKp4w1pFw3AUWfvMIETI-QVUit3mVTbfz3KqDEioCAzJW2q31iY23ngf4PWsM_y3lD--mYJz5hWQfXdJpc1XOCd4I2YJmvjNcwo7Kz6EWpKMggwJCVDU63sEYKgcdzIq9zzwPT1vNKa2VHJX_7HAPNoYFIgtmjhQiF_hoi0intsEAfWpox6',
-            rating: 5,
-            is_active: true
-          },
-          {
-            id: 3,
-            name: 'Emily Wong',
-            role: 'Project Manager',
-            company: 'Global Corp',
-            content: 'Alex is a true professional. They are knowledgeable, reliable, and a pleasure to work with. Their attention to detail and commitment to quality are evident in their work. We were impressed with their ability to understand our requirements and deliver a solution that perfectly met our needs.',
-            avatar: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAinMLITooJkqR0fuOu_IHrZNxPlyhEkw8G5gXMftg_r2hjUXXTNbd5cnDFHSRo1gfUNYwN2XbwouxE8NwPXPZ16HQUOMkZY20ub5EHEnHhMeF4NG2YaFg4bidPyfxCKKNd5rhPK9Yx2n5TSkbh8gNAtD1KXV7VM8OC7S8ZZTBH7I-E9ULoqLbrckwPhkfBsLGnke8WCAvFw7uwsQW8oqlF4iGeT8nRCx-gr3Bpqo1pfbGvVysXYMO13TsjoqvZAl9DU0ikbfeDPNCL',
-            rating: 5,
-            is_active: true
-          }
-        ];
-      }
-
-      const html = testimonials.map(testimonial => `
-        <div class="bg-slate-100 dark:bg-slate-800/50 rounded-2xl p-6">
-          <div class="flex items-start gap-4">
+  function createTestimonialCard(testimonial: Testimonial): string {
+    return `
+      <div class="flex-shrink-0 w-full max-w-[400px] ml-[10px]">
+        <div class="bg-gradient-to-br from-white to-slate-50 dark:from-slate-800 dark:to-slate-900 rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 p-5 h-full flex flex-col border border-slate-200 dark:border-slate-700">
+          <!-- Header con avatar y nombre -->
+          <div class="flex items-start gap-4 mb-6">
             ${testimonial.avatar ? `
-              <img class="h-12 w-12 rounded-full object-cover" src="${testimonial.avatar}" alt="${testimonial.name}" />
+              <img class="h-16 w-16 rounded-full object-cover flex-shrink-0 ring-4 ring-primary/20" src="${testimonial.avatar}" alt="${testimonial.name}" />
             ` : `
-              <div class="h-12 w-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-xl">
+              <div class="h-16 w-16 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold text-2xl flex-shrink-0 ring-4 ring-primary/20">
                 ${testimonial.name.charAt(0)}
               </div>
             `}
-            <div>
-              <p class="font-semibold text-slate-900 dark:text-white">${testimonial.name}</p>
-              <p class="text-sm text-slate-500 dark:text-slate-400">${testimonial.role}${testimonial.company ? ', ' + testimonial.company : ''}</p>
+            <div class="flex-1 min-w-0">
+              <h3 class="font-bold text-lg text-slate-900 dark:text-white truncate">${testimonial.name}</h3>
+              <p class="text-sm text-slate-600 dark:text-slate-400 truncate">${testimonial.role}</p>
+              <p class="text-xs text-primary font-semibold mt-1 truncate">${testimonial.company}</p>
             </div>
           </div>
-          <blockquote class="mt-4 text-slate-700 dark:text-slate-300">
-            <span class="text-6xl font-serif text-primary leading-[0] relative top-4 left-0">"</span>
-            <p class="ml-6 text-base leading-relaxed italic">${testimonial.content}</p>
-          </blockquote>
-        </div>
-      `).join('');
 
-      container.innerHTML = html;
+          <!-- Rating -->
+          ${testimonial.rating ? `
+            <div class="flex gap-1 mb-4">
+              ${Array(testimonial.rating).fill('<span class="text-yellow-400 text-xl">★</span>').join('')}
+            </div>
+          ` : ''}
+
+          <!-- Contenido -->
+          <div class="flex-1 relative mb-6">
+            <svg class="absolute -top-2 -left-2 w-8 h-8 text-primary/20" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14h-6c0-2.2 1.8-4 4-4V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-2.2 1.8-4 4-4V8z"/>
+            </svg>
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed pl-6 italic text-sm">${testimonial.content}</p>
+          </div>
+
+          <!-- Video badge -->
+          ${testimonial.has_video && testimonial.youtube_id ? `
+            <button
+              onclick="openVideoModal(${testimonial.id})"
+              class="mt-auto w-full bg-gradient-to-r from-primary to-purple-600 text-white font-semibold py-3 px-4 rounded-lg hover:opacity-90 transition-opacity flex items-center justify-center gap-2 group"
+            >
+              <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="currentColor" viewBox="0 0 20 20">
+                <path d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"/>
+              </svg>
+              Ver testimonio en video
+            </button>
+          ` : ''}
+        </div>
+      </div>
+    `;
+  }
+
+  function updateSlider() {
+    const slider = document.getElementById('testimonials-slider');
+    const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+    const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+
+    if (!slider || !prevBtn || !nextBtn) return;
+
+    const maxIndex = Math.max(0, testimonials.length - 1);
+    currentIndex = Math.min(currentIndex, maxIndex);
+
+    // Calcular desplazamiento: 400px de ancho + 10px de margin-left = 410px por card
+    const cardWidth = 410;
+    const translateX = -(currentIndex * cardWidth);
+    slider.style.transform = `translateX(${translateX}px)`;
+
+    prevBtn.disabled = currentIndex === 0;
+    nextBtn.disabled = currentIndex >= maxIndex;
+
+    updateIndicators();
+  }
+
+  function updateIndicators() {
+    const container = document.getElementById('slider-indicators');
+    if (!container) return;
+
+    const numIndicators = testimonials.length;
+
+    container.innerHTML = Array.from({ length: numIndicators }, (_, i) => `
+      <button
+        onclick="goToSlide(${i})"
+        class="w-2 h-2 rounded-full transition-all ${i === currentIndex ? 'bg-primary w-8' : 'bg-slate-300 dark:bg-slate-600 hover:bg-primary/50'}"
+        aria-label="Ir a diapositiva ${i + 1}"
+      ></button>
+    `).join('');
+  }
+
+  function goToSlide(index: number) {
+    currentIndex = index;
+    updateSlider();
+  }
+
+  function nextSlide() {
+    const maxIndex = Math.max(0, testimonials.length - 1);
+    if (currentIndex < maxIndex) {
+      currentIndex++;
+      updateSlider();
+    }
+  }
+
+  function prevSlide() {
+    if (currentIndex > 0) {
+      currentIndex--;
+      updateSlider();
+    }
+  }
+
+  function openVideoModal(testimonialId: number) {
+    const testimonial = testimonials.find(t => t.id === testimonialId);
+    if (!testimonial || !testimonial.youtube_id) return;
+
+    const modal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-container');
+    const videoInfo = document.getElementById('video-info');
+
+    if (!modal || !videoContainer || !videoInfo) return;
+
+    videoContainer.innerHTML = `
+      <iframe
+        class="w-full h-full"
+        src="https://www.youtube.com/embed/${testimonial.youtube_id}?autoplay=1"
+        title="${testimonial.name} - Testimonio"
+        frameborder="0"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen
+      ></iframe>
+    `;
+
+    videoInfo.innerHTML = `
+      <div class="flex items-center gap-4">
+        ${testimonial.avatar ? `
+          <img class="h-12 w-12 rounded-full object-cover" src="${testimonial.avatar}" alt="${testimonial.name}" />
+        ` : `
+          <div class="h-12 w-12 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold text-xl">
+            ${testimonial.name.charAt(0)}
+          </div>
+        `}
+        <div>
+          <h3 class="font-bold text-lg text-slate-900 dark:text-white">${testimonial.name}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">${testimonial.role}, ${testimonial.company}</p>
+        </div>
+      </div>
+      <p class="mt-4 text-slate-700 dark:text-slate-300 italic">"${testimonial.content}"</p>
+    `;
+
+    modal.classList.remove('hidden');
+    modal.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeVideoModal() {
+    const modal = document.getElementById('video-modal');
+    const videoContainer = document.getElementById('video-container');
+
+    if (!modal || !videoContainer) return;
+
+    videoContainer.innerHTML = '';
+    modal.classList.add('hidden');
+    modal.classList.remove('flex');
+    document.body.style.overflow = '';
+  }
+
+  async function loadTestimonials() {
+    const slider = document.getElementById('testimonials-slider');
+    if (!slider) return;
+
+    try {
+      const response = await fetch('/testimonials.json');
+      if (!response.ok) throw new Error('Failed to load testimonials');
+
+      const allTestimonials: Testimonial[] = await response.json();
+      testimonials = allTestimonials.filter(t => t.is_active);
+
+      if (testimonials.length === 0) {
+        slider.innerHTML = `
+          <div class="min-w-full flex items-center justify-center py-20">
+            <p class="text-gray-600 dark:text-gray-400">No hay testimonios disponibles.</p>
+          </div>
+        `;
+        return;
+      }
+
+      slider.innerHTML = testimonials.map(createTestimonialCard).join('');
+      updateSlider();
     } catch (error) {
       console.error('Error loading testimonials:', error);
-      container.innerHTML = `
-        <div class="text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">No hay testimonios disponibles en este momento.</p>
+      slider.innerHTML = `
+        <div class="min-w-full flex items-center justify-center py-20">
+          <p class="text-red-500">Error al cargar testimonios.</p>
         </div>
       `;
     }
   }
 
-  document.addEventListener('DOMContentLoaded', loadTestimonials);
+  // Hacer funciones globales
+  (window as any).goToSlide = goToSlide;
+  (window as any).openVideoModal = openVideoModal;
+  (window as any).closeVideoModal = closeVideoModal;
+
+  // Event listeners
+  document.addEventListener('DOMContentLoaded', () => {
+    loadTestimonials();
+
+    const prevBtn = document.getElementById('prev-btn');
+    const nextBtn = document.getElementById('next-btn');
+    const closeModal = document.getElementById('close-modal');
+    const videoModal = document.getElementById('video-modal');
+
+    prevBtn?.addEventListener('click', prevSlide);
+    nextBtn?.addEventListener('click', nextSlide);
+    closeModal?.addEventListener('click', closeVideoModal);
+
+    videoModal?.addEventListener('click', (e) => {
+      if (e.target === videoModal) closeVideoModal();
+    });
+
+    // Keyboard navigation
+    document.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('video-modal');
+      if (modal && !modal.classList.contains('hidden')) {
+        if (e.key === 'Escape') closeVideoModal();
+      } else {
+        if (e.key === 'ArrowLeft') prevSlide();
+        if (e.key === 'ArrowRight') nextSlide();
+      }
+    });
+  });
+
+  // Responsive handling
+  window.addEventListener('resize', () => {
+    updateSlider();
+  });
 </script>

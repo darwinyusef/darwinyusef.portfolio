@@ -10,19 +10,43 @@ const postsFromContent = await getCollection('posts');
 ---
 
 <Layout title="Blog">
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
     <Header />
 
-    <main class="px-6 pb-8 max-w-6xl mx-auto">
-      <div class="flex items-center mb-8 mt-4">
-        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
-          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18l-6-6 6-6"></path>
-          </svg>
-        </a>
-        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
-          {lang === 'es' ? 'Blog' : lang === 'en' ? 'Blog' : 'Blog'}
-        </h1>
+    <main class="overflow-hidden px-5">
+      <section class="relative min-h-[70vh] flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="text-center">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'MI' : lang === 'en' ? 'MY' : 'MEU'}
+              <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                BLOG
+              </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es'
+                ? 'Artículos, reflexiones y experiencias sobre desarrollo y tecnología.'
+                : lang === 'en'
+                ? 'Articles, insights and experiences about development and technology.'
+                : 'Artigos, reflexões e experiências sobre desenvolvimento e tecnologia.'}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pb-16 max-w-7xl mx-auto">
+
+      <!-- Filtro de categorías -->
+      <div class="mb-8">
+        <div class="flex flex-wrap gap-2 justify-center" id="category-filters">
+          <button
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm"
+            data-category="all"
+          >
+            {lang === 'es' ? 'Todos' : lang === 'en' ? 'All' : 'Todos'} <span class="category-count ml-1 text-xs opacity-90"></span>
+          </button>
+        </div>
       </div>
 
       <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -30,23 +54,158 @@ const postsFromContent = await getCollection('posts');
           <p class="text-gray-600 dark:text-gray-400">Cargando artículos...</p>
         </div>
       </div>
+      </section>
     </main>
   </div>
 </Layout>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-
   interface Post {
     id: number;
     title: string;
-    description: string;
+    slug: string;
+    excerpt: string;
     content: string;
-    image?: string;
-    author: string;
-    pubDate: string;
+    category: string;
     tags: string[];
+    author: string;
+    coverImage?: string;
+    publishDate: string;
+    readTime: string;
     is_active: boolean;
+  }
+
+  let allPosts: Post[] = [];
+  let currentCategory = 'all';
+
+  function createCategoryFilters(posts: Post[]) {
+    const categoriesMap = new Map<string, number>();
+
+    posts.forEach(post => {
+      const category = post.category || 'Sin categoría';
+      categoriesMap.set(category, (categoriesMap.get(category) || 0) + 1);
+    });
+
+    const filtersContainer = document.getElementById('category-filters');
+    if (!filtersContainer) return;
+
+    const allBtn = filtersContainer.querySelector('[data-category="all"]');
+    if (allBtn) {
+      const countSpan = allBtn.querySelector('.category-count');
+      if (countSpan) countSpan.textContent = `(${posts.length})`;
+    }
+
+    const categoryButtons = Array.from(categoriesMap.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([category, count]) => {
+        return `
+          <button
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm"
+            data-category="${category}"
+          >
+            ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
+          </button>
+        `;
+      }).join('');
+
+    if (allBtn) {
+      allBtn.insertAdjacentHTML('afterend', categoryButtons);
+    }
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        filterByCategory(category || 'all');
+      });
+    });
+  }
+
+  function filterByCategory(category: string) {
+    currentCategory = category;
+
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      if (btn.getAttribute('data-category') === category) {
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm';
+      } else {
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm';
+      }
+    });
+
+    const filteredPosts = category === 'all'
+      ? allPosts
+      : allPosts.filter(p => p.category === category);
+
+    renderPosts(filteredPosts);
+  }
+
+  function renderPosts(posts: Post[]) {
+    const container = document.getElementById('blog-container');
+    if (!container) return;
+
+    if (posts.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">No hay artículos en esta categoría.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const html = posts.map(post => {
+      const postDate = new Date(post.publishDate);
+      const formattedDate = postDate.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+
+      return `
+        <article class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700">
+          <div class="relative">
+            ${post.coverImage ? `
+              <img src="${post.coverImage}" alt="${post.title}" class="w-full h-48 object-cover" />
+            ` : `
+              <div class="w-full h-48 bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-6xl">article</span>
+              </div>
+            `}
+            <div class="absolute top-4 left-4">
+              <span class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                ${post.category}
+              </span>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3 flex-wrap">
+              ${post.tags.slice(0, 3).map(tag => `
+                <span class="inline-block bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${tag}</span>
+              `).join('')}
+            </div>
+            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-primary transition-colors">${post.title}</h2>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">${post.excerpt}</p>
+            <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
+              <div class="flex items-center gap-2">
+                <span class="material-symbols-outlined text-sm">person</span>
+                <span>${post.author}</span>
+              </div>
+              <div class="flex items-center gap-3">
+                <div class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span>${post.readTime}</span>
+                </div>
+                <span>${formattedDate}</span>
+              </div>
+            </div>
+            <a href="/blog/${post.slug}" class="inline-flex items-center gap-2 text-primary hover:gap-3 font-semibold transition-all">
+              Leer más
+              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+            </a>
+          </div>
+        </article>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
   }
 
   async function loadPosts() {
@@ -54,95 +213,30 @@ const postsFromContent = await getCollection('posts');
     if (!container) return;
 
     try {
-      const response = await fetch(`${backendUrl}/api/v1/post`);
+      const response = await fetch('/blog.json');
+      if (!response.ok) throw new Error('Failed to load blog posts');
 
-      let posts: Post[] = [];
+      const loadedPosts: Post[] = await response.json();
+      allPosts = loadedPosts.filter(p => p.is_active);
 
-      if (response.ok) {
-        const data = await response.json();
-        posts = data.filter((p: any) => p.is_active);
-      }
-
-      if (posts.length === 0) {
-        posts = [
-          {
-            id: 1,
-            title: 'Introducción a Astro y SSG',
-            description: 'Aprende cómo Astro revoluciona el desarrollo web con su enfoque de generación estática.',
-            content: 'Contenido del post...',
-            image: '/images/blog-1.jpg',
-            author: 'Admin',
-            pubDate: new Date().toISOString(),
-            tags: ['Astro', 'SSG', 'Web Development'],
-            is_active: true
-          },
-          {
-            id: 2,
-            title: 'Implementando i18n en tu aplicación',
-            description: 'Guía completa para implementar internacionalización en aplicaciones modernas.',
-            content: 'Contenido del post...',
-            author: 'Admin',
-            pubDate: new Date().toISOString(),
-            tags: ['i18n', 'JavaScript', 'Best Practices'],
-            is_active: true
-          },
-          {
-            id: 3,
-            title: 'Chatbots con LangChain y OpenAI',
-            description: 'Crea chatbots inteligentes usando LangChain y la API de OpenAI.',
-            content: 'Contenido del post...',
-            author: 'Admin',
-            pubDate: new Date().toISOString(),
-            tags: ['AI', 'LangChain', 'OpenAI'],
-            is_active: true
-          }
-        ];
-      }
-
-      const html = posts.map(post => {
-        const postDate = new Date(post.pubDate);
-        const formattedDate = postDate.toLocaleDateString('es-ES', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        });
-
-        return `
-          <article class="bg-white dark:bg-[#1a1a2e] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
-            ${post.image ? `
-              <img src="${post.image}" alt="${post.title}" class="w-full h-48 object-cover" />
-            ` : `
-              <div class="w-full h-48 bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
-                <span class="material-symbols-outlined text-white text-6xl">article</span>
-              </div>
-            `}
-            <div class="p-6">
-              <div class="flex items-center gap-2 mb-3 flex-wrap">
-                ${post.tags.slice(0, 3).map(tag => `
-                  <span class="inline-block bg-primary/10 dark:bg-primary/20 text-primary text-xs font-semibold px-2 py-1 rounded">${tag}</span>
-                `).join('')}
-              </div>
-              <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${post.title}</h2>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">${post.description}</p>
-              <div class="flex items-center justify-between text-sm text-gray-500 dark:text-gray-400">
-                <span>${post.author}</span>
-                <span>${formattedDate}</span>
-              </div>
-              <a href="/blog/${post.id}" class="mt-4 inline-flex items-center gap-2 text-primary hover:underline font-medium">
-                Leer más
-                <span class="material-symbols-outlined text-sm">arrow_forward</span>
-              </a>
-            </div>
-          </article>
+      if (allPosts.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8">
+            <p class="text-gray-600 dark:text-gray-400">No hay artículos disponibles.</p>
+          </div>
         `;
-      }).join('');
+        return;
+      }
 
-      container.innerHTML = html;
+      createCategoryFilters(allPosts);
+      renderPosts(allPosts);
+
     } catch (error) {
       console.error('Error loading posts:', error);
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">No hay artículos disponibles en este momento.</p>
+          <p class="text-red-500 dark:text-red-400">Error al cargar artículos.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;
     }

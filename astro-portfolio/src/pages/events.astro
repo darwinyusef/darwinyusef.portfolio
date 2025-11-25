@@ -1,0 +1,373 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Event data structure
+const events = [
+  {
+    city: "Bogotá",
+    date: "Enero 15, 2026",
+    country: "Colombia",
+    title: "Workshop: Full Stack Development con React & Node.js",
+    venue: "Centro de Innovación Digital",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Madrid",
+    date: "Febrero 10, 2026",
+    country: "España",
+    title: "Conferencia: El Futuro del Desarrollo Web",
+    venue: "Tech Hub Madrid",
+    ticketUrl: "https://example.com/tickets",
+    region: "europa"
+  },
+  {
+    city: "São Paulo",
+    date: "Marzo 5, 2026",
+    country: "Brasil",
+    title: "Meetup: JavaScript Moderno y TypeScript",
+    venue: "Campus São Paulo",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Ciudad de México",
+    date: "Marzo 22, 2026",
+    country: "México",
+    title: "Taller: Arquitectura de Microservicios",
+    venue: "Innovation Center CDMX",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Barcelona",
+    date: "Abril 18, 2026",
+    country: "España",
+    title: "Summit: DevOps & Cloud Computing",
+    venue: "Barcelona Tech Park",
+    ticketUrl: "https://example.com/tickets",
+    region: "europa"
+  },
+  {
+    city: "Lima",
+    date: "Mayo 8, 2026",
+    country: "Perú",
+    title: "Webinar: AI & Machine Learning para Desarrolladores",
+    venue: "Online & Presencial",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Buenos Aires",
+    date: "Mayo 28, 2026",
+    country: "Argentina",
+    title: "Hackathon: Construye tu Startup en 48 Horas",
+    venue: "BA Innovation Hub",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Lisboa",
+    date: "Junio 12, 2026",
+    country: "Portugal",
+    title: "Conferencia: Web3 y Blockchain para Todos",
+    venue: "Web Summit Venue",
+    ticketUrl: "https://example.com/tickets",
+    region: "europa"
+  },
+  {
+    city: "Santiago",
+    date: "Julio 3, 2026",
+    country: "Chile",
+    title: "Workshop: Performance Optimization & Best Practices",
+    venue: "Digital Hub Santiago",
+    ticketUrl: "https://example.com/tickets",
+    region: "latinoamerica"
+  },
+  {
+    city: "Online",
+    date: "Agosto 15, 2026",
+    country: "Global",
+    title: "Masterclass: De Junior a Senior Developer",
+    venue: "Plataforma Virtual",
+    ticketUrl: "https://example.com/tickets",
+    region: "online"
+  }
+];
+
+const regions = [
+  { id: "all", name: lang === 'es' ? 'Todas las Regiones' : lang === 'en' ? 'All Regions' : 'Todas as Regiões' },
+  { id: "latinoamerica", name: lang === 'es' ? 'Latinoamérica' : lang === 'en' ? 'Latin America' : 'América Latina' },
+  { id: "europa", name: lang === 'es' ? 'Europa' : lang === 'en' ? 'Europe' : 'Europa' },
+  { id: "online", name: 'Online' }
+];
+---
+
+<Layout title={lang === 'es' ? 'Eventos y Talleres' : lang === 'en' ? 'Events & Workshops' : 'Eventos e Workshops'}>
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+    <Header />
+
+    <main class="overflow-hidden px-5">
+      <!-- Hero Section con Ultra Large Text -->
+      <section class="relative min-h-[70vh] flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="text-center">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'PRÓXIMOS' : lang === 'en' ? 'UPCOMING' : 'PRÓXIMOS'}
+              <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                {lang === 'es' ? 'EVENTOS' : lang === 'en' ? 'EVENTS' : 'EVENTOS'}
+              </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es'
+                ? 'Únete a nuestros talleres, conferencias y eventos de tecnología alrededor del mundo.'
+                : lang === 'en'
+                ? 'Join our workshops, conferences and tech events around the world.'
+                : 'Participe de nossos workshops, conferências e eventos de tecnologia ao redor do mundo.'}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Filter Section -->
+      <section class="pb-12">
+        <div class="max-w-[1800px] mx-auto">
+          <div class="flex flex-wrap justify-center gap-4" id="region-filters">
+            {regions.map((region) => (
+              <button
+                data-region={region.id}
+                class="region-filter px-8 py-4 rounded-full text-lg font-bold transition-all duration-300 hover:scale-105 cursor-hover-target"
+                style="font-family: 'Inter Tight', system-ui, sans-serif;"
+                data-cursor-text={region.name}
+              >
+                {region.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <!-- Events Grid -->
+      <section class="py-20">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="events-container">
+            {events.map((event, index) => (
+              <article
+                class="event-item group bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl cursor-hover-target"
+                data-region={event.region}
+                data-cursor-text={lang === 'es' ? 'Ver detalles' : lang === 'en' ? 'View details' : 'Ver detalhes'}
+                style={`animation-delay: ${index * 50}ms;`}
+              >
+                <!-- Header con Gradiente -->
+                <div class="bg-gradient-to-br from-primary to-purple-600 p-6 text-white relative overflow-hidden">
+                  <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+                  <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+
+                  <div class="relative z-10 flex items-start justify-between">
+                    <div>
+                      <div class="text-sm font-semibold uppercase mb-2 opacity-90">
+                        {event.country}
+                      </div>
+                      <h2 class="text-3xl font-black" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                        {event.city}
+                      </h2>
+                    </div>
+                    <div class="text-right">
+                      <div class="text-4xl font-black">{event.date.split(' ')[1]}</div>
+                      <div class="text-sm uppercase opacity-90">{event.date.split(' ')[0]}</div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="p-6">
+                  <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 leading-tight min-h-[3.5rem]">
+                    {event.title}
+                  </h3>
+
+                  <div class="space-y-3 mb-6">
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                      </svg>
+                      <span>{event.date}</span>
+                    </div>
+
+                    <div class="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-400">
+                      <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                      </svg>
+                      <span>{event.venue}</span>
+                    </div>
+                  </div>
+
+                  <!-- CTA Button -->
+                  <a
+                    href={event.ticketUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="block w-full text-center px-6 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                    style="font-family: 'Inter Tight', system-ui, sans-serif;"
+                  >
+                    {lang === 'es' ? 'Registrarse' : lang === 'en' ? 'Register' : 'Registrar-se'}
+                  </a>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <!-- No Results Message -->
+          <div id="no-results" class="hidden text-center py-20">
+            <p class="text-2xl text-gray-600 dark:text-gray-400">
+              {lang === 'es' ? 'No hay eventos en esta región' : lang === 'en' ? 'No events in this region' : 'Sem eventos nesta região'}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter Section -->
+      <section class="py-20">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-12">
+            <div class="text-center max-w-3xl mx-auto">
+              <h2 class="text-4xl md:text-5xl font-black mb-6 text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'No te pierdas ningún evento' : lang === 'en' ? 'Don\'t miss any event' : 'Não perca nenhum evento'}
+              </h2>
+              <p class="text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                {lang === 'es'
+                  ? 'Suscríbete y recibe notificaciones sobre nuevos eventos y talleres'
+                  : lang === 'en'
+                  ? 'Subscribe and receive notifications about new events and workshops'
+                  : 'Inscreva-se e receba notificações sobre novos eventos e workshops'}
+              </p>
+              <form class="flex flex-col sm:flex-row gap-4">
+                <input
+                  type="email"
+                  placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
+                  class="flex-1 px-6 py-4 rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#0a0a0a] focus:outline-none focus:border-primary text-lg transition-colors"
+                />
+                <button
+                  type="submit"
+                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 hover:shadow-xl"
+                  style="font-family: 'Inter Tight', system-ui, sans-serif;"
+                >
+                  {lang === 'es' ? 'Suscribirse' : lang === 'en' ? 'Subscribe' : 'Inscrever-se'}
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  /* Initial animation for event items */
+  .event-item {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInUp {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Filter buttons matching site style */
+  .region-filter {
+    background: white;
+    border: 2px solid #e5e7eb;
+    color: #4b5563;
+  }
+
+  .dark .region-filter {
+    background: #1a1a1a;
+    border-color: #374151;
+    color: #9ca3af;
+  }
+
+  .region-filter.active {
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 50%, #ec4899 100%);
+    border-color: transparent;
+    color: white;
+  }
+
+  /* Smooth transitions */
+  .event-item {
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .event-item.hidden {
+    opacity: 0;
+    transform: scale(0.9) translateY(20px);
+    position: absolute;
+    pointer-events: none;
+  }
+
+  /* Ensure smooth grid transitions */
+  #events-container {
+    position: relative;
+    min-height: 400px;
+  }
+</style>
+
+<script>
+  // Filter functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const filterButtons = document.querySelectorAll('.region-filter');
+    const eventItems = document.querySelectorAll('.event-item');
+    const noResults = document.getElementById('no-results');
+
+    // Set default active filter to "all"
+    const allButton = document.querySelector('[data-region="all"]');
+    if (allButton) {
+      allButton.classList.add('active');
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedRegion = button.dataset.region;
+
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter events
+        let visibleCount = 0;
+
+        eventItems.forEach((item, index) => {
+          const itemRegion = item.dataset.region;
+
+          if (selectedRegion === 'all' || itemRegion === selectedRegion) {
+            item.classList.remove('hidden');
+            // Stagger animation
+            setTimeout(() => {
+              item.style.opacity = '1';
+              item.style.transform = 'translateY(0)';
+            }, index * 50);
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults?.classList.remove('hidden');
+        } else {
+          noResults?.classList.add('hidden');
+        }
+      });
+    });
+  });
+</script>

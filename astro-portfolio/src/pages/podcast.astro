@@ -6,44 +6,104 @@ import { getCollection } from "astro:content";
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const podcastsFromContent = await getCollection("podcasts");
+const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.is_active);
 ---
 
 <Layout title={t("podcast.title")}>
-  <div class="min-h-screen">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
     <Header />
 
-    <main class="px-6 pb-8 max-w-4xl mx-auto">
-      <div class="flex items-center mb-8 mt-4">
-        <a
-          href={`/${lang === "es" ? "" : lang}`}
-          class="text-gray-900 dark:text-white hover:text-primary"
-        >
-          <svg
-            class="h-6 w-6"
-            fill="none"
-            height="24"
-            stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            viewBox="0 0 24 24"
-            width="24"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path d="M15 18l-6-6 6-6"></path>
-          </svg>
-        </a>
-        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
-          {t("podcast.title")}
-        </h1>
-      </div>
-
-      <div id="podcast-container" class="space-y-6">
-        <div class="text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">Cargando episodios...</p>
+    <main class="overflow-hidden px-5">
+      <!-- Hero Section con Ultra Large Text -->
+      <section class="relative min-h-[70vh] flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="text-center">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'MI' : lang === 'en' ? 'MY' : 'MEU'}
+              <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                PODCAST
+              </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es'
+                ? 'Conversaciones sobre tecnología, desarrollo y experiencias en el mundo tech.'
+                : lang === 'en'
+                ? 'Conversations about technology, development and experiences in the tech world.'
+                : 'Conversas sobre tecnologia, desenvolvimento e experiências no mundo tech.'}
+            </p>
+          </div>
         </div>
+      </section>
+
+      <section class="pb-16 max-w-5xl mx-auto relative z-10">
+      <div id="podcast-container" class="space-y-8">
+        {
+          podcastsFromContent.length > 0 ? (
+            podcastsFromContent
+              .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+              .map((podcast, index) => (
+                <article class="podcast-card rounded-2xl bg-white dark:bg-[#1a1a1a] p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group">
+                  <div class="flex gap-6">
+                    {podcast.data.coverImage ? (
+                      <img
+                        src={podcast.data.coverImage}
+                        alt={podcast.data.title}
+                        class="w-32 h-32 rounded-xl object-cover flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300"
+                      />
+                    ) : (
+                      <div class="w-32 h-32 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-5xl text-white">
+                          podcast
+                        </span>
+                      </div>
+                    )}
+                    <div class="flex-1 min-w-0">
+                      <h3 class="font-bold text-2xl md:text-3xl text-gray-900 dark:text-white mb-3 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                        {podcast.data.title}
+                      </h3>
+                      <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
+                        {podcast.data.description}
+                      </p>
+                      <div class="flex items-center gap-3 flex-wrap">
+                        <a
+                          href={`/${lang === "es" ? "" : lang}podcast/${podcast.slug}`}
+                          class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+                        >
+                          <span class="material-symbols-outlined text-sm">visibility</span>
+                          <span class="text-sm">Ver episodio</span>
+                        </a>
+                        <button
+                          class="play-podcast-btn inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105"
+                          data-audio={podcast.data.audioUrl}
+                          data-title={podcast.data.title}
+                        >
+                          <span class="material-symbols-outlined text-sm">play_circle</span>
+                          <span class="text-sm">Reproducir</span>
+                        </button>
+                        <span class="text-sm text-gray-500 dark:text-gray-400 font-medium flex items-center gap-1">
+                          <span class="material-symbols-outlined text-sm">schedule</span>
+                          {podcast.data.duration}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </article>
+              ))
+          ) : (
+            <div class="text-center py-8">
+              <p class="text-gray-600 dark:text-gray-400">
+                No hay episodios disponibles en este momento.
+              </p>
+            </div>
+          )
+        }
       </div>
+      </section>
     </main>
   </div>
 
@@ -99,19 +159,6 @@ const podcastsFromContent = await getCollection("podcasts");
 </Layout>
 
 <script>
-  const backendUrl = "http://localhost:8000";
-
-  interface Podcast {
-    id: number;
-    title: string;
-    description: string;
-    duration: string;
-    audio_url: string;
-    cover_image?: string;
-    pubDate: string;
-    is_active: boolean;
-  }
-
   let currentAudio: HTMLAudioElement | null = null;
   let isPlaying = false;
 
@@ -121,7 +168,7 @@ const podcastsFromContent = await getCollection("podcasts");
     return `${mins}:${secs.toString().padStart(2, "0")}`;
   }
 
-  function playPodcast(podcast: Podcast) {
+  function playPodcast(audioUrl: string, title: string) {
     const audioElement = document.getElementById(
       "audio-element"
     ) as HTMLAudioElement;
@@ -132,7 +179,7 @@ const podcastsFromContent = await getCollection("podcasts");
     if (!audioElement || !audioPlayer || !currentTitle || !playPauseIcon)
       return;
 
-    if (currentAudio && currentAudio.src === podcast.audio_url) {
+    if (currentAudio && currentAudio.src.includes(audioUrl)) {
       if (isPlaying) {
         audioElement.pause();
         playPauseIcon.textContent = "play_arrow";
@@ -143,8 +190,8 @@ const podcastsFromContent = await getCollection("podcasts");
         isPlaying = true;
       }
     } else {
-      audioElement.src = podcast.audio_url;
-      currentTitle.textContent = podcast.title;
+      audioElement.src = audioUrl;
+      currentTitle.textContent = title;
       audioElement.play();
       playPauseIcon.textContent = "pause";
       isPlaying = true;
@@ -154,106 +201,7 @@ const podcastsFromContent = await getCollection("podcasts");
     currentAudio = audioElement;
   }
 
-  async function loadPodcasts() {
-    const container = document.getElementById("podcast-container");
-    if (!container) return;
-
-    try {
-      //`${backendUrl}/api/v1/multimedia?type=podcast`
-      const response = await fetch("./info.json", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const cloned = response.clone();
-
-      if (!response.ok) {
-        throw new Error("Red no OK: " + response.status);
-      }
-
-      let podcasts: Podcast[] = [];
-      podcasts = await cloned.json();
-
-      if (podcasts.length === 0) {
-        podcasts = [
-          {
-            id: 1,
-            title: "Introducción al Desarrollo Full Stack",
-            description:
-              "En este episodio exploramos los fundamentos del desarrollo Full Stack y las tecnologías más demandadas.",
-            duration: "25:30",
-            audio_url: "/audio/episode-1.mp3",
-            cover_image: "/images/podcast-cover.jpg",
-            pubDate: new Date().toISOString(),
-            is_active: true,
-          },
-        ];
-      }
-
-      if (response.ok) {
-        podcasts = podcasts.filter((p) => p.is_active);
-      }
-
-      const html = podcasts
-        .map(
-          (podcast) => `
-        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm hover:shadow-md transition-shadow">
-          <div class="flex gap-4">
-            ${
-              podcast.cover_image
-                ? `
-              <img src="${podcast.cover_image}" alt="${podcast.title}" class="w-24 h-24 rounded-lg object-cover flex-shrink-0" />
-            `
-                : `
-              <div class="w-24 h-24 rounded-lg bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center flex-shrink-0">
-                <span class="material-symbols-outlined text-4xl text-white">podcast</span>
-              </div>
-            `
-            }
-            <div class="flex-1 min-w-0">
-              <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2">${podcast.title}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-2">${podcast.description}</p>
-              <div class="flex items-center gap-4">
-                <button
-                  class="play-podcast-btn flex items-center gap-2 text-primary hover:opacity-80 transition-opacity"
-                  data-podcast='${JSON.stringify(podcast).replace(/'/g, "&apos;")}'
-                >
-                  <span class="material-symbols-outlined">play_circle</span>
-                  <span class="text-sm font-medium">Escuchar</span>
-                </button>
-                <span class="text-sm text-gray-500 dark:text-gray-400">${podcast.duration}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      `
-        )
-        .join("");
-
-      container.innerHTML = html;
-
-      document.querySelectorAll(".play-podcast-btn").forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-          const target = e.currentTarget as HTMLButtonElement;
-          const podcastData = JSON.parse(target.dataset.podcast || "{}");
-          playPodcast(podcastData);
-        });
-      });
-    } catch (error) {
-      console.error("Error loading podcasts:", error);
-      container.innerHTML = `
-        <div class="text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">No hay episodios disponibles en este momento.</p>
-        </div>
-      `;
-    }
-  }
-
   document.addEventListener("DOMContentLoaded", () => {
-    loadPodcasts();
-
     const audioElement = document.getElementById(
       "audio-element"
     ) as HTMLAudioElement;
@@ -265,6 +213,26 @@ const podcastsFromContent = await getCollection("podcasts");
     const currentTime = document.getElementById("current-time");
     const durationTime = document.getElementById("duration-time");
     const audioPlayer = document.getElementById("audio-player");
+
+    // Event listeners para los botones de reproducción
+    document.querySelectorAll(".play-podcast-btn").forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        const target = e.currentTarget as HTMLButtonElement;
+        const audioUrl = target.dataset.audio || "";
+        const title = target.dataset.title || "";
+        console.log('Playing podcast:', title, audioUrl);
+        playPodcast(audioUrl, title);
+      });
+    });
+
+    // Trigger animations después de registrar los event listeners
+    setTimeout(() => {
+      document.querySelectorAll('.podcast-card').forEach((card, index) => {
+        setTimeout(() => {
+          card.classList.add('fade-in-up');
+        }, index * 100);
+      });
+    }, 10);
 
     if (
       audioElement &&
@@ -316,3 +284,60 @@ const podcastsFromContent = await getCollection("podcasts");
     }
   });
 </script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .hero-content {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .podcast-card {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F8F8F8;
+  }
+
+  :root.dark ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary-color), #9333ea);
+    border-radius: 6px;
+    border: 2px solid #F8F8F8;
+  }
+
+  :root.dark ::-webkit-scrollbar-thumb {
+    border-color: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #9333ea, var(--primary-color));
+  }
+
+  #podcast-container {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  }
+</style>

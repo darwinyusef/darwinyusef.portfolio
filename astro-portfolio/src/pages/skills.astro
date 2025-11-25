@@ -2,152 +2,563 @@
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
-import { getCollection } from 'astro:content';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
-const skillsFromContent = await getCollection('skills');
 ---
 
 <Layout title={t('skills.title')}>
-  <div class="min-h-screen">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
     <Header />
 
-    <main class="px-6 pb-8 max-w-4xl mx-auto">
-      <div class="flex items-center mb-8 mt-4">
-        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
-          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18l-6-6 6-6"></path>
-          </svg>
-        </a>
-        <h1 class="flex-1 text-center text-2xl font-bold pr-6">{t('skills.title')}</h1>
-      </div>
+    <main class="overflow-hidden px-5">
+      <!-- Hero Section con Ultra Large Text -->
+      <section class="relative min-h-[70vh] flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="text-center">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'MIS' : lang === 'en' ? 'MY' : 'MINHAS'}
+              <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                {lang === 'es' ? 'HABILIDADES' : lang === 'en' ? 'SKILLS' : 'HABILIDADES'}
+              </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es'
+                ? 'Mi experiencia y dominio de tecnologías para crear soluciones digitales innovadoras.'
+                : lang === 'en'
+                ? 'My expertise and technology mastery to create innovative digital solutions.'
+                : 'Minha experiência e domínio de tecnologias para criar soluções digitais inovadoras.'}
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div id="skills-container" class="space-y-8">
-        <div class="text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">Cargando habilidades...</p>
+      <section class="pb-16 max-w-7xl mx-auto relative z-10">
+      <!-- Tabs con glassmorphism -->
+      <div class="flex justify-center mb-8">
+        <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl p-1.5 rounded-2xl inline-flex gap-2 shadow-2xl border border-gray-100 dark:border-gray-800">
+          <button
+            id="tab-languages"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white shadow-lg hover:scale-105"
+            style="font-family: 'Inter Tight', system-ui, sans-serif;"
+          >
+            {lang === 'es' ? 'Tecnologías' : lang === 'en' ? 'Technologies' : 'Tecnologias'}
+          </button>
+          <button
+            id="tab-experience"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:scale-105"
+            style="font-family: 'Inter Tight', system-ui, sans-serif;"
+          >
+            {lang === 'es' ? 'Experiencia' : lang === 'en' ? 'Experience' : 'Experiência'}
+          </button>
         </div>
       </div>
+
+      <!-- Languages Content -->
+      <div id="languages-content" class="content-section">
+        <div id="languages-container" class="space-y-12">
+          <div class="text-center py-8">
+            <p class="text-gray-600 dark:text-gray-400">Cargando tecnologías...</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Experience Content -->
+      <div id="experience-content" class="content-section hidden">
+        <div id="experience-container" class="space-y-8">
+          <div class="text-center py-8">
+            <p class="text-gray-600 dark:text-gray-400">Cargando experiencia...</p>
+          </div>
+        </div>
+      </div>
+      </section>
     </main>
   </div>
 </Layout>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-
-  interface Skill {
+  interface Language {
     id: number;
     name: string;
     category: string;
     proficiency: number;
-    description?: string;
-    icon?: string;
+    yearsOfExperience: number;
+    description: string;
+    icon: string;
+    audioUrl?: string;
     is_active: boolean;
   }
 
-  async function loadSkills() {
-    const container = document.getElementById('skills-container');
+  interface Experience {
+    id: number;
+    position: string;
+    company: string;
+    location: string;
+    startDate: string;
+    endDate: string | null;
+    current: boolean;
+    description: string;
+    achievements: string[];
+    technologies: string[];
+    is_active: boolean;
+  }
+
+  let currentTab: 'languages' | 'experience' = 'languages';
+
+  function switchTab(tab: 'languages' | 'experience') {
+    currentTab = tab;
+
+    // Update tab buttons
+    const languagesTab = document.getElementById('tab-languages');
+    const experienceTab = document.getElementById('tab-experience');
+    const languagesContent = document.getElementById('languages-content');
+    const experienceContent = document.getElementById('experience-content');
+
+    if (tab === 'languages') {
+      languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      languagesTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      experienceTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      languagesContent?.classList.remove('hidden');
+      experienceContent?.classList.add('hidden');
+    } else {
+      experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      experienceTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      languagesTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      experienceContent?.classList.remove('hidden');
+      languagesContent?.classList.add('hidden');
+    }
+  }
+
+  async function loadLanguages() {
+    const container = document.getElementById('languages-container');
     if (!container) return;
 
     try {
-      const response = await fetch(`${backendUrl}/api/v1/skills`);
-      if (!response.ok) throw new Error('Failed to load skills');
+      const response = await fetch('/languages.json');
+      if (!response.ok) throw new Error('Failed to load languages');
 
-      const skills: Skill[] = await response.json();
-      const activeSkills = skills.filter(skill => skill.is_active);
+      const allLanguages: Language[] = await response.json();
+      const languages = allLanguages.filter(lang => lang.is_active);
 
-      const categories: Record<string, Skill[]> = {};
-      activeSkills.forEach(skill => {
-        if (!categories[skill.category]) {
-          categories[skill.category] = [];
+      // Group by category
+      const categories: Record<string, Language[]> = {};
+      languages.forEach(lang => {
+        if (!categories[lang.category]) {
+          categories[lang.category] = [];
         }
-        categories[skill.category].push(skill);
+        categories[lang.category].push(lang);
+      });
+
+      // Sort languages by proficiency within each category
+      Object.keys(categories).forEach(category => {
+        categories[category].sort((a, b) => b.proficiency - a.proficiency);
       });
 
       let html = '';
-      for (const [category, categorySkills] of Object.entries(categories)) {
+      for (const [category, categoryLanguages] of Object.entries(categories)) {
         html += `
-          <section>
-            <h2 class="text-lg font-semibold text-primary mb-4">${category}</h2>
-            <div class="space-y-4">
-              ${categorySkills.map(skill => `
-                <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
-                  <div class="flex items-start gap-4">
-                    <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
-                      ${skill.icon || '🔧'}
-                    </div>
-                    <div class="flex-1">
-                      <h3 class="font-semibold text-gray-900 dark:text-white">${skill.name}</h3>
-                      ${skill.description ? `<p class="text-sm text-gray-600 dark:text-gray-400 mt-1">${skill.description}</p>` : ''}
-                      <div class="mt-3 flex items-center gap-2">
-                        <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                          <div class="h-2 rounded-full bg-primary transition-all duration-500" style="width: ${skill.proficiency}%"></div>
-                        </div>
-                        <span class="text-xs font-mono text-gray-500 dark:text-gray-400">${skill.proficiency}%</span>
+          <section class="fade-in-section">
+            <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 mb-8 border border-gray-100 dark:border-gray-800">
+              <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg">
+                  <span class="material-symbols-outlined text-white text-2xl">code</span>
+                </div>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600">${category}</span>
+              </h2>
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                ${categoryLanguages.map((lang, index) => `
+                  <div class="tech-card rounded-2xl bg-white dark:bg-[#0f0f0f] p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group" style="animation-delay: ${index * 50}ms;">
+                    <div class="flex items-start gap-4 mb-6">
+                      <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 shadow-lg p-3 group-hover:scale-110 transition-transform duration-300">
+                        <img src="${lang.icon}" alt="${lang.name}" class="w-full h-full object-contain" />
+                      </div>
+                      <div class="flex-1">
+                        <h3 class="font-bold text-xl md:text-2xl text-gray-900 dark:text-white mb-1" style="font-family: 'Inter Tight', system-ui, sans-serif;">${lang.name}</h3>
+                        <p class="text-xs md:text-sm text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 font-semibold">${lang.yearsOfExperience} años de experiencia</p>
                       </div>
                     </div>
+                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">${lang.description}</p>
+
+                  ${lang.audioUrl ? `
+                    <div class="audio-player" data-audio-url="${lang.audioUrl}">
+                      <audio class="hidden" preload="metadata">
+                        <source src="${lang.audioUrl}" type="audio/mpeg">
+                      </audio>
+
+                      <div class="flex items-center gap-3">
+                        <!-- Play/Pause Button -->
+                        <button class="play-btn flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden">
+                          <span class="material-symbols-outlined text-xl play-icon transition-all duration-200">play_arrow</span>
+                          <span class="material-symbols-outlined text-xl pause-icon hidden transition-all duration-200">pause</span>
+                        </button>
+
+                        <!-- Progress Bar -->
+                        <div class="flex-1 flex items-center gap-2">
+                          <span class="current-time text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
+                          <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer progress-container">
+                            <div class="h-2 bg-gradient-to-r from-primary to-purple-600 rounded-full transition-all progress-bar" style="width: 0%"></div>
+                          </div>
+                          <span class="duration-time text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
+                        </div>
+
+                        <!-- Stop Button -->
+                        <button class="stop-btn flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300">
+                          <span class="material-symbols-outlined text-lg">stop</span>
+                        </button>
+                      </div>
+                    </div>
+                  ` : `
+                    <div class="flex items-center gap-3">
+                      <div class="h-3 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                        <div class="h-3 rounded-full bg-gradient-to-r from-primary to-purple-600 transition-all duration-1000" style="width: ${lang.proficiency}%"></div>
+                      </div>
+                      <span class="text-sm font-bold text-primary">${lang.proficiency}%</span>
+                    </div>
+                  `}
                   </div>
-                </div>
-              `).join('')}
+                `).join('')}
+              </div>
             </div>
           </section>
         `;
       }
 
       container.innerHTML = html;
+
+      // Trigger animations
+      setTimeout(() => {
+        document.querySelectorAll('.fade-in-section').forEach((section, index) => {
+          setTimeout(() => {
+            section.classList.add('fade-in-up');
+          }, index * 100);
+        });
+        document.querySelectorAll('.tech-card').forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('fade-in-up');
+          }, index * 30);
+        });
+      }, 10);
+
+      // Initialize audio players
+      initializeAudioPlayers();
     } catch (error) {
-      console.error('Error loading skills:', error);
+      console.error('Error loading languages:', error);
       container.innerHTML = `
         <div class="text-center py-8">
-          <p class="text-red-500">Error al cargar las habilidades. Mostrando datos de ejemplo...</p>
+          <p class="text-red-500 dark:text-red-400">Error al cargar lenguajes.</p>
         </div>
-        <section>
-          <h2 class="text-lg font-semibold text-primary mb-4">Backend</h2>
-          <div class="space-y-4">
-            <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
-              <div class="flex items-start gap-4">
-                <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary">
-                  <span class="material-symbols-outlined">data_object</span>
-                </div>
-                <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">Python & FastAPI</h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Experto en desarrollo de servicios backend escalables y APIs RESTful.</p>
-                  <div class="mt-3 flex items-center gap-2">
-                    <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                      <div class="h-2 rounded-full bg-primary" style="width: 95%"></div>
-                    </div>
-                    <span class="text-xs font-mono text-gray-500 dark:text-gray-400">95%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-        <section>
-          <h2 class="text-lg font-semibold text-primary mb-4">Frontend</h2>
-          <div class="space-y-4">
-            <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-4 shadow-sm">
-              <div class="flex items-start gap-4">
-                <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
-                  ⚛️
-                </div>
-                <div class="flex-1">
-                  <h3 class="font-semibold text-gray-900 dark:text-white">React & Astro</h3>
-                  <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Desarrollo de aplicaciones web modernas con React, Next.js y Astro.</p>
-                  <div class="mt-3 flex items-center gap-2">
-                    <div class="h-2 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
-                      <div class="h-2 rounded-full bg-primary" style="width: 90%"></div>
-                    </div>
-                    <span class="text-xs font-mono text-gray-500 dark:text-gray-400">90%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
       `;
     }
   }
 
-  document.addEventListener('DOMContentLoaded', loadSkills);
+  function initializeAudioPlayers() {
+    const audioPlayers = document.querySelectorAll('.audio-player');
+    console.log('Audio players found:', audioPlayers.length);
+
+    audioPlayers.forEach(playerContainer => {
+      const audio = playerContainer.querySelector('audio') as HTMLAudioElement;
+      const playBtn = playerContainer.querySelector('.play-btn') as HTMLButtonElement;
+      const stopBtn = playerContainer.querySelector('.stop-btn') as HTMLButtonElement;
+      const playIcon = playerContainer.querySelector('.play-icon') as HTMLElement;
+      const pauseIcon = playerContainer.querySelector('.pause-icon') as HTMLElement;
+      const progressBar = playerContainer.querySelector('.progress-bar') as HTMLElement;
+      const progressContainer = playerContainer.querySelector('.progress-container') as HTMLElement;
+      const currentTimeEl = playerContainer.querySelector('.current-time') as HTMLElement;
+      const durationTimeEl = playerContainer.querySelector('.duration-time') as HTMLElement;
+
+      console.log('Play icon:', playIcon);
+      console.log('Pause icon:', pauseIcon);
+
+      if (!audio) {
+        console.error('Audio element not found');
+        return;
+      }
+
+      // Format time helper
+      const formatTime = (seconds: number) => {
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs.toString().padStart(2, '0')}`;
+      };
+
+      // Update duration when metadata is loaded
+      audio.addEventListener('loadedmetadata', () => {
+        durationTimeEl.textContent = formatTime(audio.duration);
+      });
+
+      // Update progress bar
+      audio.addEventListener('timeupdate', () => {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        progressBar.style.width = `${progress}%`;
+        currentTimeEl.textContent = formatTime(audio.currentTime);
+      });
+
+      // Play/Pause button
+      playBtn.addEventListener('click', () => {
+        if (audio.paused) {
+          // Pause all other audio players
+          document.querySelectorAll('audio').forEach(a => {
+            if (a !== audio && !a.paused) {
+              a.pause();
+              const otherPlayer = a.closest('.audio-player');
+              if (otherPlayer) {
+                otherPlayer.querySelector('.play-icon')?.classList.remove('hidden');
+                otherPlayer.querySelector('.pause-icon')?.classList.add('hidden');
+              }
+            }
+          });
+
+          audio.play();
+          playIcon.classList.add('hidden');
+          pauseIcon.classList.remove('hidden');
+        } else {
+          audio.pause();
+          playIcon.classList.remove('hidden');
+          pauseIcon.classList.add('hidden');
+        }
+      });
+
+      // Stop button
+      stopBtn.addEventListener('click', () => {
+        audio.pause();
+        audio.currentTime = 0;
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        progressBar.style.width = '0%';
+        currentTimeEl.textContent = '0:00';
+      });
+
+      // Click on progress bar to seek
+      progressContainer.addEventListener('click', (e) => {
+        const rect = progressContainer.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percentage = clickX / rect.width;
+        audio.currentTime = percentage * audio.duration;
+      });
+
+      // Reset when audio ends
+      audio.addEventListener('ended', () => {
+        playIcon.classList.remove('hidden');
+        pauseIcon.classList.add('hidden');
+        audio.currentTime = 0;
+        progressBar.style.width = '0%';
+        currentTimeEl.textContent = '0:00';
+      });
+    });
+  }
+
+  async function loadExperience() {
+    const container = document.getElementById('experience-container');
+    if (!container) return;
+
+    try {
+      const response = await fetch('/experience.json');
+      if (!response.ok) throw new Error('Failed to load experience');
+
+      const allExperience: Experience[] = await response.json();
+      const experience = allExperience.filter(exp => exp.is_active);
+
+      // Sort by start date (most recent first)
+      experience.sort((a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime());
+
+      const html = experience.map((exp, index) => {
+        const startDate = new Date(exp.startDate);
+        const endDate = exp.endDate ? new Date(exp.endDate) : null;
+        const startStr = startDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' });
+        const endStr = endDate ? endDate.toLocaleDateString('es-ES', { year: 'numeric', month: 'short' }) : 'Presente';
+
+        // Calculate duration
+        const end = endDate || new Date();
+        const months = (end.getFullYear() - startDate.getFullYear()) * 12 + (end.getMonth() - startDate.getMonth());
+        const years = Math.floor(months / 12);
+        const remainingMonths = months % 12;
+        let duration = '';
+        if (years > 0) duration += `${years} año${years > 1 ? 's' : ''}`;
+        if (remainingMonths > 0) duration += ` ${remainingMonths} mes${remainingMonths > 1 ? 'es' : ''}`;
+
+        return `
+          <div class="exp-card relative" style="animation-delay: ${index * 100}ms;">
+            ${index < experience.length - 1 ? `
+              <div class="absolute left-8 top-20 bottom-0 w-0.5 bg-gradient-to-b from-primary to-purple-600 hidden md:block"></div>
+            ` : ''}
+
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-6 md:p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 relative group">
+              <div class="flex flex-col md:flex-row md:items-start gap-6">
+                <!-- Timeline Icon -->
+                <div class="flex-shrink-0">
+                  <div class="w-16 h-16 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                    <span class="material-symbols-outlined text-white text-3xl">
+                      ${exp.current ? 'work' : 'work_history'}
+                    </span>
+                  </div>
+                </div>
+
+                <!-- Content -->
+                <div class="flex-1">
+                  <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
+                    <div>
+                      <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">${exp.position}</h3>
+                      <p class="text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 font-semibold">${exp.company}</p>
+                    </div>
+                    ${exp.current ? `
+                      <span class="mt-2 md:mt-0 inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                        Actual
+                      </span>
+                    ` : ''}
+                  </div>
+
+                  <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                    <div class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">location_on</span>
+                      <span>${exp.location}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">calendar_month</span>
+                      <span>${startStr} - ${endStr}</span>
+                    </div>
+                    <div class="flex items-center gap-1">
+                      <span class="material-symbols-outlined text-sm">schedule</span>
+                      <span>${duration}</span>
+                    </div>
+                  </div>
+
+                  <p class="text-gray-700 dark:text-gray-300 mb-4">${exp.description}</p>
+
+                  <!-- Achievements -->
+                  ${exp.achievements && exp.achievements.length > 0 ? `
+                    <div class="mb-4">
+                      <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm text-primary">emoji_events</span>
+                        Logros destacados:
+                      </h4>
+                      <ul class="space-y-2">
+                        ${exp.achievements.map(achievement => `
+                          <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                            <span class="text-primary mt-0.5">▸</span>
+                            <span>${achievement}</span>
+                          </li>
+                        `).join('')}
+                      </ul>
+                    </div>
+                  ` : ''}
+
+                  <!-- Technologies -->
+                  ${exp.technologies && exp.technologies.length > 0 ? `
+                    <div>
+                      <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2 text-sm">
+                        <span class="material-symbols-outlined text-sm text-primary">code</span>
+                        Tecnologías:
+                      </h4>
+                      <div class="flex flex-wrap gap-2">
+                        ${exp.technologies.map(tech => `
+                          <span class="bg-primary/10 dark:bg-primary/20 text-primary text-xs font-semibold px-3 py-1 rounded-full">
+                            ${tech}
+                          </span>
+                        `).join('')}
+                      </div>
+                    </div>
+                  ` : ''}
+                </div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      container.innerHTML = html;
+
+      // Trigger animations
+      setTimeout(() => {
+        document.querySelectorAll('.exp-card').forEach((card, index) => {
+          setTimeout(() => {
+            card.classList.add('fade-in-up');
+          }, index * 100);
+        });
+      }, 10);
+    } catch (error) {
+      console.error('Error loading experience:', error);
+      container.innerHTML = `
+        <div class="text-center py-8">
+          <p class="text-red-500 dark:text-red-400">Error al cargar experiencia.</p>
+        </div>
+      `;
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    loadLanguages();
+    loadExperience();
+
+    // Tab switching
+    document.getElementById('tab-languages')?.addEventListener('click', () => switchTab('languages'));
+    document.getElementById('tab-experience')?.addEventListener('click', () => switchTab('experience'));
+  });
 </script>
+
+<style>
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .fade-in-up {
+    animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .hero-content {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .fade-in-section,
+  .tech-card,
+  .exp-card {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #F8F8F8;
+  }
+
+  :root.dark ::-webkit-scrollbar-track {
+    background: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--primary-color), #9333ea);
+    border-radius: 6px;
+    border: 2px solid #F8F8F8;
+  }
+
+  :root.dark ::-webkit-scrollbar-thumb {
+    border-color: #0a0a0a;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(to bottom, #9333ea, var(--primary-color));
+  }
+
+  #languages-container,
+  #experience-container {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) 0.4s backwards;
+  }
+</style>

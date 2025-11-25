@@ -7,19 +7,44 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <Layout title={lang === 'es' ? 'Videos' : lang === 'en' ? 'Videos' : 'Vídeos'}>
-  <div class="min-h-screen">
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
     <Header />
 
-    <main class="px-6 pb-8 max-w-6xl mx-auto">
-      <div class="flex items-center mb-8 mt-4">
-        <a href={`/${lang === 'es' ? '' : lang}`} class="text-gray-900 dark:text-white hover:text-primary">
-          <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
-            <path d="M15 18l-6-6 6-6"></path>
-          </svg>
-        </a>
-        <h1 class="flex-1 text-center text-2xl font-bold pr-6">
-          {lang === 'es' ? 'Videos' : lang === 'en' ? 'Videos' : 'Vídeos'}
-        </h1>
+    <main class="overflow-hidden px-5">
+      <!-- Hero Section con Ultra Large Text -->
+      <section class="relative min-h-[70vh] flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="text-center">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'MIS' : lang === 'en' ? 'MY' : 'MEUS'}
+              <br />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                {lang === 'es' ? 'VIDEOS' : lang === 'en' ? 'VIDEOS' : 'VÍDEOS'}
+              </span>
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es'
+                ? 'Contenido educativo y tutoriales sobre desarrollo web y tecnología.'
+                : lang === 'en'
+                ? 'Educational content and tutorials about web development and technology.'
+                : 'Conteúdo educacional e tutoriais sobre desenvolvimento web e tecnologia.'}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="pb-16 max-w-7xl mx-auto">
+
+      <!-- Filtro de categorías -->
+      <div class="mb-8">
+        <div class="flex flex-wrap gap-2 justify-center" id="category-filters">
+          <button
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm"
+            data-category="all"
+          >
+            {lang === 'es' ? 'Todos' : lang === 'en' ? 'All' : 'Todos'} <span class="category-count ml-1 text-xs opacity-90"></span>
+          </button>
+        </div>
       </div>
 
       <div id="videos-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -27,6 +52,7 @@ const lang = getLangFromUrl(Astro.url);
           <p class="text-gray-600 dark:text-gray-400">Cargando videos...</p>
         </div>
       </div>
+      </section>
     </main>
   </div>
 
@@ -47,8 +73,6 @@ const lang = getLangFromUrl(Astro.url);
 </Layout>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-
   interface Video {
     id: number;
     title: string;
@@ -56,9 +80,14 @@ const lang = getLangFromUrl(Astro.url);
     youtube_url: string;
     thumbnail?: string;
     duration?: string;
+    category?: string;
+    tags?: string[];
     pubDate: string;
     is_active: boolean;
   }
+
+  let allVideos: Video[] = [];
+  let currentCategory = 'all';
 
   function getYouTubeVideoId(url: string): string | null {
     const patterns = [
@@ -76,6 +105,138 @@ const lang = getLangFromUrl(Astro.url);
   function getYouTubeThumbnail(url: string): string {
     const videoId = getYouTubeVideoId(url);
     return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
+  }
+
+  function createCategoryFilters(videos: Video[]) {
+    const categoriesMap = new Map<string, number>();
+
+    // Contar videos por categoría
+    videos.forEach(video => {
+      const category = video.category || 'Sin categoría';
+      categoriesMap.set(category, (categoriesMap.get(category) || 0) + 1);
+    });
+
+    const filtersContainer = document.getElementById('category-filters');
+    if (!filtersContainer) return;
+
+    // Botón "Todos"
+    const allBtn = filtersContainer.querySelector('[data-category="all"]');
+    if (allBtn) {
+      const countSpan = allBtn.querySelector('.category-count');
+      if (countSpan) countSpan.textContent = `(${videos.length})`;
+    }
+
+    // Crear botones de categorías
+    const categoryButtons = Array.from(categoriesMap.entries())
+      .sort((a, b) => a[0].localeCompare(b[0]))
+      .map(([category, count]) => {
+        return `
+          <button
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm"
+            data-category="${category}"
+          >
+            ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
+          </button>
+        `;
+      }).join('');
+
+    // Agregar los botones después del botón "Todos"
+    if (allBtn) {
+      allBtn.insertAdjacentHTML('afterend', categoryButtons);
+    }
+
+    // Agregar event listeners
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const category = btn.getAttribute('data-category');
+        filterByCategory(category || 'all');
+      });
+    });
+  }
+
+  function filterByCategory(category: string) {
+    currentCategory = category;
+
+    // Actualizar estilos de botones
+    document.querySelectorAll('.category-btn').forEach(btn => {
+      if (btn.getAttribute('data-category') === category) {
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm';
+      } else {
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm';
+      }
+    });
+
+    // Filtrar videos
+    const filteredVideos = category === 'all'
+      ? allVideos
+      : allVideos.filter(v => v.category === category);
+
+    renderVideos(filteredVideos);
+  }
+
+  function renderVideos(videos: Video[]) {
+    const container = document.getElementById('videos-container');
+    if (!container) return;
+
+    if (videos.length === 0) {
+      container.innerHTML = `
+        <div class="col-span-full text-center py-12">
+          <p class="text-gray-600 dark:text-gray-400 text-lg">No hay videos en esta categoría.</p>
+        </div>
+      `;
+      return;
+    }
+
+    const html = videos.map(video => {
+      const thumbnail = video.thumbnail || getYouTubeThumbnail(video.youtube_url);
+
+      return `
+        <div class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 cursor-pointer video-card border border-slate-200 dark:border-slate-700"
+             data-video='${JSON.stringify(video).replace(/'/g, "&apos;")}'>
+          <div class="relative group">
+            <img src="${thumbnail}" alt="${video.title}" class="w-full h-48 object-cover" />
+            <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
+              <div class="w-16 h-16 rounded-full bg-gradient-to-r from-red-600 to-red-700 flex items-center justify-center shadow-xl group-hover:scale-110 transition-transform">
+                <span class="material-symbols-outlined text-white text-4xl">play_arrow</span>
+              </div>
+            </div>
+            ${video.duration ? `
+              <div class="absolute bottom-2 right-2 bg-black/90 text-white text-xs font-semibold px-2 py-1 rounded">
+                ${video.duration}
+              </div>
+            ` : ''}
+            ${video.category ? `
+              <div class="absolute top-2 left-2 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                ${video.category}
+              </div>
+            ` : ''}
+          </div>
+          <div class="p-5">
+            <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-primary transition-colors">${video.title}</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-3 mb-3">${video.description}</p>
+            ${video.tags && video.tags.length > 0 ? `
+              <div class="flex flex-wrap gap-2">
+                ${video.tags.slice(0, 3).map(tag => `
+                  <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-md">
+                    ${tag}
+                  </span>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = html;
+
+    // Agregar event listeners a las cards
+    document.querySelectorAll('.video-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const videoData = JSON.parse(card.getAttribute('data-video') || '{}');
+        openVideoModal(videoData);
+      });
+    });
   }
 
   function openVideoModal(video: Video) {
@@ -120,87 +281,35 @@ const lang = getLangFromUrl(Astro.url);
     if (!container) return;
 
     try {
-      const response = await fetch(`${backendUrl}/api/v1/multimedia?type=video`);
+      // Cargar desde JSON local
+      const response = await fetch('/videos.json');
 
-      let videos: Video[] = [];
+      if (!response.ok) throw new Error('Failed to load videos');
 
-      if (response.ok) {
-        const data = await response.json();
-        videos = data.filter((v: any) => v.is_active && v.youtube_url);
-      }
+      const loadedVideos: Video[] = await response.json();
+      allVideos = loadedVideos.filter(v => v.is_active);
 
-      if (videos.length === 0) {
-        videos = [
-          {
-            id: 1,
-            title: 'Tutorial: Desarrollo con Astro',
-            description: 'Aprende a crear sitios web super rápidos con Astro y SSG.',
-            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            duration: '15:30',
-            pubDate: new Date().toISOString(),
-            is_active: true
-          },
-          {
-            id: 2,
-            title: 'Implementando i18n en tu proyecto',
-            description: 'Guía completa para agregar múltiples idiomas a tu aplicación.',
-            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            duration: '20:45',
-            pubDate: new Date().toISOString(),
-            is_active: true
-          },
-          {
-            id: 3,
-            title: 'Chatbots con LangChain',
-            description: 'Crea chatbots inteligentes usando LangChain y OpenAI.',
-            youtube_url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            duration: '25:00',
-            pubDate: new Date().toISOString(),
-            is_active: true
-          }
-        ];
-      }
-
-      const html = videos.map(video => {
-        const thumbnail = video.thumbnail || getYouTubeThumbnail(video.youtube_url);
-
-        return `
-          <div class="bg-white dark:bg-[#1a1a2e] rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow cursor-pointer video-card"
-               data-video='${JSON.stringify(video).replace(/'/g, "&apos;")}'>
-            <div class="relative group">
-              <img src="${thumbnail}" alt="${video.title}" class="w-full h-48 object-cover" />
-              <div class="absolute inset-0 bg-black/40 group-hover:bg-black/60 transition-colors flex items-center justify-center">
-                <div class="w-16 h-16 rounded-full bg-red-600 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-white text-4xl">play_arrow</span>
-                </div>
-              </div>
-              ${video.duration ? `
-                <div class="absolute bottom-2 right-2 bg-black/80 text-white text-xs px-2 py-1 rounded">
-                  ${video.duration}
-                </div>
-              ` : ''}
-            </div>
-            <div class="p-4">
-              <h3 class="font-bold text-gray-900 dark:text-white mb-2 line-clamp-2">${video.title}</h3>
-              <p class="text-sm text-gray-600 dark:text-gray-400 line-clamp-2">${video.description}</p>
-            </div>
+      if (allVideos.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full text-center py-8">
+            <p class="text-gray-600 dark:text-gray-400">No hay videos disponibles en este momento.</p>
           </div>
         `;
-      }).join('');
+        return;
+      }
 
-      container.innerHTML = html;
+      // Crear filtros de categorías
+      createCategoryFilters(allVideos);
 
-      document.querySelectorAll('.video-card').forEach(card => {
-        card.addEventListener('click', () => {
-          const videoData = JSON.parse(card.getAttribute('data-video') || '{}');
-          openVideoModal(videoData);
-        });
-      });
+      // Renderizar todos los videos inicialmente
+      renderVideos(allVideos);
+
     } catch (error) {
       console.error('Error loading videos:', error);
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">No hay videos disponibles en este momento.</p>
+          <p class="text-red-500 dark:text-red-400">Error al cargar videos.</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;
     }

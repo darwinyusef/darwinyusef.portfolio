@@ -1,0 +1,387 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import { getLangFromUrl, useTranslations } from '../../i18n/utils';
+import fs from 'fs';
+import path from 'path';
+
+export async function getStaticPaths() {
+  const filePath = path.join(process.cwd(), 'public', 'blog.json');
+  const fileContents = fs.readFileSync(filePath, 'utf8');
+  const posts = JSON.parse(fileContents);
+
+  return posts
+    .filter((post: any) => post.is_active)
+    .map((post: any) => ({
+      params: { slug: post.slug },
+      props: { post }
+    }));
+}
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const { slug } = Astro.params;
+const { post } = Astro.props;
+---
+
+<Layout title={post.title}>
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+    <Header />
+
+    <main class="relative">
+      <!-- Hero Section with Cover Image -->
+      <section class="relative h-[60vh] md:h-[70vh] overflow-hidden">
+        {post.coverImage ? (
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            class="w-full h-full object-cover"
+          />
+        ) : (
+          <div class="w-full h-full bg-gradient-to-br from-primary via-purple-600 to-pink-600"></div>
+        )}
+
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-t from-[#F8F8F8] dark:from-[#0a0a0a] via-transparent to-transparent"></div>
+
+        <!-- Back Button -->
+        <a
+          href={`/${lang === 'es' ? '' : lang}/blog`}
+          class="absolute top-8 left-4 md:left-8 z-10 flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-full text-sm font-medium text-gray-900 dark:text-white hover:bg-white dark:hover:bg-black transition-all duration-300 shadow-lg hover:shadow-xl"
+        >
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+          </svg>
+          Volver
+        </a>
+
+        <!-- Floating Meta Badge -->
+        <div class="absolute top-8 right-4 md:right-8 flex gap-2">
+          <span class="px-3 py-1 bg-primary text-white text-xs font-bold rounded-full shadow-lg backdrop-blur-sm">
+            {post.category}
+          </span>
+        </div>
+      </section>
+
+      <!-- Article Content -->
+      <article class="max-w-4xl mx-auto px-6 -mt-32 relative z-10">
+        <!-- Title Card -->
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800 transform transition-all duration-500 hover:shadow-3xl article-card">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            {post.title}
+          </h1>
+
+          <!-- Meta Information -->
+          <div class="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-gray-600 dark:text-gray-400 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+            <div class="flex items-center gap-2">
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white font-bold text-sm">
+                {post.author.split(' ').map(n => n[0]).join('')}
+              </div>
+              <span class="font-medium text-gray-900 dark:text-white">{post.author}</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">calendar_today</span>
+              <span id="post-date"></span>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-lg">schedule</span>
+              <span>{post.readTime}</span>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="flex flex-wrap gap-2">
+            {post.tags.map(tag => (
+              <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full hover:bg-primary hover:text-white transition-colors duration-300 cursor-pointer">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Excerpt -->
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border-l-4 border-primary transform transition-all duration-500 hover:shadow-2xl">
+          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic">
+            {post.excerpt}
+          </p>
+        </div>
+
+        <!-- Markdown Content -->
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800">
+          <div
+            id="markdown-content"
+            class="prose prose-lg dark:prose-invert max-w-none
+              prose-headings:font-bold prose-headings:tracking-tight
+              prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12 prose-h1:pb-4 prose-h1:border-b prose-h1:border-gray-200 dark:prose-h1:border-gray-700
+              prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10
+              prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
+              prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
+              prose-a:text-primary prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
+              prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-bold
+              prose-code:text-primary prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+              prose-pre:bg-[#1a1a1a] prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:p-6 prose-pre:shadow-inner prose-pre:border prose-pre:border-gray-800
+              prose-ul:list-none prose-ul:pl-0 prose-ul:space-y-2
+              prose-ul>li:pl-6 prose-ul>li:relative prose-ul>li:before:content-['▹'] prose-ul>li:before:absolute prose-ul>li:before:left-0 prose-ul>li:before:text-primary prose-ul>li:before:font-bold
+              prose-ol:list-none prose-ol:pl-0 prose-ol:space-y-2 prose-ol:counter-reset-[item]
+              prose-ol>li:pl-8 prose-ol>li:relative prose-ol>li:before:absolute prose-ol>li:before:left-0 prose-ol>li:before:text-primary prose-ol>li:before:font-bold prose-ol>li:before:content-[counter(item)] prose-ol>li:before:counter-increment-[item]
+              prose-li:text-gray-700 dark:prose-li:text-gray-300
+              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-900 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
+              prose-img:rounded-2xl prose-img:shadow-2xl prose-img:my-8 prose-img:border prose-img:border-gray-200 dark:prose-img:border-gray-700
+              prose-hr:border-gray-300 dark:prose-hr:border-gray-700 prose-hr:my-12
+              prose-table:border-collapse prose-table:w-full
+              prose-th:bg-gray-100 dark:prose-th:bg-gray-800 prose-th:p-3 prose-th:text-left prose-th:font-bold
+              prose-td:p-3 prose-td:border-t prose-td:border-gray-200 dark:prose-td:border-gray-700
+            "
+          >
+          </div>
+        </div>
+
+        <!-- Share Section -->
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border border-gray-100 dark:border-gray-800">
+          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Compartir este artículo</h3>
+          <div class="flex flex-wrap gap-3">
+            <button
+              id="share-twitter"
+              class="group flex items-center gap-2 px-5 py-3 bg-[#1DA1F2] text-white rounded-xl hover:bg-[#1a8cd8] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
+              </svg>
+              <span class="font-medium">Twitter</span>
+            </button>
+
+            <button
+              id="share-linkedin"
+              class="group flex items-center gap-2 px-5 py-3 bg-[#0077B5] text-white rounded-xl hover:bg-[#006399] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
+                <circle cx="4" cy="4" r="2"></circle>
+              </svg>
+              <span class="font-medium">LinkedIn</span>
+            </button>
+
+            <button
+              id="share-copy"
+              class="group flex items-center gap-2 px-5 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+            >
+              <span class="material-symbols-outlined text-lg">content_copy</span>
+              <span class="font-medium">Copiar enlace</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Related Posts -->
+        <div class="mb-16">
+          <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            Artículos relacionados
+          </h3>
+          <div id="related-posts" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          </div>
+        </div>
+      </article>
+
+      <!-- Progress Bar -->
+      <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 z-50">
+        <div id="progress-bar" class="h-full bg-gradient-to-r from-primary via-purple-600 to-pink-600 transition-all duration-150" style="width: 0%"></div>
+      </div>
+    </main>
+  </div>
+</Layout>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
+
+  .article-card {
+    animation: fadeInUp 0.6s ease-out;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Smooth scroll */
+  html {
+    scroll-behavior: smooth;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+
+  .dark ::-webkit-scrollbar-track {
+    background: #1a1a1a;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: #555;
+  }
+</style>
+
+<script define:vars={{ post }}>
+  import { marked } from 'marked';
+
+  let currentPost = post;
+
+  // Configure marked
+  marked.setOptions({
+    breaks: true,
+    gfm: true,
+  });
+
+  // Render post immediately
+  document.addEventListener('DOMContentLoaded', () => {
+    renderPost();
+    loadRelatedPosts();
+    setupShareButtons();
+    setupProgressBar();
+  });
+
+  function renderPost() {
+    // Update date
+    const dateEl = document.getElementById('post-date');
+    if (dateEl) {
+      const date = new Date(currentPost.publishDate);
+      dateEl.textContent = date.toLocaleDateString('es-ES', {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric'
+      });
+    }
+
+    // Render markdown
+    const contentEl = document.getElementById('markdown-content');
+    if (contentEl) {
+      contentEl.innerHTML = marked.parse(currentPost.content);
+    }
+  }
+
+  async function loadRelatedPosts() {
+    try {
+      const response = await fetch('/blog.json');
+      if (!response.ok) return;
+
+      const posts = await response.json();
+      const relatedPosts = posts
+        .filter(p => p.is_active && p.category === currentPost.category && p.id !== currentPost.id)
+        .slice(0, 2);
+
+      const container = document.getElementById('related-posts');
+      if (!container || relatedPosts.length === 0) return;
+
+      container.innerHTML = relatedPosts.map(post => {
+        const date = new Date(post.publishDate);
+        const formattedDate = date.toLocaleDateString('es-ES', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        });
+
+        return `
+          <a
+            href="/blog/${post.slug}"
+            class="group bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-800 transform hover:-translate-y-2"
+          >
+            <div class="relative h-48 overflow-hidden">
+              ${post.coverImage ? `
+                <img
+                  src="${post.coverImage}"
+                  alt="${post.title}"
+                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                >
+              ` : `
+                <div class="w-full h-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                  <span class="material-symbols-outlined text-white text-5xl">article</span>
+                </div>
+              `}
+              <div class="absolute top-4 left-4">
+                <span class="px-3 py-1 bg-white/90 dark:bg-black/90 backdrop-blur-sm text-primary text-xs font-bold rounded-full">
+                  ${post.category}
+                </span>
+              </div>
+            </div>
+            <div class="p-6">
+              <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
+                ${post.title}
+              </h4>
+              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
+                ${post.excerpt}
+              </p>
+              <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
+                <span>${formattedDate}</span>
+                <span class="flex items-center gap-1">
+                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  ${post.readTime}
+                </span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
+    } catch (error) {
+      console.error('Error loading related posts:', error);
+    }
+  }
+
+  function setupShareButtons() {
+    const url = window.location.href;
+    const title = currentPost.title;
+
+    document.getElementById('share-twitter')?.addEventListener('click', () => {
+      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
+      window.open(twitterUrl, '_blank', 'width=550,height=420');
+    });
+
+    document.getElementById('share-linkedin')?.addEventListener('click', () => {
+      const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
+      window.open(linkedinUrl, '_blank', 'width=550,height=420');
+    });
+
+    document.getElementById('share-copy')?.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(url);
+        const btn = document.getElementById('share-copy');
+        if (btn) {
+          const originalHTML = btn.innerHTML;
+          btn.innerHTML = '<span class="material-symbols-outlined text-lg">check</span><span class="font-medium">¡Copiado!</span>';
+          setTimeout(() => {
+            btn.innerHTML = originalHTML;
+          }, 2000);
+        }
+      } catch (err) {
+        console.error('Failed to copy:', err);
+      }
+    });
+  }
+
+  function setupProgressBar() {
+    const progressBar = document.getElementById('progress-bar');
+    if (!progressBar) return;
+
+    window.addEventListener('scroll', () => {
+      const windowHeight = window.innerHeight;
+      const documentHeight = document.documentElement.scrollHeight;
+      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
+
+      progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
+    });
+  }
+</script>

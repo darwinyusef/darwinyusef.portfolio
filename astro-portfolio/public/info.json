@@ -1,12 +1,12 @@
 [
   {
     "id": 1,
-    "title": "Introducción al Desarrollo Full Stack",
-    "description": "En este episodio exploramos los fundamentos del desarrollo Full Stack y las tecnologías más demandadas.",
-    "duration": "25:30",
-    "audio_url": "/audio/episode-1.mp3",
+    "title": "¿Qué Hacer en Crisis?",
+    "description": "Un episodio real sobre cómo enfrentar situaciones de crisis desde una perspectiva práctica y transformadora.",
+    "duration": "31:12",
+    "audio_url": "/quehacerencrisis.mp3",
     "cover_image": "https://pngimg.com/uploads/birds/birds_PNG106.png",
-    "pubDate": "2025-08-05T10:00:00Z",
+    "pubDate": "2025-11-24T10:00:00Z",
     "is_active": true
   },
   {

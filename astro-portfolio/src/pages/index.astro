@@ -4,6 +4,7 @@ import Header from '../components/Header.astro';
 import Chatbot from '../components/Chatbot.astro';
 import Testimonials from '../components/Testimonials.astro';
 import UpcomingEvents from '../components/UpcomingEvents.astro';
+import SkillsRadar from '../components/SkillsRadar.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -11,39 +12,274 @@ const t = useTranslations(lang);
 ---
 
 <Layout title={t('home.title')}>
-  <div class="min-h-screen">
+  <!-- Cursor Follower -->
+  <div id="cursor-follower" class="cursor-follower">
+    <span id="cursor-text"></span>
+  </div>
+
+  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
     <Header />
 
-    <main class="px-4 py-8 max-w-4xl mx-auto">
-      <section class="flex flex-col items-center text-center gap-8">
-        <div class="w-40 h-40 rounded-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white text-6xl font-black">
-          SS
-        </div>
+    <main class="overflow-hidden px-5">
+      <!-- Sección 1: Texto Big -->
+      <section class="relative min-h-screen flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Texto Ultra Grande - Izquierda -->
+            <div class="lg:col-span-7 space-y-8">
+              <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white hero-text" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'CREANDO' : lang === 'en' ? 'CREATING' : 'CRIANDO'}
+                <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+                  {lang === 'es' ? 'DIGITAL' : lang === 'en' ? 'DIGITAL' : 'DIGITAL'}
+                </span>
+                <br />
+                {lang === 'es' ? 'EXPERIENCIAS' : lang === 'en' ? 'EXPERIENCES' : 'EXPERIÊNCIAS'}
+              </h1>
 
-        <div class="flex flex-col gap-4 items-center">
-          <h1 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white tracking-tight">
-            {t('home.title')}
-          </h1>
-          <p class="max-w-md text-base text-gray-600 dark:text-gray-400">
-            {t('home.subtitle')}
-          </p>
-        </div>
+              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Desarrollador Full Stack especializado en crear aplicaciones web innovadoras y experiencias digitales memorables.' : lang === 'en' ? 'Full Stack Developer specialized in creating innovative web applications and memorable digital experiences.' : 'Desenvolvedor Full Stack especializado em criar aplicativos web inovadores e experiências digitais memoráveis.'}
+              </p>
 
-        <a
-          href="/cv.pdf"
-          class="w-full max-w-xs bg-primary text-white font-bold py-3 px-6 rounded-lg text-base hover:opacity-90 transition-opacity flex items-center justify-center gap-2"
-        >
-          <span class="material-symbols-outlined">download</span>
-          {t('home.downloadCV')}
-        </a>
+              <div class="flex flex-wrap gap-4">
+                <a
+                  href={`/${lang === 'es' ? '' : lang}/#contact`}
+                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? '¡Comencemos!' : lang === 'en' ? 'Let\'s start!' : 'Vamos começar!'}
+                >
+                  {lang === 'es' ? 'Iniciar Proyecto' : lang === 'en' ? 'Start Project' : 'Iniciar Projeto'}
+                </a>
+                <a
+                  href={`/${lang === 'es' ? '' : lang}/services`}
+                  class="px-8 py-4 bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 dark:border-gray-800 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Ver servicios' : lang === 'en' ? 'View services' : 'Ver serviços'}
+                >
+                  {lang === 'es' ? 'Ver Servicios' : lang === 'en' ? 'View Services' : 'Ver Serviços'}
+                </a>
+              </div>
+            </div>
+
+            <!-- Imagen Crossfade 1 - Derecha -->
+            <div class="lg:col-span-5">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                <div class="crossfade-container" data-images="01,02">
+                  <img src="/img/01.png" alt="Project 1" class="crossfade-image active" />
+                  <img src="/img/02.png" alt="Project 2" class="crossfade-image" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </section>
 
-      <section class="mt-16">
-        <div class="border-t border-gray-200 dark:border-gray-700 my-8"></div>
-        <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-          {t('home.aboutMe')}
-        </h2>
-        <div class="space-y-4 text-base text-gray-600 dark:text-gray-400" id="about-content">
+      <!-- Sección 2: Sobre Mí -->
+      <section class="py-20">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-12">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+              <!-- Imagen de Perfil -->
+              <div class="md:col-span-1 flex justify-center">
+                <div class="relative w-48 h-48 md:w-64 md:h-64 rounded-full overflow-hidden shadow-2xl ring-4 ring-primary/20">
+                  <img src="/img/yusef.jpeg" alt="Yusef González" class="w-full h-full object-cover" />
+                </div>
+              </div>
+
+              <!-- Contenido Sobre Mí -->
+              <div class="md:col-span-2">
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-6" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  {lang === 'es' ? 'Sobre Mí' : lang === 'en' ? 'About Me' : 'Sobre Mim'}
+                </h2>
+                <div class="space-y-4 text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p>
+                    {lang === 'es' ? 'Soy un ingeniero de software especializado en construir aplicaciones web de alta calidad con enfoque en la experiencia del usuario y el rendimiento. Me apasiona aprender nuevas tecnologías y resolver problemas complejos.' : lang === 'en' ? 'I am a software engineer specialized in building high-quality web applications with a focus on user experience and performance. I am passionate about learning new technologies and solving complex problems.' : 'Sou um engenheiro de software especializado em construir aplicativos web de alta qualidade com foco na experiência do usuário e desempenho. Sou apaixonado por aprender novas tecnologias e resolver problemas complexos.'}
+                  </p>
+                  <p>
+                    {lang === 'es' ? 'Tengo experiencia trabajando con diversas tecnologías y he participado en múltiples proyectos. En mi tiempo libre, disfruto contribuir a proyectos de código abierto.' : lang === 'en' ? 'I have experience working with various technologies and have participated in multiple projects. In my free time, I enjoy contributing to open source projects.' : 'Tenho experiência trabalhando com várias tecnologias e participei de vários projetos. No meu tempo livre, gosto de contribuir para projetos de código aberto.'}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 3: Frase Motivadora -->
+      <section class="py-20">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="bg-gradient-to-br from-primary via-purple-600 to-pink-600 rounded-3xl shadow-2xl p-12 md:p-16 text-center">
+            <blockquote class="text-3xl md:text-5xl lg:text-6xl font-black text-white leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? '"El código es poesía, el diseño es arte"' : lang === 'en' ? '"Code is poetry, design is art"' : '"Código é poesia, design é arte"'}
+            </blockquote>
+            <p class="mt-6 text-xl md:text-2xl text-white/90 font-semibold">
+              {lang === 'es' ? '— Filosofía de desarrollo' : lang === 'en' ? '— Development philosophy' : '— Filosofia de desenvolvimento'}
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 4: Imagen Crossfade Izquierda + Texto Big -->
+      <section class="relative min-h-screen flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Imagen Crossfade - Izquierda -->
+            <div class="lg:col-span-5 order-2 lg:order-1">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                <div class="crossfade-container" data-images="03,04">
+                  <img src="/img/03.png" alt="Project 3" class="crossfade-image active" />
+                  <img src="/img/04.png" alt="Project 4" class="crossfade-image" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Texto Ultra Grande - Derecha -->
+            <div class="lg:col-span-7 space-y-8 order-1 lg:order-2">
+              <h2 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'DISEÑO' : lang === 'en' ? 'DESIGN' : 'DESIGN'}
+                <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-pink-600 via-purple-600 to-primary">
+                  {lang === 'es' ? 'MODERNO' : lang === 'en' ? 'MODERN' : 'MODERNO'}
+                </span>
+                <br />
+                {lang === 'es' ? 'INNOVADOR' : lang === 'en' ? 'INNOVATIVE' : 'INOVADOR'}
+              </h2>
+
+              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Interfaces que cautivan y convierten. Cada pixel con propósito, cada interacción con intención.' : lang === 'en' ? 'Interfaces that captivate and convert. Every pixel with purpose, every interaction with intention.' : 'Interfaces que cativam e convertem. Cada pixel com propósito, cada interação com intenção.'}
+              </p>
+
+              <div class="flex flex-wrap gap-4">
+                <a
+                  href={`/${lang === 'es' ? '' : lang}/skills`}
+                  class="px-8 py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Ver habilidades' : lang === 'en' ? 'View skills' : 'Ver habilidades'}
+                >
+                  {lang === 'es' ? 'Ver Habilidades' : lang === 'en' ? 'View Skills' : 'Ver Habilidades'}
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección: Mapa Radial + Card de Redes Sociales -->
+      <section class="py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <!-- Mapa Radial / Araña - Izquierda -->
+            <div class="order-2 lg:order-1">
+              <SkillsRadar lang={lang} />
+            </div>
+
+            <!-- Card de Redes Sociales - Derecha -->
+            <div class="order-1 lg:order-2">
+              <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl p-8 md:p-12">
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  Yusef González
+                </h3>
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
+                  {lang === 'es' ? 'Desarrollador Full Stack con pasión por crear soluciones innovadoras. Especializado en arquitecturas escalables, diseño de interfaces modernas y desarrollo de aplicaciones de alto rendimiento.' : lang === 'en' ? 'Full Stack Developer with a passion for creating innovative solutions. Specialized in scalable architectures, modern interface design, and high-performance application development.' : 'Desenvolvedor Full Stack com paixão por criar soluções inovadoras. Especializado em arquiteturas escaláveis, design de interfaces modernas e desenvolvimento de aplicativos de alto desempenho.'}
+                </p>
+
+                <!-- Redes Sociales - Solo Íconos -->
+                <div class="flex flex-wrap gap-3">
+                  <!-- GitHub -->
+                  <a
+                    href="https://github.com/darwinyusef"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    data-cursor-text="GitHub"
+                    aria-label="GitHub"
+                  >
+                    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </a>
+
+                  <!-- LinkedIn -->
+                  <a
+                    href="https://linkedin.com/in/darwinyusef"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-[#0077b5] text-white rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    data-cursor-text="LinkedIn"
+                    aria-label="LinkedIn"
+                  >
+                    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                    </svg>
+                  </a>
+
+                  <!-- Twitter/X -->
+                  <a
+                    href="https://twitter.com/darwinyusef"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-black dark:bg-white text-white dark:text-black rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    data-cursor-text="Twitter/X"
+                    aria-label="Twitter/X"
+                  >
+                    <svg class="h-7 w-7" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                  </a>
+
+                  <!-- Email -->
+                  <a
+                    href="mailto:wsgestor@gmail.com"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    data-cursor-text="Email"
+                    aria-label="Email"
+                  >
+                    <svg class="h-7 w-7" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Sección 5: Texto Big Final -->
+      <section class="relative min-h-screen flex items-center justify-center py-20">
+        <div class="max-w-[1800px] mx-auto w-full">
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+            <!-- Texto Ultra Grande - Izquierda -->
+            <div class="lg:col-span-7 space-y-8">
+              <h2 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'CÓDIGO' : lang === 'en' ? 'CODE' : 'CÓDIGO'}
+                <br />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-primary">
+                  {lang === 'es' ? 'LIMPIO' : lang === 'en' ? 'CLEAN' : 'LIMPO'}
+                </span>
+                <br />
+                {lang === 'es' ? 'ESCALABLE' : lang === 'en' ? 'SCALABLE' : 'ESCALÁVEL'}
+              </h2>
+
+              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Arquitecturas robustas que crecen con tu negocio. Código mantenible, testeable y listo para producción.' : lang === 'en' ? 'Robust architectures that grow with your business. Maintainable, testable code ready for production.' : 'Arquiteturas robustas que crescem com seu negócio. Código mantível, testável e pronto para produção.'}
+              </p>
+
+              <div class="flex flex-wrap gap-4">
+                <a
+                  href={`/${lang === 'es' ? '' : lang}/blog`}
+                  class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Leer blog' : lang === 'en' ? 'Read blog' : 'Ler blog'}
+                >
+                  {lang === 'es' ? 'Leer Blog' : lang === 'en' ? 'Read Blog' : 'Ler Blog'}
+                </a>
+              </div>
+            </div>
+
+            <!-- Imagen Estática Final - Derecha (sin crossfade) -->
+            <div class="lg:col-span-5">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
+                <img src="/img/05.png" alt="Project 5" class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -52,23 +288,150 @@ const t = useTranslations(lang);
         <Testimonials />
       </section>
 
-      <section class="mt-16">
-        <div class="border-t border-gray-200 dark:border-gray-700 my-8"></div>
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <UpcomingEvents />
-          <div class="bg-gradient-to-br from-primary to-purple-600 rounded-xl shadow-md p-6 text-white flex flex-col justify-center">
-            <h3 class="text-2xl font-bold mb-4">
-              {lang === 'es' ? '¿Listo para empezar?' : lang === 'en' ? 'Ready to get started?' : 'Pronto para começar?'}
-            </h3>
-            <p class="mb-6">
-              {lang === 'es' ? 'Hablemos sobre tu próximo proyecto' : lang === 'en' ? 'Let\'s talk about your next project' : 'Vamos falar sobre seu próximo projeto'}
+      <!-- Sección de Eventos Próximos -->
+      <section class="py-20">
+        <div class="max-w-[1400px] mx-auto">
+          <div class="text-center mb-12">
+            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'Próximos Eventos' : lang === 'en' ? 'Upcoming Events' : 'Próximos Eventos'}
+            </h2>
+            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
+              {lang === 'es' ? 'Únete a mis próximas charlas, talleres y eventos' : lang === 'en' ? 'Join my upcoming talks, workshops and events' : 'Participe das minhas próximas palestras, workshops e eventos'}
             </p>
-            <a
-              href={`/${lang === 'es' ? '' : lang}/#contact`}
-              class="bg-white text-primary font-bold py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors inline-block text-center"
-            >
-              {lang === 'es' ? 'Contactar Ahora' : lang === 'en' ? 'Contact Now' : 'Entrar em Contato'}
-            </a>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Evento 1 -->
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
+              <div class="bg-gradient-to-br from-primary to-purple-600 p-6 text-white">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
+                      {lang === 'es' ? 'Taller' : lang === 'en' ? 'Workshop' : 'Workshop'}
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                      {lang === 'es' ? 'Full Stack con React' : lang === 'en' ? 'Full Stack with React' : 'Full Stack com React'}
+                    </h3>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-3xl font-black">15</div>
+                    <div class="text-sm uppercase">{lang === 'es' ? 'Dic' : lang === 'en' ? 'Dec' : 'Dez'}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-sm">18:00 - 20:00</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="text-sm">{lang === 'es' ? 'Online' : lang === 'en' ? 'Online' : 'Online'}</span>
+                  </div>
+                </div>
+                <a
+                  href="#"
+                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Registrarme' : lang === 'en' ? 'Register' : 'Registrar'}
+                >
+                  {lang === 'es' ? 'Registrarse' : lang === 'en' ? 'Register' : 'Registrar'}
+                </a>
+              </div>
+            </div>
+
+            <!-- Evento 2 -->
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
+              <div class="bg-gradient-to-br from-pink-600 to-purple-600 p-6 text-white">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
+                      {lang === 'es' ? 'Charla' : lang === 'en' ? 'Talk' : 'Palestra'}
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                      {lang === 'es' ? 'Arquitectura Escalable' : lang === 'en' ? 'Scalable Architecture' : 'Arquitetura Escalável'}
+                    </h3>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-3xl font-black">22</div>
+                    <div class="text-sm uppercase">{lang === 'es' ? 'Dic' : lang === 'en' ? 'Dec' : 'Dez'}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-sm">19:00 - 21:00</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="text-sm">Zoom Webinar</span>
+                  </div>
+                </div>
+                <a
+                  href="#"
+                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Reservar' : lang === 'en' ? 'Book' : 'Reservar'}
+                >
+                  {lang === 'es' ? 'Reservar Lugar' : lang === 'en' ? 'Book Seat' : 'Reservar Lugar'}
+                </a>
+              </div>
+            </div>
+
+            <!-- Evento 3 -->
+            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
+              <div class="bg-gradient-to-br from-purple-600 to-primary p-6 text-white">
+                <div class="flex items-start justify-between">
+                  <div>
+                    <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
+                      {lang === 'es' ? 'Meetup' : lang === 'en' ? 'Meetup' : 'Meetup'}
+                    </div>
+                    <h3 class="text-2xl font-bold mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                      {lang === 'es' ? 'Networking Developers' : lang === 'en' ? 'Developers Networking' : 'Networking Developers'}
+                    </h3>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-3xl font-black">28</div>
+                    <div class="text-sm uppercase">{lang === 'es' ? 'Dic' : lang === 'en' ? 'Dec' : 'Dez'}</div>
+                  </div>
+                </div>
+              </div>
+              <div class="p-6">
+                <div class="space-y-3 mb-6">
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span class="text-sm">17:00 - 19:00</span>
+                  </div>
+                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                    <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+                    </svg>
+                    <span class="text-sm">Discord Community</span>
+                  </div>
+                </div>
+                <a
+                  href="#"
+                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  data-cursor-text={lang === 'es' ? 'Unirme' : lang === 'en' ? 'Join' : 'Participar'}
+                >
+                  {lang === 'es' ? 'Unirme' : lang === 'en' ? 'Join Now' : 'Participar'}
+                </a>
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -85,17 +448,19 @@ const t = useTranslations(lang);
               {t('home.letConnect')}
             </p>
             <a
-              class="text-primary font-medium hover:underline"
+              class="text-primary font-medium hover:underline cursor-hover-target"
               href="mailto:wsgestor@gmail.com"
+              data-cursor-text={lang === 'es' ? 'Envíame un correo' : lang === 'en' ? 'Send me an email' : 'Me envie um email'}
             >
               wsgestor@gmail.com
             </a>
 
             <div class="flex gap-4 mt-2">
               <a
-                class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors"
+                class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors cursor-hover-target"
                 href="#"
                 aria-label="LinkedIn"
+                data-cursor-text="LinkedIn"
               >
                 <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
@@ -104,9 +469,10 @@ const t = useTranslations(lang);
                 </svg>
               </a>
               <a
-                class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors"
+                class="text-gray-600 dark:text-gray-400 hover:text-primary dark:hover:text-white transition-colors cursor-hover-target"
                 href="#"
                 aria-label="GitHub"
+                data-cursor-text="GitHub"
               >
                 <svg class="h-6 w-6" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                   <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
@@ -204,6 +570,84 @@ const t = useTranslations(lang);
 
   document.addEventListener('DOMContentLoaded', loadAboutContent);
 
+  // Crossfade Animation for Images
+  function initCrossfade() {
+    const containers = document.querySelectorAll('.crossfade-container');
+
+    containers.forEach(container => {
+      const images = container.querySelectorAll('.crossfade-image');
+      let currentIndex = 0;
+
+      setInterval(() => {
+        // Remove active from current image
+        images[currentIndex].classList.remove('active');
+
+        // Move to next image
+        currentIndex = (currentIndex + 1) % images.length;
+
+        // Add active to next image
+        images[currentIndex].classList.add('active');
+      }, 4000); // Change every 4 seconds
+    });
+  }
+
+  // Initialize crossfade after DOM loads
+  document.addEventListener('DOMContentLoaded', initCrossfade);
+
+  // Cursor Follower Effect
+  const cursorFollower = document.getElementById('cursor-follower');
+  const cursorText = document.getElementById('cursor-text');
+  let mouseX = 0;
+  let mouseY = 0;
+  let followerX = 0;
+  let followerY = 0;
+  const delay = 0.1;
+
+  // Track mouse position
+  document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+  });
+
+  // Smooth follow animation
+  function animate() {
+    const distX = mouseX - followerX;
+    const distY = mouseY - followerY;
+
+    followerX += distX * delay;
+    followerY += distY * delay;
+
+    if (cursorFollower) {
+      cursorFollower.style.left = followerX + 'px';
+      cursorFollower.style.top = followerY + 'px';
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Handle hover on interactive elements
+  const hoverTargets = document.querySelectorAll('.cursor-hover-target');
+
+  hoverTargets.forEach(target => {
+    target.addEventListener('mouseenter', (e) => {
+      const text = (e.currentTarget as HTMLElement).dataset.cursorText;
+      if (text && cursorText && cursorFollower) {
+        cursorText.textContent = text;
+        cursorFollower.classList.add('active');
+      }
+    });
+
+    target.addEventListener('mouseleave', () => {
+      if (cursorFollower) {
+        cursorFollower.classList.remove('active');
+      }
+      if (cursorText) {
+        cursorText.textContent = '';
+      }
+    });
+  });
+
   const contactForm = document.getElementById('contact-form');
   contactForm?.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -235,3 +679,102 @@ const t = useTranslations(lang);
     }
   });
 </script>
+
+<style>
+  /* Crossfade Container */
+  .crossfade-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .crossfade-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity 2s ease-in-out;
+  }
+
+  .crossfade-image.active {
+    opacity: 1;
+    z-index: 2;
+  }
+
+  /* Hero Text Animation */
+  .hero-text {
+    animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Cursor Follower */
+  .cursor-follower {
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .cursor-follower.active {
+    opacity: 1;
+  }
+
+  .cursor-follower span {
+    display: inline-block;
+    padding: 12px 24px;
+    background: linear-gradient(135deg, var(--primary-color) 0%, #9333ea 100%);
+    color: white;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.5px;
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    animation: fadeInScale 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  @keyframes fadeInScale {
+    from {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .cursor-hover-target {
+    cursor: pointer;
+  }
+
+  /* Hide cursor follower on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .cursor-follower {
+      display: none !important;
+    }
+  }
+
+  /* Optional: Hide default cursor on hover targets for desktop */
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-hover-target:hover {
+      cursor: none;
+    }
+  }
+</style>

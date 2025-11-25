@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import { getLangFromUrl } from '../i18n/utils';
 import CookieConsent from '../components/CookieConsent.astro';
+import Footer from '../components/Footer.astro';
 
 interface Props {
   title: string;
@@ -27,7 +28,13 @@ const lang = getLangFromUrl(Astro.url);
     <title>{title}</title>
   </head>
   <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Global Cursor Follower -->
+    <div id="cursor-follower" class="cursor-follower">
+      <span id="cursor-text"></span>
+    </div>
+
     <slot />
+    <Footer />
     <CookieConsent />
 
     <button
@@ -52,4 +59,144 @@ const lang = getLangFromUrl(Astro.url);
     min-height: 100dvh;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
   }
+
+  /* Global Cursor Follower Styles */
+  .cursor-follower {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  .cursor-follower.active {
+    opacity: 1;
+  }
+
+  .cursor-follower span {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 50%, #ec4899 100%);
+    color: white;
+    border-radius: 60px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 15px 40px rgba(25, 25, 230, 0.4), 0 5px 15px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.3px;
+    font-family: 'Inter', system-ui, sans-serif;
+    animation: cursorFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @keyframes cursorFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.85) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .cursor-hover-target {
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Hide cursor follower on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .cursor-follower {
+      display: none !important;
+    }
+  }
+
+  /* Enhanced hover effect for desktop */
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-hover-target {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cursor-hover-target:hover {
+      transform: scale(1.02);
+    }
+  }
 </style>
+
+<script>
+  // Global Cursor Follower Effect
+  function initCursorFollower() {
+    const cursorFollower = document.getElementById('cursor-follower');
+    const cursorText = document.getElementById('cursor-text');
+
+    if (!cursorFollower || !cursorText) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+    const smoothing = 0.15; // Suavidad del seguimiento
+
+    // Track mouse position
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    // Smooth follow animation with RAF
+    function animate() {
+      const distX = mouseX - followerX;
+      const distY = mouseY - followerY;
+
+      followerX += distX * smoothing;
+      followerY += distY * smoothing;
+
+      cursorFollower.style.left = `${followerX}px`;
+      cursorFollower.style.top = `${followerY}px`;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    // Setup hover interactions
+    function setupHoverTargets() {
+      const hoverTargets = document.querySelectorAll('.cursor-hover-target');
+
+      hoverTargets.forEach(target => {
+        target.addEventListener('mouseenter', (e) => {
+          const text = (e.currentTarget as HTMLElement).dataset.cursorText;
+          if (text) {
+            cursorText.textContent = text;
+            cursorFollower.classList.add('active');
+          }
+        });
+
+        target.addEventListener('mouseleave', () => {
+          cursorFollower.classList.remove('active');
+          setTimeout(() => {
+            if (!cursorFollower.classList.contains('active')) {
+              cursorText.textContent = '';
+            }
+          }, 300);
+        });
+      });
+    }
+
+    // Initialize on load
+    setupHoverTargets();
+
+    // Re-initialize after page navigation (for SPAs)
+    document.addEventListener('astro:page-load', setupHoverTargets);
+  }
+
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCursorFollower);
+  } else {
+    initCursorFollower();
+  }
+</script>

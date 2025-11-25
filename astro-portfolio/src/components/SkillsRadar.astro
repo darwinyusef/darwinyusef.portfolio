@@ -1,0 +1,246 @@
+---
+interface Props {
+  lang?: string;
+}
+
+const { lang = 'es' } = Astro.props;
+---
+
+<div class="w-full max-w-2xl mx-auto">
+  <div class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-lg p-6">
+    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
+      {lang === 'es' ? 'Habilidades Técnicas' : lang === 'en' ? 'Technical Skills' : 'Habilidades Técnicas'}
+    </h2>
+
+    <div id="radar-loading" class="text-center py-12">
+      <p class="text-gray-600 dark:text-gray-400">Cargando diagrama...</p>
+    </div>
+
+    <div id="radar-container" class="hidden">
+      <canvas id="skills-radar-chart" class="w-full"></canvas>
+    </div>
+
+    <div id="skills-legend" class="mt-6 grid grid-cols-2 gap-3 text-sm"></div>
+  </div>
+</div>
+
+<script>
+  const backendUrl = 'http://localhost:8000';
+
+  interface Skill {
+    id: number;
+    name: string;
+    category: string;
+    proficiency: number;
+    description?: string;
+    icon?: string;
+    is_active: boolean;
+  }
+
+  function createRadarChart(skills: Skill[]) {
+    const canvas = document.getElementById('skills-radar-chart') as HTMLCanvasElement;
+    const legend = document.getElementById('skills-legend');
+    const container = document.getElementById('radar-container');
+    const loading = document.getElementById('radar-loading');
+
+    if (!canvas || !legend || !container || !loading) return;
+
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    // Set canvas size
+    const size = Math.min(500, window.innerWidth - 100);
+    canvas.width = size;
+    canvas.height = size;
+
+    const centerX = size / 2;
+    const centerY = size / 2;
+    const maxRadius = size / 2 - 60;
+
+    // Get top skills (limit to 8 for better visualization)
+    const topSkills = skills
+      .sort((a, b) => b.proficiency - a.proficiency)
+      .slice(0, 8);
+
+    const numSkills = topSkills.length;
+    const angleStep = (Math.PI * 2) / numSkills;
+
+    // Check if dark mode
+    const isDark = document.documentElement.classList.contains('dark');
+    const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
+    const textColor = isDark ? '#fff' : '#000';
+    const fillColor = 'rgba(59, 130, 246, 0.2)'; // primary color with transparency
+    const strokeColor = '#3b82f6'; // primary color
+
+    // Draw grid circles
+    ctx.strokeStyle = gridColor;
+    ctx.lineWidth = 1;
+    for (let i = 1; i <= 5; i++) {
+      ctx.beginPath();
+      ctx.arc(centerX, centerY, (maxRadius / 5) * i, 0, Math.PI * 2);
+      ctx.stroke();
+    }
+
+    // Draw axes and labels
+    ctx.strokeStyle = gridColor;
+    ctx.fillStyle = textColor;
+    ctx.font = 'bold 12px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+
+    const skillPoints: { x: number; y: number }[] = [];
+
+    topSkills.forEach((skill, index) => {
+      const angle = angleStep * index - Math.PI / 2;
+
+      // Draw axis line
+      const axisX = centerX + Math.cos(angle) * maxRadius;
+      const axisY = centerY + Math.sin(angle) * maxRadius;
+
+      ctx.beginPath();
+      ctx.moveTo(centerX, centerY);
+      ctx.lineTo(axisX, axisY);
+      ctx.stroke();
+
+      // Calculate point position based on proficiency
+      const radius = (maxRadius * skill.proficiency) / 100;
+      const x = centerX + Math.cos(angle) * radius;
+      const y = centerY + Math.sin(angle) * radius;
+      skillPoints.push({ x, y });
+
+      // Draw label
+      const labelDistance = maxRadius + 30;
+      const labelX = centerX + Math.cos(angle) * labelDistance;
+      const labelY = centerY + Math.sin(angle) * labelDistance;
+
+      // Adjust text alignment based on position
+      if (labelX < centerX - 10) {
+        ctx.textAlign = 'right';
+      } else if (labelX > centerX + 10) {
+        ctx.textAlign = 'left';
+      } else {
+        ctx.textAlign = 'center';
+      }
+
+      if (labelY < centerY) {
+        ctx.textBaseline = 'bottom';
+      } else {
+        ctx.textBaseline = 'top';
+      }
+
+      // Split long skill names
+      const maxLabelLength = 15;
+      const skillName = skill.name.length > maxLabelLength
+        ? skill.name.substring(0, maxLabelLength) + '...'
+        : skill.name;
+
+      ctx.fillText(skillName, labelX, labelY);
+    });
+
+    // Draw skill polygon
+    if (skillPoints.length > 0) {
+      // Fill
+      ctx.fillStyle = fillColor;
+      ctx.beginPath();
+      ctx.moveTo(skillPoints[0].x, skillPoints[0].y);
+      for (let i = 1; i < skillPoints.length; i++) {
+        ctx.lineTo(skillPoints[i].x, skillPoints[i].y);
+      }
+      ctx.closePath();
+      ctx.fill();
+
+      // Stroke
+      ctx.strokeStyle = strokeColor;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+
+      // Draw points
+      skillPoints.forEach(point => {
+        ctx.fillStyle = strokeColor;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    // Update legend with categories
+    const categories = new Map<string, number>();
+    topSkills.forEach(skill => {
+      const count = categories.get(skill.category) || 0;
+      categories.set(skill.category, count + 1);
+    });
+
+    legend.innerHTML = Array.from(categories.entries())
+      .map(([category, count]) => `
+        <div class="flex items-center gap-2">
+          <div class="w-3 h-3 rounded-full bg-primary"></div>
+          <span class="text-gray-700 dark:text-gray-300">${category} (${count})</span>
+        </div>
+      `).join('');
+
+    // Show chart, hide loading
+    container.classList.remove('hidden');
+    loading.classList.add('hidden');
+  }
+
+  async function loadSkillsRadar() {
+    try {
+      const response = await fetch(`${backendUrl}/api/v1/skills`);
+      if (!response.ok) throw new Error('Failed to load skills');
+
+      const skills: Skill[] = await response.json();
+      const activeSkills = skills.filter(skill => skill.is_active);
+
+      if (activeSkills.length > 0) {
+        createRadarChart(activeSkills);
+      } else {
+        // Show example data
+        createRadarChart([
+          { id: 1, name: 'JavaScript', category: 'Frontend', proficiency: 90, is_active: true },
+          { id: 2, name: 'Python', category: 'Backend', proficiency: 95, is_active: true },
+          { id: 3, name: 'React', category: 'Frontend', proficiency: 88, is_active: true },
+          { id: 4, name: 'Node.js', category: 'Backend', proficiency: 85, is_active: true },
+          { id: 5, name: 'SQL', category: 'Database', proficiency: 80, is_active: true },
+          { id: 6, name: 'Docker', category: 'DevOps', proficiency: 75, is_active: true },
+          { id: 7, name: 'AWS', category: 'Cloud', proficiency: 70, is_active: true },
+          { id: 8, name: 'TypeScript', category: 'Frontend', proficiency: 85, is_active: true },
+        ]);
+      }
+    } catch (error) {
+      console.error('Error loading skills for radar:', error);
+      // Show example data on error
+      createRadarChart([
+        { id: 1, name: 'JavaScript', category: 'Frontend', proficiency: 90, is_active: true },
+        { id: 2, name: 'Python', category: 'Backend', proficiency: 95, is_active: true },
+        { id: 3, name: 'React', category: 'Frontend', proficiency: 88, is_active: true },
+        { id: 4, name: 'Node.js', category: 'Backend', proficiency: 85, is_active: true },
+        { id: 5, name: 'SQL', category: 'Database', proficiency: 80, is_active: true },
+        { id: 6, name: 'Docker', category: 'DevOps', proficiency: 75, is_active: true },
+        { id: 7, name: 'AWS', category: 'Cloud', proficiency: 70, is_active: true },
+        { id: 8, name: 'TypeScript', category: 'Frontend', proficiency: 85, is_active: true },
+      ]);
+    }
+  }
+
+  // Load on DOM ready
+  document.addEventListener('DOMContentLoaded', loadSkillsRadar);
+
+  // Redraw on window resize
+  let resizeTimeout: number;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = window.setTimeout(() => {
+      loadSkillsRadar();
+    }, 250);
+  });
+
+  // Redraw when theme changes
+  const observer = new MutationObserver(() => {
+    loadSkillsRadar();
+  });
+
+  observer.observe(document.documentElement, {
+    attributes: true,
+    attributeFilter: ['class']
+  });
+</script>

@@ -1,0 +1,456 @@
+---
+import '../styles/global.css';
+import { getLangFromUrl } from '../i18n/utils';
+import CookieConsent from '../components/CookieConsent.astro';
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Portfolio de Desarrollo Full Stack' } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+---
+
+<!DOCTYPE html>
+<html lang={lang} class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="description" content={description} />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@700;900&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+    <title>{title}</title>
+  </head>
+  <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen">
+    <!-- Global Cursor Follower -->
+    <div id="cursor-follower" class="cursor-follower">
+      <span id="cursor-text"></span>
+    </div>
+
+    <Header />
+
+    <!-- Article Container -->
+    <main class="article-container">
+      <div class="article-wrapper">
+        <slot />
+      </div>
+    </main>
+
+    <Footer />
+    <CookieConsent />
+
+    <button
+      id="accessibility-btn"
+      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
+      aria-label="Accessibility"
+      title="Accessibility Options"
+    >
+      <span class="material-symbols-outlined">accessibility</span>
+    </button>
+  </body>
+</html>
+
+<style is:global>
+  :root {
+    --primary: #1919e6;
+    --background-light: #f6f6f8;
+    --background-dark: #111121;
+  }
+
+  body {
+    min-height: 100dvh;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Article Container Styles */
+  .article-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    min-height: calc(100vh - 400px);
+  }
+
+  .article-wrapper {
+    background: white;
+    dark:background: #1a1a1a;
+    border-radius: 24px;
+    padding: 3rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .dark .article-wrapper {
+    background: #1a1a1a;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  @media (max-width: 768px) {
+    .article-container {
+      padding: 2rem 1rem;
+    }
+
+    .article-wrapper {
+      padding: 1.5rem;
+      border-radius: 16px;
+    }
+  }
+
+  /* Typography Styles for Articles */
+  .article-wrapper h1 {
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 50%, #ec4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .article-wrapper h2 {
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    color: #1a1a1a;
+    padding-bottom: 0.75rem;
+    border-bottom: 3px solid #1919e6;
+  }
+
+  .dark .article-wrapper h2 {
+    color: white;
+    border-bottom-color: #1919e6;
+  }
+
+  .article-wrapper h3 {
+    font-family: 'Inter Tight', system-ui, sans-serif;
+    font-size: clamp(1.25rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    color: #2d2d2d;
+  }
+
+  .dark .article-wrapper h3 {
+    color: #e5e5e5;
+  }
+
+  .article-wrapper h4 {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    color: #3d3d3d;
+  }
+
+  .dark .article-wrapper h4 {
+    color: #d4d4d4;
+  }
+
+  .article-wrapper p {
+    font-size: 1.0625rem;
+    line-height: 1.8;
+    margin-bottom: 1.25rem;
+    color: #4a4a4a;
+  }
+
+  .dark .article-wrapper p {
+    color: #b8b8b8;
+  }
+
+  .article-wrapper strong {
+    font-weight: 700;
+    color: #1a1a1a;
+  }
+
+  .dark .article-wrapper strong {
+    color: white;
+  }
+
+  /* Lists */
+  .article-wrapper ul,
+  .article-wrapper ol {
+    margin: 1.5rem 0 1.5rem 1.5rem;
+    line-height: 1.8;
+  }
+
+  .article-wrapper ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  .article-wrapper ul li {
+    position: relative;
+    padding-left: 2rem;
+    margin-bottom: 0.75rem;
+    color: #4a4a4a;
+  }
+
+  .dark .article-wrapper ul li {
+    color: #b8b8b8;
+  }
+
+  .article-wrapper ul li::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.6rem;
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 100%);
+    border-radius: 50%;
+  }
+
+  .article-wrapper ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+  }
+
+  .article-wrapper ol li {
+    margin-bottom: 0.75rem;
+    color: #4a4a4a;
+    padding-left: 0.5rem;
+  }
+
+  .dark .article-wrapper ol li {
+    color: #b8b8b8;
+  }
+
+  /* Links */
+  .article-wrapper a {
+    color: #1919e6;
+    text-decoration: none;
+    font-weight: 600;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s ease;
+  }
+
+  .article-wrapper a:hover {
+    color: #9333ea;
+    border-bottom-color: #9333ea;
+  }
+
+  /* Horizontal Rule */
+  .article-wrapper hr {
+    margin: 3rem 0;
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1919e6, transparent);
+  }
+
+  /* Blockquotes */
+  .article-wrapper blockquote {
+    margin: 2rem 0;
+    padding: 1.5rem 2rem;
+    border-left: 4px solid #1919e6;
+    background: rgba(25, 25, 230, 0.05);
+    border-radius: 0 12px 12px 0;
+    font-style: italic;
+  }
+
+  .dark .article-wrapper blockquote {
+    background: rgba(25, 25, 230, 0.1);
+  }
+
+  /* Code blocks */
+  .article-wrapper code {
+    font-family: 'Courier New', monospace;
+    background: rgba(25, 25, 230, 0.1);
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+  }
+
+  .article-wrapper pre {
+    background: #1a1a1a;
+    padding: 1.5rem;
+    border-radius: 12px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+  }
+
+  .dark .article-wrapper pre {
+    background: #0d0d0d;
+  }
+
+  .article-wrapper pre code {
+    background: none;
+    color: #e5e5e5;
+    padding: 0;
+  }
+
+  /* Tables */
+  .article-wrapper table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+  }
+
+  .article-wrapper th,
+  .article-wrapper td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(25, 25, 230, 0.2);
+  }
+
+  .article-wrapper th {
+    background: rgba(25, 25, 230, 0.1);
+    font-weight: 700;
+    color: #1919e6;
+  }
+
+  /* Last updated badge */
+  .article-wrapper p:first-of-type strong {
+    display: inline-block;
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  /* Global Cursor Follower Styles */
+  .cursor-follower {
+    position: fixed;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform, opacity;
+  }
+
+  .cursor-follower.active {
+    opacity: 1;
+  }
+
+  .cursor-follower span {
+    display: inline-block;
+    padding: 14px 28px;
+    background: linear-gradient(135deg, #1919e6 0%, #9333ea 50%, #ec4899 100%);
+    color: white;
+    border-radius: 60px;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 15px 40px rgba(25, 25, 230, 0.4), 0 5px 15px rgba(0, 0, 0, 0.2);
+    letter-spacing: 0.3px;
+    font-family: 'Inter', system-ui, sans-serif;
+    animation: cursorFadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  @keyframes cursorFadeIn {
+    from {
+      opacity: 0;
+      transform: scale(0.85) translateY(10px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
+  }
+
+  .cursor-hover-target {
+    cursor: pointer;
+    position: relative;
+  }
+
+  /* Hide cursor follower on touch devices */
+  @media (hover: none) and (pointer: coarse) {
+    .cursor-follower {
+      display: none !important;
+    }
+  }
+
+  /* Enhanced hover effect for desktop */
+  @media (hover: hover) and (pointer: fine) {
+    .cursor-hover-target {
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .cursor-hover-target:hover {
+      transform: scale(1.02);
+    }
+  }
+</style>
+
+<script>
+  // Global Cursor Follower Effect
+  function initCursorFollower() {
+    const cursorFollower = document.getElementById('cursor-follower');
+    const cursorText = document.getElementById('cursor-text');
+
+    if (!cursorFollower || !cursorText) return;
+
+    let mouseX = 0;
+    let mouseY = 0;
+    let followerX = 0;
+    let followerY = 0;
+    const smoothing = 0.15;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+    });
+
+    function animate() {
+      const distX = mouseX - followerX;
+      const distY = mouseY - followerY;
+
+      followerX += distX * smoothing;
+      followerY += distY * smoothing;
+
+      cursorFollower.style.left = `${followerX}px`;
+      cursorFollower.style.top = `${followerY}px`;
+
+      requestAnimationFrame(animate);
+    }
+    animate();
+
+    function setupHoverTargets() {
+      const hoverTargets = document.querySelectorAll('.cursor-hover-target');
+
+      hoverTargets.forEach(target => {
+        target.addEventListener('mouseenter', (e) => {
+          const text = (e.currentTarget as HTMLElement).dataset.cursorText;
+          if (text) {
+            cursorText.textContent = text;
+            cursorFollower.classList.add('active');
+          }
+        });
+
+        target.addEventListener('mouseleave', () => {
+          cursorFollower.classList.remove('active');
+          setTimeout(() => {
+            if (!cursorFollower.classList.contains('active')) {
+              cursorText.textContent = '';
+            }
+          }, 300);
+        });
+      });
+    }
+
+    setupHoverTargets();
+    document.addEventListener('astro:page-load', setupHoverTargets);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initCursorFollower);
+  } else {
+    initCursorFollower();
+  }
+</script>
