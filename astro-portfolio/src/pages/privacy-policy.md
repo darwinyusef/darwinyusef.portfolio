@@ -4,7 +4,7 @@ title: "Política de Privacidad"
 description: "Política de Privacidad del Portfolio de Yusef González"
 ---
 
-# Política de Privacidad
+# POLÍTICA DE PRIVACIDAD
 
 **Última actualización:** Noviembre 2025
 

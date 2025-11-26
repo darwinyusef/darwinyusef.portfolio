@@ -4,6 +4,13 @@ import Header from '../../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import fs from 'fs';
 import path from 'path';
+import { marked } from 'marked';
+
+// Configure marked
+marked.setOptions({
+  breaks: true,
+  gfm: true,
+});
 
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), 'public', 'blog.json');
@@ -14,14 +21,17 @@ export async function getStaticPaths() {
     .filter((post: any) => post.is_active)
     .map((post: any) => ({
       params: { slug: post.slug },
-      props: { post }
+      props: {
+        post,
+        renderedContent: marked.parse(post.content)
+      }
     }));
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { slug } = Astro.params;
-const { post } = Astro.props;
+const { post, renderedContent } = Astro.props;
 ---
 
 <Layout title={post.title}>
@@ -110,28 +120,8 @@ const { post } = Astro.props;
         <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800">
           <div
             id="markdown-content"
-            class="prose prose-lg dark:prose-invert max-w-none
-              prose-headings:font-bold prose-headings:tracking-tight
-              prose-h1:text-4xl prose-h1:mb-6 prose-h1:mt-12 prose-h1:pb-4 prose-h1:border-b prose-h1:border-gray-200 dark:prose-h1:border-gray-700
-              prose-h2:text-3xl prose-h2:mb-4 prose-h2:mt-10
-              prose-h3:text-2xl prose-h3:mb-3 prose-h3:mt-8
-              prose-p:text-gray-700 dark:prose-p:text-gray-300 prose-p:leading-relaxed prose-p:mb-6
-              prose-a:text-primary prose-a:no-underline prose-a:font-medium hover:prose-a:underline prose-a:transition-all
-              prose-strong:text-gray-900 dark:prose-strong:text-white prose-strong:font-bold
-              prose-code:text-primary prose-code:bg-gray-100 dark:prose-code:bg-gray-800 prose-code:px-2 prose-code:py-1 prose-code:rounded-md prose-code:text-sm prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
-              prose-pre:bg-[#1a1a1a] prose-pre:text-gray-100 prose-pre:rounded-xl prose-pre:p-6 prose-pre:shadow-inner prose-pre:border prose-pre:border-gray-800
-              prose-ul:list-none prose-ul:pl-0 prose-ul:space-y-2
-              prose-ul>li:pl-6 prose-ul>li:relative prose-ul>li:before:content-['▹'] prose-ul>li:before:absolute prose-ul>li:before:left-0 prose-ul>li:before:text-primary prose-ul>li:before:font-bold
-              prose-ol:list-none prose-ol:pl-0 prose-ol:space-y-2 prose-ol:counter-reset-[item]
-              prose-ol>li:pl-8 prose-ol>li:relative prose-ol>li:before:absolute prose-ol>li:before:left-0 prose-ol>li:before:text-primary prose-ol>li:before:font-bold prose-ol>li:before:content-[counter(item)] prose-ol>li:before:counter-increment-[item]
-              prose-li:text-gray-700 dark:prose-li:text-gray-300
-              prose-blockquote:border-l-4 prose-blockquote:border-primary prose-blockquote:bg-gray-50 dark:prose-blockquote:bg-gray-900 prose-blockquote:pl-6 prose-blockquote:py-4 prose-blockquote:rounded-r-lg prose-blockquote:italic prose-blockquote:text-gray-600 dark:prose-blockquote:text-gray-400
-              prose-img:rounded-2xl prose-img:shadow-2xl prose-img:my-8 prose-img:border prose-img:border-gray-200 dark:prose-img:border-gray-700
-              prose-hr:border-gray-300 dark:prose-hr:border-gray-700 prose-hr:my-12
-              prose-table:border-collapse prose-table:w-full
-              prose-th:bg-gray-100 dark:prose-th:bg-gray-800 prose-th:p-3 prose-th:text-left prose-th:font-bold
-              prose-td:p-3 prose-td:border-t prose-td:border-gray-200 dark:prose-td:border-gray-700
-            "
+            class="markdown-content"
+            set:html={renderedContent}
           >
           </div>
         </div>
@@ -233,18 +223,361 @@ const { post } = Astro.props;
   ::-webkit-scrollbar-thumb:hover {
     background: #555;
   }
+
+  /* Markdown Content Styles */
+  .markdown-content {
+    font-size: 1.125rem;
+    line-height: 1.75;
+    color: #1f2937 !important;
+  }
+
+  .dark .markdown-content {
+    color: #f3f4f6 !important;
+  }
+
+  .dark .markdown-content * {
+    color: #f3f4f6 !important;
+  }
+
+  /* Headings */
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3,
+  .markdown-content h4,
+  .markdown-content h5,
+  .markdown-content h6 {
+    font-weight: 700;
+    line-height: 1.25;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #111827 !important;
+  }
+
+  .dark .markdown-content h1,
+  .dark .markdown-content h2,
+  .dark .markdown-content h3,
+  .dark .markdown-content h4,
+  .dark .markdown-content h5,
+  .dark .markdown-content h6 {
+    color: #ffffff !important;
+  }
+
+  .markdown-content h1 {
+    font-size: 2.5rem;
+    margin-top: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e5e7eb;
+  }
+
+  .dark .markdown-content h1 {
+    border-bottom-color: #374151;
+  }
+
+  .markdown-content h2 {
+    font-size: 2rem;
+    margin-top: 2.5rem;
+  }
+
+  .markdown-content h3 {
+    font-size: 1.5rem;
+    margin-top: 2rem;
+  }
+
+  .markdown-content h4 {
+    font-size: 1.25rem;
+  }
+
+  /* Paragraphs */
+  .markdown-content p {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    line-height: 1.75;
+    color: #1f2937 !important;
+  }
+
+  .dark .markdown-content p {
+    color: #f3f4f6 !important;
+  }
+
+  /* Links */
+  .markdown-content a {
+    color: var(--primary-color, #6366f1) !important;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.2s;
+  }
+
+  .markdown-content a:hover {
+    text-decoration: underline;
+    opacity: 0.8;
+  }
+
+  /* Strong/Bold */
+  .markdown-content strong {
+    font-weight: 700;
+    color: #111827 !important;
+  }
+
+  .dark .markdown-content strong {
+    color: #ffffff !important;
+  }
+
+  /* Lists */
+  .markdown-content ul,
+  .markdown-content ol {
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    padding-left: 1.5rem;
+  }
+
+  .markdown-content ul {
+    list-style-type: disc;
+  }
+
+  .markdown-content ol {
+    list-style-type: decimal;
+  }
+
+  .markdown-content li {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.75;
+    color: #1f2937 !important;
+  }
+
+  .dark .markdown-content li {
+    color: #f3f4f6 !important;
+  }
+
+  .markdown-content li > p {
+    margin-bottom: 0.5rem;
+  }
+
+  .markdown-content ul ul,
+  .markdown-content ul ol,
+  .markdown-content ol ul,
+  .markdown-content ol ol {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+
+  /* Code */
+  .markdown-content code {
+    background-color: #f3f4f6 !important;
+    color: var(--primary-color, #6366f1) !important;
+    padding: 0.2rem 0.4rem;
+    border-radius: 0.375rem;
+    font-size: 0.875em;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-weight: 500;
+  }
+
+  .dark .markdown-content code {
+    background-color: #1f2937 !important;
+    color: #a78bfa !important;
+  }
+
+  .markdown-content pre {
+    background-color: #0f1419 !important;
+    color: #f3f4f6 !important;
+    padding: 1.5rem !important;
+    border-radius: 0.75rem !important;
+    overflow-x: auto !important;
+    margin-top: 1.5rem !important;
+    margin-bottom: 1.5rem !important;
+    border: 1px solid #374151 !important;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
+    position: relative;
+    font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace !important;
+  }
+
+  .dark .markdown-content pre {
+    background-color: #0d1117 !important;
+    border-color: #30363d !important;
+  }
+
+  .markdown-content pre code {
+    background-color: transparent !important;
+    color: #e6edf3 !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-size: 0.9rem !important;
+    line-height: 1.7 !important;
+    font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace !important;
+    display: block !important;
+    white-space: pre !important;
+    word-wrap: normal !important;
+    tab-size: 4;
+  }
+
+  .dark .markdown-content pre code {
+    color: #e6edf3 !important;
+  }
+
+  /* Code block scrollbar */
+  .markdown-content pre::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .markdown-content pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+  }
+
+  .markdown-content pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+  }
+
+  .markdown-content pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.5);
+  }
+
+  /* Language badge for code blocks */
+  .markdown-content pre code[class*="language-"]::before {
+    content: attr(class);
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: #8b949e;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.25rem;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  /* Blockquotes */
+  .markdown-content blockquote {
+    border-left: 4px solid var(--primary-color, #6366f1);
+    padding-left: 1.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 2rem 0;
+    background-color: #f9fafb;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-style: italic;
+    color: #4b5563 !important;
+  }
+
+  .dark .markdown-content blockquote {
+    background-color: #0a0a0a;
+    color: #d1d5db !important;
+  }
+
+  .markdown-content blockquote p {
+    color: inherit !important;
+  }
+
+  .dark .markdown-content blockquote p {
+    color: #d1d5db !important;
+  }
+
+  /* Images */
+  .markdown-content img {
+    border-radius: 1rem;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    margin: 2rem 0;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid #e5e7eb;
+  }
+
+  .dark .markdown-content img {
+    border-color: #374151;
+  }
+
+  /* HR */
+  .markdown-content hr {
+    border: 0;
+    border-top: 2px solid #e5e7eb;
+    margin: 3rem 0;
+  }
+
+  .dark .markdown-content hr {
+    border-top-color: #374151;
+  }
+
+  /* Tables */
+  .markdown-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+    font-size: 1rem;
+  }
+
+  .markdown-content th {
+    background-color: #f3f4f6;
+    padding: 0.75rem;
+    text-align: left;
+    font-weight: 700;
+    border: 1px solid #e5e7eb;
+  }
+
+  .dark .markdown-content th {
+    background-color: #1f2937;
+    border-color: #374151;
+  }
+
+  .markdown-content td {
+    padding: 0.75rem;
+    border: 1px solid #e5e7eb;
+  }
+
+  .dark .markdown-content td {
+    border-color: #374151;
+  }
+
+  .markdown-content tbody tr:nth-child(even) {
+    background-color: #f9fafb;
+  }
+
+  .dark .markdown-content tbody tr:nth-child(even) {
+    background-color: #111827;
+  }
+
+  .dark .markdown-content td,
+  .dark .markdown-content th {
+    color: #e5e7eb;
+  }
+
+  /* First paragraph no margin top */
+  .markdown-content > *:first-child {
+    margin-top: 0;
+  }
+
+  /* Last element no margin bottom */
+  .markdown-content > *:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Em/Italic */
+  .markdown-content em {
+    color: inherit;
+    font-style: italic;
+  }
+
+  /* Ensure all text inherits proper color */
+  .dark .markdown-content p,
+  .dark .markdown-content li,
+  .dark .markdown-content td,
+  .dark .markdown-content span,
+  .dark .markdown-content div {
+    color: #f3f4f6 !important;
+  }
+
+  /* Override any inherited dark colors */
+  :root.dark .markdown-content,
+  :root.dark .markdown-content p,
+  :root.dark .markdown-content li {
+    color: #f3f4f6 !important;
+  }
 </style>
 
 <script define:vars={{ post }}>
-  import { marked } from 'marked';
-
   let currentPost = post;
-
-  // Configure marked
-  marked.setOptions({
-    breaks: true,
-    gfm: true,
-  });
 
   // Render post immediately
   document.addEventListener('DOMContentLoaded', () => {
@@ -266,11 +599,8 @@ const { post } = Astro.props;
       });
     }
 
-    // Render markdown
-    const contentEl = document.getElementById('markdown-content');
-    if (contentEl) {
-      contentEl.innerHTML = marked.parse(currentPost.content);
-    }
+    // El markdown ya está renderizado en el servidor
+    // No necesitamos hacer nada más aquí
   }
 
   async function loadRelatedPosts() {

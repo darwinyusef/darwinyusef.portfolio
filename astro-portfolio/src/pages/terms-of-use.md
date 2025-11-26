@@ -4,7 +4,7 @@ title: "Términos de Uso"
 description: "Términos y Condiciones de Uso del Portfolio de Yusef González"
 ---
 
-# Términos de Uso
+# TÉRMINOS DE USO
 
 **Última actualización:** Noviembre 2025
 
