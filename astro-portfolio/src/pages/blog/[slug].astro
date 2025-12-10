@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 
-const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef.portfolio/refs/heads/main/information/blog.json';
+const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/blog.json';
 
 export async function getStaticPaths() {
   const response = await fetch(GITHUB_RAW_URL);
