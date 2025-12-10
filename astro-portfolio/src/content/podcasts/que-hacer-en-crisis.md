@@ -1,11 +1,11 @@
 ---
-title: "¿Qué Hacer en Crisis?"
-description: "Un episodio real sobre cómo enfrentar situaciones de crisis desde una perspectiva práctica y transformadora."
-pubDate: 2024-11-24
+title: "¿Qué Hacer en Crisis?: Superando Desafíos Técnicos"
+description: "Un episodio real sobre cómo enfrentar situaciones de crisis en proyectos de software, desde bugs críticos hasta outages en producción."
+pubDate: 2025-12-10
 duration: "31:12"
-audioUrl: "/quehacerencrisis.mp3"
-coverImage: "https://pngimg.com/uploads/birds/birds_PNG106.png"
-tags: ["crisis", "desarrollo personal", "reflexión"]
+audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"
+coverImage: "https://images.unsplash.com/photo-1504639725590-34d0984388bd?w=800"
+tags: ["crisis", "devops", "troubleshooting", "incidentes"]
 is_active: true
 ---
 

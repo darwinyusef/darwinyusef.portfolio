@@ -40,118 +40,321 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
         </div>
       </section>
 
-      <section class="pb-16 max-w-5xl mx-auto relative z-10">
-      <div id="podcast-container" class="space-y-8">
-        {
-          podcastsFromContent.length > 0 ? (
-            podcastsFromContent
-              .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-              .map((podcast, index) => (
-                <article class="podcast-card rounded-2xl bg-white dark:bg-[#1a1a1a] p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group">
-                  <div class="flex gap-6">
-                    {podcast.data.coverImage ? (
-                      <img
-                        src={podcast.data.coverImage}
-                        alt={podcast.data.title}
-                        class="w-32 h-32 rounded-xl object-cover flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div class="w-32 h-32 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center flex-shrink-0 shadow-lg group-hover:scale-105 transition-transform duration-300">
-                        <span class="material-symbols-outlined text-5xl text-white">
-                          podcast
+      <!-- Parallax Inspiration Banner -->
+      <section class="py-32 relative overflow-hidden">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-pink-600/5 to-transparent"></div>
+
+        <!-- Elementos flotantes de fondo con parallax -->
+        <div class="parallax-bg absolute inset-0 pointer-events-none">
+          <div class="parallax-element absolute top-20 left-10 w-72 h-72 bg-pink-600/10 rounded-full blur-3xl" data-speed="0.3"></div>
+          <div class="parallax-element absolute bottom-20 right-10 w-96 h-96 bg-primary/10 rounded-full blur-3xl" data-speed="0.5"></div>
+          <div class="parallax-element absolute top-1/2 left-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl" data-speed="0.4"></div>
+        </div>
+
+        <div class="max-w-[1400px] mx-auto relative z-10 px-6">
+          <!-- Contenedor centrado -->
+          <div class="flex flex-col items-center justify-center text-center space-y-16">
+
+            <!-- Mascota con efecto parallax -->
+            <div class="parallax-mascot-podcast relative" data-speed="0.2">
+              <div class="absolute inset-0 bg-gradient-to-br from-pink-600/20 via-primary/20 to-purple-600/20 rounded-full blur-3xl scale-150 animate-pulse"></div>
+              <img
+                src="/img/mascota2.png"
+                alt="Podcast Mascot"
+                class="relative w-80 md:w-96 lg:w-[450px] xl:w-[500px] h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+
+            <!-- Contenido centrado -->
+            <div class="max-w-4xl space-y-10">
+              <div class="parallax-quote-podcast" data-speed="0.1">
+                <blockquote class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  <span class="inline-block bg-gradient-to-r from-pink-600 via-primary to-purple-600 bg-clip-text text-transparent">
+                    {lang === 'es' ? 'Escucha' : lang === 'en' ? 'Listen' : 'Ouça'}
+                  </span>
+                  <br/>
+                  <span class="inline-block bg-gradient-to-r from-purple-600 via-pink-600 to-primary bg-clip-text text-transparent">
+                    {lang === 'es' ? 'Historias Reales' : lang === 'en' ? 'Real Stories' : 'Histórias Reais'}
+                  </span>
+                  <br/>
+                  <span class="inline-block text-gray-900 dark:text-white">
+                    {lang === 'es' ? 'de Expertos' : lang === 'en' ? 'from Experts' : 'de Especialistas'}
+                  </span>
+                </blockquote>
+              </div>
+
+              <div class="parallax-description-podcast" data-speed="0.15">
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                  {lang === 'es'
+                    ? 'Conversaciones profundas con líderes tecnológicos que comparten sus experiencias, desafíos superados y lecciones aprendidas en el camino hacia el éxito.'
+                    : lang === 'en'
+                    ? 'Deep conversations with tech leaders sharing their experiences, overcome challenges and lessons learned on the path to success.'
+                    : 'Conversas profundas com líderes tecnológicos compartilhando suas experiências, desafios superados e lições aprendidas no caminho para o sucesso.'}
+                </p>
+              </div>
+
+              <!-- Podcast Features -->
+              <div class="parallax-podcast-features grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12" data-speed="0.2">
+                <div class="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700">
+                  <div class="text-4xl mb-2">🎙️</div>
+                  <div class="text-sm font-semibold text-gray-900 dark:text-white">{lang === 'es' ? 'Audio HD' : lang === 'en' ? 'HD Audio' : 'Áudio HD'}</div>
+                </div>
+                <div class="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700">
+                  <div class="text-4xl mb-2">💡</div>
+                  <div class="text-sm font-semibold text-gray-900 dark:text-white">{lang === 'es' ? 'Insights' : lang === 'en' ? 'Insights' : 'Insights'}</div>
+                </div>
+                <div class="text-center p-4 rounded-xl bg-white/50 dark:bg-gray-800/50 backdrop-blur-sm border border-gray-200 dark:border-gray-700">
+                  <div class="text-4xl mb-2">⏱️</div>
+                  <div class="text-sm font-semibold text-gray-900 dark:text-white">{lang === 'es' ? 'Episodios' : lang === 'en' ? 'Episodes' : 'Episódios'}</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Latest Episode Featured -->
+      <section class="pb-16 max-w-7xl mx-auto relative z-10">
+        {podcastsFromContent.length > 0 && (
+          <div class="mb-16">
+            <div class="flex items-center gap-3 mb-8">
+              <span class="material-symbols-outlined text-4xl text-primary">star</span>
+              <h2 class="text-3xl font-bold text-gray-900 dark:text-white">
+                {lang === 'es' ? 'Episodio Destacado' : lang === 'en' ? 'Featured Episode' : 'Episódio Destacado'}
+              </h2>
+              <span class="px-3 py-1 bg-gradient-to-r from-primary to-purple-600 text-white text-sm font-bold rounded-full">
+                {lang === 'es' ? 'NUEVO' : lang === 'en' ? 'NEW' : 'NOVO'}
+              </span>
+            </div>
+
+            {(() => {
+              const latestPodcast = podcastsFromContent.sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())[0];
+              return (
+                <article class="podcast-card-featured group relative overflow-hidden rounded-3xl bg-gradient-to-br from-white to-purple-50 dark:from-[#1a1a2e] dark:to-[#16213e] shadow-2xl border-2 border-purple-200 dark:border-purple-900/50 hover:shadow-purple-500/30 transition-all duration-500">
+                  <div class="grid md:grid-cols-2 gap-0">
+                    <!-- Image Section -->
+                    <div class="relative h-80 md:h-auto overflow-hidden">
+                      {latestPodcast.data.coverImage ? (
+                        <img
+                          src={latestPodcast.data.coverImage}
+                          alt={latestPodcast.data.title}
+                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div class="w-full h-full bg-gradient-to-br from-primary via-purple-600 to-pink-600 flex items-center justify-center">
+                          <span class="material-symbols-outlined text-white" style="font-size: 10rem; opacity: 0.3;">podcast</span>
+                        </div>
+                      )}
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+                      <!-- Play Button Overlay -->
+                      <button
+                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-white/90 dark:bg-black/90 backdrop-blur-sm flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 group/play z-10"
+                        data-audio={latestPodcast.data.audioUrl}
+                        data-title={latestPodcast.data.title}
+                      >
+                        <span class="material-symbols-outlined text-primary text-6xl group-hover/play:scale-110 transition-transform">play_circle</span>
+                      </button>
+
+                      <!-- Duration Badge -->
+                      <div class="absolute bottom-6 right-6 bg-black/80 backdrop-blur-sm text-white px-4 py-2 rounded-full font-bold flex items-center gap-2">
+                        <span class="material-symbols-outlined text-sm">schedule</span>
+                        {latestPodcast.data.duration}
+                      </div>
+                    </div>
+
+                    <!-- Content Section -->
+                    <div class="p-8 md:p-10 flex flex-col justify-center">
+                      <div class="flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-bold rounded-full uppercase">En vivo</span>
+                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                          {new Date(latestPodcast.data.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR', {
+                            year: 'numeric',
+                            month: 'long',
+                            day: 'numeric'
+                          })}
                         </span>
                       </div>
-                    )}
-                    <div class="flex-1 min-w-0">
-                      <h3 class="font-bold text-2xl md:text-3xl text-gray-900 dark:text-white mb-3 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                        {podcast.data.title}
+
+                      <h3 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-6 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                        {latestPodcast.data.title}
                       </h3>
-                      <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-2 leading-relaxed">
-                        {podcast.data.description}
+
+                      <p class="text-lg text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
+                        {latestPodcast.data.description}
                       </p>
-                      <div class="flex items-center gap-3 flex-wrap">
+
+                      <div class="flex flex-wrap gap-4">
                         <a
-                          href={`/${lang === "es" ? "" : lang}podcast/${podcast.slug}`}
-                          class="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-primary to-purple-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:scale-105"
+                          href={lang === "es" ? `/podcast/${latestPodcast.slug}` : `/${lang}/podcast/${latestPodcast.slug}`}
+                          class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 group/btn"
                         >
-                          <span class="material-symbols-outlined text-sm">visibility</span>
-                          <span class="text-sm">Ver episodio</span>
+                          <span>{lang === 'es' ? 'Ver Episodio Completo' : lang === 'en' ? 'Watch Full Episode' : 'Ver Episódio Completo'}</span>
+                          <span class="material-symbols-outlined group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
-                        <button
-                          class="play-podcast-btn inline-flex items-center gap-2 px-4 py-2 bg-slate-100 dark:bg-slate-800 text-gray-700 dark:text-gray-300 rounded-lg font-semibold hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 hover:scale-105"
-                          data-audio={podcast.data.audioUrl}
-                          data-title={podcast.data.title}
-                        >
-                          <span class="material-symbols-outlined text-sm">play_circle</span>
-                          <span class="text-sm">Reproducir</span>
-                        </button>
-                        <span class="text-sm text-gray-500 dark:text-gray-400 font-medium flex items-center gap-1">
-                          <span class="material-symbols-outlined text-sm">schedule</span>
-                          {podcast.data.duration}
-                        </span>
                       </div>
                     </div>
                   </div>
                 </article>
-              ))
-          ) : (
-            <div class="text-center py-8">
-              <p class="text-gray-600 dark:text-gray-400">
-                No hay episodios disponibles en este momento.
-              </p>
+              );
+            })()}
+          </div>
+        )}
+
+        <!-- Separator -->
+        {podcastsFromContent.length > 1 && (
+          <div class="relative mb-12">
+            <div class="absolute inset-0 flex items-center">
+              <div class="w-full border-t-2 border-gray-200 dark:border-gray-700"></div>
             </div>
-          )
-        }
-      </div>
+            <div class="relative flex justify-center">
+              <span class="bg-[#F8F8F8] dark:bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 rounded-full border-2 border-gray-200 dark:border-gray-700">
+                {lang === 'es' ? 'Todos los episodios' : lang === 'en' ? 'All episodes' : 'Todos os episódios'}
+              </span>
+            </div>
+          </div>
+        )}
+
+        <!-- All Episodes Grid -->
+        <div id="podcast-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {
+            podcastsFromContent.length > 0 ? (
+              podcastsFromContent
+                .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+                .slice(1) // Skip first (featured)
+                .map((podcast, index) => (
+                  <article class="podcast-card group relative overflow-hidden rounded-2xl bg-white dark:bg-[#1a1a1a] shadow-lg hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-200 dark:border-gray-800">
+                    <!-- Cover Image -->
+                    <div class="relative h-32 overflow-hidden">
+                      {podcast.data.coverImage ? (
+                        <img
+                          src={podcast.data.coverImage}
+                          alt={podcast.data.title}
+                          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                      ) : (
+                        <div class="w-full h-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
+                          <span class="material-symbols-outlined text-white text-6xl opacity-30">podcast</span>
+                        </div>
+                      )}
+                      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
+
+                      <!-- Author Badge -->
+                      <div class="absolute top-3 left-3 flex items-center gap-2 bg-white/95 dark:bg-black/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-pink-600 to-primary flex items-center justify-center">
+                          <span class="material-symbols-outlined text-white text-xs">person</span>
+                        </div>
+                        <span class="text-xs font-semibold text-gray-900 dark:text-white">Yusef González</span>
+                      </div>
+
+                      <!-- Play Button -->
+                      <button
+                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/95 dark:bg-black/95 backdrop-blur-sm flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        data-audio={podcast.data.audioUrl}
+                        data-title={podcast.data.title}
+                      >
+                        <span class="material-symbols-outlined text-primary text-4xl">play_arrow</span>
+                      </button>
+
+                      <!-- Duration -->
+                      <div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm text-white px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1">
+                        <span class="material-symbols-outlined text-xs">schedule</span>
+                        {podcast.data.duration}
+                      </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="p-5">
+                      <div class="text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-xs">calendar_today</span>
+                        {new Date(podcast.data.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR', {
+                          year: 'numeric',
+                          month: 'short',
+                          day: 'numeric'
+                        })}
+                      </div>
+
+                      <h3 class="font-bold text-lg text-gray-900 dark:text-white mb-4 leading-tight line-clamp-2 group-hover:text-primary transition-colors" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                        {podcast.data.title}
+                      </h3>
+
+                      <div class="flex items-center gap-2">
+                        <a
+                          href={lang === "es" ? `/podcast/${podcast.slug}` : `/${lang}/podcast/${podcast.slug}`}
+                          class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-pink-600 to-primary text-white rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
+                        >
+                          <span class="material-symbols-outlined text-base">headphones</span>
+                          <span>{lang === 'es' ? 'Escuchar' : lang === 'en' ? 'Listen' : 'Ouvir'}</span>
+                        </a>
+                      </div>
+                    </div>
+                  </article>
+                ))
+            ) : (
+              <div class="col-span-full text-center py-8">
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es' ? 'No hay episodios disponibles en este momento.' : lang === 'en' ? 'No episodes available at this time.' : 'Nenhum episódio disponível no momento.'}
+                </p>
+              </div>
+            )
+          }
+        </div>
       </section>
     </main>
   </div>
 
+  <!-- Enhanced Audio Player -->
   <div
     id="audio-player"
-    class="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1a1a2e] border-t border-gray-200 dark:border-gray-700 p-4 shadow-lg hidden"
+    class="fixed bottom-0 left-0 right-0 bg-gradient-to-r from-white to-purple-50 dark:from-[#1a1a2e] dark:to-[#16213e] border-t-2 border-purple-200 dark:border-purple-900/50 backdrop-blur-xl shadow-2xl hidden z-50"
   >
-    <div class="max-w-4xl mx-auto flex items-center gap-4">
-      <button
-        id="play-pause-btn"
-        class="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white hover:opacity-90"
-      >
-        <span class="material-symbols-outlined" id="play-pause-icon"
-          >play_arrow</span
+    <div class="max-w-7xl mx-auto px-6 py-5">
+      <div class="flex items-center gap-6">
+        <!-- Play/Pause Button -->
+        <button
+          id="play-pause-btn"
+          class="flex h-14 w-14 items-center justify-center rounded-full bg-gradient-to-r from-primary to-purple-600 text-white hover:scale-110 transition-all duration-300 shadow-lg hover:shadow-xl flex-shrink-0"
         >
-      </button>
+          <span class="material-symbols-outlined text-3xl" id="play-pause-icon">play_arrow</span>
+        </button>
 
-      <div class="flex-1">
-        <div
-          class="text-sm font-semibold text-gray-900 dark:text-white"
-          id="current-title"
-        >
-          Título del episodio
-        </div>
-        <div class="flex items-center gap-2 mt-1">
-          <span
-            class="text-xs text-gray-500 dark:text-gray-400"
-            id="current-time">0:00</span
-          >
-          <div
-            class="flex-1 h-1 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer"
-            id="progress-bar"
-          >
-            <div class="h-1 bg-primary" id="progress" style="width: 0%"></div>
+        <!-- Track Info & Progress -->
+        <div class="flex-1 min-w-0">
+          <div class="flex items-center justify-between mb-2">
+            <div class="flex items-center gap-3 min-w-0 flex-1">
+              <span class="material-symbols-outlined text-primary text-2xl flex-shrink-0">podcast</span>
+              <div class="min-w-0 flex-1">
+                <div class="text-base font-bold text-gray-900 dark:text-white truncate" id="current-title">
+                  Título del episodio
+                </div>
+                <div class="text-xs text-gray-500 dark:text-gray-400">
+                  {lang === 'es' ? 'Reproduciendo ahora' : lang === 'en' ? 'Now playing' : 'Reproduzindo agora'}
+                </div>
+              </div>
+            </div>
+
+            <!-- Close Button -->
+            <button
+              id="close-player-btn"
+              class="ml-4 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300 flex-shrink-0"
+            >
+              <span class="material-symbols-outlined">close</span>
+            </button>
           </div>
-          <span
-            class="text-xs text-gray-500 dark:text-gray-400"
-            id="duration-time">0:00</span
-          >
+
+          <!-- Progress Bar -->
+          <div class="flex items-center gap-3">
+            <span class="text-xs font-semibold text-gray-600 dark:text-gray-400 w-12 text-right" id="current-time">0:00</span>
+            <div
+              class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer group"
+              id="progress-bar"
+            >
+              <div class="h-2 bg-gradient-to-r from-primary to-purple-600 rounded-full transition-all duration-100 group-hover:h-3" id="progress" style="width: 0%"></div>
+            </div>
+            <span class="text-xs font-semibold text-gray-600 dark:text-gray-400 w-12" id="duration-time">0:00</span>
+          </div>
         </div>
       </div>
-
-      <button
-        id="close-player-btn"
-        class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300"
-      >
-        <span class="material-symbols-outlined">close</span>
-      </button>
     </div>
 
     <audio id="audio-element" preload="metadata"></audio>
@@ -169,6 +372,8 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
   }
 
   function playPodcast(audioUrl: string, title: string) {
+    console.log('🎬 playPodcast llamada con:', { audioUrl, title });
+
     const audioElement = document.getElementById(
       "audio-element"
     ) as HTMLAudioElement;
@@ -176,26 +381,47 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
     const currentTitle = document.getElementById("current-title");
     const playPauseIcon = document.getElementById("play-pause-icon");
 
-    if (!audioElement || !audioPlayer || !currentTitle || !playPauseIcon)
+    console.log('🔍 Elementos encontrados:', {
+      audioElement: !!audioElement,
+      audioPlayer: !!audioPlayer,
+      currentTitle: !!currentTitle,
+      playPauseIcon: !!playPauseIcon
+    });
+
+    if (!audioElement || !audioPlayer || !currentTitle || !playPauseIcon) {
+      console.error('❌ Faltan elementos necesarios para reproducir');
       return;
+    }
 
     if (currentAudio && currentAudio.src.includes(audioUrl)) {
+      console.log('🔄 Mismo audio, alternar play/pause');
       if (isPlaying) {
         audioElement.pause();
         playPauseIcon.textContent = "play_arrow";
         isPlaying = false;
+        console.log('⏸️ Audio pausado');
       } else {
-        audioElement.play();
+        audioElement.play().then(() => {
+          console.log('▶️ Audio reanudado');
+        }).catch(err => {
+          console.error('❌ Error al reproducir:', err);
+        });
         playPauseIcon.textContent = "pause";
         isPlaying = true;
       }
     } else {
+      console.log('🆕 Nuevo audio, configurando...');
       audioElement.src = audioUrl;
       currentTitle.textContent = title;
-      audioElement.play();
+      audioElement.play().then(() => {
+        console.log('✅ Audio iniciado correctamente');
+      }).catch(err => {
+        console.error('❌ Error al iniciar audio:', err);
+      });
       playPauseIcon.textContent = "pause";
       isPlaying = true;
       audioPlayer.classList.remove("hidden");
+      console.log('👁️ Reproductor mostrado');
     }
 
     currentAudio = audioElement;
@@ -215,19 +441,30 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
     const audioPlayer = document.getElementById("audio-player");
 
     // Event listeners para los botones de reproducción
-    document.querySelectorAll(".play-podcast-btn").forEach((btn) => {
+    console.log('🎧 Inicializando reproductores de podcast...');
+    const playButtons = document.querySelectorAll(".play-podcast-btn");
+    console.log(`📻 Encontrados ${playButtons.length} botones de reproducción`);
+
+    playButtons.forEach((btn, index) => {
+      const audioUrl = (btn as HTMLElement).dataset.audio || "";
+      const title = (btn as HTMLElement).dataset.title || "";
+      console.log(`🎵 Botón ${index + 1}: "${title}" -> ${audioUrl}`);
+
       btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
         const target = e.currentTarget as HTMLButtonElement;
-        const audioUrl = target.dataset.audio || "";
-        const title = target.dataset.title || "";
-        console.log('Playing podcast:', title, audioUrl);
-        playPodcast(audioUrl, title);
+        const url = target.dataset.audio || "";
+        const podcastTitle = target.dataset.title || "";
+        console.log('▶️ Click en reproducir:', podcastTitle);
+        console.log('🔗 URL del audio:', url);
+        playPodcast(url, podcastTitle);
       });
     });
 
     // Trigger animations después de registrar los event listeners
     setTimeout(() => {
-      document.querySelectorAll('.podcast-card').forEach((card, index) => {
+      document.querySelectorAll('.podcast-card, .podcast-card-featured').forEach((card, index) => {
         setTimeout(() => {
           card.classList.add('fade-in-up');
         }, index * 100);
@@ -283,6 +520,53 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
       });
     }
   });
+
+  // Parallax scroll effect
+  function initParallax() {
+    const parallaxElements = document.querySelectorAll(
+      ".parallax-mascot-podcast, .parallax-quote-podcast, .parallax-description-podcast, .parallax-podcast-features"
+    );
+
+    if (parallaxElements.length === 0) return;
+
+    let ticking = false;
+
+    function updateParallax() {
+      parallaxElements.forEach((element) => {
+        const speed = parseFloat(element.getAttribute("data-speed") || "0.5");
+        const rect = element.getBoundingClientRect();
+        const elementTop = rect.top;
+        const elementHeight = rect.height;
+        const windowHeight = window.innerHeight;
+
+        // Only apply parallax when element is in viewport
+        if (elementTop < windowHeight && elementTop + elementHeight > 0) {
+          const scrolled = windowHeight - elementTop;
+          const parallax = scrolled * speed;
+          element.style.transform = `translateY(${parallax}px)`;
+        }
+      });
+
+      ticking = false;
+    }
+
+    function requestTick() {
+      if (!ticking) {
+        requestAnimationFrame(updateParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener("scroll", requestTick, { passive: true });
+    updateParallax(); // Initial call
+  }
+
+  // Initialize parallax on page load
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initParallax);
+  } else {
+    initParallax();
+  }
 </script>
 
 <style>

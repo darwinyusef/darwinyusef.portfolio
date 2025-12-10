@@ -1,12 +1,12 @@
 ---
-title: "Código y Aves"
-description: "Exploramos cómo la programación se inspira en la naturaleza para resolver problemas complejos."
-pubDate: 2024-08-05
+title: "Código y Aves: Algoritmos Inspirados en la Naturaleza"
+description: "Exploramos cómo la programación se inspira en la naturaleza para resolver problemas complejos, desde algoritmos genéticos hasta optimización por enjambre."
+pubDate: 2025-11-10
 duration: "28:12"
-audioUrl: "/audio/podcast-2.mp3"
-coverImage: "https://pngimg.com/uploads/birds/birds_PNG106.png"
-tags: ["programación", "naturaleza", "algoritmos"]
-is_active: false
+audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-7.mp3"
+coverImage: "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=800"
+tags: ["programación", "naturaleza", "algoritmos", "ia"]
+is_active: true
 ---
 
 ## Introducción

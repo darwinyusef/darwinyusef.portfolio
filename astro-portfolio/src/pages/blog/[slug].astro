@@ -4,13 +4,6 @@ import Header from '../../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
 import fs from 'fs';
 import path from 'path';
-import { marked } from 'marked';
-
-// Configure marked
-marked.setOptions({
-  breaks: true,
-  gfm: true,
-});
 
 export async function getStaticPaths() {
   const filePath = path.join(process.cwd(), 'public', 'blog.json');
@@ -21,17 +14,14 @@ export async function getStaticPaths() {
     .filter((post: any) => post.is_active)
     .map((post: any) => ({
       params: { slug: post.slug },
-      props: {
-        post,
-        renderedContent: marked.parse(post.content)
-      }
+      props: { post }
     }));
 }
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const { slug } = Astro.params;
-const { post, renderedContent } = Astro.props;
+const { post } = Astro.props;
 ---
 
 <Layout title={post.title}>
@@ -76,7 +66,7 @@ const { post, renderedContent } = Astro.props;
       <!-- Article Content -->
       <article class="max-w-4xl mx-auto px-6 -mt-32 relative z-10">
         <!-- Title Card -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800 transform transition-all duration-500 hover:shadow-3xl article-card">
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800 transform transition-all duration-500 hover:shadow-3xl">
           <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
             {post.title}
           </h1>
@@ -116,14 +106,9 @@ const { post, renderedContent } = Astro.props;
           </p>
         </div>
 
-        <!-- Markdown Content -->
+        <!-- HTML Content from JSON -->
         <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800">
-          <div
-            id="markdown-content"
-            class="markdown-content"
-            set:html={renderedContent}
-          >
-          </div>
+          <div set:html={post.content}></div>
         </div>
 
         <!-- Share Section -->
@@ -153,565 +138,70 @@ const { post, renderedContent } = Astro.props;
 
             <button
               id="share-copy"
-              class="group flex items-center gap-2 px-5 py-3 bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-xl hover:bg-gray-200 dark:hover:bg-gray-700 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+              class="group flex items-center gap-2 px-5 py-3 bg-gray-700 dark:bg-gray-600 text-white rounded-xl hover:bg-gray-600 dark:hover:bg-gray-500 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
             >
-              <span class="material-symbols-outlined text-lg">content_copy</span>
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+              </svg>
               <span class="font-medium">Copiar enlace</span>
             </button>
           </div>
         </div>
-
-        <!-- Related Posts -->
-        <div class="mb-16">
-          <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-            Artículos relacionados
-          </h3>
-          <div id="related-posts" class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          </div>
-        </div>
       </article>
-
-      <!-- Progress Bar -->
-      <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 dark:bg-gray-800 z-50">
-        <div id="progress-bar" class="h-full bg-gradient-to-r from-primary via-purple-600 to-pink-600 transition-all duration-150" style="width: 0%"></div>
-      </div>
     </main>
   </div>
 </Layout>
 
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800;900&display=swap');
-
-  .article-card {
-    animation: fadeInUp 0.6s ease-out;
-  }
-
-  @keyframes fadeInUp {
-    from {
-      opacity: 0;
-      transform: translateY(30px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  /* Smooth scroll */
-  html {
-    scroll-behavior: smooth;
-  }
-
-  /* Custom scrollbar */
-  ::-webkit-scrollbar {
-    width: 10px;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: #f1f1f1;
-  }
-
-  .dark ::-webkit-scrollbar-track {
-    background: #1a1a1a;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 5px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background: #555;
-  }
-
-  /* Markdown Content Styles */
-  .markdown-content {
-    font-size: 1.125rem;
-    line-height: 1.75;
-    color: #1f2937 !important;
-  }
-
-  .dark .markdown-content {
-    color: #f3f4f6 !important;
-  }
-
-  .dark .markdown-content * {
-    color: #f3f4f6 !important;
-  }
-
-  /* Headings */
-  .markdown-content h1,
-  .markdown-content h2,
-  .markdown-content h3,
-  .markdown-content h4,
-  .markdown-content h5,
-  .markdown-content h6 {
-    font-weight: 700;
-    line-height: 1.25;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: #111827 !important;
-  }
-
-  .dark .markdown-content h1,
-  .dark .markdown-content h2,
-  .dark .markdown-content h3,
-  .dark .markdown-content h4,
-  .dark .markdown-content h5,
-  .dark .markdown-content h6 {
-    color: #ffffff !important;
-  }
-
-  .markdown-content h1 {
-    font-size: 2.5rem;
-    margin-top: 3rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid #e5e7eb;
-  }
-
-  .dark .markdown-content h1 {
-    border-bottom-color: #374151;
-  }
-
-  .markdown-content h2 {
-    font-size: 2rem;
-    margin-top: 2.5rem;
-  }
-
-  .markdown-content h3 {
-    font-size: 1.5rem;
-    margin-top: 2rem;
-  }
-
-  .markdown-content h4 {
-    font-size: 1.25rem;
-  }
-
-  /* Paragraphs */
-  .markdown-content p {
-    margin-top: 0;
-    margin-bottom: 1.5rem;
-    line-height: 1.75;
-    color: #1f2937 !important;
-  }
-
-  .dark .markdown-content p {
-    color: #f3f4f6 !important;
-  }
-
-  /* Links */
-  .markdown-content a {
-    color: var(--primary-color, #6366f1) !important;
-    text-decoration: none;
-    font-weight: 500;
-    transition: all 0.2s;
-  }
-
-  .markdown-content a:hover {
-    text-decoration: underline;
-    opacity: 0.8;
-  }
-
-  /* Strong/Bold */
-  .markdown-content strong {
-    font-weight: 700;
-    color: #111827 !important;
-  }
-
-  .dark .markdown-content strong {
-    color: #ffffff !important;
-  }
-
-  /* Lists */
-  .markdown-content ul,
-  .markdown-content ol {
-    margin-top: 1.5rem;
-    margin-bottom: 1.5rem;
-    padding-left: 1.5rem;
-  }
-
-  .markdown-content ul {
-    list-style-type: disc;
-  }
-
-  .markdown-content ol {
-    list-style-type: decimal;
-  }
-
-  .markdown-content li {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    line-height: 1.75;
-    color: #1f2937 !important;
-  }
-
-  .dark .markdown-content li {
-    color: #f3f4f6 !important;
-  }
-
-  .markdown-content li > p {
-    margin-bottom: 0.5rem;
-  }
-
-  .markdown-content ul ul,
-  .markdown-content ul ol,
-  .markdown-content ol ul,
-  .markdown-content ol ol {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-  }
-
-  /* Code */
-  .markdown-content code {
-    background-color: #f3f4f6 !important;
-    color: var(--primary-color, #6366f1) !important;
-    padding: 0.2rem 0.4rem;
-    border-radius: 0.375rem;
-    font-size: 0.875em;
-    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-weight: 500;
-  }
-
-  .dark .markdown-content code {
-    background-color: #1f2937 !important;
-    color: #a78bfa !important;
-  }
-
-  .markdown-content pre {
-    background-color: #0f1419 !important;
-    color: #f3f4f6 !important;
-    padding: 1.5rem !important;
-    border-radius: 0.75rem !important;
-    overflow-x: auto !important;
-    margin-top: 1.5rem !important;
-    margin-bottom: 1.5rem !important;
-    border: 1px solid #374151 !important;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06) !important;
-    position: relative;
-    font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace !important;
-  }
-
-  .dark .markdown-content pre {
-    background-color: #0d1117 !important;
-    border-color: #30363d !important;
-  }
-
-  .markdown-content pre code {
-    background-color: transparent !important;
-    color: #e6edf3 !important;
-    padding: 0 !important;
-    border-radius: 0 !important;
-    font-size: 0.9rem !important;
-    line-height: 1.7 !important;
-    font-family: 'Consolas', 'Monaco', 'Courier New', 'Fira Code', monospace !important;
-    display: block !important;
-    white-space: pre !important;
-    word-wrap: normal !important;
-    tab-size: 4;
-  }
-
-  .dark .markdown-content pre code {
-    color: #e6edf3 !important;
-  }
-
-  /* Code block scrollbar */
-  .markdown-content pre::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  .markdown-content pre::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 4px;
-  }
-
-  .markdown-content pre::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-  }
-
-  .markdown-content pre::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 255, 255, 0.5);
-  }
-
-  /* Language badge for code blocks */
-  .markdown-content pre code[class*="language-"]::before {
-    content: attr(class);
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    color: #8b949e;
-    background-color: rgba(255, 255, 255, 0.1);
-    padding: 0.25rem 0.5rem;
-    border-radius: 0.25rem;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-  }
-
-  /* Blockquotes */
-  .markdown-content blockquote {
-    border-left: 4px solid var(--primary-color, #6366f1);
-    padding-left: 1.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    margin: 2rem 0;
-    background-color: #f9fafb;
-    border-radius: 0 0.5rem 0.5rem 0;
-    font-style: italic;
-    color: #4b5563 !important;
-  }
-
-  .dark .markdown-content blockquote {
-    background-color: #0a0a0a;
-    color: #d1d5db !important;
-  }
-
-  .markdown-content blockquote p {
-    color: inherit !important;
-  }
-
-  .dark .markdown-content blockquote p {
-    color: #d1d5db !important;
-  }
-
-  /* Images */
-  .markdown-content img {
-    border-radius: 1rem;
-    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    margin: 2rem 0;
-    max-width: 100%;
-    height: auto;
-    border: 1px solid #e5e7eb;
-  }
-
-  .dark .markdown-content img {
-    border-color: #374151;
-  }
-
-  /* HR */
-  .markdown-content hr {
-    border: 0;
-    border-top: 2px solid #e5e7eb;
-    margin: 3rem 0;
-  }
-
-  .dark .markdown-content hr {
-    border-top-color: #374151;
-  }
-
-  /* Tables */
-  .markdown-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 2rem 0;
-    font-size: 1rem;
-  }
-
-  .markdown-content th {
-    background-color: #f3f4f6;
-    padding: 0.75rem;
-    text-align: left;
-    font-weight: 700;
-    border: 1px solid #e5e7eb;
-  }
-
-  .dark .markdown-content th {
-    background-color: #1f2937;
-    border-color: #374151;
-  }
-
-  .markdown-content td {
-    padding: 0.75rem;
-    border: 1px solid #e5e7eb;
-  }
-
-  .dark .markdown-content td {
-    border-color: #374151;
-  }
-
-  .markdown-content tbody tr:nth-child(even) {
-    background-color: #f9fafb;
-  }
-
-  .dark .markdown-content tbody tr:nth-child(even) {
-    background-color: #111827;
-  }
-
-  .dark .markdown-content td,
-  .dark .markdown-content th {
-    color: #e5e7eb;
-  }
-
-  /* First paragraph no margin top */
-  .markdown-content > *:first-child {
-    margin-top: 0;
-  }
-
-  /* Last element no margin bottom */
-  .markdown-content > *:last-child {
-    margin-bottom: 0;
-  }
-
-  /* Em/Italic */
-  .markdown-content em {
-    color: inherit;
-    font-style: italic;
-  }
-
-  /* Ensure all text inherits proper color */
-  .dark .markdown-content p,
-  .dark .markdown-content li,
-  .dark .markdown-content td,
-  .dark .markdown-content span,
-  .dark .markdown-content div {
-    color: #f3f4f6 !important;
-  }
-
-  /* Override any inherited dark colors */
-  :root.dark .markdown-content,
-  :root.dark .markdown-content p,
-  :root.dark .markdown-content li {
-    color: #f3f4f6 !important;
-  }
 </style>
 
 <script define:vars={{ post }}>
-  let currentPost = post;
-
-  // Render post immediately
+  // Format date
   document.addEventListener('DOMContentLoaded', () => {
-    renderPost();
-    loadRelatedPosts();
-    setupShareButtons();
-    setupProgressBar();
-  });
-
-  function renderPost() {
-    // Update date
-    const dateEl = document.getElementById('post-date');
-    if (dateEl) {
-      const date = new Date(currentPost.publishDate);
-      dateEl.textContent = date.toLocaleDateString('es-ES', {
+    const postDateEl = document.getElementById('post-date');
+    if (postDateEl) {
+      const date = new Date(post.publishDate);
+      postDateEl.textContent = date.toLocaleDateString('es-ES', {
         year: 'numeric',
         month: 'long',
         day: 'numeric'
       });
     }
 
-    // El markdown ya está renderizado en el servidor
-    // No necesitamos hacer nada más aquí
-  }
+    // Share handlers
+    const shareTwitter = document.getElementById('share-twitter');
+    const shareLinkedIn = document.getElementById('share-linkedin');
+    const shareCopy = document.getElementById('share-copy');
 
-  async function loadRelatedPosts() {
-    try {
-      const response = await fetch('/blog.json');
-      if (!response.ok) return;
-
-      const posts = await response.json();
-      const relatedPosts = posts
-        .filter(p => p.is_active && p.category === currentPost.category && p.id !== currentPost.id)
-        .slice(0, 2);
-
-      const container = document.getElementById('related-posts');
-      if (!container || relatedPosts.length === 0) return;
-
-      container.innerHTML = relatedPosts.map(post => {
-        const date = new Date(post.publishDate);
-        const formattedDate = date.toLocaleDateString('es-ES', {
-          year: 'numeric',
-          month: 'short',
-          day: 'numeric'
-        });
-
-        return `
-          <a
-            href="/blog/${post.slug}"
-            class="group bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden hover:shadow-2xl transition-all duration-500 border border-gray-100 dark:border-gray-800 transform hover:-translate-y-2"
-          >
-            <div class="relative h-48 overflow-hidden">
-              ${post.coverImage ? `
-                <img
-                  src="${post.coverImage}"
-                  alt="${post.title}"
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                >
-              ` : `
-                <div class="w-full h-full bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center">
-                  <span class="material-symbols-outlined text-white text-5xl">article</span>
-                </div>
-              `}
-              <div class="absolute top-4 left-4">
-                <span class="px-3 py-1 bg-white/90 dark:bg-black/90 backdrop-blur-sm text-primary text-xs font-bold rounded-full">
-                  ${post.category}
-                </span>
-              </div>
-            </div>
-            <div class="p-6">
-              <h4 class="font-bold text-xl text-gray-900 dark:text-white mb-3 group-hover:text-primary transition-colors line-clamp-2">
-                ${post.title}
-              </h4>
-              <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-2">
-                ${post.excerpt}
-              </p>
-              <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400">
-                <span>${formattedDate}</span>
-                <span class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
-                  ${post.readTime}
-                </span>
-              </div>
-            </div>
-          </a>
-        `;
-      }).join('');
-    } catch (error) {
-      console.error('Error loading related posts:', error);
+    if (shareTwitter) {
+      shareTwitter.addEventListener('click', () => {
+        const url = window.location.href;
+        const text = post.title;
+        window.open(`https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(text)}`, '_blank');
+      });
     }
-  }
 
-  function setupShareButtons() {
-    const url = window.location.href;
-    const title = currentPost.title;
+    if (shareLinkedIn) {
+      shareLinkedIn.addEventListener('click', () => {
+        const url = window.location.href;
+        window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`, '_blank');
+      });
+    }
 
-    document.getElementById('share-twitter')?.addEventListener('click', () => {
-      const twitterUrl = `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`;
-      window.open(twitterUrl, '_blank', 'width=550,height=420');
-    });
-
-    document.getElementById('share-linkedin')?.addEventListener('click', () => {
-      const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`;
-      window.open(linkedinUrl, '_blank', 'width=550,height=420');
-    });
-
-    document.getElementById('share-copy')?.addEventListener('click', async () => {
-      try {
-        await navigator.clipboard.writeText(url);
-        const btn = document.getElementById('share-copy');
-        if (btn) {
-          const originalHTML = btn.innerHTML;
-          btn.innerHTML = '<span class="material-symbols-outlined text-lg">check</span><span class="font-medium">¡Copiado!</span>';
+    if (shareCopy) {
+      shareCopy.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          const originalText = shareCopy.querySelector('span').textContent;
+          shareCopy.querySelector('span').textContent = '¡Copiado!';
           setTimeout(() => {
-            btn.innerHTML = originalHTML;
+            shareCopy.querySelector('span').textContent = originalText;
           }, 2000);
+        } catch (err) {
+          console.error('Error copying to clipboard:', err);
         }
-      } catch (err) {
-        console.error('Failed to copy:', err);
-      }
-    });
-  }
-
-  function setupProgressBar() {
-    const progressBar = document.getElementById('progress-bar');
-    if (!progressBar) return;
-
-    window.addEventListener('scroll', () => {
-      const windowHeight = window.innerHeight;
-      const documentHeight = document.documentElement.scrollHeight;
-      const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-      const scrollPercent = (scrollTop / (documentHeight - windowHeight)) * 100;
-
-      progressBar.style.width = `${Math.min(scrollPercent, 100)}%`;
-    });
-  }
+      });
+    }
+  });
 </script>

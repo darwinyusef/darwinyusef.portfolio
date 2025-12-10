@@ -21,6 +21,9 @@ const lang = getLangFromUrl(Astro.url);
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
+    <script is:inline>
+      document.documentElement.classList.add('dark');
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
@@ -39,12 +42,165 @@ const lang = getLangFromUrl(Astro.url);
 
     <button
       id="accessibility-btn"
-      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
-      aria-label="Accessibility"
+      class="fixed bottom-24 right-6 bg-gradient-to-br from-primary to-purple-600 text-white p-4 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 z-40"
+      aria-label="Accessibility Options"
       title="Accessibility Options"
     >
-      <span class="material-symbols-outlined">accessibility</span>
+      <span class="material-symbols-outlined text-2xl">accessibility</span>
     </button>
+
+    <!-- Modal de Accesibilidad -->
+    <div id="accessibility-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto relative">
+        <!-- Header -->
+        <div class="sticky top-0 bg-gradient-to-r from-primary to-purple-600 text-white p-6 rounded-t-2xl z-10">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-3">
+              <div class="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
+                <span class="material-symbols-outlined text-3xl">accessibility</span>
+              </div>
+              <div>
+                <h2 class="text-2xl font-bold">Opciones de Accesibilidad</h2>
+                <p class="text-white/80 text-sm">Personaliza tu experiencia</p>
+              </div>
+            </div>
+            <button id="close-accessibility-modal" class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 flex items-center justify-center transition-colors">
+              <span class="material-symbols-outlined">close</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="p-6 space-y-6">
+          <!-- Tamaño de Texto -->
+          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">format_size</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Tamaño de Texto</h3>
+            </div>
+            <div class="flex items-center gap-4">
+              <button id="decrease-text" class="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary transition-colors">
+                <span class="material-symbols-outlined">remove</span>
+              </button>
+              <div class="flex-1 text-center">
+                <div class="text-2xl font-bold text-primary" id="text-size-display">100%</div>
+                <div class="text-sm text-gray-600 dark:text-gray-400">Normal</div>
+              </div>
+              <button id="increase-text" class="w-12 h-12 rounded-xl bg-white dark:bg-gray-800 border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary transition-colors">
+                <span class="material-symbols-outlined">add</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Contraste -->
+          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">contrast</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Alto Contraste</h3>
+            </div>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-gray-700 dark:text-gray-300">Activar modo de alto contraste</span>
+              <div class="relative">
+                <input type="checkbox" id="high-contrast-toggle" class="sr-only peer">
+                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Animaciones -->
+          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">motion_photos_off</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Reducir Movimiento</h3>
+            </div>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-gray-700 dark:text-gray-300">Desactivar animaciones y efectos</span>
+              <div class="relative">
+                <input type="checkbox" id="reduce-motion-toggle" class="sr-only peer">
+                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Espacio entre Líneas -->
+          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">format_line_spacing</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Espaciado de Líneas</h3>
+            </div>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-gray-700 dark:text-gray-300">Aumentar espacio entre líneas</span>
+              <div class="relative">
+                <input type="checkbox" id="line-height-toggle" class="sr-only peer">
+                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Cursor Grande -->
+          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-200 dark:border-gray-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-primary text-2xl">mouse</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Cursor Grande</h3>
+            </div>
+            <label class="flex items-center justify-between cursor-pointer">
+              <span class="text-gray-700 dark:text-gray-300">Usar cursor de mayor tamaño</span>
+              <div class="relative">
+                <input type="checkbox" id="large-cursor-toggle" class="sr-only peer">
+                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+              </div>
+            </label>
+          </div>
+
+          <!-- Preferencias de Cookies -->
+          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
+            <div class="flex items-center gap-3 mb-4">
+              <span class="material-symbols-outlined text-blue-600 text-2xl">cookie</span>
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Preferencias de Cookies</h3>
+            </div>
+            <div class="space-y-3">
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <div class="font-semibold text-gray-900 dark:text-white">Cookies Esenciales</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Necesarias para el funcionamiento</div>
+                </div>
+                <input type="checkbox" checked disabled class="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary">
+              </label>
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <div class="font-semibold text-gray-900 dark:text-white">Cookies de Análisis</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Ayudan a mejorar el sitio</div>
+                </div>
+                <div class="relative">
+                  <input type="checkbox" id="analytics-cookies-toggle" class="sr-only peer">
+                  <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                </div>
+              </label>
+              <label class="flex items-center justify-between cursor-pointer">
+                <div>
+                  <div class="font-semibold text-gray-900 dark:text-white">Cookies de Marketing</div>
+                  <div class="text-sm text-gray-600 dark:text-gray-400">Para personalización</div>
+                </div>
+                <div class="relative">
+                  <input type="checkbox" id="marketing-cookies-toggle" class="sr-only peer">
+                  <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Botones de Acción -->
+          <div class="flex gap-3">
+            <button id="reset-accessibility" class="flex-1 px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-700 dark:text-gray-300 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+              Restablecer
+            </button>
+            <button id="save-accessibility" class="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all hover:scale-105">
+              Guardar Preferencias
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
 
@@ -58,6 +214,37 @@ const lang = getLangFromUrl(Astro.url);
   body {
     min-height: 100dvh;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  }
+
+  /* Accessibility Styles */
+  .high-contrast {
+    filter: contrast(1.5);
+  }
+
+  .high-contrast * {
+    border-color: currentColor !important;
+  }
+
+  .reduce-motion,
+  .reduce-motion * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .increased-line-height,
+  .increased-line-height * {
+    line-height: 2 !important;
+  }
+
+  .large-cursor,
+  .large-cursor * {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M3 3 L3 23 L11 17 L15 28 L19 26 L15 15 L23 15 Z" fill="white" stroke="black" stroke-width="1.5"/></svg>') 2 2, auto !important;
+  }
+
+  .large-cursor button,
+  .large-cursor a {
+    cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><path d="M16 4 L20 14 L28 16 L20 18 L16 28 L12 18 L4 16 L12 14 Z" fill="white" stroke="black" stroke-width="1.5"/></svg>') 16 16, pointer !important;
   }
 
   /* Global Cursor Follower Styles */
@@ -128,6 +315,20 @@ const lang = getLangFromUrl(Astro.url);
 </style>
 
 <script>
+  // Force dark mode permanently
+  (function() {
+    document.documentElement.classList.add('dark');
+    const observer = new MutationObserver(() => {
+      if (!document.documentElement.classList.contains('dark')) {
+        document.documentElement.classList.add('dark');
+      }
+    });
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ['class']
+    });
+  })();
+
   // Global Cursor Follower Effect
   function initCursorFollower() {
     const cursorFollower = document.getElementById('cursor-follower');
@@ -198,5 +399,193 @@ const lang = getLangFromUrl(Astro.url);
     document.addEventListener('DOMContentLoaded', initCursorFollower);
   } else {
     initCursorFollower();
+  }
+
+  // Accessibility Modal Functionality
+  function initAccessibilityModal() {
+    const modal = document.getElementById('accessibility-modal');
+    const openBtn = document.getElementById('accessibility-btn');
+    const closeBtn = document.getElementById('close-accessibility-modal');
+    const saveBtn = document.getElementById('save-accessibility');
+    const resetBtn = document.getElementById('reset-accessibility');
+
+    // Text Size Controls
+    const increaseTextBtn = document.getElementById('increase-text');
+    const decreaseTextBtn = document.getElementById('decrease-text');
+    const textSizeDisplay = document.getElementById('text-size-display');
+
+    // Toggle Controls
+    const highContrastToggle = document.getElementById('high-contrast-toggle') as HTMLInputElement;
+    const reduceMotionToggle = document.getElementById('reduce-motion-toggle') as HTMLInputElement;
+    const lineHeightToggle = document.getElementById('line-height-toggle') as HTMLInputElement;
+    const largeCursorToggle = document.getElementById('large-cursor-toggle') as HTMLInputElement;
+    const analyticsCookiesToggle = document.getElementById('analytics-cookies-toggle') as HTMLInputElement;
+    const marketingCookiesToggle = document.getElementById('marketing-cookies-toggle') as HTMLInputElement;
+
+    if (!modal || !openBtn) return;
+
+    let textSize = 100;
+
+    // Load saved preferences
+    function loadPreferences() {
+      const saved = localStorage.getItem('accessibility-preferences');
+      if (saved) {
+        const prefs = JSON.parse(saved);
+        textSize = prefs.textSize || 100;
+        updateTextSize();
+
+        if (highContrastToggle) highContrastToggle.checked = prefs.highContrast || false;
+        if (reduceMotionToggle) reduceMotionToggle.checked = prefs.reduceMotion || false;
+        if (lineHeightToggle) lineHeightToggle.checked = prefs.lineHeight || false;
+        if (largeCursorToggle) largeCursorToggle.checked = prefs.largeCursor || false;
+        if (analyticsCookiesToggle) analyticsCookiesToggle.checked = prefs.analyticsCookies !== false;
+        if (marketingCookiesToggle) marketingCookiesToggle.checked = prefs.marketingCookies || false;
+
+        applyPreferences();
+      }
+    }
+
+    // Apply preferences to DOM
+    function applyPreferences() {
+      // Text Size
+      document.documentElement.style.fontSize = `${textSize}%`;
+
+      // High Contrast
+      if (highContrastToggle?.checked) {
+        document.documentElement.classList.add('high-contrast');
+      } else {
+        document.documentElement.classList.remove('high-contrast');
+      }
+
+      // Reduce Motion
+      if (reduceMotionToggle?.checked) {
+        document.documentElement.classList.add('reduce-motion');
+      } else {
+        document.documentElement.classList.remove('reduce-motion');
+      }
+
+      // Line Height
+      if (lineHeightToggle?.checked) {
+        document.documentElement.classList.add('increased-line-height');
+      } else {
+        document.documentElement.classList.remove('increased-line-height');
+      }
+
+      // Large Cursor
+      if (largeCursorToggle?.checked) {
+        document.documentElement.classList.add('large-cursor');
+      } else {
+        document.documentElement.classList.remove('large-cursor');
+      }
+    }
+
+    // Update text size display
+    function updateTextSize() {
+      if (textSizeDisplay) {
+        textSizeDisplay.textContent = `${textSize}%`;
+      }
+    }
+
+    // Increase text size
+    increaseTextBtn?.addEventListener('click', () => {
+      if (textSize < 150) {
+        textSize += 10;
+        updateTextSize();
+        document.documentElement.style.fontSize = `${textSize}%`;
+      }
+    });
+
+    // Decrease text size
+    decreaseTextBtn?.addEventListener('click', () => {
+      if (textSize > 80) {
+        textSize -= 10;
+        updateTextSize();
+        document.documentElement.style.fontSize = `${textSize}%`;
+      }
+    });
+
+    // Toggle listeners
+    highContrastToggle?.addEventListener('change', applyPreferences);
+    reduceMotionToggle?.addEventListener('change', applyPreferences);
+    lineHeightToggle?.addEventListener('change', applyPreferences);
+    largeCursorToggle?.addEventListener('change', applyPreferences);
+
+    // Open modal
+    openBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal
+    closeBtn?.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+
+    // Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+    });
+
+    // Save preferences
+    saveBtn?.addEventListener('click', () => {
+      const preferences = {
+        textSize,
+        highContrast: highContrastToggle?.checked || false,
+        reduceMotion: reduceMotionToggle?.checked || false,
+        lineHeight: lineHeightToggle?.checked || false,
+        largeCursor: largeCursorToggle?.checked || false,
+        analyticsCookies: analyticsCookiesToggle?.checked || false,
+        marketingCookies: marketingCookiesToggle?.checked || false,
+      };
+
+      localStorage.setItem('accessibility-preferences', JSON.stringify(preferences));
+
+      // Show success message
+      const originalText = saveBtn.textContent;
+      saveBtn.textContent = '✓ Guardado';
+      saveBtn.style.background = 'linear-gradient(to right, #10b981, #059669)';
+
+      setTimeout(() => {
+        saveBtn.textContent = originalText;
+        saveBtn.style.background = '';
+      }, 2000);
+    });
+
+    // Reset preferences
+    resetBtn?.addEventListener('click', () => {
+      textSize = 100;
+      updateTextSize();
+      document.documentElement.style.fontSize = '100%';
+
+      if (highContrastToggle) highContrastToggle.checked = false;
+      if (reduceMotionToggle) reduceMotionToggle.checked = false;
+      if (lineHeightToggle) lineHeightToggle.checked = false;
+      if (largeCursorToggle) largeCursorToggle.checked = false;
+      if (analyticsCookiesToggle) analyticsCookiesToggle.checked = true;
+      if (marketingCookiesToggle) marketingCookiesToggle.checked = false;
+
+      applyPreferences();
+      localStorage.removeItem('accessibility-preferences');
+
+      const originalText = resetBtn.textContent;
+      resetBtn.textContent = '✓ Restablecido';
+
+      setTimeout(() => {
+        resetBtn.textContent = originalText;
+      }, 2000);
+    });
+
+    // Load preferences on init
+    loadPreferences();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initAccessibilityModal);
+  } else {
+    initAccessibilityModal();
   }
 </script>
