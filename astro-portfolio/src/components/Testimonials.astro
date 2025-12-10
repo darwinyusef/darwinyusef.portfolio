@@ -274,7 +274,7 @@ const lang = getLangFromUrl(Astro.url);
     if (!slider) return;
 
     try {
-      const response = await fetch('/testimonials.json');
+      const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/testimonials.json');
       if (!response.ok) throw new Error('Failed to load testimonials');
 
       const allTestimonials: Testimonial[] = await response.json();

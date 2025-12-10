@@ -2,13 +2,12 @@
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../../i18n/utils';
-import fs from 'fs';
-import path from 'path';
+
+const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/blog.json';
 
 export async function getStaticPaths() {
-  const filePath = path.join(process.cwd(), 'public', 'blog.json');
-  const fileContents = fs.readFileSync(filePath, 'utf8');
-  const posts = JSON.parse(fileContents);
+  const response = await fetch(GITHUB_RAW_URL);
+  const posts = await response.json();
 
   return posts
     .filter((post: any) => post.is_active)

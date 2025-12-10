@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 import { getCollection } from 'astro:content';
+import { getGithubRawUrl } from '../config/github';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -148,6 +149,8 @@ const postsFromContent = await getCollection('posts');
     is_active: boolean;
   }
 
+  const GITHUB_RAW_URL = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/blog.json';
+
   let allPosts: Post[] = [];
   let currentCategory = 'all';
 
@@ -286,7 +289,7 @@ const postsFromContent = await getCollection('posts');
     if (!container) return;
 
     try {
-      const response = await fetch('/blog.json');
+      const response = await fetch(GITHUB_RAW_URL);
       if (!response.ok) throw new Error('Failed to load blog posts');
 
       const loadedPosts: Post[] = await response.json();
