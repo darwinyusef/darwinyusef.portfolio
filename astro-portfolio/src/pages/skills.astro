@@ -141,7 +141,7 @@ const t = useTranslations(lang);
     if (!container) return;
 
     try {
-      const response = await fetch('/languages.json');
+      const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef.portfolio/refs/heads/main/information/languages.json');
       if (!response.ok) throw new Error('Failed to load languages');
 
       const allLanguages: Language[] = await response.json();
@@ -359,7 +359,7 @@ const t = useTranslations(lang);
     if (!container) return;
 
     try {
-      const response = await fetch('/experience.json');
+      const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef.portfolio/refs/heads/main/information/experience.json');
       if (!response.ok) throw new Error('Failed to load experience');
 
       const allExperience: Experience[] = await response.json();
