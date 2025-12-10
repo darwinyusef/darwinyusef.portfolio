@@ -35,6 +35,84 @@ const lang = getLangFromUrl(Astro.url);
 
       <section class="pb-16 max-w-7xl mx-auto">
 
+      <!-- Featured Videos Section -->
+      <div id="featured-videos-section" class="mb-16">
+        <!-- This will be populated by JavaScript -->
+      </div>
+
+      <!-- Parallax Subscription Banner -->
+      <section class="py-32 relative overflow-hidden mb-16">
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-red-600/5 to-transparent"></div>
+
+        <!-- Elementos flotantes de fondo con parallax -->
+        <div class="parallax-bg absolute inset-0 pointer-events-none">
+          <div class="parallax-element absolute top-20 left-10 w-72 h-72 bg-red-600/10 rounded-full blur-3xl" data-speed="0.3"></div>
+          <div class="parallax-element absolute bottom-20 right-10 w-96 h-96 bg-pink-600/10 rounded-full blur-3xl" data-speed="0.5"></div>
+          <div class="parallax-element absolute top-1/2 left-1/4 w-64 h-64 bg-purple-600/10 rounded-full blur-3xl" data-speed="0.4"></div>
+        </div>
+
+        <div class="max-w-[1600px] mx-auto relative z-10 px-6">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <!-- Imagen con efecto parallax -->
+            <div class="flex justify-center lg:justify-end order-2 lg:order-1">
+              <div class="parallax-banner relative" data-speed="0.2">
+                <div class="absolute inset-0 bg-gradient-to-br from-red-600/20 via-pink-600/20 to-purple-600/20 rounded-3xl blur-3xl scale-110 animate-pulse"></div>
+                <img
+                  src="/img/suscribeteotepego.png"
+                  alt={lang === 'es' ? 'Suscríbete' : lang === 'en' ? 'Subscribe' : 'Inscreva-se'}
+                  class="relative w-full max-w-lg h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 rounded-2xl"
+                />
+              </div>
+            </div>
+
+            <!-- Contenido con efecto de texto parallax -->
+            <div class="order-1 lg:order-2 space-y-8">
+              <div class="parallax-cta" data-speed="0.1">
+                <div class="relative">
+                  <h2 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                    <span class="inline-block bg-gradient-to-r from-red-600 via-pink-600 to-purple-600 bg-clip-text text-transparent">
+                      {lang === 'es' ? '¡No te pierdas' : lang === 'en' ? "Don't miss" : 'Não perca'}
+                    </span>
+                    <br/>
+                    <span class="inline-block text-gray-900 dark:text-white">
+                      {lang === 'es' ? 'ningún video!' : lang === 'en' ? 'any video!' : 'nenhum vídeo!'}
+                    </span>
+                  </h2>
+                </div>
+              </div>
+
+              <div class="parallax-description" data-speed="0.15">
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                  {lang === 'es'
+                    ? 'Suscríbete a mi canal de YouTube para recibir notificaciones de nuevos tutoriales, tips y contenido exclusivo sobre desarrollo web y tecnología.'
+                    : lang === 'en'
+                    ? 'Subscribe to my YouTube channel to receive notifications of new tutorials, tips and exclusive content about web development and technology.'
+                    : 'Inscreva-se no meu canal do YouTube para receber notificações de novos tutoriais, dicas e conteúdo exclusivo sobre desenvolvimento web e tecnologia.'}
+                </p>
+
+                <a
+                  href="https://www.youtube.com/@yusefgonzalez"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-red-600 to-red-700 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+                >
+                  <span class="material-symbols-outlined text-3xl">play_circle</span>
+                  <span>{lang === 'es' ? 'Suscríbete Ahora' : lang === 'en' ? 'Subscribe Now' : 'Inscreva-se Agora'}</span>
+                  <span class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
+              </div>
+
+              <!-- Elementos decorativos -->
+              <div class="parallax-decorations flex gap-4 mt-12" data-speed="0.25">
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-red-600 to-pink-600 opacity-20 animate-float"></div>
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-pink-600 to-purple-600 opacity-20 animate-float" style="animation-delay: 0.5s;"></div>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-purple-600 to-red-600 opacity-20 animate-float" style="animation-delay: 1s;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- Filtro de categorías -->
       <div class="mb-8">
         <div class="flex flex-wrap gap-2 justify-center" id="category-filters">
@@ -84,6 +162,7 @@ const lang = getLangFromUrl(Astro.url);
     tags?: string[];
     pubDate: string;
     is_active: boolean;
+    featured?: boolean;
   }
 
   let allVideos: Video[] = [];
@@ -105,6 +184,124 @@ const lang = getLangFromUrl(Astro.url);
   function getYouTubeThumbnail(url: string): string {
     const videoId = getYouTubeVideoId(url);
     return videoId ? `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg` : '';
+  }
+
+  function renderFeaturedVideos(videos: Video[]) {
+    const featuredContainer = document.getElementById('featured-videos-section');
+    if (!featuredContainer) return;
+
+    const featuredVideos = videos.filter(v => v.featured);
+
+    if (featuredVideos.length === 0) {
+      featuredContainer.style.display = 'none';
+      return;
+    }
+
+    const html = `
+      <div class="mb-8">
+        <div class="flex items-center gap-3 mb-6">
+          <span class="material-symbols-outlined text-4xl text-primary">star</span>
+          <h2 class="text-3xl font-bold text-gray-900 dark:text-white">Videos Destacados</h2>
+          <span class="px-3 py-1 bg-gradient-to-r from-primary to-purple-600 text-white text-sm font-bold rounded-full">NUEVO</span>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          ${featuredVideos.map(video => {
+            const thumbnail = video.thumbnail || getYouTubeThumbnail(video.youtube_url);
+            return `
+              <div class="bg-gradient-to-br from-white to-purple-50 dark:from-[#1a1a2e] dark:to-[#16213e] rounded-2xl shadow-2xl overflow-hidden hover:shadow-purple-500/30 transition-all duration-500 hover:-translate-y-2 cursor-pointer video-card border-2 border-purple-200 dark:border-purple-900/50 relative group"
+                   data-video='${JSON.stringify(video).replace(/'/g, "&apos;")}'>
+
+                <!-- NUEVO Badge -->
+                <div class="absolute top-4 left-4 z-10">
+                  <div class="flex items-center gap-2 bg-gradient-to-r from-red-600 to-pink-600 text-white px-4 py-2 rounded-full shadow-lg font-bold text-sm">
+                    <span class="material-symbols-outlined text-base animate-pulse">fiber_new</span>
+                    DESTACADO
+                  </div>
+                </div>
+
+                <!-- Thumbnail -->
+                <div class="relative h-72 overflow-hidden">
+                  <img src="${thumbnail}" alt="${video.title}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
+
+                  <!-- Play Button -->
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-br from-red-600 to-red-700 flex items-center justify-center shadow-2xl group-hover:scale-125 transition-transform duration-300">
+                      <span class="material-symbols-outlined text-white text-5xl">play_arrow</span>
+                    </div>
+                  </div>
+
+                  <!-- Duration & Category -->
+                  ${video.duration ? `
+                    <div class="absolute bottom-4 right-4 bg-black/90 text-white text-sm font-bold px-3 py-2 rounded-lg backdrop-blur-sm">
+                      <span class="material-symbols-outlined text-base align-middle mr-1">schedule</span>
+                      ${video.duration}
+                    </div>
+                  ` : ''}
+
+                  ${video.category ? `
+                    <div class="absolute bottom-4 left-4 bg-gradient-to-r from-primary to-purple-600 text-white text-sm font-bold px-4 py-2 rounded-full shadow-lg">
+                      ${video.category}
+                    </div>
+                  ` : ''}
+                </div>
+
+                <!-- Content -->
+                <div class="p-6">
+                  <h3 class="font-bold text-2xl text-gray-900 dark:text-white mb-4 leading-tight hover:text-primary transition-colors">
+                    ${video.title}
+                  </h3>
+
+                  <!-- Full Description (not truncated) -->
+                  <p class="text-base text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+                    ${video.description}
+                  </p>
+
+                  <!-- Tags -->
+                  ${video.tags && video.tags.length > 0 ? `
+                    <div class="flex flex-wrap gap-2 mb-4">
+                      ${video.tags.map(tag => `
+                        <span class="text-sm bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 px-3 py-1.5 rounded-lg font-semibold border border-purple-200 dark:border-purple-700">
+                          #${tag}
+                        </span>
+                      `).join('')}
+                    </div>
+                  ` : ''}
+
+                  <!-- Watch Now Button -->
+                  <div class="flex items-center gap-2 text-primary font-bold group-hover:gap-4 transition-all">
+                    <span>Ver ahora</span>
+                    <span class="material-symbols-outlined">arrow_forward</span>
+                  </div>
+                </div>
+              </div>
+            `;
+          }).join('')}
+        </div>
+      </div>
+
+      <!-- Separator -->
+      <div class="relative mb-12">
+        <div class="absolute inset-0 flex items-center">
+          <div class="w-full border-t-2 border-gray-200 dark:border-gray-700"></div>
+        </div>
+        <div class="relative flex justify-center">
+          <span class="bg-[#F8F8F8] dark:bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 rounded-full border-2 border-gray-200 dark:border-gray-700">
+            Todos los videos
+          </span>
+        </div>
+      </div>
+    `;
+
+    featuredContainer.innerHTML = html;
+
+    // Add event listeners to featured video cards
+    featuredContainer.querySelectorAll('.video-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const videoData = JSON.parse(card.getAttribute('data-video') || '{}');
+        openVideoModal(videoData);
+      });
+    });
   }
 
   function createCategoryFilters(videos: Video[]) {
@@ -166,10 +363,10 @@ const lang = getLangFromUrl(Astro.url);
       }
     });
 
-    // Filtrar videos
+    // Filtrar videos (excluyendo los destacados que ya están en su propia sección)
     const filteredVideos = category === 'all'
-      ? allVideos
-      : allVideos.filter(v => v.category === category);
+      ? allVideos.filter(v => !v.featured)
+      : allVideos.filter(v => v.category === category && !v.featured);
 
     renderVideos(filteredVideos);
   }
@@ -298,11 +495,15 @@ const lang = getLangFromUrl(Astro.url);
         return;
       }
 
+      // Renderizar videos destacados primero
+      renderFeaturedVideos(allVideos);
+
       // Crear filtros de categorías
       createCategoryFilters(allVideos);
 
-      // Renderizar todos los videos inicialmente
-      renderVideos(allVideos);
+      // Renderizar todos los videos inicialmente (excluyendo los destacados del grid principal)
+      const nonFeaturedVideos = allVideos.filter(v => !v.featured);
+      renderVideos(nonFeaturedVideos);
 
     } catch (error) {
       console.error('Error loading videos:', error);
@@ -328,5 +529,80 @@ const lang = getLangFromUrl(Astro.url);
         closeVideoModal();
       }
     });
+
+    // Parallax Scroll Effect
+    const parallaxElements = document.querySelectorAll('[data-speed]');
+
+    if (parallaxElements.length > 0) {
+      let ticking = false;
+
+      function updateParallax() {
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        const windowHeight = window.innerHeight;
+
+        parallaxElements.forEach((element) => {
+          const speed = parseFloat(element.getAttribute('data-speed') || '0.5');
+          const elementTop = element.getBoundingClientRect().top + scrollTop;
+          const elementHeight = element.offsetHeight;
+
+          if (scrollTop + windowHeight > elementTop && scrollTop < elementTop + elementHeight) {
+            const yPos = (scrollTop - elementTop) * speed;
+            element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+          }
+        });
+
+        ticking = false;
+      }
+
+      function requestTick() {
+        if (!ticking) {
+          requestAnimationFrame(updateParallax);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', requestTick, { passive: true });
+      updateParallax(); // Initial call
+    }
   });
 </script>
+
+<style>
+  /* Transiciones suaves para parallax */
+  .parallax-element,
+  .parallax-banner,
+  .parallax-cta,
+  .parallax-description,
+  .parallax-decorations {
+    will-change: transform;
+    transition: transform 0.1s ease-out;
+  }
+
+  /* Animación de flotación */
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  /* Animación de pulso suave */
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 0.6;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+
+  .animate-pulse {
+    animation: pulse 4s ease-in-out infinite;
+  }
+</style>

@@ -1,5 +1,31 @@
 [
   {
+    "id": 16,
+    "title": "Arquitectura Enterprise con TOGAF y Microservicios 2025",
+    "description": "Descubre cómo diseñar arquitecturas empresariales modernas combinando el framework TOGAF con microservicios cloud-native. Aprenderás patrones arquitectónicos, principios de diseño empresarial, integración continua, y cómo balancear la gobernanza corporativa con la agilidad técnica. Incluye casos de uso reales, diagramas C4, ADRs (Architecture Decision Records) y best practices para escalar sistemas empresariales.",
+    "youtube_url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    "thumbnail": "https://img.youtube.com/vi/dQw4w9WgXcQ/maxresdefault.jpg",
+    "duration": "1:24:15",
+    "category": "Arquitectura",
+    "tags": ["TOGAF", "Enterprise Architecture", "Microservicios", "Cloud", "Gobernanza"],
+    "pubDate": "2025-12-01T10:00:00Z",
+    "is_active": true,
+    "featured": true
+  },
+  {
+    "id": 17,
+    "title": "IA Generativa en Producción: De Hugging Face a Deployment",
+    "description": "Guía completa paso a paso para llevar modelos de IA generativa a producción. Desde fine-tuning de modelos Hugging Face, optimización con quantización, implementación de RAG (Retrieval Augmented Generation), hasta deployment escalable en AWS con monitoreo en tiempo real. Incluye técnicas de prompt engineering, manejo de costos, evaluación de modelos, y estrategias para reducir latencia y mejorar la experiencia del usuario final.",
+    "youtube_url": "https://www.youtube.com/watch?v=9bZkp7q19f0",
+    "thumbnail": "https://img.youtube.com/vi/9bZkp7q19f0/maxresdefault.jpg",
+    "duration": "1:32:40",
+    "category": "IA/ML",
+    "tags": ["IA Generativa", "Hugging Face", "LLM", "RAG", "Production", "AWS"],
+    "pubDate": "2025-12-05T10:00:00Z",
+    "is_active": true,
+    "featured": true
+  },
+  {
     "id": 1,
     "title": "Arquitectura de Microservicios con FastAPI",
     "description": "Aprende a diseñar e implementar una arquitectura de microservicios escalable usando FastAPI, Docker y Kubernetes.",

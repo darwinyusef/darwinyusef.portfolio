@@ -1,12 +1,12 @@
 ---
 title: "Introducción al Desarrollo Full Stack"
 description: "En este episodio exploramos los fundamentos del desarrollo Full Stack y las tecnologías más demandadas."
-pubDate: 2024-01-15
+pubDate: 2025-11-15
 duration: "25:30"
-audioUrl: "/audio/episode-1.mp3"
-coverImage: "https://pngimg.com/uploads/birds/birds_PNG106.png"
+audioUrl: "https://www.soundhelix.com/examples/mp3/SoundHelix-Song-6.mp3"
+coverImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800"
 tags: ["desarrollo", "full-stack", "programación"]
-is_active: false
+is_active: true
 ---
 
 ## Descripción del episodio
