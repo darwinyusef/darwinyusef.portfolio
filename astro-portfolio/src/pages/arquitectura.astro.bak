@@ -34,20 +34,16 @@ const lang = getLangFromUrl(Astro.url);
       </section>
 
       <!-- Content Section -->
-      <section class="pb-20 max-w-7xl mx-auto px-6">
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-16 space-y-16">
+      <section class="pb-20 max-w-5xl mx-auto">
+        <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-12 space-y-12">
 
           <!-- Pilares de la Oficina de Arquitectura -->
-          <div class="space-y-16 relative overflow-hidden">
-            <!-- Header con animación -->
-            <div class="text-center space-y-4 relative z-10">
-              <div class="inline-block">
-                <h2 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-4 animate-fade-in" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                  {lang === 'es' ? 'Pilares de nuestra Oficina de Arquitectura' : lang === 'en' ? 'Pillars of our Architecture Office' : 'Pilares do nosso Escritório de Arquitetura'}
-                </h2>
-                <div class="h-1 bg-gradient-to-r from-primary via-purple-600 to-pink-600 rounded-full transform origin-left animate-expand"></div>
-              </div>
-              <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed">
+          <div class="space-y-8">
+            <div class="text-center space-y-4">
+              <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Pilares de nuestra Oficina de Arquitectura' : lang === 'en' ? 'Pillars of our Architecture Office' : 'Pilares do nosso Escritório de Arquitetura'}
+              </h2>
+              <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
                 {lang === 'es'
                   ? 'Impulsamos la transformación digital de tu organización a través de un modelo integral que combina gobernanza, innovación y entrega de valor sostenible.'
                   : lang === 'en'
@@ -56,70 +52,16 @@ const lang = getLangFromUrl(Astro.url);
               </p>
             </div>
 
-            <!-- Sección con Mascota y Frase Inspiradora -->
-            <div class="relative my-16 overflow-hidden rounded-3xl bg-gradient-to-br from-primary/5 via-purple-600/5 to-pink-600/5 dark:from-primary/10 dark:via-purple-600/10 dark:to-pink-600/10 border-2 border-primary/20">
-              <!-- Gradiente circular de fondo -->
-              <div class="absolute top-1/2 left-0 transform -translate-y-1/2 w-[500px] h-[500px] md:w-[700px] md:h-[700px] bg-gradient-to-br from-primary/20 via-purple-600/20 to-pink-600/20 rounded-full blur-3xl opacity-60 animate-pulse"></div>
-
-              <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center p-8 md:p-12 relative z-10">
-                <!-- Imagen de mascota grande sin container -->
-                <div class="relative flex justify-center lg:justify-end">
-                  <img
-                    src="/img/husky.png"
-                    alt="Husky Arquitectura"
-                    class="w-full h-auto max-w-md md:max-w-lg object-contain drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 animate-float"
-                  />
-                </div>
-
-                <!-- Frase inspiradora y botón -->
-                <div class="space-y-6 text-center lg:text-left">
-                  <div class="space-y-4">
-                    <p class="text-2xl md:text-4xl font-black text-gray-900 dark:text-white leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                      {lang === 'es'
-                        ? '"La arquitectura no es solo tecnología, es el arte de construir el futuro de tu organización"'
-                        : lang === 'en'
-                        ? '"Architecture is not just technology, it\'s the art of building your organization\'s future"'
-                        : '"A arquitetura não é apenas tecnologia, é a arte de construir o futuro da sua organização"'}
-                    </p>
-                    <p class="text-lg text-gray-600 dark:text-gray-400">
-                      {lang === 'es'
-                        ? 'Aprende con nosotros los fundamentos y prácticas avanzadas'
-                        : lang === 'en'
-                        ? 'Learn with us the fundamentals and advanced practices'
-                        : 'Aprenda conosco os fundamentos e práticas avançadas'}
-                    </p>
-                  </div>
-
-                  <!-- Botón a Escuela de Sistemas -->
-                  <a
-                    href="https://escueladesistemas.online"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white font-bold rounded-2xl hover:shadow-2xl hover:scale-105 transform transition-all duration-300 group"
-                  >
-                    <span class="text-lg">
-                      {lang === 'es' ? 'Visita nuestra Escuela de Sistemas' : lang === 'en' ? 'Visit our Systems School' : 'Visite nossa Escola de Sistemas'}
-                    </span>
-                    <svg class="w-6 h-6 group-hover:translate-x-2 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Grid de Pilares con Parallax -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 pillars-grid">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <!-- 1. Mentoría -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="0">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎓</div>
+              <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🎓</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Mentoría Estratégica' : lang === 'en' ? 'Strategic Mentoring' : 'Mentoria Estratégica'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Acompañamiento experto para arquitectos y líderes técnicos. Transferencia de conocimiento en patrones modernos, mejores prácticas y toma de decisiones arquitectónicas críticas.'
                         : lang === 'en'
@@ -131,15 +73,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 2. Ordenamiento de Patrones -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="1">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🏗️</div>
+              <div class="bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🏗️</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Patrones de Arquitectura Moderna' : lang === 'en' ? 'Modern Architecture Patterns' : 'Padrões de Arquitetura Moderna'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Estandarización e implementación de patrones arquitectónicos probados: microservicios, event-driven, hexagonal, CQRS. Documentación y gobierno de decisiones de diseño en proyectos.'
                         : lang === 'en'
@@ -151,15 +92,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 3. Autoservicio y Automatización -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="2">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">⚡</div>
+              <div class="bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">⚡</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-pink-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Autoservicio y Automatización' : lang === 'en' ? 'Self-Service and Automation' : 'Autoatendimento e Automação'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Plataformas internas para desarrolladores (IDP), templates de proyectos, CI/CD automatizado, infrastructure as code. Reducción de tiempos de setup de semanas a horas.'
                         : lang === 'en'
@@ -171,15 +111,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 4. Estrategias de Ventas -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="3">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">💼</div>
+              <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">💼</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Estrategias de Ventas Técnicas' : lang === 'en' ? 'Technical Sales Strategies' : 'Estratégias de Vendas Técnicas'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Soporte arquitectónico en procesos de venta: POCs, arquitecturas de referencia, estimaciones técnicas, presentaciones para stakeholders técnicos y de negocio.'
                         : lang === 'en'
@@ -191,15 +130,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 5. Consultoría -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="4">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎯</div>
+              <div class="bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🎯</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Consultoría Especializada' : lang === 'en' ? 'Specialized Consulting' : 'Consultoria Especializada'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Asesoramiento en transformación digital, modernización de legacy systems, cloud migration, optimización de costos, selección de tecnologías y definición de target architectures.'
                         : lang === 'en'
@@ -211,15 +149,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 6. Due Diligence -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="5">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🔍</div>
+              <div class="bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🔍</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-pink-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Due Diligence y Evaluación de Riesgos' : lang === 'en' ? 'Due Diligence and Risk Assessment' : 'Due Diligence e Avaliação de Riscos'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Auditorías técnicas profundas para M&A, evaluación de deuda técnica, análisis de escalabilidad, seguridad, compliance y viabilidad de roadmaps tecnológicos.'
                         : lang === 'en'
@@ -231,15 +168,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 7. Apropiación de Tecnología -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="6">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🚀</div>
+              <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🚀</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Apropiación de Tecnología' : lang === 'en' ? 'Technology Adoption' : 'Apropriação de Tecnologia'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Programas de adopción tecnológica en empresas de software: evangelización, capacitación técnica, definición de estándares, creación de communities of practice y guilds.'
                         : lang === 'en'
@@ -251,15 +187,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 8. Roadmapping -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="7">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🗺️</div>
+              <div class="bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🗺️</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Roadmapping para Equipos' : lang === 'en' ? 'Team Roadmapping' : 'Roadmapping para Equipes'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Definición de hojas de ruta técnicas alineadas con objetivos de negocio. Priorización basada en valor, gestión de dependencias, definición de hitos arquitectónicos.'
                         : lang === 'en'
@@ -271,15 +206,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 9. Roles en TI -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="8">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">👔</div>
+              <div class="bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">👔</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-pink-600 transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Definición de Roles en TI' : lang === 'en' ? 'IT Roles Definition' : 'Definição de Papéis em TI'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Estructuración de equipos técnicos: definición de roles, responsabilidades, career paths, skill matrices, modelos de gobernanza y operating models efectivos.'
                         : lang === 'en'
@@ -291,15 +225,14 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- 10. Evolución con IA -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="9">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🤖</div>
+              <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all">
+                <div class="flex items-start gap-4">
+                  <div class="text-4xl flex-shrink-0">🤖</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-primary transition-colors">
+                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
                       {lang === 'es' ? 'Evolución Empresarial con IA' : lang === 'en' ? 'Business Evolution with AI' : 'Evolução Empresarial com IA'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400 text-sm">
+                    <p class="text-gray-600 dark:text-gray-400">
                       {lang === 'es'
                         ? 'Estrategias de adopción de IA/ML en la empresa: identificación de casos de uso, arquitecturas de datos para IA, MLOps, governance de modelos, ética y responsible AI.'
                         : lang === 'en'
@@ -426,203 +359,161 @@ const lang = getLangFromUrl(Astro.url);
 
           <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
 
-          <!-- Estrategias -->
-          <div class="space-y-10">
-            <div class="text-center space-y-4">
-              <div class="inline-block">
-                <h2 class="text-3xl md:text-5xl font-black text-gray-900 dark:text-white mb-2 relative inline-block" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                  {lang === 'es' ? 'Estrategias' : lang === 'en' ? 'Strategies' : 'Estratégias'}
-                  <div class="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary via-purple-600 to-pink-600 rounded-full animate-expand"></div>
-                </h2>
-              </div>
-              <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-                {lang === 'es'
-                  ? 'Enfoques estratégicos para transformar tu organización a través de la arquitectura empresarial'
-                  : lang === 'en'
-                  ? 'Strategic approaches to transform your organization through enterprise architecture'
-                  : 'Abordagens estratégicas para transformar sua organização através da arquitetura empresarial'}
-              </p>
-            </div>
+          <!-- Servicios -->
+          <div class="space-y-8">
+            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white text-center" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              {lang === 'es' ? 'Servicios que ofrecemos' : lang === 'en' ? 'Services we offer' : 'Serviços que oferecemos'}
+            </h2>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 strategies-grid">
-              <!-- Estrategia 1: Transformación Digital Integral -->
-              <div class="strategy-card group bg-gradient-to-br from-blue-500/10 to-cyan-500/10 dark:from-blue-500/20 dark:to-cyan-500/20 border-2 border-transparent hover:border-blue-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🚀</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-blue-500 transition-colors">
-                    {lang === 'es' ? 'Transformación Digital Integral' : lang === 'en' ? 'Comprehensive Digital Transformation' : 'Transformação Digital Integral'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Rediseñamos procesos de negocio aprovechando tecnologías emergentes para crear ventajas competitivas sostenibles y acelerar la innovación organizacional.'
-                      : lang === 'en'
-                      ? 'We redesign business processes leveraging emerging technologies to create sustainable competitive advantages and accelerate organizational innovation.'
-                      : 'Redesenhamos processos de negócio aproveitando tecnologias emergentes para criar vantagens competitivas sustentáveis e acelerar a inovação organizacional.'}
-                  </p>
-                </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              <!-- Evaluación de requerimientos -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">📋</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Evaluación de requerimientos y modelado de datos' : lang === 'en' ? 'Requirements evaluation and data modeling' : 'Avaliação de requisitos e modelagem de dados'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Analizamos necesidades del negocio y diseñamos modelos de datos eficientes y escalables.'
+                    : lang === 'en'
+                    ? 'We analyze business needs and design efficient, scalable data models.'
+                    : 'Analisamos necessidades do negócio e desenhamos modelos de dados eficientes e escaláveis.'}
+                </p>
               </div>
 
-              <!-- Estrategia 2: Modernización de Sistemas Legacy -->
-              <div class="strategy-card group bg-gradient-to-br from-purple-500/10 to-pink-500/10 dark:from-purple-500/20 dark:to-pink-500/20 border-2 border-transparent hover:border-purple-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔄</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-purple-500 transition-colors">
-                    {lang === 'es' ? 'Modernización de Sistemas Legacy' : lang === 'en' ? 'Legacy Systems Modernization' : 'Modernização de Sistemas Legacy'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Transformamos sistemas heredados en arquitecturas modernas y ágiles mediante estrategias de refactoring, replatforming o rebuild según el contexto de negocio.'
-                      : lang === 'en'
-                      ? 'We transform legacy systems into modern, agile architectures through refactoring, replatforming, or rebuild strategies based on business context.'
-                      : 'Transformamos sistemas legados em arquiteturas modernas e ágeis mediante estratégias de refactoring, replatforming ou rebuild conforme o contexto de negócio.'}
-                  </p>
-                </div>
+              <!-- Diseño de arquitecturas -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">🏛️</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Diseño de arquitecturas validadas por TOGAF o ITIL' : lang === 'en' ? 'Architecture design validated by TOGAF or ITIL' : 'Design de arquiteturas validadas por TOGAF ou ITIL'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Creamos arquitecturas empresariales siguiendo frameworks reconocidos internacionalmente.'
+                    : lang === 'en'
+                    ? 'We create enterprise architectures following internationally recognized frameworks.'
+                    : 'Criamos arquiteturas empresariais seguindo frameworks reconhecidos internacionalmente.'}
+                </p>
               </div>
 
-              <!-- Estrategia 3: Gobernanza Arquitectónica -->
-              <div class="strategy-card group bg-gradient-to-br from-emerald-500/10 to-teal-500/10 dark:from-emerald-500/20 dark:to-teal-500/20 border-2 border-transparent hover:border-emerald-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/5 group-hover:to-teal-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">⚖️</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-emerald-500 transition-colors">
-                    {lang === 'es' ? 'Gobernanza Arquitectónica' : lang === 'en' ? 'Architecture Governance' : 'Governança Arquitetônica'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Establecemos frameworks de gobernanza que equilibran autonomía de equipos con estándares corporativos, asegurando coherencia arquitectónica y velocidad de entrega.'
-                      : lang === 'en'
-                      ? 'We establish governance frameworks that balance team autonomy with corporate standards, ensuring architectural coherence and delivery speed.'
-                      : 'Estabelecemos frameworks de governança que equilibram autonomia de equipes com padrões corporativos, assegurando coerência arquitetônica e velocidade de entrega.'}
-                  </p>
-                </div>
+              <!-- Planeación -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">📅</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Planeación con PMP o SCRUM' : lang === 'en' ? 'Planning with PMP or SCRUM' : 'Planejamento com PMP ou SCRUM'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Gestionamos proyectos con metodologías ágiles o tradicionales según las necesidades del equipo.'
+                    : lang === 'en'
+                    ? 'We manage projects with agile or traditional methodologies according to team needs.'
+                    : 'Gerenciamos projetos com metodologias ágeis ou tradicionais conforme as necessidades da equipe.'}
+                </p>
               </div>
 
-              <!-- Estrategia 4: Adopción Cloud-First -->
-              <div class="strategy-card group bg-gradient-to-br from-sky-500/10 to-indigo-500/10 dark:from-sky-500/20 dark:to-indigo-500/20 border-2 border-transparent hover:border-sky-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-sky-500/0 to-indigo-500/0 group-hover:from-sky-500/5 group-hover:to-indigo-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">☁️</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-sky-500 transition-colors">
-                    {lang === 'es' ? 'Adopción Cloud-First' : lang === 'en' ? 'Cloud-First Adoption' : 'Adoção Cloud-First'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Diseñamos estrategias de migración cloud optimizando costos, seguridad y rendimiento. Implementamos arquitecturas multi-cloud y híbridas con FinOps integrado.'
-                      : lang === 'en'
-                      ? 'We design cloud migration strategies optimizing costs, security, and performance. We implement multi-cloud and hybrid architectures with integrated FinOps.'
-                      : 'Desenhamos estratégias de migração cloud otimizando custos, segurança e desempenho. Implementamos arquiteturas multi-cloud e híbridas com FinOps integrado.'}
-                  </p>
-                </div>
+              <!-- Testing -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">🧪</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Implementación de testing' : lang === 'en' ? 'Testing implementation' : 'Implementação de testing'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Configuramos estrategias de testing automatizado: unitarias, integración, E2E y performance.'
+                    : lang === 'en'
+                    ? 'We configure automated testing strategies: unit, integration, E2E, and performance.'
+                    : 'Configuramos estratégias de testing automatizado: unitárias, integração, E2E e performance.'}
+                </p>
               </div>
 
-              <!-- Estrategia 5: Innovación y Experimentación -->
-              <div class="strategy-card group bg-gradient-to-br from-amber-500/10 to-orange-500/10 dark:from-amber-500/20 dark:to-orange-500/20 border-2 border-transparent hover:border-amber-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-orange-500/0 group-hover:from-amber-500/5 group-hover:to-orange-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">💡</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-amber-500 transition-colors">
-                    {lang === 'es' ? 'Innovación y Experimentación' : lang === 'en' ? 'Innovation and Experimentation' : 'Inovação e Experimentação'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Creamos labs de innovación y frameworks de experimentación controlada para validar ideas rápidamente, minimizando riesgos y maximizando aprendizaje organizacional.'
-                      : lang === 'en'
-                      ? 'We create innovation labs and controlled experimentation frameworks to validate ideas quickly, minimizing risks and maximizing organizational learning.'
-                      : 'Criamos labs de inovação e frameworks de experimentação controlada para validar ideias rapidamente, minimizando riscos e maximizando aprendizado organizacional.'}
-                  </p>
-                </div>
+              <!-- Capacitación -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">👥</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Capacitación de usuarios' : lang === 'en' ? 'User training' : 'Capacitação de usuários'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Entrenamos a tu equipo y usuarios finales para aprovechar al máximo el sistema.'
+                    : lang === 'en'
+                    ? 'We train your team and end users to get the most out of the system.'
+                    : 'Treinamos sua equipe e usuários finais para aproveitar ao máximo o sistema.'}
+                </p>
               </div>
 
-              <!-- Estrategia 6: Desarrollo de Capacidades -->
-              <div class="strategy-card group bg-gradient-to-br from-rose-500/10 to-red-500/10 dark:from-rose-500/20 dark:to-red-500/20 border-2 border-transparent hover:border-rose-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-rose-500/0 to-red-500/0 group-hover:from-rose-500/5 group-hover:to-red-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🎓</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-rose-500 transition-colors">
-                    {lang === 'es' ? 'Desarrollo de Capacidades' : lang === 'en' ? 'Capability Development' : 'Desenvolvimento de Capacidades'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Construimos programas de upskilling y reskilling para arquitectos y desarrolladores, estableciendo comunidades de práctica y centros de excelencia técnica.'
-                      : lang === 'en'
-                      ? 'We build upskilling and reskilling programs for architects and developers, establishing communities of practice and technical excellence centers.'
-                      : 'Construímos programas de upskilling e reskilling para arquitetos e desenvolvedores, estabelecendo comunidades de prática e centros de excelência técnica.'}
-                  </p>
-                </div>
+              <!-- Documentación -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">📚</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Gestión de documentación' : lang === 'en' ? 'Documentation management' : 'Gestão de documentação'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Creamos y mantenemos documentación técnica clara, completa y actualizada del proyecto.'
+                    : lang === 'en'
+                    ? 'We create and maintain clear, complete, and up-to-date technical documentation.'
+                    : 'Criamos e mantemos documentação técnica clara, completa e atualizada do projeto.'}
+                </p>
               </div>
 
-              <!-- Estrategia 7: Integración de Ecosistemas -->
-              <div class="strategy-card group bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 dark:from-violet-500/20 dark:to-fuchsia-500/20 border-2 border-transparent hover:border-violet-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-fuchsia-500/0 group-hover:from-violet-500/5 group-hover:to-fuchsia-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔗</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-violet-500 transition-colors">
-                    {lang === 'es' ? 'Integración de Ecosistemas' : lang === 'en' ? 'Ecosystem Integration' : 'Integração de Ecossistemas'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Orquestamos integraciones complejas entre sistemas internos, partners y terceros mediante APIs, eventos y arquitecturas orientadas a servicios de última generación.'
-                      : lang === 'en'
-                      ? 'We orchestrate complex integrations between internal systems, partners, and third parties through APIs, events, and next-generation service-oriented architectures.'
-                      : 'Orquestramos integrações complexas entre sistemas internos, parceiros e terceiros mediante APIs, eventos e arquiteturas orientadas a serviços de última geração.'}
-                  </p>
-                </div>
+              <!-- Observabilidad -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">👁️</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Observabilidad' : lang === 'en' ? 'Observability' : 'Observabilidade'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Implementamos monitoreo completo: logs, métricas y trazas para identificar problemas antes de que afecten usuarios.'
+                    : lang === 'en'
+                    ? 'We implement complete monitoring: logs, metrics, and traces to identify issues before they affect users.'
+                    : 'Implementamos monitoramento completo: logs, métricas e traces para identificar problemas antes que afetem usuários.'}
+                </p>
               </div>
 
-              <!-- Estrategia 8: Seguridad por Diseño -->
-              <div class="strategy-card group bg-gradient-to-br from-red-500/10 to-orange-600/10 dark:from-red-500/20 dark:to-orange-600/20 border-2 border-transparent hover:border-red-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-red-500/0 to-orange-600/0 group-hover:from-red-500/5 group-hover:to-orange-600/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔐</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-red-500 transition-colors">
-                    {lang === 'es' ? 'Seguridad por Diseño' : lang === 'en' ? 'Security by Design' : 'Segurança por Design'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Incorporamos seguridad desde las etapas tempranas del diseño arquitectónico, implementando Zero Trust, DevSecOps y análisis continuo de vulnerabilidades.'
-                      : lang === 'en'
-                      ? 'We incorporate security from early stages of architectural design, implementing Zero Trust, DevSecOps, and continuous vulnerability analysis.'
-                      : 'Incorporamos segurança desde as etapas iniciais do design arquitetônico, implementando Zero Trust, DevSecOps e análise contínua de vulnerabilidades.'}
-                  </p>
-                </div>
+              <!-- Evaluación de servicios cloud -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">☁️</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Evaluación de servicios cloud' : lang === 'en' ? 'Cloud services evaluation' : 'Avaliação de serviços cloud'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Analizamos y recomendamos las mejores soluciones cloud (AWS, Azure, GCP) según tus necesidades y presupuesto.'
+                    : lang === 'en'
+                    ? 'We analyze and recommend the best cloud solutions (AWS, Azure, GCP) according to your needs and budget.'
+                    : 'Analisamos e recomendamos as melhores soluções cloud (AWS, Azure, GCP) conforme suas necessidades e orçamento.'}
+                </p>
               </div>
 
-              <!-- Estrategia 9: DevOps y Entrega Continua -->
-              <div class="strategy-card group bg-gradient-to-br from-green-500/10 to-lime-500/10 dark:from-green-500/20 dark:to-lime-500/20 border-2 border-transparent hover:border-green-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-lime-500/0 group-hover:from-green-500/5 group-hover:to-lime-500/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">⚡</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-green-500 transition-colors">
-                    {lang === 'es' ? 'DevOps y Entrega Continua' : lang === 'en' ? 'DevOps and Continuous Delivery' : 'DevOps e Entrega Contínua'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Implementamos pipelines automatizados de CI/CD, infraestructura como código y prácticas de deployment frecuente para acortar ciclos de feedback y time-to-market.'
-                      : lang === 'en'
-                      ? 'We implement automated CI/CD pipelines, infrastructure as code, and frequent deployment practices to shorten feedback cycles and time-to-market.'
-                      : 'Implementamos pipelines automatizados de CI/CD, infraestrutura como código e práticas de deployment frequente para encurtar ciclos de feedback e time-to-market.'}
-                  </p>
-                </div>
+              <!-- Webtrends + Analytics -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">📊</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Webtrends + Analíticas' : lang === 'en' ? 'Webtrends + Analytics' : 'Webtrends + Analytics'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Configuramos herramientas de análisis web y analíticas avanzadas para tomar decisiones basadas en datos.'
+                    : lang === 'en'
+                    ? 'We configure web analytics tools and advanced analytics to make data-driven decisions.'
+                    : 'Configuramos ferramentas de análise web e analytics avançadas para tomar decisões baseadas em dados.'}
+                </p>
               </div>
 
-              <!-- Estrategia 10: Decisiones Basadas en Datos -->
-              <div class="strategy-card group bg-gradient-to-br from-cyan-500/10 to-blue-600/10 dark:from-cyan-500/20 dark:to-blue-600/20 border-2 border-transparent hover:border-cyan-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:shadow-2xl hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/5 group-hover:to-blue-600/5 transition-all duration-500"></div>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">📊</div>
-                  <h3 class="text-xl font-bold text-gray-900 dark:text-white group-hover:text-cyan-500 transition-colors">
-                    {lang === 'es' ? 'Decisiones Basadas en Datos' : lang === 'en' ? 'Data-Driven Decisions' : 'Decisões Baseadas em Dados'}
-                  </h3>
-                  <p class="text-gray-600 dark:text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Establecemos arquitecturas de datos modernas con data lakes, data mesh y analytics en tiempo real para fundamentar decisiones arquitectónicas en evidencia cuantitativa.'
-                      : lang === 'en'
-                      ? 'We establish modern data architectures with data lakes, data mesh, and real-time analytics to ground architectural decisions in quantitative evidence.'
-                      : 'Estabelecemos arquiteturas de dados modernas com data lakes, data mesh e analytics em tempo real para fundamentar decisões arquitetônicas em evidência quantitativa.'}
-                  </p>
-                </div>
+              <!-- Automatización con QA y Claude -->
+              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+                <div class="text-4xl">🤖</div>
+                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                  {lang === 'es' ? 'Automatización generada con QA y Claude' : lang === 'en' ? 'Automation generated with QA and Claude' : 'Automação gerada com QA e Claude'}
+                </h3>
+                <p class="text-gray-600 dark:text-gray-400">
+                  {lang === 'es'
+                    ? 'Implementamos automatización inteligente de QA utilizando Claude AI para generar casos de prueba, scripts de testing y validación automatizada de calidad.'
+                    : lang === 'en'
+                    ? 'We implement intelligent QA automation using Claude AI to generate test cases, testing scripts, and automated quality validation.'
+                    : 'Implementamos automação inteligente de QA utilizando Claude AI para gerar casos de teste, scripts de testing e validação automatizada de qualidade.'}
+                </p>
               </div>
             </div>
           </div>
@@ -908,7 +799,7 @@ const lang = getLangFromUrl(Astro.url);
               <!-- Textarea descripción -->
               <div>
                 <label for="advisory-description" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                  {lang === 'es' ? 'Cuéntanos más sobre lo que necesitas:' : lang === 'en' ? 'Tell us more about your needt:' : 'Conte-nos mais sobre seu projeto:'}
+                  {lang === 'es' ? 'Cuéntanos más sobre tu proyecto:' : lang === 'en' ? 'Tell us more about your project:' : 'Conte-nos mais sobre seu projeto:'}
                 </label>
                 <textarea
                   id="advisory-description"
@@ -1008,214 +899,218 @@ const lang = getLangFromUrl(Astro.url);
         </div>
       </section>
     </main>
+
+    <!-- Modales -->
+    <!-- Modal Hexagonal -->
+    <div id="modal-hexagonal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-8 space-y-6">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+              <span class="text-5xl">🏗️</span>
+              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Arquitectura Hexagonal' : lang === 'en' ? 'Hexagonal Architecture' : 'Arquitetura Hexagonal'}
+              </h3>
+            </div>
+            <button onclick="closeModal('modal-hexagonal')" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-3xl leading-none">
+              ×
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+              {lang === 'es' ? 'Ports & Adapters' : lang === 'en' ? 'Ports & Adapters' : 'Ports & Adapters'}
+            </p>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
+              </p>
+              <p class="text-gray-700 dark:text-gray-300">
+                {lang === 'es'
+                  ? 'Tu lógica de negocio no depende de frameworks ni databases. Puedes cambiar de Express a Fastify, de MySQL a PostgreSQL, sin tocar el core.'
+                  : lang === 'en'
+                  ? 'Your business logic doesn\'t depend on frameworks or databases. You can switch from Express to Fastify, from MySQL to PostgreSQL, without touching the core.'
+                  : 'Sua lógica de negócio não depende de frameworks ou databases. Você pode mudar de Express para Fastify, de MySQL para PostgreSQL, sem tocar o core.'}
+              </p>
+            </div>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
+              </p>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Startups que pivotean frecuentemente' : lang === 'en' ? 'Startups that pivot frequently' : 'Startups que pivotam frequentemente'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Productos con múltiples integraciones' : lang === 'en' ? 'Products with multiple integrations' : 'Produtos com múltiplas integrações'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Equipos que quieren testear fácil' : lang === 'en' ? 'Teams that want easy testing' : 'Equipes que querem testar fácil'}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Clean Architecture -->
+    <div id="modal-clean" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-8 space-y-6">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+              <span class="text-5xl">🧅</span>
+              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Clean Architecture' : lang === 'en' ? 'Clean Architecture' : 'Clean Architecture'}
+              </h3>
+            </div>
+            <button onclick="closeModal('modal-clean')" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-3xl leading-none">
+              ×
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+              {lang === 'es' ? 'Onion Architecture' : lang === 'en' ? 'Onion Architecture' : 'Onion Architecture'}
+            </p>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
+              </p>
+              <p class="text-gray-700 dark:text-gray-300">
+                {lang === 'es'
+                  ? 'Código organizado en capas con dependencias en una sola dirección. El core del negocio está en el centro, protegido de cambios externos.'
+                  : lang === 'en'
+                  ? 'Code organized in layers with dependencies in one direction only. The business core is in the center, protected from external changes.'
+                  : 'Código organizado em camadas com dependências em uma única direção. O core do negócio está no centro, protegido de mudanças externas.'}
+              </p>
+            </div>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
+              </p>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Proyectos enterprise complejos' : lang === 'en' ? 'Complex enterprise projects' : 'Projetos enterprise complexos'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Equipos grandes (10+ devs)' : lang === 'en' ? 'Large teams (10+ devs)' : 'Equipes grandes (10+ devs)'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Sistemas que vivirán 5+ años' : lang === 'en' ? 'Systems that will live 5+ years' : 'Sistemas que viverão 5+ anos'}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Microservicios -->
+    <div id="modal-microservices" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
+      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div class="p-8 space-y-6">
+          <div class="flex items-start justify-between">
+            <div class="flex items-center gap-4">
+              <span class="text-5xl">🔷</span>
+              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                {lang === 'es' ? 'Microservicios' : lang === 'en' ? 'Microservices' : 'Microserviços'}
+              </h3>
+            </div>
+            <button onclick="closeModal('modal-microservices')" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 text-3xl leading-none">
+              ×
+            </button>
+          </div>
+
+          <div class="space-y-4">
+            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+              {lang === 'es' ? 'Servicios independientes' : lang === 'en' ? 'Independent services' : 'Serviços independentes'}
+            </p>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
+              </p>
+              <p class="text-gray-700 dark:text-gray-300">
+                {lang === 'es'
+                  ? 'Divide tu aplicación en servicios pequeños e independientes. Cada uno puede deployarse por separado, escalar solo lo que necesita, usar tecnologías diferentes.'
+                  : lang === 'en'
+                  ? 'Divide your application into small, independent services. Each can be deployed separately, scale only what it needs, use different technologies.'
+                  : 'Divida sua aplicação em serviços pequenos e independentes. Cada um pode ser deployado separadamente, escalar apenas o necessário, usar tecnologias diferentes.'}
+              </p>
+            </div>
+
+            <div>
+              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+                {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
+              </p>
+              <ul class="space-y-2 text-gray-700 dark:text-gray-300">
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Plataformas con múltiples funcionalidades' : lang === 'en' ? 'Platforms with multiple functionalities' : 'Plataformas com múltiplas funcionalidades'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'Equipos distribuidos' : lang === 'en' ? 'Distributed teams' : 'Equipes distribuídas'}</span>
+                </li>
+                <li class="flex items-start gap-2">
+                  <span class="text-primary">✓</span>
+                  <span>{lang === 'es' ? 'SaaS que cobra por módulos' : lang === 'en' ? 'SaaS that charges per module' : 'SaaS que cobra por módulos'}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </Layout>
 
-<style>
-  @keyframes fade-in {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  @keyframes expand {
-    from {
-      transform: scaleX(0);
-    }
-    to {
-      transform: scaleX(1);
-    }
-  }
-
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px);
-    }
-    50% {
-      transform: translateY(-20px);
-    }
-  }
-
-  .animate-fade-in {
-    animation: fade-in 1s ease-out;
-  }
-
-  .animate-expand {
-    animation: expand 1s ease-out forwards;
-  }
-
-  .animate-float {
-    animation: float 6s ease-in-out infinite;
-  }
-
-  /* Parallax effects */
-  .pillar-card {
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  .pillar-card:hover {
-    transform: translateY(-8px) rotateX(2deg);
-  }
-
-  /* Staggered animation for cards */
-  .pillars-grid .pillar-card {
-    opacity: 0;
-    animation: fade-in 0.8s ease-out forwards;
-  }
-
-  .pillars-grid .pillar-card:nth-child(1) { animation-delay: 0.1s; }
-  .pillars-grid .pillar-card:nth-child(2) { animation-delay: 0.2s; }
-  .pillars-grid .pillar-card:nth-child(3) { animation-delay: 0.3s; }
-  .pillars-grid .pillar-card:nth-child(4) { animation-delay: 0.4s; }
-  .pillars-grid .pillar-card:nth-child(5) { animation-delay: 0.5s; }
-  .pillars-grid .pillar-card:nth-child(6) { animation-delay: 0.6s; }
-  .pillars-grid .pillar-card:nth-child(7) { animation-delay: 0.7s; }
-  .pillars-grid .pillar-card:nth-child(8) { animation-delay: 0.8s; }
-  .pillars-grid .pillar-card:nth-child(9) { animation-delay: 0.9s; }
-  .pillars-grid .pillar-card:nth-child(10) { animation-delay: 1.0s; }
-
-  /* Strategy cards animations and effects */
-  .strategy-card {
-    transform-style: preserve-3d;
-    will-change: transform;
-  }
-
-  .strategy-card:hover {
-    transform: translateY(-8px) rotateX(2deg);
-  }
-
-  /* Staggered animation for strategy cards */
-  .strategies-grid .strategy-card {
-    opacity: 0;
-    animation: fade-in 0.8s ease-out forwards;
-  }
-
-  .strategies-grid .strategy-card:nth-child(1) { animation-delay: 0.1s; }
-  .strategies-grid .strategy-card:nth-child(2) { animation-delay: 0.2s; }
-  .strategies-grid .strategy-card:nth-child(3) { animation-delay: 0.3s; }
-  .strategies-grid .strategy-card:nth-child(4) { animation-delay: 0.4s; }
-  .strategies-grid .strategy-card:nth-child(5) { animation-delay: 0.5s; }
-  .strategies-grid .strategy-card:nth-child(6) { animation-delay: 0.6s; }
-  .strategies-grid .strategy-card:nth-child(7) { animation-delay: 0.7s; }
-  .strategies-grid .strategy-card:nth-child(8) { animation-delay: 0.8s; }
-  .strategies-grid .strategy-card:nth-child(9) { animation-delay: 0.9s; }
-  .strategies-grid .strategy-card:nth-child(10) { animation-delay: 1.0s; }
-</style>
-
 <script is:inline>
-  // Parallax effect on scroll for mascot
-  window.addEventListener('scroll', () => {
-    const mascot = document.querySelector('.parallax-mascot');
-    if (mascot) {
-      const scrolled = window.pageYOffset;
-      const rate = scrolled * 0.3;
-      mascot.style.transform = `translateY(${rate}px)`;
+  // Funciones para manejar modales
+  function openModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
     }
+  }
 
-    // Parallax for pillar cards
-    const pillarCards = document.querySelectorAll('.pillar-card');
-    pillarCards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
+  function closeModal(modalId) {
+    const modal = document.getElementById(modalId);
+    if (modal) {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = 'auto';
+    }
+  }
 
-      if (isVisible) {
-        const scrollPosition = window.pageYOffset;
-        const cardTop = card.offsetTop;
-        const parallaxValue = (scrollPosition - cardTop) * 0.05;
-
-        // Apply subtle parallax based on index for depth effect
-        const depth = (index % 2 === 0) ? parallaxValue : -parallaxValue;
-        card.style.transform = `translateY(${depth}px)`;
-      }
-    });
-
-    // Parallax for strategy cards
-    const strategyCards = document.querySelectorAll('.strategy-card');
-    strategyCards.forEach((card, index) => {
-      const rect = card.getBoundingClientRect();
-      const isVisible = rect.top < window.innerHeight && rect.bottom > 0;
-
-      if (isVisible) {
-        const scrollPosition = window.pageYOffset;
-        const cardTop = card.offsetTop;
-        const parallaxValue = (scrollPosition - cardTop) * 0.05;
-
-        // Apply subtle parallax based on index for depth effect
-        const depth = (index % 2 === 0) ? parallaxValue : -parallaxValue;
-        card.style.transform = `translateY(${depth}px)`;
-      }
-    });
+  // Cerrar modal al hacer clic fuera de él
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('backdrop-blur-sm')) {
+      const modals = ['modal-hexagonal', 'modal-clean', 'modal-microservices'];
+      modals.forEach(modalId => closeModal(modalId));
+    }
   });
 
-  // Intersection Observer for scroll-triggered animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-  };
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('animate-in');
-      }
-    });
-  }, observerOptions);
-
-  // Observe all pillar and strategy cards
-  document.addEventListener('DOMContentLoaded', () => {
-    const pillarCards = document.querySelectorAll('.pillar-card');
-    const strategyCards = document.querySelectorAll('.strategy-card');
-    const allCards = [...pillarCards, ...strategyCards];
-
-    allCards.forEach(card => observer.observe(card));
-
-    // Add 3D tilt effect on mouse move for pillar cards
-    pillarCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
-
-    // Add 3D tilt effect on mouse move for strategy cards
-    strategyCards.forEach(card => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        const centerX = rect.width / 2;
-        const centerY = rect.height / 2;
-
-        const rotateX = (y - centerY) / 20;
-        const rotateY = (centerX - x) / 20;
-
-        card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-8px)`;
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = '';
-      });
-    });
+  // Cerrar modal con tecla ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const modals = ['modal-hexagonal', 'modal-clean', 'modal-microservices'];
+      modals.forEach(modalId => closeModal(modalId));
+    }
   });
 </script>
 

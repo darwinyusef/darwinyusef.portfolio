@@ -6,21 +6,70 @@ interface Props {
 const { lang = 'es' } = Astro.props;
 ---
 
-<div class="w-full max-w-2xl mx-auto">
-  <div class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-lg p-6">
-    <h2 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 text-center">
-      {lang === 'es' ? 'Habilidades Técnicas' : lang === 'en' ? 'Technical Skills' : 'Habilidades Técnicas'}
-    </h2>
+<div class="w-full max-w-4xl mx-auto">
+  <div class="bg-gradient-to-br from-white via-white to-gray-50 dark:from-[#1a1a1a] dark:via-[#1a1a1a] dark:to-[#0a0a0a] rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-200 dark:border-gray-800 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-96 h-96 bg-gradient-to-br from-primary/10 to-purple-600/10 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-96 h-96 bg-gradient-to-br from-pink-600/10 to-primary/10 rounded-full blur-3xl"></div>
 
-    <div id="radar-loading" class="text-center py-12">
-      <p class="text-gray-600 dark:text-gray-400">Cargando diagrama...</p>
+    <div class="relative z-10">
+      <!-- Header -->
+      <div class="text-center mb-8">
+        <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+          {lang === 'es' ? 'Habilidades' : lang === 'en' ? 'Skills' : 'Habilidades'}
+          <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
+            {lang === 'es' ? 'Técnicas' : lang === 'en' ? 'Technical' : 'Técnicas'}
+          </span>
+        </h2>
+        <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+          {lang === 'es'
+            ? 'Mi experiencia y dominio en diferentes áreas de tecnología'
+            : lang === 'en'
+            ? 'My expertise and proficiency across different technology areas'
+            : 'Minha experiência e domínio em diferentes áreas de tecnologia'}
+        </p>
+      </div>
+
+      <!-- Radar Chart - PROTAGONISTA -->
+      <div class="mb-8">
+        <div id="radar-loading" class="text-center py-20">
+          <div class="inline-block w-16 h-16 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+          <p class="text-gray-600 dark:text-gray-400 mt-6 text-lg">Cargando diagrama...</p>
+        </div>
+
+        <div id="radar-container" class="hidden">
+          <div class="bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-gray-200/50 dark:border-gray-700/50">
+            <canvas id="skills-radar-chart" class="w-full"></canvas>
+          </div>
+
+          <!-- Categories Legend - Debajo de la gráfica -->
+          <div class="mt-8 text-center">
+            <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">
+              {lang === 'es' ? 'Categorías' : lang === 'en' ? 'Categories' : 'Categorias'}
+            </h3>
+            <div id="skills-legend" class="flex flex-wrap gap-3 justify-center"></div>
+          </div>
+
+          <!-- Toggle button for details -->
+          <div class="mt-8 text-center">
+            <button
+              id="toggle-details-btn"
+              class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white text-sm font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105"
+            >
+              <span id="toggle-text">{lang === 'es' ? 'Ver detalles completos' : lang === 'en' ? 'View full details' : 'Ver detalhes completos'}</span>
+              <span id="toggle-icon" class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
+            </button>
+          </div>
+
+          <!-- Collapsible Details -->
+          <div id="skills-details" class="mt-6 hidden">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="skills-list-container">
+              <!-- Skills will be populated here -->
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <div id="radar-container" class="hidden">
-      <canvas id="skills-radar-chart" class="w-full"></canvas>
-    </div>
-
-    <div id="skills-legend" class="mt-6 grid grid-cols-2 gap-3 text-sm"></div>
   </div>
 </div>
 
@@ -37,30 +86,40 @@ const { lang = 'es' } = Astro.props;
     is_active: boolean;
   }
 
+  const categoryColors = {
+    'Desarrollo': { from: '#3b82f6', to: '#1d4ed8', bg: 'from-blue-500 to-blue-700' },
+    'Datos': { from: '#10b981', to: '#059669', bg: 'from-emerald-500 to-emerald-700' },
+    'IA': { from: '#8b5cf6', to: '#6d28d9', bg: 'from-violet-500 to-violet-700' },
+    'Infraestructura': { from: '#f59e0b', to: '#d97706', bg: 'from-amber-500 to-amber-700' },
+    'Arquitectura': { from: '#ec4899', to: '#db2777', bg: 'from-pink-500 to-pink-700' }
+  };
+
   function createRadarChart(skills: Skill[]) {
     const canvas = document.getElementById('skills-radar-chart') as HTMLCanvasElement;
     const legend = document.getElementById('skills-legend');
     const container = document.getElementById('radar-container');
     const loading = document.getElementById('radar-loading');
+    const skillsListContainer = document.getElementById('skills-list-container');
 
-    if (!canvas || !legend || !container || !loading) return;
+    if (!canvas || !legend || !container || !loading || !skillsListContainer) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
 
-    // Set canvas size
-    const size = Math.min(500, window.innerWidth - 100);
+    // Set canvas size - MUCHO MÁS GRANDE para darle protagonismo
+    const containerWidth = canvas.parentElement?.clientWidth || 700;
+    const size = Math.min(700, containerWidth);
     canvas.width = size;
     canvas.height = size;
 
     const centerX = size / 2;
     const centerY = size / 2;
-    const maxRadius = size / 2 - 60;
+    const maxRadius = size / 2 - 120; // Más margen para labels
 
-    // Get top skills (limit to 8 for better visualization)
+    // Get top skills
     const topSkills = skills
       .sort((a, b) => b.proficiency - a.proficiency)
-      .slice(0, 8);
+      .slice(0, 10);
 
     const numSkills = topSkills.length;
     const angleStep = (Math.PI * 2) / numSkills;
@@ -68,79 +127,94 @@ const { lang = 'es' } = Astro.props;
     // Check if dark mode
     const isDark = document.documentElement.classList.contains('dark');
     const gridColor = isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)';
-    const textColor = isDark ? '#fff' : '#000';
-    const fillColor = 'rgba(59, 130, 246, 0.2)'; // primary color with transparency
-    const strokeColor = '#3b82f6'; // primary color
+    const textColor = isDark ? '#fff' : '#1f2937';
 
-    // Draw grid circles
-    ctx.strokeStyle = gridColor;
-    ctx.lineWidth = 1;
+    // Draw grid circles with better styling
     for (let i = 1; i <= 5; i++) {
+      ctx.strokeStyle = gridColor;
+      ctx.lineWidth = i === 5 ? 3 : 1.5;
       ctx.beginPath();
       ctx.arc(centerX, centerY, (maxRadius / 5) * i, 0, Math.PI * 2);
       ctx.stroke();
+
+      // Draw percentage labels on each circle
+      if (i % 1 === 0) {
+        const percentage = (i * 20);
+        ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.4)' : 'rgba(0, 0, 0, 0.4)';
+        ctx.font = 'bold 12px Inter Tight, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText(`${percentage}%`, centerX, centerY - (maxRadius / 5) * i - 8);
+      }
     }
 
-    // Draw axes and labels
-    ctx.strokeStyle = gridColor;
-    ctx.fillStyle = textColor;
-    ctx.font = 'bold 12px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-
-    const skillPoints: { x: number; y: number }[] = [];
+    // Draw axes and collect points
+    const skillPoints: { x: number; y: number; skill: Skill }[] = [];
 
     topSkills.forEach((skill, index) => {
       const angle = angleStep * index - Math.PI / 2;
 
-      // Draw axis line
-      const axisX = centerX + Math.cos(angle) * maxRadius;
-      const axisY = centerY + Math.sin(angle) * maxRadius;
-
+      // Draw axis line with better styling
+      ctx.strokeStyle = gridColor;
+      ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.moveTo(centerX, centerY);
+      const axisX = centerX + Math.cos(angle) * maxRadius;
+      const axisY = centerY + Math.sin(angle) * maxRadius;
       ctx.lineTo(axisX, axisY);
       ctx.stroke();
 
-      // Calculate point position based on proficiency
+      // Calculate point position
       const radius = (maxRadius * skill.proficiency) / 100;
       const x = centerX + Math.cos(angle) * radius;
       const y = centerY + Math.sin(angle) * radius;
-      skillPoints.push({ x, y });
+      skillPoints.push({ x, y, skill });
 
-      // Draw label
-      const labelDistance = maxRadius + 30;
+      // Draw label with better positioning and styling
+      const labelDistance = maxRadius + 50;
       const labelX = centerX + Math.cos(angle) * labelDistance;
       const labelY = centerY + Math.sin(angle) * labelDistance;
 
-      // Adjust text alignment based on position
-      if (labelX < centerX - 10) {
-        ctx.textAlign = 'right';
-      } else if (labelX > centerX + 10) {
-        ctx.textAlign = 'left';
+      // Get color for this skill
+      const color = categoryColors[skill.category as keyof typeof categoryColors];
+
+      // Skill name with shadow for better readability
+      ctx.textAlign = labelX < centerX - 10 ? 'right' : labelX > centerX + 10 ? 'left' : 'center';
+      ctx.textBaseline = 'middle';
+      ctx.font = 'bold 16px Inter Tight, sans-serif';
+
+      // Shadow for text
+      ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+      ctx.shadowBlur = 8;
+      ctx.shadowOffsetX = 0;
+      ctx.shadowOffsetY = 0;
+
+      // Draw skill name with category color
+      if (color) {
+        ctx.fillStyle = color.from;
       } else {
-        ctx.textAlign = 'center';
+        ctx.fillStyle = textColor;
       }
+      ctx.fillText(skill.name, labelX, labelY);
 
-      if (labelY < centerY) {
-        ctx.textBaseline = 'bottom';
-      } else {
-        ctx.textBaseline = 'top';
-      }
+      // Reset shadow
+      ctx.shadowBlur = 0;
 
-      // Split long skill names
-      const maxLabelLength = 15;
-      const skillName = skill.name.length > maxLabelLength
-        ? skill.name.substring(0, maxLabelLength) + '...'
-        : skill.name;
-
-      ctx.fillText(skillName, labelX, labelY);
+      // Percentage below name
+      ctx.font = 'bold 13px Inter Tight, sans-serif';
+      ctx.fillStyle = isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(0, 0, 0, 0.7)';
+      ctx.fillText(`${skill.proficiency}%`, labelX, labelY + 18);
     });
 
-    // Draw skill polygon
+    // Draw skill polygon with gradient
     if (skillPoints.length > 0) {
+      // Create gradient for fill
+      const gradient = ctx.createLinearGradient(0, 0, size, size);
+      gradient.addColorStop(0, 'rgba(59, 130, 246, 0.4)');
+      gradient.addColorStop(0.5, 'rgba(139, 92, 246, 0.4)');
+      gradient.addColorStop(1, 'rgba(236, 72, 153, 0.4)');
+
       // Fill
-      ctx.fillStyle = fillColor;
+      ctx.fillStyle = gradient;
       ctx.beginPath();
       ctx.moveTo(skillPoints[0].x, skillPoints[0].y);
       for (let i = 1; i < skillPoints.length; i++) {
@@ -149,21 +223,77 @@ const { lang = 'es' } = Astro.props;
       ctx.closePath();
       ctx.fill();
 
-      // Stroke
-      ctx.strokeStyle = strokeColor;
-      ctx.lineWidth = 2;
+      // Stroke with gradient
+      const strokeGradient = ctx.createLinearGradient(0, 0, size, size);
+      strokeGradient.addColorStop(0, '#3b82f6');
+      strokeGradient.addColorStop(0.5, '#8b5cf6');
+      strokeGradient.addColorStop(1, '#ec4899');
+
+      ctx.strokeStyle = strokeGradient;
+      ctx.lineWidth = 4;
       ctx.stroke();
 
-      // Draw points
-      skillPoints.forEach(point => {
-        ctx.fillStyle = strokeColor;
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 4, 0, Math.PI * 2);
-        ctx.fill();
+      // Draw points with glow effect
+      skillPoints.forEach(({ x, y, skill }) => {
+        const color = categoryColors[skill.category as keyof typeof categoryColors];
+
+        if (color) {
+          // Outer glow
+          const glowGradient = ctx.createRadialGradient(x, y, 0, x, y, 16);
+          glowGradient.addColorStop(0, color.from + 'AA');
+          glowGradient.addColorStop(1, color.from + '00');
+          ctx.fillStyle = glowGradient;
+          ctx.beginPath();
+          ctx.arc(x, y, 16, 0, Math.PI * 2);
+          ctx.fill();
+
+          // Inner point
+          ctx.fillStyle = color.from;
+          ctx.beginPath();
+          ctx.arc(x, y, 8, 0, Math.PI * 2);
+          ctx.fill();
+
+          // White border
+          ctx.strokeStyle = isDark ? '#1a1a1a' : '#fff';
+          ctx.lineWidth = 3;
+          ctx.stroke();
+        }
       });
     }
 
-    // Update legend with categories
+    // Populate skills list (collapsible)
+    skillsListContainer.innerHTML = topSkills
+      .map(skill => {
+        const color = categoryColors[skill.category as keyof typeof categoryColors] || categoryColors['Desarrollo'];
+        return `
+          <div class="group bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:scale-[1.02] transition-all duration-300">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg">
+                  <span class="text-white font-bold text-lg">${skill.proficiency}</span>
+                </div>
+                <div>
+                  <h4 class="font-bold text-gray-900 dark:text-white text-base">${skill.name}</h4>
+                  <span class="text-xs text-gray-500 dark:text-gray-400">${skill.category}</span>
+                </div>
+              </div>
+            </div>
+            <div class="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
+              <div class="absolute inset-y-0 left-0 bg-gradient-to-r ${color.bg} rounded-full transition-all duration-1000 skill-bar" style="width: 0%" data-width="${skill.proficiency}%"></div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+    // Animate progress bars
+    setTimeout(() => {
+      document.querySelectorAll('.skill-bar').forEach((bar) => {
+        const width = (bar as HTMLElement).dataset.width;
+        (bar as HTMLElement).style.width = width || '0%';
+      });
+    }, 100);
+
+    // Update legend with badges
     const categories = new Map<string, number>();
     topSkills.forEach(skill => {
       const count = categories.get(skill.category) || 0;
@@ -171,16 +301,51 @@ const { lang = 'es' } = Astro.props;
     });
 
     legend.innerHTML = Array.from(categories.entries())
-      .map(([category, count]) => `
-        <div class="flex items-center gap-2">
-          <div class="w-3 h-3 rounded-full bg-primary"></div>
-          <span class="text-gray-700 dark:text-gray-300">${category} (${count})</span>
-        </div>
-      `).join('');
+      .map(([category, count]) => {
+        const color = categoryColors[category as keyof typeof categoryColors] || categoryColors['Desarrollo'];
+        return `
+          <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r ${color.bg} text-white rounded-full shadow-lg text-sm font-bold hover:scale-105 transition-transform duration-300">
+            <span>${category}</span>
+            <span class="bg-white/30 px-2.5 py-0.5 rounded-full text-xs font-bold">${count}</span>
+          </div>
+        `;
+      }).join('');
 
     // Show chart, hide loading
     container.classList.remove('hidden');
     loading.classList.add('hidden');
+
+    // Setup toggle button
+    setupToggle();
+  }
+
+  function setupToggle() {
+    const toggleBtn = document.getElementById('toggle-details-btn');
+    const detailsDiv = document.getElementById('skills-details');
+    const toggleIcon = document.getElementById('toggle-icon');
+    const toggleText = document.getElementById('toggle-text');
+
+    if (!toggleBtn || !detailsDiv || !toggleIcon || !toggleText) return;
+
+    toggleBtn.addEventListener('click', () => {
+      const isHidden = detailsDiv.classList.contains('hidden');
+
+      if (isHidden) {
+        detailsDiv.classList.remove('hidden');
+        toggleIcon.style.transform = 'rotate(180deg)';
+        const currentText = toggleText.textContent || '';
+        toggleText.textContent = currentText.includes('Ver') || currentText.includes('View')
+          ? (currentText.includes('View') ? 'Hide details' : 'Ocultar detalles')
+          : 'Ocultar detalhes';
+      } else {
+        detailsDiv.classList.add('hidden');
+        toggleIcon.style.transform = 'rotate(0deg)';
+        const currentText = toggleText.textContent || '';
+        toggleText.textContent = currentText.includes('Hide') || currentText.includes('Ocultar')
+          ? (currentText.includes('Hide') ? 'View full details' : 'Ver detalles completos')
+          : 'Ver detalhes completos';
+      }
+    });
   }
 
   async function loadSkillsRadar() {
@@ -196,28 +361,32 @@ const { lang = 'es' } = Astro.props;
       } else {
         // Show example data
         createRadarChart([
-          { id: 1, name: 'JavaScript', category: 'Frontend', proficiency: 90, is_active: true },
-          { id: 2, name: 'Python', category: 'Backend', proficiency: 95, is_active: true },
-          { id: 3, name: 'React', category: 'Frontend', proficiency: 88, is_active: true },
-          { id: 4, name: 'Node.js', category: 'Backend', proficiency: 85, is_active: true },
-          { id: 5, name: 'SQL', category: 'Database', proficiency: 80, is_active: true },
-          { id: 6, name: 'Docker', category: 'DevOps', proficiency: 75, is_active: true },
-          { id: 7, name: 'AWS', category: 'Cloud', proficiency: 70, is_active: true },
-          { id: 8, name: 'TypeScript', category: 'Frontend', proficiency: 85, is_active: true },
+          { id: 1, name: 'Backend', category: 'Desarrollo', proficiency: 85, is_active: true },
+          { id: 2, name: 'Frontend', category: 'Desarrollo', proficiency: 75, is_active: true },
+          { id: 3, name: 'Análisis', category: 'Datos', proficiency: 85, is_active: true },
+          { id: 4, name: 'Machine Learning', category: 'IA', proficiency: 55, is_active: true },
+          { id: 5, name: 'Analítica Datos', category: 'Datos', proficiency: 60, is_active: true },
+          { id: 6, name: 'IA', category: 'IA', proficiency: 70, is_active: true },
+          { id: 7, name: 'Agéntica', category: 'IA', proficiency: 70, is_active: true },
+          { id: 8, name: 'DevOps', category: 'Infraestructura', proficiency: 60, is_active: true },
+          { id: 9, name: 'Diseño Software', category: 'Arquitectura', proficiency: 80, is_active: true },
+          { id: 10, name: 'Arquitectura Software', category: 'Arquitectura', proficiency: 60, is_active: true },
         ]);
       }
     } catch (error) {
       console.error('Error loading skills for radar:', error);
       // Show example data on error
       createRadarChart([
-        { id: 1, name: 'JavaScript', category: 'Frontend', proficiency: 90, is_active: true },
-        { id: 2, name: 'Python', category: 'Backend', proficiency: 95, is_active: true },
-        { id: 3, name: 'React', category: 'Frontend', proficiency: 88, is_active: true },
-        { id: 4, name: 'Node.js', category: 'Backend', proficiency: 85, is_active: true },
-        { id: 5, name: 'SQL', category: 'Database', proficiency: 80, is_active: true },
-        { id: 6, name: 'Docker', category: 'DevOps', proficiency: 75, is_active: true },
-        { id: 7, name: 'AWS', category: 'Cloud', proficiency: 70, is_active: true },
-        { id: 8, name: 'TypeScript', category: 'Frontend', proficiency: 85, is_active: true },
+        { id: 1, name: 'Backend', category: 'Desarrollo', proficiency: 85, is_active: true },
+        { id: 2, name: 'Frontend', category: 'Desarrollo', proficiency: 75, is_active: true },
+        { id: 3, name: 'Análisis', category: 'Datos', proficiency: 85, is_active: true },
+        { id: 4, name: 'Machine Learning', category: 'IA', proficiency: 55, is_active: true },
+        { id: 5, name: 'Analítica Datos', category: 'Datos', proficiency: 60, is_active: true },
+        { id: 6, name: 'IA', category: 'IA', proficiency: 70, is_active: true },
+        { id: 7, name: 'Agéntica', category: 'IA', proficiency: 70, is_active: true },
+        { id: 8, name: 'DevOps', category: 'Infraestructura', proficiency: 60, is_active: true },
+        { id: 9, name: 'Diseño Software', category: 'Arquitectura', proficiency: 80, is_active: true },
+        { id: 10, name: 'Arquitectura Software', category: 'Arquitectura', proficiency: 60, is_active: true },
       ]);
     }
   }

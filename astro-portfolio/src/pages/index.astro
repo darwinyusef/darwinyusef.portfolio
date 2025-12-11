@@ -295,12 +295,12 @@ const t = useTranslations(lang);
           <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <!-- Mascota con efecto parallax -->
             <div class="flex justify-center lg:justify-end order-2 lg:order-1">
-              <div class="parallax-mascot relative" data-speed="0.2">
+              <div class="parallax-mascot relative -ml-[10%]" data-speed="0.2">
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/20 via-purple-600/20 to-pink-600/20 rounded-full blur-3xl scale-150 animate-pulse"></div>
                 <img
                   src="/img/mascota2.png"
                   alt="Mascot"
-                  class="relative w-64 md:w-80 lg:w-[400px] h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 hover-trigger-image"
+                  class="relative w-full max-w-2xl h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 rounded-2xl hover-trigger-image"
                   data-hover-image="/img/mascota3.png"
                 />
               </div>
@@ -310,37 +310,35 @@ const t = useTranslations(lang);
             <div class="order-1 lg:order-2 space-y-8">
               <div class="parallax-quote" data-speed="0.1">
                 <div class="relative">
-                  <!-- Comillas decorativas -->
-                  <div class="absolute -top-8 -left-4 text-[120px] leading-none text-primary/20 font-serif">"</div>
-
-                  <blockquote class="relative text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                    <span class="inline-block bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent animate-gradient">
+                  <h2 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                    <span class="inline-block bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">
                       {lang === 'es' ? 'El código es poesía,' : lang === 'en' ? 'Code is poetry,' : 'Código é poesia,'}
                     </span>
                     <br/>
-                    <span class="inline-block bg-gradient-to-r from-pink-600 via-purple-600 to-primary bg-clip-text text-transparent animate-gradient-reverse">
+                    <span class="inline-block text-gray-900 dark:text-white">
                       {lang === 'es' ? 'el diseño es arte' : lang === 'en' ? 'design is art' : 'design é arte'}
                     </span>
-                  </blockquote>
-
-                  <div class="absolute -bottom-4 -right-4 text-[120px] leading-none text-primary/20 font-serif">"</div>
+                  </h2>
                 </div>
               </div>
 
-              <div class="parallax-author" data-speed="0.15">
-                <div class="flex items-center gap-4 mt-8">
-                  <div class="h-1 w-16 bg-gradient-to-r from-primary to-purple-600 rounded-full"></div>
-                  <p class="text-xl md:text-2xl lg:text-3xl font-bold bg-gradient-to-r from-gray-700 to-gray-900 dark:from-gray-300 dark:to-white bg-clip-text text-transparent">
-                    {lang === 'es' ? 'Filosofía de desarrollo' : lang === 'en' ? 'Development philosophy' : 'Filosofia de desenvolvimento'}
-                  </p>
-                </div>
-              </div>
+              <div class="parallax-description" data-speed="0.15">
+                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                  {lang === 'es'
+                    ? 'Descubre mi filosofía de desarrollo donde la arquitectura de software se encuentra con el arte del diseño. Cada línea de código cuenta una historia.'
+                    : lang === 'en'
+                    ? 'Discover my development philosophy where software architecture meets design art. Every line of code tells a story.'
+                    : 'Descubra minha filosofia de desenvolvimento onde a arquitetura de software encontra a arte do design. Cada linha de código conta uma história.'}
+                </p>
 
-              <!-- Elementos decorativos -->
-              <div class="parallax-decorations flex gap-4 mt-12" data-speed="0.25">
-                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-primary to-purple-600 opacity-20 animate-float"></div>
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-purple-600 to-pink-600 opacity-20 animate-float" style="animation-delay: 0.5s;"></div>
-                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-600 to-primary opacity-20 animate-float" style="animation-delay: 1s;"></div>
+                <a
+                  href={`/${lang === 'es' ? '' : lang + '/'}arquitectura`}
+                  class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+                >
+                  <span class="material-symbols-outlined text-3xl">architecture</span>
+                  <span>{lang === 'es' ? 'Ver Arquitectura' : lang === 'en' ? 'View Architecture' : 'Ver Arquitetura'}</span>
+                  <span class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                </a>
               </div>
             </div>
           </div>
