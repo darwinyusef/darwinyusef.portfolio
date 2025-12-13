@@ -494,21 +494,71 @@ const t = useTranslations(lang);
       <!-- Sección: Mapa Radial + Card de Redes Sociales -->
       <section class="py-20">
         <div class="max-w-[1800px] mx-auto w-full">
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             <!-- Mapa Radial / Araña - Izquierda -->
-            <div class="order-2 lg:order-1">
+            <div class="order-2 lg:order-1 max-h-[850px] flex items-center">
               <SkillsRadar lang={lang} />
             </div>
 
             <!-- Card de Redes Sociales - Derecha -->
             <div class="order-1 lg:order-2">
-              <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl p-8 md:p-12">
+              <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl p-8 md:p-12 max-h-[850px] overflow-y-auto custom-scrollbar">
                 <h3 class="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                   Yusef González
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-8 leading-relaxed">
-                  {lang === 'es' ? 'Desarrollador Full Stack con pasión por crear soluciones innovadoras. Especializado en arquitecturas escalables, diseño de interfaces modernas y desarrollo de aplicaciones de alto rendimiento.' : lang === 'en' ? 'Full Stack Developer with a passion for creating innovative solutions. Specialized in scalable architectures, modern interface design, and high-performance application development.' : 'Desenvolvedor Full Stack com paixão por criar soluções inovadoras. Especializado em arquiteturas escaláveis, design de interfaces modernas e desenvolvimento de aplicativos de alto desempenho.'}
+                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  {lang === 'es'
+                    ? 'Arquitecto de Software con más de 17 años de experiencia diseñando y evolucionando sistemas que generan impacto real en organizaciones y personas. En los últimos años he enfocado mi práctica en arquitecturas modernas potenciadas por Inteligencia Artificial, integrando software tradicional con machine learning, agentes inteligentes y automatización, entendiendo que la tecnología, por sí sola, representa solo una parte del éxito.'
+                    : lang === 'en'
+                    ? 'Software Architect with over 17 years of experience designing and evolving systems that generate real impact on organizations and people. In recent years, I have focused my practice on modern architectures powered by Artificial Intelligence, integrating traditional software with machine learning, intelligent agents, and automation, understanding that technology, by itself, represents only part of success.'
+                    : 'Arquiteto de Software com mais de 17 anos de experiência projetando e evoluindo sistemas que geram impacto real em organizações e pessoas. Nos últimos anos, concentrei minha prática em arquiteturas modernas impulsionadas por Inteligência Artificial, integrando software tradicional com machine learning, agentes inteligentes e automação, entendendo que a tecnologia, por si só, representa apenas parte do sucesso.'}
                 </p>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  {lang === 'es'
+                    ? 'A lo largo de mi trayectoria he aprendido que el verdadero valor surge de la capacidad de pensar de forma sistémica, tomar decisiones técnicas con criterio y liderar personas en contextos de cambio y alta presión, especialmente cuando se incorporan componentes de IA que requieren equilibrio entre innovación, riesgo, ética y sostenibilidad técnica.'
+                    : lang === 'en'
+                    ? 'Throughout my career, I have learned that true value emerges from the ability to think systemically, make technical decisions with judgment, and lead people in contexts of change and high pressure, especially when incorporating AI components that require balance between innovation, risk, ethics, and technical sustainability.'
+                    : 'Ao longo da minha carreira, aprendi que o verdadeiro valor surge da capacidade de pensar de forma sistêmica, tomar decisões técnicas com critério e liderar pessoas em contextos de mudança e alta pressão, especialmente ao incorporar componentes de IA que requerem equilíbrio entre inovação, risco, ética e sustentabilidade técnica.'}
+                </p>
+                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                  {lang === 'es'
+                    ? 'Mi experiencia liderando equipos multidisciplinarios y multiculturales me ha permitido actuar como puente entre arquitectura, datos, modelos de IA y negocio, facilitando decisiones conscientes sobre trade-offs, costos operativos, calidad de los modelos y visión a largo plazo. Creo firmemente que un arquitecto no solo diseña software o integra modelos, sino que construye confianza, alinea equipos y habilita la evolución responsable de sistemas inteligentes.'
+                    : lang === 'en'
+                    ? 'My experience leading multidisciplinary and multicultural teams has allowed me to act as a bridge between architecture, data, AI models, and business, facilitating conscious decisions about trade-offs, operational costs, model quality, and long-term vision. I firmly believe that an architect not only designs software or integrates models, but builds trust, aligns teams, and enables the responsible evolution of intelligent systems.'
+                    : 'Minha experiência liderando equipes multidisciplinares e multiculturais me permitiu atuar como ponte entre arquitetura, dados, modelos de IA e negócios, facilitando decisões conscientes sobre trade-offs, custos operacionais, qualidade dos modelos e visão de longo prazo. Acredito firmemente que um arquiteto não apenas projeta software ou integra modelos, mas constrói confiança, alinha equipes e habilita a evolução responsável de sistemas inteligentes.'}
+                </p>
+                <p class="text-base md:text-lg text-gray-500 dark:text-gray-500 mb-8 leading-relaxed italic border-l-4 border-primary pl-4">
+                  {lang === 'es'
+                    ? 'He comprobado que competencias como la inteligencia emocional, el pensamiento crítico y la capacidad de influir sin autoridad formal son las que realmente distinguen a un desarrollador experto de un líder tecnológico capaz de guiar equipos y organizaciones en la adopción efectiva de la Inteligencia Artificial.'
+                    : lang === 'en'
+                    ? 'I have verified that competencies such as emotional intelligence, critical thinking, and the ability to influence without formal authority are what truly distinguish an expert developer from a technology leader capable of guiding teams and organizations in the effective adoption of Artificial Intelligence.'
+                    : 'Verifiquei que competências como inteligência emocional, pensamento crítico e capacidade de influenciar sem autoridade formal são as que realmente distinguem um desenvolvedor especialista de um líder tecnológico capaz de guiar equipes e organizações na adoção efetiva da Inteligência Artificial.'}
+                </p>
+
+                <!-- Cierre personal -->
+                <div class="mb-8 p-6 bg-gradient-to-br from-primary/5 via-purple-600/5 to-pink-600/5 dark:from-primary/10 dark:via-purple-600/10 dark:to-pink-600/10 rounded-2xl border border-primary/20">
+                  <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-3 leading-relaxed font-semibold">
+                    {lang === 'es'
+                      ? 'Mi camino no ha sido lineal, ha sido orgánico.'
+                      : lang === 'en'
+                      ? 'My path has not been linear, it has been organic.'
+                      : 'Meu caminho não foi linear, foi orgânico.'}
+                  </p>
+                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+                    {lang === 'es'
+                      ? 'He sido desarrollador, diseñador, docente, arquitecto, mentor y ahora constructor de sistemas con Inteligencia Artificial, desarrollador móvil y web, ahora desarrollándome como arquitecto de software.'
+                      : lang === 'en'
+                      ? 'I have been a developer, designer, teacher, architect, mentor, and now a builder of Artificial Intelligence systems, mobile and web developer, now developing as a software architect.'
+                      : 'Fui desenvolvedor, designer, professor, arquiteto, mentor e agora construtor de sistemas com Inteligência Artificial, desenvolvedor móvel e web, agora me desenvolvendo como arquiteto de software.'}
+                  </p>
+                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed italic">
+                    {lang === 'es'
+                      ? 'Todo esto me permitió entender que la verdadera arquitectura no se escribe solo en diagramas, sino en decisiones conscientes, personas que crecen y sistemas que pueden evolucionar sin romperse.'
+                      : lang === 'en'
+                      ? 'All of this allowed me to understand that true architecture is not written only in diagrams, but in conscious decisions, people who grow, and systems that can evolve without breaking.'
+                      : 'Tudo isso me permitiu entender que a verdadeira arquitetura não se escreve apenas em diagramas, mas em decisões conscientes, pessoas que crescem e sistemas que podem evoluir sem quebrar.'}
+                  </p>
+                </div>
 
                 <!-- Redes Sociales - Solo Íconos -->
                 <div class="flex flex-wrap gap-3">
@@ -805,38 +855,152 @@ const t = useTranslations(lang);
                 <div class="space-y-6">
                   <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed">
                     {lang === 'es'
-                      ? 'Cuando no estoy escribiendo código o diseñando arquitecturas, encontrarás mi verdadera pasión: compartir momentos con mi compañero de aventuras, mi Husky Siberiano, o tocando rock con mi guitarra y mi bajo tambien jugando algunos video juegos. como LOl pero soy manco'
+                      ? 'No todo en mi vida son líneas de código, arquitecturas y diagramas. Fuera de la pantalla cultivo pasiones que me mantienen creativo, equilibrado y conectado con lo que realmente importa.'
                       : lang === 'en'
-                      ? "When I'm not writing code or designing architectures, you'll find my true passion: sharing moments with my adventure companion, my Siberian Husky."
-                      : 'Quando não estou escrevendo código ou projetando arquiteturas, você encontrará minha verdadeira paixão: compartilhar momentos com meu companheiro de aventuras, meu Husky Siberiano.'}
+                      ? "Not everything in my life is lines of code, architectures and diagrams. Outside the screen I cultivate passions that keep me creative, balanced and connected with what really matters."
+                      : 'Nem tudo na minha vida são linhas de código, arquiteturas e diagramas. Fora da tela, cultivo paixões que me mantêm criativo, equilibrado e conectado com o que realmente importa.'}
                   </p>
 
                   <!-- Hobbies cards -->
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
-                    <!-- Card 1 -->
+                    <!-- Card 1: Cocina -->
                     <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg">
-                          <span class="material-symbols-outlined text-white text-2xl">directions_walk</span>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🍽️</span>
                         </div>
                         <h3 class="font-bold text-lg text-gray-900 dark:text-white">
-                          {lang === 'es' ? 'Aventuras al aire libre' : lang === 'en' ? 'Outdoor adventures' : 'Aventuras ao ar livre'}
+                          {lang === 'es' ? 'Cocina & Coctelería' : lang === 'en' ? 'Cooking & Mixology' : 'Cozinha & Coquetelaria'}
                         </h3>
                       </div>
                       <p class="text-sm text-gray-600 dark:text-gray-400">
                         {lang === 'es'
-                          ? 'Largas caminatas, hiking y exploración de la naturaleza junto a mi fiel amigo peludo.'
+                          ? 'Explorar sabores del mundo, preparar platos gourmet y mezclar cócteles creativos —muy parecido a diseñar un buen sistema, pero comestible 😄.'
                           : lang === 'en'
-                          ? 'Long walks, hiking and nature exploration with my faithful furry friend.'
-                          : 'Longas caminhadas, trilhas e exploração da natureza com meu fiel amigo peludo.'}
+                          ? 'Exploring world flavors, preparing gourmet dishes and mixing creative cocktails—much like designing a good system, but edible 😄.'
+                          : 'Explorar sabores do mundo, preparar pratos gourmet e misturar coquetéis criativos—muito parecido com projetar um bom sistema, mas comestível 😄.'}
                       </p>
                     </div>
 
-                    <!-- Card 2 -->
+                    <!-- Card 2: Bicicleta -->
                     <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-teal-600 flex items-center justify-center shadow-lg">
-                          <span class="material-symbols-outlined text-white text-2xl">self_improvement</span>
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🚴‍♂️</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Rutas sobre dos ruedas' : lang === 'en' ? 'Routes on two wheels' : 'Rotas sobre duas rodas'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'Recorrer caminos, descubrir lugares especiales y reconectar conmigo mismo mientras pedaleo.'
+                          : lang === 'en'
+                          ? 'Riding paths, discovering special places and reconnecting with myself while pedaling.'
+                          : 'Percorrer caminhos, descobrir lugares especiais e me reconectar comigo mesmo enquanto pedalo.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 3: Música -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🎸</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Música que libera' : lang === 'en' ? 'Music that frees' : 'Música que liberta'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'Tocar guitarra y bajo es mi válvula de escape creativa. La música me enseña ritmo, constancia y armonía.'
+                          : lang === 'en'
+                          ? 'Playing guitar and bass is my creative escape valve. Music teaches me rhythm, consistency and harmony.'
+                          : 'Tocar guitarra e baixo é minha válvula de escape criativa. A música me ensina ritmo, constância e harmonia.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 4: Gaming & Anime -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🎮</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Gaming & Anime' : lang === 'en' ? 'Gaming & Anime' : 'Gaming & Anime'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'League of Legends (soy manco, pero feliz 😅) y series anime como One Piece. Historias épicas y mundos complejos: pura inspiración.'
+                          : lang === 'en'
+                          ? 'League of Legends (I\'m bad, but happy 😅) and anime series like One Piece. Epic stories and complex worlds: pure inspiration.'
+                          : 'League of Legends (sou ruim, mas feliz 😅) e séries de anime como One Piece. Histórias épicas e mundos complexos: pura inspiração.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 5: Fe -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-600 to-orange-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">📖</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Fe y propósito' : lang === 'en' ? 'Faith and purpose' : 'Fé e propósito'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'La cristiandad y la lectura de las escrituras me ayudan a mantener valores claros, propósito y una perspectiva más profunda.'
+                          : lang === 'en'
+                          ? 'Christianity and scripture reading help me maintain clear values, purpose and a deeper perspective.'
+                          : 'O cristianismo e a leitura das escrituras me ajudam a manter valores claros, propósito e uma perspectiva mais profunda.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 6: Perro -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🐕</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Aventuras con mi perro' : lang === 'en' ? 'Adventures with my dog' : 'Aventuras com meu cachorro'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'Paseos, juegos y caminatas largas son parte de mi rutina para mantener el equilibrio físico y mental.'
+                          : lang === 'en'
+                          ? 'Walks, games and long hikes are part of my routine to maintain physical and mental balance.'
+                          : 'Passeios, jogos e caminhadas longas são parte da minha rotina para manter o equilíbrio físico e mental.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 7: Pareja -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">❤️</span>
+                        </div>
+                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                          {lang === 'es' ? 'Tiempo de calidad' : lang === 'en' ? 'Quality time' : 'Tempo de qualidade'}
+                        </h3>
+                      </div>
+                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                        {lang === 'es'
+                          ? 'Momentos compartidos con mi pareja. El verdadero éxito se mide en relaciones sanas y tiempo bien vivido.'
+                          : lang === 'en'
+                          ? 'Shared moments with my partner. True success is measured in healthy relationships and time well lived.'
+                          : 'Momentos compartilhados com meu parceiro. O verdadeiro sucesso se mede em relacionamentos saudáveis ​​e tempo bem vivido.'}
+                      </p>
+                    </div>
+
+                    <!-- Card 8: Balance -->
+                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                      <div class="flex items-center gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 flex items-center justify-center shadow-lg">
+                          <span class="text-2xl">🌱</span>
                         </div>
                         <h3 class="font-bold text-lg text-gray-900 dark:text-white">
                           {lang === 'es' ? 'Balance y bienestar' : lang === 'en' ? 'Balance & wellness' : 'Equilíbrio e bem-estar'}
@@ -844,49 +1008,10 @@ const t = useTranslations(lang);
                       </div>
                       <p class="text-sm text-gray-600 dark:text-gray-400">
                         {lang === 'es'
-                          ? 'La mejor terapia después de un día de código: jugar y entrenar con mi Husky.'
+                          ? 'Después de un día intenso de código: salir a caminar, entrenar, jugar o simplemente respirar. El balance es clave.'
                           : lang === 'en'
-                          ? 'The best therapy after a day of coding: playing and training with my Husky.'
-                          : 'A melhor terapia após um dia de código: brincar e treinar com meu Husky.'}
-                      </p>
-                    </div>
-              
-
-                                     <!-- Card 1 -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg">
-                          <span class="material-symbols-outlined text-white text-2xl">directions_walk</span>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
-                          {lang === 'es' ? 'Aventuras al aire libre' : lang === 'en' ? 'Outdoor adventures' : 'Aventuras ao ar livre'}
-                        </h3>
-                      </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
-                        {lang === 'es'
-                          ? 'Largas caminatas, hiking y exploración de la naturaleza junto a mi fiel amigo peludo.'
-                          : lang === 'en'
-                          ? 'Long walks, hiking and nature exploration with my faithful furry friend.'
-                          : 'Longas caminhadas, trilhas e exploração da natureza com meu fiel amigo peludo.'}
-                      </p>
-                    </div>
-
-                    <!-- Card 2 -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
-                      <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-cyan-600 to-teal-600 flex items-center justify-center shadow-lg">
-                          <span class="material-symbols-outlined text-white text-2xl">self_improvement</span>
-                        </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
-                          {lang === 'es' ? 'Balance y bienestar' : lang === 'en' ? 'Balance & wellness' : 'Equilíbrio e bem-estar'}
-                        </h3>
-                      </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
-                        {lang === 'es'
-                          ? 'La mejor terapia después de un día de código: jugar y entrenar con mi Husky.'
-                          : lang === 'en'
-                          ? 'The best therapy after a day of coding: playing and training with my Husky.'
-                          : 'A melhor terapia após um dia de código: brincar e treinar com meu Husky.'}
+                          ? 'After an intense day of coding: go for a walk, train, play or just breathe. Balance is key.'
+                          : 'Após um dia intenso de código: sair para caminhar, treinar, brincar ou simplesmente respirar. O equilíbrio é fundamental.'}
                       </p>
                     </div>
                   </div>
@@ -895,10 +1020,10 @@ const t = useTranslations(lang);
                   <div class="mt-8 pl-6 border-l-4 border-blue-600">
                     <p class="text-lg italic text-gray-700 dark:text-gray-300 font-medium">
                       {lang === 'es'
-                        ? '"Un buen desarrollador sabe cuándo desconectar. Un gran desarrollador tiene un Husky que le recuerda hacerlo cada día."'
+                        ? '"Un buen desarrollador sabe cuándo desconectar. Un gran desarrollador tiene un compañero —humano o peludo— que se lo recuerda todos los días."'
                         : lang === 'en'
-                        ? '"A good developer knows when to disconnect. A great developer has a Husky to remind them every day."'
-                        : '"Um bom desenvolvedor sabe quando desconectar. Um grande desenvolvedor tem um Husky para lembrá-lo todos os dias."'}
+                        ? '"A good developer knows when to disconnect. A great developer has a companion—human or furry—who reminds them every day."'
+                        : '"Um bom desenvolvedor sabe quando desconectar. Um grande desenvolvedor tem um companheiro—humano ou peludo—que lhe lembra todos os dias."'}
                     </p>
                   </div>
                 </div>
@@ -912,27 +1037,27 @@ const t = useTranslations(lang);
               </div>
             </div>
 
-            <!-- Imagen del Husky con efecto parallax -->
+            <!-- Imagen del Husky con efecto parallax mejorado -->
             <div class="flex justify-center order-1 lg:order-2">
-              <div class="parallax-husky relative" data-speed="0.2">
-                <!-- Degradado radial gaussiano de fondo -->
-                <div class="absolute inset-0 -z-10" style="background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.15) 0%, rgba(6, 182, 212, 0.1) 35%, rgba(20, 184, 166, 0.08) 60%, transparent 100%); filter: blur(60px); transform: scale(1.3);"></div>
+              <div class="parallax-husky relative" data-speed="0.3">
+                <!-- Degradado radial gaussiano de fondo más grande -->
+                <div class="absolute inset-0 -z-10" style="background: radial-gradient(ellipse at center, rgba(37, 99, 235, 0.2) 0%, rgba(6, 182, 212, 0.15) 35%, rgba(20, 184, 166, 0.1) 60%, transparent 100%); filter: blur(80px); transform: scale(1.5);"></div>
 
-                <!-- Image container -->
-                <div class="relative flex justify-center items-center">
+                <!-- Image container con efecto parallax mejorado -->
+                <div class="relative flex justify-center items-center parallax-image-container" data-speed="0.4">
                   <img
                     src="/img/husky.png"
                     alt="Yusef's Siberian Husky"
-                    class="relative w-full max-w-lg h-auto transform hover:scale-105 transition-transform duration-500 object-contain mx-auto hover-trigger-image"
-                    style="aspect-ratio: 4/5;"
+                    class="relative w-full max-w-2xl h-auto transform hover:scale-110 transition-all duration-700 object-contain mx-auto hover-trigger-image animate-float"
+                    style="aspect-ratio: 4/5; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));"
                     data-hover-image="/img/mascota.png"
                   />
 
-                  <!-- Floating badge -->
-                  <div class="absolute -bottom-4 -right-4 bg-gradient-to-br from-blue-600 to-cyan-600 text-white px-6 py-3 rounded-2xl shadow-2xl hover-trigger-image" data-hover-image="/img/mascota2.png">
-                    <div class="flex items-center gap-2">
-                      <span class="material-symbols-outlined text-2xl animate-bounce">favorite</span>
-                      <span class="font-black text-lg" style="font-family: 'Inter Tight', system-ui, sans-serif;">Best Friend</span>
+                  <!-- Floating badge con parallax -->
+                  <div class="absolute -bottom-6 -right-6 bg-gradient-to-br from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl shadow-2xl hover-trigger-image animate-float" style="animation-delay: 0.5s;" data-hover-image="/img/mascota2.png">
+                    <div class="flex items-center gap-3">
+                      <span class="material-symbols-outlined text-3xl animate-bounce">favorite</span>
+                      <span class="font-black text-xl" style="font-family: 'Inter Tight', system-ui, sans-serif;">Best Friend</span>
                     </div>
                   </div>
                 </div>
@@ -1027,46 +1152,6 @@ const t = useTranslations(lang);
                 </div>
               </div>
 
-              <!-- Redes Sociales -->
-              <div class="parallax-contact-social" data-speed="0.25">
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4">
-                  {lang === 'es' ? 'Sígueme en' : lang === 'en' ? 'Follow me on' : 'Siga-me em'}
-                </h3>
-                <div class="flex gap-4">
-                  <a
-                    href="#"
-                    class="group w-14 h-14 rounded-xl bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-all duration-300 cursor-hover-target"
-                    aria-label="LinkedIn"
-                    data-cursor-text="LinkedIn"
-                  >
-                    <svg class="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
-                      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                      <rect height="12" width="4" x="2" y="9"></rect>
-                      <circle cx="4" cy="4" r="2"></circle>
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
-                    class="group w-14 h-14 rounded-xl bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-all duration-300 cursor-hover-target"
-                    aria-label="GitHub"
-                    data-cursor-text="GitHub"
-                  >
-                    <svg class="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
-                      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-                    </svg>
-                  </a>
-                  <a
-                    href="#"
-                    class="group w-14 h-14 rounded-xl bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 flex items-center justify-center hover:border-primary hover:bg-primary/10 dark:hover:bg-primary/20 transition-all duration-300 cursor-hover-target"
-                    aria-label="Twitter"
-                    data-cursor-text="Twitter"
-                  >
-                    <svg class="h-6 w-6 text-gray-600 dark:text-gray-400 group-hover:text-primary transition-colors" fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24">
-                      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"></path>
-                    </svg>
-                  </a>
-                </div>
-              </div>
             </div>
 
             <!-- Columna Derecha: Formulario -->
@@ -1171,6 +1256,47 @@ const t = useTranslations(lang);
 
   <Chatbot />
 </Layout>
+
+<style>
+  /* Custom Scrollbar - Minimalista y Elegante */
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(139, 92, 246, 0.3) transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 10px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+    border-radius: 10px;
+    transition: all 0.3s ease;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #7c3aed 50%, #db2777 100%);
+    width: 8px;
+  }
+
+  /* Dark mode adjustments */
+  :global(.dark) .custom-scrollbar {
+    scrollbar-color: rgba(139, 92, 246, 0.5) transparent;
+  }
+
+  :global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #60a5fa 0%, #a78bfa 50%, #f472b6 100%);
+  }
+
+  :global(.dark) .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
+  }
+</style>
 
 <script>
   const backendUrl = 'http://localhost:8000';
@@ -1638,6 +1764,7 @@ const t = useTranslations(lang);
   .parallax-contact-social,
   .parallax-contact-form,
   .parallax-husky,
+  .parallax-image-container,
   .parallax-lifestyle-title,
   .parallax-lifestyle-content,
   .parallax-lifestyle-decorations {

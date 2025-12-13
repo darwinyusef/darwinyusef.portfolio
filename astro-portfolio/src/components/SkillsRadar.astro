@@ -14,20 +14,29 @@ const { lang = 'es' } = Astro.props;
 
     <div class="relative z-10">
       <!-- Header -->
-      <div class="text-center mb-8">
+      <div class="text-center mb-8 relative">
         <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-          {lang === 'es' ? 'Habilidades' : lang === 'en' ? 'Skills' : 'Habilidades'}
+          {lang === 'es' ? 'Soft' : lang === 'en' ? 'Soft' : 'Soft'}
           <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
-            {lang === 'es' ? 'Técnicas' : lang === 'en' ? 'Technical' : 'Técnicas'}
+            {lang === 'es' ? 'Skills' : lang === 'en' ? 'Skills' : 'Skills'}
           </span>
         </h2>
         <p class="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
           {lang === 'es'
-            ? 'Mi experiencia y dominio en diferentes áreas de tecnología'
+            ? 'Habilidades blandas para liderar equipos y transformar organizaciones'
             : lang === 'en'
-            ? 'My expertise and proficiency across different technology areas'
-            : 'Minha experiência e domínio em diferentes áreas de tecnologia'}
+            ? 'Soft skills to lead teams and transform organizations'
+            : 'Habilidades interpessoais para liderar equipes e transformar organizações'}
         </p>
+
+        <!-- Info Button -->
+        <button
+          id="info-btn"
+          class="absolute top-0 right-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white flex items-center justify-center hover:scale-110 transition-transform duration-300 shadow-lg"
+          aria-label="Información"
+        >
+          <span class="material-symbols-outlined text-xl">info</span>
+        </button>
       </div>
 
       <!-- Radar Chart - PROTAGONISTA -->
@@ -41,32 +50,228 @@ const { lang = 'es' } = Astro.props;
           <div class="bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-3xl p-8 md:p-12 border border-gray-200/50 dark:border-gray-700/50">
             <canvas id="skills-radar-chart" class="w-full"></canvas>
           </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
 
-          <!-- Categories Legend - Debajo de la gráfica -->
-          <div class="mt-8 text-center">
-            <h3 class="text-sm font-bold text-gray-900 dark:text-white mb-4 uppercase tracking-wider">
-              {lang === 'es' ? 'Categorías' : lang === 'en' ? 'Categories' : 'Categorias'}
-            </h3>
-            <div id="skills-legend" class="flex flex-wrap gap-3 justify-center"></div>
-          </div>
+<!-- Modal de Definiciones -->
+<div id="skills-modal" class="fixed inset-0 z-50 hidden items-center justify-center bg-black/60 backdrop-blur-sm p-4">
+  <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl max-w-4xl w-full max-h-[90vh] overflow-hidden border border-gray-200 dark:border-gray-700">
+    <!-- Modal Header -->
+    <div class="sticky top-0 bg-gradient-to-r from-primary via-purple-600 to-pink-600 p-6 flex justify-between items-center">
+      <h3 class="text-2xl md:text-3xl font-black text-white">
+        {lang === 'es' ? 'Definiciones de Soft Skills' : lang === 'en' ? 'Soft Skills Definitions' : 'Definições de Soft Skills'}
+      </h3>
+      <button
+        id="close-modal-btn"
+        class="w-10 h-10 rounded-full bg-white/20 hover:bg-white/30 text-white flex items-center justify-center transition-all"
+        aria-label="Cerrar"
+      >
+        <span class="material-symbols-outlined">close</span>
+      </button>
+    </div>
 
-          <!-- Toggle button for details -->
-          <div class="mt-8 text-center">
-            <button
-              id="toggle-details-btn"
-              class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white text-sm font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105"
-            >
-              <span id="toggle-text">{lang === 'es' ? 'Ver detalles completos' : lang === 'en' ? 'View full details' : 'Ver detalhes completos'}</span>
-              <span id="toggle-icon" class="material-symbols-outlined text-lg transition-transform duration-300">expand_more</span>
-            </button>
-          </div>
+    <!-- Modal Body -->
+    <div class="overflow-y-auto max-h-[calc(90vh-100px)] p-6 space-y-6">
+      <!-- 1. Pensamiento Sistémico -->
+      <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-700/10 dark:from-emerald-500/20 dark:to-emerald-700/20 rounded-2xl p-6 border border-emerald-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🧠</span>
+          1. Pensamiento Sistémico
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Systems Thinking)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Capacidad de comprender el sistema completo, sus componentes, dependencias e impactos a corto y largo plazo, evitando optimizaciones locales que dañen el todo.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-emerald-500">
+          <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">Cómo lo desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Aprendí a pensar en sistemas completos desde muy temprano, incluso antes de llamarlo "arquitectura". Al moverme entre hardware, electrónica, diseño, frontend, backend, bases de datos, educación y negocio, entendí que nada vive aislado. Cada decisión técnica tenía consecuencias en mantenimiento, personas, costos y tiempo.
+            <br><br>
+            Con los años, al crear CMS propios, plataformas educativas, sistemas académicos, integraciones con universidades y más recientemente sistemas con IA, fui entrenando la capacidad de ver el impacto a corto y largo plazo. Hoy organizo los sistemas pensando en evolución, no solo en resolver el problema inmediato.
+          </p>
+        </div>
+      </div>
 
-          <!-- Collapsible Details -->
-          <div id="skills-details" class="mt-6 hidden">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="skills-list-container">
-              <!-- Skills will be populated here -->
-            </div>
-          </div>
+      <!-- 2. Decisiones Técnicas -->
+      <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-700/10 dark:from-emerald-500/20 dark:to-emerald-700/20 rounded-2xl p-6 border border-emerald-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🧩</span>
+          2. Toma de Decisiones Técnicas
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Technical Decision Making)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Habilidad para elegir soluciones técnicas basadas en trade-offs, riesgos, contexto y objetivos de negocio, incluso con información incompleta.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-emerald-500">
+          <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">Cómo lo desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Nunca tuve el lujo de decidir con información perfecta. Desde proyectos pequeños para emprendedores hasta sistemas grandes en universidades y empresas, aprendí a decidir con restricciones reales: presupuesto, tiempo, talento disponible y contexto organizacional.
+            <br><br>
+            Aprendí a evaluar trade-offs al elegir tecnologías, arquitecturas y caminos de implementación, y con la llegada de la Inteligencia Artificial este criterio se volvió aún más importante: no todo modelo es necesario, no toda automatización es correcta. Hoy decido buscando equilibrio entre valor, riesgo y sostenibilidad.
+          </p>
+        </div>
+      </div>
+
+      <!-- 3. Comunicación -->
+      <div class="bg-gradient-to-br from-violet-500/10 to-violet-700/10 dark:from-violet-500/20 dark:to-violet-700/20 rounded-2xl p-6 border border-violet-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🗣️</span>
+          3. Comunicación Efectiva
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Effective Communication)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Capacidad de expresar ideas técnicas complejas de forma clara y comprensible para distintos públicos técnicos y no técnicos.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-violet-500">
+          <p class="text-sm font-bold text-violet-700 dark:text-violet-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            La docencia fue mi mayor escuela. Enseñar programación, arquitectura e IA a perfiles muy distintos me obligó a traducir lo complejo a lo comprensible. Aprendí a hablar distinto con estudiantes, desarrolladores, docentes, directivos y empresarios.
+            <br><br>
+            Con el tiempo entendí que comunicar no es explicar más, sino explicar mejor. Hoy organizo ideas técnicas para que conecten con negocio, personas y decisiones estratégicas, especialmente cuando involucran sistemas complejos o componentes de IA.
+          </p>
+        </div>
+      </div>
+
+      <!-- 4. Liderazgo -->
+      <div class="bg-gradient-to-br from-blue-500/10 to-blue-700/10 dark:from-blue-500/20 dark:to-blue-700/20 rounded-2xl p-6 border border-blue-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🤝</span>
+          4. Liderazgo Técnico
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Technical Leadership)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Habilidad para guiar, influir y elevar al equipo mediante ejemplo, mentoría y criterio técnico, sin depender de autoridad jerárquica.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-blue-500">
+          <p class="text-sm font-bold text-blue-700 dark:text-blue-400 mb-2">Cómo lo desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Mi liderazgo nunca fue jerárquico. Nació acompañando, resolviendo problemas reales y bajando a código cuando era necesario. Lideré equipos desde el ejemplo, apoyando decisiones, revisando soluciones y ayudando a otros a crecer técnicamente.
+            <br><br>
+            Con los años entendí que liderar no es ser el más fuerte técnicamente, sino hacer que el equipo completo suba de nivel. Hoy mi foco está en crear entornos donde la arquitectura, la calidad y el aprendizaje continuo sean parte natural del trabajo.
+          </p>
+        </div>
+      </div>
+
+      <!-- 5. Trade-offs -->
+      <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-700/10 dark:from-emerald-500/20 dark:to-emerald-700/20 rounded-2xl p-6 border border-emerald-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">⚖️</span>
+          5. Gestión de Trade-offs
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Trade-off Analysis)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Capacidad de identificar, evaluar y comunicar los costos y beneficios de cada decisión arquitectónica, aceptando que no existen soluciones perfectas.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-emerald-500">
+          <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Trabajar en contextos reales —educación, salud, empresas, startups— me enseñó que toda decisión tiene un costo. Rendimiento, tiempo, deuda técnica, experiencia de usuario, carga del equipo.
+            <br><br>
+            Aprendí a hacer explícitos los sacrificios, a comunicar lo que se gana y lo que se pierde. Con IA, esto se volvió aún más crítico: precisión vs costo, automatización vs control humano, velocidad vs ética.
+          </p>
+        </div>
+      </div>
+
+      <!-- 6. Pensamiento Crítico -->
+      <div class="bg-gradient-to-br from-emerald-500/10 to-emerald-700/10 dark:from-emerald-500/20 dark:to-emerald-700/20 rounded-2xl p-6 border border-emerald-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🔍</span>
+          6. Pensamiento Crítico
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Critical Thinking)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Habilidad para cuestionar supuestos, requisitos y decisiones, analizando problemas con lógica, evidencia y criterio independiente.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-emerald-500">
+          <p class="text-sm font-bold text-emerald-700 dark:text-emerald-400 mb-2">Cómo lo desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Desde mis primeros años cuestioné herramientas, frameworks y modas. No porque no funcionaran, sino porque quería entender por qué se usaban. Esto me llevó a crear soluciones propias, reutilizar código, refactorizar sistemas legacy y hoy, a evaluar críticamente el uso de IA.
+            <br><br>
+            No acepto requisitos ciegamente. Analizo supuestos, contexto y consecuencias. Esta habilidad se fortaleció especialmente al diseñar sistemas educativos, arquitecturas empresariales y agentes inteligentes.
+          </p>
+        </div>
+      </div>
+
+      <!-- 7. Influencia -->
+      <div class="bg-gradient-to-br from-blue-500/10 to-blue-700/10 dark:from-blue-500/20 dark:to-blue-700/20 rounded-2xl p-6 border border-blue-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🧑‍🏫</span>
+          7. Influencia sin Autoridad
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Influencing Without Authority)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Capacidad de convencer y alinear a otros mediante argumentos, datos y visión, sin necesidad de poder formal.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-blue-500">
+          <p class="text-sm font-bold text-blue-700 dark:text-blue-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Gran parte de mi carrera la he construido sin cargos formales de poder. Aprendí a influir desde el criterio técnico, la experiencia y la coherencia. Convencer no imponiendo, sino mostrando caminos posibles y consecuencias reales.
+            <br><br>
+            Esto fue clave en universidades, empresas y mentorías, donde muchas veces guié decisiones sin ser "el jefe", especialmente en procesos de cambio tecnológico o adopción de nuevas arquitecturas e IA.
+          </p>
+        </div>
+      </div>
+
+      <!-- 8. Visión -->
+      <div class="bg-gradient-to-br from-amber-500/10 to-amber-700/10 dark:from-amber-500/20 dark:to-amber-700/20 rounded-2xl p-6 border border-amber-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">📐</span>
+          8. Visión a Largo Plazo
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Long-Term Vision)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Habilidad para diseñar arquitecturas pensando en evolución, crecimiento y cambios futuros, minimizando deuda técnica y rigidez.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-amber-500">
+          <p class="text-sm font-bold text-amber-700 dark:text-amber-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            Crear sistemas que vivieron años —algunos hoy legacy— me enseñó que el tiempo siempre llega. Diseñé plataformas educativas, CMS y productos que evolucionaron, se reutilizaron o migraron.
+            <br><br>
+            Hoy mi visión incorpora IA, automatización y agentes, pero siempre con una pregunta clara: ¿esto seguirá siendo sostenible en 2, 5 o 10 años? Diseño pensando en evolución, no en modas.
+          </p>
+        </div>
+      </div>
+
+      <!-- 9. Cambio -->
+      <div class="bg-gradient-to-br from-amber-500/10 to-amber-700/10 dark:from-amber-500/20 dark:to-amber-700/20 rounded-2xl p-6 border border-amber-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🔄</span>
+          9. Gestión del Cambio
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Change Management)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Capacidad para planificar y ejecutar cambios técnicos de forma gradual, controlada y sostenible, cuidando tanto el sistema como al equipo.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-amber-500">
+          <p class="text-sm font-bold text-amber-700 dark:text-amber-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            He vivido migraciones, refactors, cambios de stack, de rol y de enfoque profesional. Aprendí que el cambio técnico sin cuidado humano rompe equipos y proyectos.
+            <br><br>
+            Hoy gestiono el cambio de forma gradual, comunicada y medible, especialmente cuando implica introducir IA, nuevas arquitecturas o nuevas formas de trabajo. Entiendo que el cambio es técnico, pero también emocional.
+          </p>
+        </div>
+      </div>
+
+      <!-- 10. Emociones -->
+      <div class="bg-gradient-to-br from-pink-500/10 to-pink-700/10 dark:from-pink-500/20 dark:to-pink-700/20 rounded-2xl p-6 border border-pink-500/30">
+        <h4 class="text-xl font-black text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+          <span class="text-2xl">🧠</span>
+          10. Inteligencia Emocional
+          <span class="text-sm font-normal text-gray-500 dark:text-gray-400">(Emotional Intelligence)</span>
+        </h4>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
+          <strong>Definición:</strong> Habilidad para reconocer, comprender y gestionar las propias emociones y las de otros, especialmente en contextos de presión, conflicto y toma de decisiones.
+        </p>
+        <div class="bg-white/50 dark:bg-black/20 rounded-xl p-4 border-l-4 border-pink-500">
+          <p class="text-sm font-bold text-pink-700 dark:text-pink-400 mb-2">Cómo la desarrollé</p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+            La presión, los fracasos, los proyectos que se detienen y los equipos diversos me obligaron a mirar hacia adentro. Aprendí a reconocer mis límites, mis reacciones y mis áreas de mejora.
+            <br><br>
+            Hoy gestiono mejor el ego, el cansancio y el conflicto, entendiendo que la arquitectura falla más por personas que por código. Esta habilidad sigue en evolución, y soy consciente de ello.
+          </p>
         </div>
       </div>
     </div>
@@ -87,21 +292,19 @@ const { lang = 'es' } = Astro.props;
   }
 
   const categoryColors = {
-    'Desarrollo': { from: '#3b82f6', to: '#1d4ed8', bg: 'from-blue-500 to-blue-700' },
-    'Datos': { from: '#10b981', to: '#059669', bg: 'from-emerald-500 to-emerald-700' },
-    'IA': { from: '#8b5cf6', to: '#6d28d9', bg: 'from-violet-500 to-violet-700' },
-    'Infraestructura': { from: '#f59e0b', to: '#d97706', bg: 'from-amber-500 to-amber-700' },
-    'Arquitectura': { from: '#ec4899', to: '#db2777', bg: 'from-pink-500 to-pink-700' }
+    'Liderazgo': { from: '#3b82f6', to: '#1d4ed8', bg: 'from-blue-500 to-blue-700' },
+    'Pensamiento': { from: '#10b981', to: '#059669', bg: 'from-emerald-500 to-emerald-700' },
+    'Comunicación': { from: '#8b5cf6', to: '#6d28d9', bg: 'from-violet-500 to-violet-700' },
+    'Estrategia': { from: '#f59e0b', to: '#d97706', bg: 'from-amber-500 to-amber-700' },
+    'Emocional': { from: '#ec4899', to: '#db2777', bg: 'from-pink-500 to-pink-700' }
   };
 
   function createRadarChart(skills: Skill[]) {
     const canvas = document.getElementById('skills-radar-chart') as HTMLCanvasElement;
-    const legend = document.getElementById('skills-legend');
     const container = document.getElementById('radar-container');
     const loading = document.getElementById('radar-loading');
-    const skillsListContainer = document.getElementById('skills-list-container');
 
-    if (!canvas || !legend || !container || !loading || !skillsListContainer) return;
+    if (!canvas || !container || !loading) return;
 
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -116,10 +319,8 @@ const { lang = 'es' } = Astro.props;
     const centerY = size / 2;
     const maxRadius = size / 2 - 120; // Más margen para labels
 
-    // Get top skills
-    const topSkills = skills
-      .sort((a, b) => b.proficiency - a.proficiency)
-      .slice(0, 10);
+    // Get top skills - mantener orden original
+    const topSkills = skills.slice(0, 10);
 
     const numSkills = topSkills.length;
     const angleStep = (Math.PI * 2) / numSkills;
@@ -261,91 +462,9 @@ const { lang = 'es' } = Astro.props;
       });
     }
 
-    // Populate skills list (collapsible)
-    skillsListContainer.innerHTML = topSkills
-      .map(skill => {
-        const color = categoryColors[skill.category as keyof typeof categoryColors] || categoryColors['Desarrollo'];
-        return `
-          <div class="group bg-white/50 dark:bg-black/20 backdrop-blur-sm rounded-xl p-4 border border-gray-200/50 dark:border-gray-700/50 hover:shadow-lg hover:scale-[1.02] transition-all duration-300">
-            <div class="flex items-center justify-between mb-3">
-              <div class="flex items-center gap-3">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br ${color.bg} flex items-center justify-center shadow-lg">
-                  <span class="text-white font-bold text-lg">${skill.proficiency}</span>
-                </div>
-                <div>
-                  <h4 class="font-bold text-gray-900 dark:text-white text-base">${skill.name}</h4>
-                  <span class="text-xs text-gray-500 dark:text-gray-400">${skill.category}</span>
-                </div>
-              </div>
-            </div>
-            <div class="relative h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden">
-              <div class="absolute inset-y-0 left-0 bg-gradient-to-r ${color.bg} rounded-full transition-all duration-1000 skill-bar" style="width: 0%" data-width="${skill.proficiency}%"></div>
-            </div>
-          </div>
-        `;
-      }).join('');
-
-    // Animate progress bars
-    setTimeout(() => {
-      document.querySelectorAll('.skill-bar').forEach((bar) => {
-        const width = (bar as HTMLElement).dataset.width;
-        (bar as HTMLElement).style.width = width || '0%';
-      });
-    }, 100);
-
-    // Update legend with badges
-    const categories = new Map<string, number>();
-    topSkills.forEach(skill => {
-      const count = categories.get(skill.category) || 0;
-      categories.set(skill.category, count + 1);
-    });
-
-    legend.innerHTML = Array.from(categories.entries())
-      .map(([category, count]) => {
-        const color = categoryColors[category as keyof typeof categoryColors] || categoryColors['Desarrollo'];
-        return `
-          <div class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r ${color.bg} text-white rounded-full shadow-lg text-sm font-bold hover:scale-105 transition-transform duration-300">
-            <span>${category}</span>
-            <span class="bg-white/30 px-2.5 py-0.5 rounded-full text-xs font-bold">${count}</span>
-          </div>
-        `;
-      }).join('');
-
     // Show chart, hide loading
     container.classList.remove('hidden');
     loading.classList.add('hidden');
-
-    // Setup toggle button
-    setupToggle();
-  }
-
-  function setupToggle() {
-    const toggleBtn = document.getElementById('toggle-details-btn');
-    const detailsDiv = document.getElementById('skills-details');
-    const toggleIcon = document.getElementById('toggle-icon');
-    const toggleText = document.getElementById('toggle-text');
-
-    if (!toggleBtn || !detailsDiv || !toggleIcon || !toggleText) return;
-
-    toggleBtn.addEventListener('click', () => {
-      const isHidden = detailsDiv.classList.contains('hidden');
-
-      if (isHidden) {
-        detailsDiv.classList.remove('hidden');
-        toggleIcon.style.transform = 'rotate(180deg)';
-        const currentText = toggleText.textContent || '';
-        toggleText.textContent = currentText.includes('Ver') || currentText.includes('View')
-          ? (currentText.includes('View') ? 'Hide details' : 'Ocultar detalles')
-          : 'Ocultar detalhes';
-      } else {
-        detailsDiv.classList.add('hidden');
-        toggleIcon.style.transform = 'rotate(0deg)';
-        const currentText = toggleText.textContent || '';
-        toggleText.textContent = currentText.includes('Hide') || currentText.includes('Ocultar')
-          ? (currentText.includes('Hide') ? 'View full details' : 'Ver detalles completos')
-          : 'Ver detalhes completos';
-      }
-    });
   }
 
   async function loadSkillsRadar() {
@@ -361,38 +480,81 @@ const { lang = 'es' } = Astro.props;
       } else {
         // Show example data
         createRadarChart([
-          { id: 1, name: 'Backend', category: 'Desarrollo', proficiency: 85, is_active: true },
-          { id: 2, name: 'Frontend', category: 'Desarrollo', proficiency: 75, is_active: true },
-          { id: 3, name: 'Análisis', category: 'Datos', proficiency: 85, is_active: true },
-          { id: 4, name: 'Machine Learning', category: 'IA', proficiency: 55, is_active: true },
-          { id: 5, name: 'Analítica Datos', category: 'Datos', proficiency: 60, is_active: true },
-          { id: 6, name: 'IA', category: 'IA', proficiency: 70, is_active: true },
-          { id: 7, name: 'Agéntica', category: 'IA', proficiency: 70, is_active: true },
-          { id: 8, name: 'DevOps', category: 'Infraestructura', proficiency: 60, is_active: true },
-          { id: 9, name: 'Diseño Software', category: 'Arquitectura', proficiency: 80, is_active: true },
-          { id: 10, name: 'Arquitectura Software', category: 'Arquitectura', proficiency: 60, is_active: true },
+          { id: 1, name: 'Pensamiento Sistémico', category: 'Pensamiento', proficiency: 90, is_active: true },
+          { id: 2, name: 'Decisiones Técnicas', category: 'Pensamiento', proficiency: 88, is_active: true },
+          { id: 3, name: 'Cambio', category: 'Estrategia', proficiency: 86, is_active: true },
+          { id: 4, name: 'Liderazgo', category: 'Liderazgo', proficiency: 85, is_active: true },
+          { id: 5, name: 'Comunicación', category: 'Comunicación', proficiency: 92, is_active: true },
+          { id: 6, name: 'Pensamiento Crítico', category: 'Pensamiento', proficiency: 89, is_active: true },
+          { id: 7, name: 'Influencia', category: 'Liderazgo', proficiency: 84, is_active: true },
+          { id: 8, name: 'Visión', category: 'Estrategia', proficiency: 88, is_active: true },
+          { id: 9, name: 'Trade-offs', category: 'Pensamiento', proficiency: 87, is_active: true },
+          { id: 10, name: 'Emociones', category: 'Emocional', proficiency: 90, is_active: true },
         ]);
       }
     } catch (error) {
       console.error('Error loading skills for radar:', error);
       // Show example data on error
       createRadarChart([
-        { id: 1, name: 'Backend', category: 'Desarrollo', proficiency: 85, is_active: true },
-        { id: 2, name: 'Frontend', category: 'Desarrollo', proficiency: 75, is_active: true },
-        { id: 3, name: 'Análisis', category: 'Datos', proficiency: 85, is_active: true },
-        { id: 4, name: 'Machine Learning', category: 'IA', proficiency: 55, is_active: true },
-        { id: 5, name: 'Analítica Datos', category: 'Datos', proficiency: 60, is_active: true },
-        { id: 6, name: 'IA', category: 'IA', proficiency: 70, is_active: true },
-        { id: 7, name: 'Agéntica', category: 'IA', proficiency: 70, is_active: true },
-        { id: 8, name: 'DevOps', category: 'Infraestructura', proficiency: 60, is_active: true },
-        { id: 9, name: 'Diseño Software', category: 'Arquitectura', proficiency: 80, is_active: true },
-        { id: 10, name: 'Arquitectura Software', category: 'Arquitectura', proficiency: 60, is_active: true },
+        { id: 1, name: 'Pensamiento Sistémico', category: 'Pensamiento', proficiency: 90, is_active: true },
+        { id: 2, name: 'Decisiones Técnicas', category: 'Pensamiento', proficiency: 88, is_active: true },
+        { id: 3, name: 'Cambio', category: 'Estrategia', proficiency: 86, is_active: true },
+        { id: 4, name: 'Liderazgo', category: 'Liderazgo', proficiency: 85, is_active: true },
+        { id: 5, name: 'Comunicación', category: 'Comunicación', proficiency: 92, is_active: true },
+        { id: 6, name: 'Pensamiento Crítico', category: 'Pensamiento', proficiency: 89, is_active: true },
+        { id: 7, name: 'Influencia', category: 'Liderazgo', proficiency: 84, is_active: true },
+        { id: 8, name: 'Visión', category: 'Estrategia', proficiency: 88, is_active: true },
+        { id: 9, name: 'Trade-offs', category: 'Pensamiento', proficiency: 87, is_active: true },
+        { id: 10, name: 'Emociones', category: 'Emocional', proficiency: 90, is_active: true },
       ]);
     }
   }
 
+  // Setup modal functionality
+  function setupModal() {
+    const infoBtn = document.getElementById('info-btn');
+    const modal = document.getElementById('skills-modal');
+    const closeModalBtn = document.getElementById('close-modal-btn');
+
+    if (!infoBtn || !modal || !closeModalBtn) return;
+
+    // Close modal function
+    const closeModal = () => {
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      document.body.style.overflow = '';
+    };
+
+    // Open modal
+    infoBtn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // Close modal with X button
+    closeModalBtn.addEventListener('click', closeModal);
+
+    // Close modal when clicking outside
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.classList.contains('flex')) {
+        closeModal();
+      }
+    });
+  }
+
   // Load on DOM ready
-  document.addEventListener('DOMContentLoaded', loadSkillsRadar);
+  document.addEventListener('DOMContentLoaded', () => {
+    loadSkillsRadar();
+    setupModal();
+  });
 
   // Redraw on window resize
   let resizeTimeout: number;
@@ -400,7 +562,7 @@ const { lang = 'es' } = Astro.props;
     clearTimeout(resizeTimeout);
     resizeTimeout = window.setTimeout(() => {
       loadSkillsRadar();
-    }, 250);
+    }, 200);
   });
 
   // Redraw when theme changes

@@ -982,29 +982,6 @@ const lang = getLangFromUrl(Astro.url);
               </div>
             </div>
           </div>
-
-          <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
-
-          <!-- CTA Final -->
-          <div class="bg-gradient-to-br from-primary to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white">
-            <h2 class="text-3xl md:text-4xl font-black mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-              {lang === 'es' ? '¿Listo para escalar tu proyecto?' : lang === 'en' ? 'Ready to scale your project?' : 'Pronto para escalar seu projeto?'}
-            </h2>
-            <p class="text-xl mb-8 text-white/90">
-              {lang === 'es'
-                ? 'Agenda una consulta gratuita de 30 minutos'
-                : lang === 'en'
-                ? 'Schedule a free 30-minute consultation'
-                : 'Agende uma consulta gratuita de 30 minutos'}
-            </p>
-            <a
-              href={`/${lang === 'es' ? '' : lang}/#contact`}
-              class="inline-block px-8 py-4 bg-white text-gray-900 font-bold text-lg rounded-full hover:scale-105 transition-all duration-300 shadow-xl"
-              style="font-family: 'Inter Tight', system-ui, sans-serif;"
-            >
-              {lang === 'es' ? 'Contactar Ahora' : lang === 'en' ? 'Contact Now' : 'Contatar Agora'}
-            </a>
-          </div>
         </div>
       </section>
     </main>
