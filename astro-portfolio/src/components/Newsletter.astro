@@ -6,8 +6,8 @@ const t = useTranslations(lang);
 ---
 
 <section class="bg-gradient-to-r from-primary to-purple-600 rounded-lg p-8 text-center">
-  <h2 class="text-2xl font-bold text-white mb-4">{t('newsletter.title')}</h2>
-  <p class="text-white/90 mb-6 max-w-md mx-auto">
+  <h2 class="text-2xl font-bold  mb-4">{t('newsletter.title')}</h2>
+  <p class="/90 mb-6 max-w-md mx-auto">
     {lang === 'es' ? 'Recibe las últimas actualizaciones, artículos y recursos directamente en tu correo.' :
      lang === 'en' ? 'Get the latest updates, articles, and resources directly in your inbox.' :
      'Receba as últimas atualizações, artigos e recursos diretamente no seu e-mail.'}
@@ -18,7 +18,7 @@ const t = useTranslations(lang);
       type="email"
       id="newsletter-email"
       placeholder={t('newsletter.placeholder')}
-      class="flex-1 bg-white/10 backdrop-blur-sm border border-white/20 text-white placeholder-white/60 rounded-lg p-3 focus:ring-2 focus:ring-white/50 focus:outline-none"
+      class="flex-1  backdrop-blur-sm border border-white/20  placeholder-white/60 rounded-lg p-3 focus:ring-2 focus:ring-white/50 focus:outline-none"
       required
     />
     <button
@@ -29,7 +29,7 @@ const t = useTranslations(lang);
     </button>
   </form>
 
-  <p id="newsletter-message" class="mt-4 text-white/80 text-sm hidden"></p>
+  <p id="newsletter-message" class="mt-4 /80 text-sm hidden"></p>
 </section>
 
 <script>

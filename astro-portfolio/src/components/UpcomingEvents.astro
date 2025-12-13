@@ -4,21 +4,21 @@ import { getLangFromUrl } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<div class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-md overflow-hidden p-6">
+<div class="bg-[#1a1a2e] rounded-xl shadow-md overflow-hidden p-6">
   <div class="flex justify-between items-center mb-4">
-    <h2 class="text-xl font-bold text-gray-900 dark:text-white">
+    <h2 class="text-xl font-bold ">
       {lang === 'es' ? 'Eventos Próximos' : lang === 'en' ? 'Upcoming Events' : 'Próximos Eventos'}
     </h2>
   </div>
 
   <div id="events-container" class="space-y-4">
-    <p class="text-gray-600 dark:text-gray-400 text-sm">Cargando eventos...</p>
+    <p class="text-gray-400 text-sm">Cargando eventos...</p>
   </div>
 
   <div class="mt-6">
     <a
       href={`/${lang === 'es' ? '' : lang}/events`}
-      class="w-full block text-center bg-primary text-white font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
+      class="w-full block text-center bg-primary  font-bold py-2 px-4 rounded-lg hover:opacity-90 transition-opacity"
     >
       {lang === 'es' ? 'Ver Todos los Eventos' : lang === 'en' ? 'View All Events' : 'Ver Todos os Eventos'}
     </a>
@@ -98,10 +98,10 @@ const lang = getLangFromUrl(Astro.url);
         return `
           <div class="flex items-center gap-4">
             <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg flex-shrink-0">
-              <span class="material-symbols-outlined text-primary">event</span>
+              <span class="material-symbols-outlined text-whitetext-primary">event</span>
             </div>
             <div class="flex-1 min-w-0">
-              <p class="font-semibold text-gray-900 dark:text-white truncate">${event.title}</p>
+              <p class="font-semibold  truncate">${event.title}</p>
               <p class="text-sm text-gray-500 dark:text-gray-400">${formattedDate}</p>
               ${event.location ? `<p class="text-xs text-gray-400 dark:text-gray-500">${event.location}</p>` : ''}
             </div>
@@ -109,10 +109,10 @@ const lang = getLangFromUrl(Astro.url);
         `;
       }).join('');
 
-      container.innerHTML = html || '<p class="text-gray-600 dark:text-gray-400 text-sm">No hay eventos próximos.</p>';
+      container.innerHTML = html || '<p class="text-gray-400 text-sm">No hay eventos próximos.</p>';
     } catch (error) {
       console.error('Error loading events:', error);
-      container.innerHTML = '<p class="text-gray-600 dark:text-gray-400 text-sm">No hay eventos disponibles.</p>';
+      container.innerHTML = '<p class="text-gray-400 text-sm">No hay eventos disponibles.</p>';
     }
   }
 

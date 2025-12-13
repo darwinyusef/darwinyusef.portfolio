@@ -49,7 +49,7 @@ const lang = getLangFromUrl(Astro.url);
 
     <button
       id="accessibility-btn"
-      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700 text-white p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
+      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700  p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
       aria-label="Accessibility"
       title="Accessibility Options"
     >
@@ -59,12 +59,7 @@ const lang = getLangFromUrl(Astro.url);
 </html>
 
 <style is:global>
-  :root {
-    --primary: #1919e6;
-    --background-light: #f6f6f8;
-    --background-dark: #111121;
-  }
-
+ 
   body {
     min-height: 100dvh;
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
@@ -370,14 +365,14 @@ const lang = getLangFromUrl(Astro.url);
   }
 
   /* Hide cursor follower on touch devices */
-  @media (hover: none) and (pointer: coarse) {
+  @media (none) and (pointer: coarse) {
     .cursor-follower {
       display: none !important;
     }
   }
 
   /* Enhanced hover effect for desktop */
-  @media (hover: hover) and (pointer: fine) {
+  @media (hover) and (pointer: fine) {
     .cursor-hover-target {
       transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }

@@ -4,15 +4,15 @@ import { getLangFromUrl } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 ---
 
-<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-white dark:bg-[#1a1a2e] border-t border-gray-200 dark:border-gray-700 p-4 md:p-6 z-50 hidden shadow-lg">
+<div id="cookie-consent" class="fixed bottom-0 left-0 right-0 bg-[#1a1a2e] border-t border-gray-700 p-4 md:p-6 z-50 hidden shadow-lg">
   <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
     <div class="flex items-start gap-3 flex-1">
-      <span class="material-symbols-outlined text-primary text-3xl flex-shrink-0">cookie</span>
+      <span class="material-symbols-outlined text-whitetext-primary text-3xl flex-shrink-0">cookie</span>
       <div>
-        <h3 class="font-bold text-gray-900 dark:text-white mb-1">
+        <h3 class="font-bold  mb-1">
           {lang === 'es' ? 'Este sitio utiliza cookies' : lang === 'en' ? 'This site uses cookies' : 'Este site usa cookies'}
         </h3>
-        <p class="text-sm text-gray-600 dark:text-gray-400">
+        <p class="text-sm text-gray-400">
           {lang === 'es'
             ? 'Utilizamos cookies para mejorar tu experiencia de navegación y analizar el tráfico del sitio.'
             : lang === 'en'
@@ -28,13 +28,13 @@ const lang = getLangFromUrl(Astro.url);
     <div class="flex gap-3">
       <button
         id="cookie-reject-btn"
-        class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-medium"
+        class="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors font-medium"
       >
         {lang === 'es' ? 'Rechazar' : lang === 'en' ? 'Reject' : 'Rejeitar'}
       </button>
       <button
         id="cookie-accept-btn"
-        class="px-6 py-2 bg-primary text-white rounded-lg hover:opacity-90 transition-opacity font-medium"
+        class="px-6 py-2 bg-primary  rounded-lg hover:opacity-90 transition-opacity font-medium"
       >
         {lang === 'es' ? 'Aceptar' : lang === 'en' ? 'Accept' : 'Aceitar'}
       </button>
@@ -43,9 +43,9 @@ const lang = getLangFromUrl(Astro.url);
 </div>
 
 <div id="cookie-settings-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-  <div class="bg-white dark:bg-[#1a1a2e] rounded-lg shadow-2xl w-full max-w-2xl">
-    <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700">
-      <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+  <div class="bg-[#1a1a2e] rounded-lg  w-full max-w-2xl">
+    <div class="flex items-center justify-between p-6 border-b border-gray-700">
+      <h3 class="text-xl font-bold ">
         {lang === 'es' ? 'Configuración de Cookies' : lang === 'en' ? 'Cookie Settings' : 'Configurações de Cookies'}
       </h3>
       <button id="close-settings-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
@@ -56,10 +56,10 @@ const lang = getLangFromUrl(Astro.url);
     <div class="p-6 space-y-4">
       <div class="flex items-start justify-between">
         <div class="flex-1">
-          <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+          <h4 class="font-semibold  mb-1">
             {lang === 'es' ? 'Cookies Necesarias' : lang === 'en' ? 'Necessary Cookies' : 'Cookies Necessários'}
           </h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <p class="text-sm text-gray-400">
             {lang === 'es'
               ? 'Estas cookies son esenciales para el funcionamiento del sitio web.'
               : lang === 'en'
@@ -72,10 +72,10 @@ const lang = getLangFromUrl(Astro.url);
 
       <div class="flex items-start justify-between">
         <div class="flex-1">
-          <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+          <h4 class="font-semibold  mb-1">
             {lang === 'es' ? 'Cookies Analíticas' : lang === 'en' ? 'Analytics Cookies' : 'Cookies Analíticos'}
           </h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <p class="text-sm text-gray-400">
             {lang === 'es'
               ? 'Nos ayudan a entender cómo interactúas con el sitio web.'
               : lang === 'en'
@@ -88,10 +88,10 @@ const lang = getLangFromUrl(Astro.url);
 
       <div class="flex items-start justify-between">
         <div class="flex-1">
-          <h4 class="font-semibold text-gray-900 dark:text-white mb-1">
+          <h4 class="font-semibold  mb-1">
             {lang === 'es' ? 'Cookies de Marketing' : lang === 'en' ? 'Marketing Cookies' : 'Cookies de Marketing'}
           </h4>
-          <p class="text-sm text-gray-600 dark:text-gray-400">
+          <p class="text-sm text-gray-400">
             {lang === 'es'
               ? 'Se utilizan para personalizar la publicidad que ves.'
               : lang === 'en'
@@ -103,10 +103,10 @@ const lang = getLangFromUrl(Astro.url);
       </div>
     </div>
 
-    <div class="flex gap-3 p-6 border-t border-gray-200 dark:border-gray-700">
+    <div class="flex gap-3 p-6 border-t border-gray-700">
       <button
         id="save-settings-btn"
-        class="flex-1 bg-primary text-white py-2 px-4 rounded-lg hover:opacity-90 transition-opacity font-medium"
+        class="flex-1 bg-primary  py-2 px-4 rounded-lg hover:opacity-90 transition-opacity font-medium"
       >
         {lang === 'es' ? 'Guardar Preferencias' : lang === 'en' ? 'Save Preferences' : 'Salvar Preferências'}
       </button>

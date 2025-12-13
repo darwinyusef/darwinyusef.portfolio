@@ -14,7 +14,7 @@ const servicesFromContent = await getCollection("services");
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
@@ -22,14 +22,14 @@ const servicesFromContent = await getCollection("services");
       <section class="relative min-h-[70vh] flex items-center justify-center py-20">
         <div class="max-w-[1800px] mx-auto w-full">
           <div class="text-center">
-            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'MIS' : lang === 'en' ? 'MY' : 'MEUS'}
               <br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 {lang === 'es' ? 'SERVICIOS' : lang === 'en' ? 'SERVICES' : 'SERVIÇOS'}
               </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es'
                 ? 'Servicios profesionales de desarrollo y tecnología para impulsar tu negocio.'
                 : lang === 'en'
@@ -46,7 +46,7 @@ const servicesFromContent = await getCollection("services");
         class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <div class="text-center py-8 col-span-full">
-          <p class="text-gray-600 dark:text-gray-400">Cargando servicios...</p>
+          <p class="text-gray-400">Cargando servicios...</p>
         </div>
       </div>
       </section>
@@ -54,18 +54,18 @@ const servicesFromContent = await getCollection("services");
 
     <!-- Modal de IA para chat de servicios -->
     <div id="ai-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-      <div class="ai-modal-content bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl max-w-3xl w-full h-[85vh] flex flex-col border border-gray-200 dark:border-gray-800">
+      <div class="ai-modal-content bg-[#1a1a1a] rounded-3xl  max-w-3xl w-full h-[85vh] flex flex-col border border-gray-800">
         <!-- Header -->
-        <div class="bg-white dark:bg-[#1a1a1a] border-b border-gray-200 dark:border-gray-800 p-6 flex items-center justify-between flex-shrink-0">
+        <div class="bg-[#1a1a1a] border-b border-gray-800 p-6 flex items-center justify-between flex-shrink-0">
           <div class="flex items-center gap-3">
             <span class="text-5xl" id="ai-modal-emoji">🤖</span>
             <div>
-              <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="ai-modal-title">Asistente de IA</h3>
+              <h3 class="text-xl font-bold " id="ai-modal-title">Asistente de IA</h3>
               <p class="text-sm text-gray-500 dark:text-gray-400" id="ai-modal-subtitle">Pregúntame sobre este servicio</p>
             </div>
           </div>
           <button id="close-ai-modal" class="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200 transition-colors">
-            <span class="material-symbols-outlined text-3xl">close</span>
+            <span class="material-symbols-outlined text-white text-3xl">close</span>
           </button>
         </div>
 
@@ -75,19 +75,19 @@ const servicesFromContent = await getCollection("services");
         </div>
 
         <!-- Input Area -->
-        <div class="border-t border-gray-200 dark:border-gray-800 p-4 bg-white dark:bg-[#1a1a1a] flex-shrink-0">
+        <div class="border-t border-gray-800 p-4 bg-[#1a1a1a] flex-shrink-0">
           <form id="chat-form" class="flex gap-3">
             <input
               type="text"
               id="chat-input"
               placeholder="Escribe tu pregunta..."
-              class="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary text-gray-900 dark:text-white"
+              class="flex-1 px-4 py-3 bg-gray-100 dark:bg-gray-900 border border-gray-300 dark:border-gray-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary "
               autocomplete="off"
             />
             <button
               type="submit"
               id="send-btn"
-              class="px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
+              class="px-6 py-3 bg-gradient-to-r from-primary to-purple-600  rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center gap-2"
             >
               <span class="material-symbols-outlined">send</span>
               <span class="hidden sm:inline">Enviar</span>
@@ -212,24 +212,24 @@ const servicesFromContent = await getCollection("services");
       const html = activeServices
         .map(
           (service, index) => `
-        <article class="service-card bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group" style="animation-delay: ${index * 50}ms;">
+        <article class="service-card bg-[#1a1a1a] rounded-2xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-gray-800 group" style="animation-delay: ${index * 50}ms;">
           <div class="p-6 md:p-8">
             <div class="flex items-start gap-4 mb-6">
               <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-gradient-to-br from-primary to-purple-600 text-white shadow-lg group-hover:scale-110 transition-transform duration-300">
                 ${getLucideSvg(service.icon) || "🚀"}
               </div>
               <div class="flex-1">
-                <h3 class="font-bold text-xl md:text-2xl text-gray-900 dark:text-white hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all" style="font-family: 'Inter Tight', system-ui, sans-serif;">${service.name}</h3>
+                <h3 class="font-bold text-xl md:text-2xl  hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all" style="font-family: 'Inter Tight', system-ui, sans-serif;">${service.name}</h3>
               </div>
             </div>
-            <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">${service.description}</p>
-            <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
+            <p class="text-sm md:text-base text-gray-400 mb-6 leading-relaxed">${service.description}</p>
+            <div class="pt-4 border-t border-gray-700">
               <button
-                class="ask-ai-btn w-full py-3 px-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+                class="ask-ai-btn w-full py-3 px-4 bg-gradient-to-r from-primary to-purple-600  rounded-xl font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
                 data-service-name="${service.name}"
                 data-service-description="${service.description}"
               >
-                <span class="material-symbols-outlined text-xl">psychology</span>
+                <span class="material-symbols-outlined text-white text-xl">psychology</span>
                 <span>Preguntar a IA</span>
               </button>
             </div>
@@ -256,32 +256,32 @@ const servicesFromContent = await getCollection("services");
       console.error("❌ Error loading services:", error);
       console.error("❌ Error details:", error instanceof Error ? error.message : String(error));
       container.innerHTML = `
-        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
+        <div class="rounded-lg bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
           <div class="flex items-start gap-4 mb-4">
             <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
               ${getLucideSvg("LuServer") || "🌐"}
             </div>
             <div class="flex-1">
-              <h3 class="font-bold text-lg text-gray-900 dark:text-white">Desarrollo Web Full Stack</h3>
+              <h3 class="font-bold text-lg ">Desarrollo Web Full Stack</h3>
             </div>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Desarrollo de aplicaciones web modernas y escalables con React, Astro y Python/FastAPI.</p>
-          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-gray-400 mb-4">Desarrollo de aplicaciones web modernas y escalables con React, Astro y Python/FastAPI.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-700">
             <span class="text-primary font-bold">$1500+</span>
             <span class="text-sm text-gray-500 dark:text-gray-400">2-4 semanas</span>
           </div>
         </div>
-        <div class="rounded-lg bg-white dark:bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
+        <div class="rounded-lg bg-[#1a1a2e] p-6 shadow-sm col-span-full md:col-span-1">
           <div class="flex items-start gap-4 mb-4">
             <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-full bg-primary/10 dark:bg-primary/20 text-primary text-2xl">
               ${getLucideSvg("LuRobot") || "🤖"}
             </div>
             <div class="flex-1">
-              <h3 class="font-bold text-lg text-gray-900 dark:text-white">Integración de IA</h3>
+              <h3 class="font-bold text-lg ">Integración de IA</h3>
             </div>
           </div>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">Implementación de chatbots con LangChain, OpenAI y soluciones de IA personalizadas.</p>
-          <div class="flex items-center justify-between pt-4 border-t border-gray-200 dark:border-gray-700">
+          <p class="text-sm text-gray-400 mb-4">Implementación de chatbots con LangChain, OpenAI y soluciones de IA personalizadas.</p>
+          <div class="flex items-center justify-between pt-4 border-t border-gray-700">
             <span class="text-primary font-bold">$2000+</span>
             <span class="text-sm text-gray-500 dark:text-gray-400">3-6 semanas</span>
           </div>
@@ -394,7 +394,7 @@ const servicesFromContent = await getCollection("services");
       if (role === 'user') {
         messageDiv.innerHTML = `
           <div class="flex justify-end">
-            <div class="max-w-[80%] bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl rounded-tr-sm px-4 py-3 shadow-lg">
+            <div class="max-w-[80%] bg-gradient-to-r from-primary to-purple-600  rounded-2xl rounded-tr-sm px-4 py-3 shadow-lg">
               <p class="text-sm leading-relaxed">${content}</p>
             </div>
           </div>
@@ -427,7 +427,7 @@ const servicesFromContent = await getCollection("services");
       } else if (role === 'system') {
         messageDiv.innerHTML = `
           <div class="flex justify-center">
-            <div class="bg-gray-200 dark:bg-gray-800 rounded-full px-4 py-2 text-xs text-gray-600 dark:text-gray-400">
+            <div class="bg-gray-200 dark:bg-gray-800 rounded-full px-4 py-2 text-xs text-gray-400">
               ${content}
             </div>
           </div>

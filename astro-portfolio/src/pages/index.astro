@@ -17,7 +17,7 @@ const t = useTranslations(lang);
     <span id="cursor-text"></span>
   </div>
 
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
@@ -27,7 +27,7 @@ const t = useTranslations(lang);
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <!-- Texto Ultra Grande - Izquierda -->
             <div class="lg:col-span-7 space-y-8">
-              <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white hero-text" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  hero-text" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'EXPERIENCIAS' : lang === 'en' ? 'GROUND' : 'EXPERIÊNCIAS'}
                 <br />
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
@@ -38,7 +38,7 @@ const t = useTranslations(lang);
               </h1>
 
               <p 
-                class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" 
+                class="text-xl md:text-2xl text-gray-400 max-w-2xl leading-relaxed" 
                 style={{ fontFamily: "'Inter Tight', system-ui, sans-serif" }}
               >
                 {lang === 'es'
@@ -53,14 +53,14 @@ const t = useTranslations(lang);
               <div class="flex flex-wrap gap-4">
                 <a
                   href={lang === 'es' ? '/arquitectura' : `/${lang}/arquitectura`}
-                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600  text-lg font-bold rounded-full transition-all duration-300 hover:scale-105 cursor-hover-target"
                   data-cursor-text={lang === 'es' ? '¡Comencemos!' : lang === 'en' ? 'Let\'s start!' : 'Vamos começar!'}
                 >
                   {lang === 'es' ? 'Iniciar Proyecto' : lang === 'en' ? 'Start Project' : 'Iniciar Projeto'}
                 </a>
                 <a
                   href={lang === 'es' ? '/services' : `/${lang}/services`}
-                  class="px-8 py-4 bg-white dark:bg-[#1a1a1a] text-gray-900 dark:text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 border-2 border-gray-200 dark:border-gray-800 hover:scale-105 cursor-hover-target"
+                  class="px-8 py-4 bg-[#1a1a1a]  text-lg font-bold rounded-full transition-all duration-300 border-2 border-gray-800 hover:scale-105 cursor-hover-target"
                   data-cursor-text={lang === 'es' ? 'Ver servicios' : lang === 'en' ? 'View services' : 'Ver serviços'}
                 >
                   {lang === 'es' ? 'Ver Servicios' : lang === 'en' ? 'View Services' : 'Ver Serviços'}
@@ -70,7 +70,7 @@ const t = useTranslations(lang);
 
             <!-- Imagen Crossfade 1 - Derecha -->
             <div class="lg:col-span-5">
-              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl hover-trigger-image" data-hover-image="/img/mascota3.png">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden  hover-trigger-image" data-hover-image="/img/mascota3.png">
                 <div class="crossfade-container" data-images="01,02">
                   <img src="/img/01.png" alt="Project 1" class="crossfade-image active" />
                   <img src="/img/02.png" alt="Project 2" class="crossfade-image" />
@@ -100,29 +100,29 @@ const t = useTranslations(lang);
                   <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-purple-600 to-pink-600 opacity-20 blur-2xl scale-110 animate-pulse"></div>
                   <div class="absolute -inset-4 rounded-full border-2 border-primary/30 animate-spin-slow"></div>
 
-                  <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden shadow-2xl ring-4 ring-white/10 dark:ring-white/5 hover-trigger-image" data-hover-image="/img/mascota.png">
+                  <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden  ring-4 ring-white/10 dark:ring-white/5 hover-trigger-image" data-hover-image="/img/mascota.png">
                     <img src="/img/yusef.jpeg" alt="Yusef González" class="w-full h-full object-cover" />
                   </div>
 
                   <!-- Badge flotante -->
-                  <div class="absolute -bottom-4 -right-4 bg-gradient-to-br from-primary to-purple-600 text-white px-6 py-3 rounded-full shadow-xl font-bold text-lg animate-float">
-                    <span class="material-symbols-outlined inline-block mr-2 align-middle">verified</span>
+                  <div class="absolute -bottom-4 -right-4 bg-gradient-to-br from-primary to-purple-600  px-6 py-3 rounded-full shadow-xl font-bold text-lg animate-float">
+                    <span class="material-symbols-outlined text-whiteinline-block mr-2 align-middle">verified</span>
                     {lang === 'es' ? 'Certificado' : lang === 'en' ? 'Certified' : 'Certificado'}
                   </div>
                 </div>
               </div>
 
               <!-- Reproductor de Audio de Trayectoria -->
-              <div class="parallax-audio bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-800" data-speed="0.1">
+              <div class="parallax-audio bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-800" data-speed="0.1">
                 <div class="flex items-center gap-3 mb-4">
                   <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg">
                     <span class="material-symbols-outlined text-white text-2xl">play_circle</span>
                   </div>
                   <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white text-lg">
+                    <h3 class="font-bold  text-lg">
                       {lang === 'es' ? 'Mi Trayectoria' : lang === 'en' ? 'My Journey' : 'Minha Trajetória'}
                     </h3>
-                    <p class="text-sm text-gray-600 dark:text-gray-400">
+                    <p class="text-sm text-gray-400">
                       {lang === 'es' ? 'Escucha mi historia' : lang === 'en' ? 'Listen to my story' : 'Ouça minha história'}
                     </p>
                   </div>
@@ -134,21 +134,21 @@ const t = useTranslations(lang);
                   </audio>
 
                   <div class="flex items-center gap-3">
-                    <button class="play-btn-trajectory flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95">
-                      <span class="material-symbols-outlined text-xl play-icon-trajectory transition-all duration-200 absolute">play_arrow</span>
-                      <span class="material-symbols-outlined text-xl pause-icon-trajectory hidden transition-all duration-200 absolute">pause</span>
+                    <button class="play-btn-trajectory flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-r from-primary to-purple-600  flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95">
+                      <span class="material-symbols-outlined text-white text-xl play-icon-trajectory transition-all duration-200 absolute">play_arrow</span>
+                      <span class="material-symbols-outlined text-white text-xl pause-icon-trajectory hidden transition-all duration-200 absolute">pause</span>
                     </button>
 
                     <div class="flex-1 flex items-center gap-2">
-                      <span class="current-time-trajectory text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
-                      <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer progress-container-trajectory">
+                      <span class="current-time-trajectory text-xs text-gray-400 font-mono">0:00</span>
+                      <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden cursor-pointer progress-container-trajectory">
                         <div class="h-2 bg-gradient-to-r from-primary to-purple-600 rounded-full transition-all progress-bar-trajectory" style="width: 0%"></div>
                       </div>
-                      <span class="duration-time-trajectory text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
+                      <span class="duration-time-trajectory text-xs text-gray-400 font-mono">0:00</span>
                     </div>
 
-                    <button class="stop-btn-trajectory flex-shrink-0 w-10 h-10 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300">
-                      <span class="material-symbols-outlined text-lg">stop</span>
+                    <button class="stop-btn-trajectory flex-shrink-0 w-10 h-10 rounded-full bg-gray-700 text-gray-300 flex items-center justify-center hover:bg-gray-600 transition-all duration-300">
+                      <span class="material-symbols-outlined text-white text-lg">stop</span>
                     </button>
                   </div>
                 </div>
@@ -160,7 +160,7 @@ const t = useTranslations(lang);
               <div class="parallax-content" data-speed="0.05">
                 <!-- Título -->
                 <div class="mb-8">
-                  <h2 class="text-5xl md:text-6xl lg:text-7xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  <h2 class="text-5xl md:text-6xl lg:text-7xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                     <span class="bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">
                       Yusef González
                     </span>
@@ -174,7 +174,7 @@ const t = useTranslations(lang);
                 </div>
 
                 <!-- Descripción -->
-                <div class="space-y-6 text-lg md:text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                <div class="space-y-6 text-lg md:text-xl text-gray-400 leading-relaxed">
                   <p class="relative pl-6 border-l-4 border-primary/30">
                     {lang === 'es' ? 'Soy un ingeniero de software especializado en construir aplicaciones web de alta calidad con enfoque en la experiencia del usuario y el rendimiento. Me apasiona aprender nuevas tecnologías y resolver problemas complejos.' : lang === 'en' ? 'I am a software engineer specialized in building high-quality web applications with a focus on user experience and performance. I am passionate about learning new technologies and solving complex problems.' : 'Sou um engenheiro de software especializado em construir aplicativos web de alta qualidade com foco na experiência do usuário e desempenho. Sou apaixonado por aprender novas tecnologias e resolver problemas complexos.'}
                   </p>
@@ -187,19 +187,19 @@ const t = useTranslations(lang);
                 <div class="grid grid-cols-2 md:grid-cols-3 gap-4 mt-8">
                   <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-xl p-4 text-center">
                     <div class="text-3xl font-black text-primary">10+</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <div class="text-sm text-gray-400 mt-1">
                       {lang === 'es' ? 'Años Exp.' : lang === 'en' ? 'Years Exp.' : 'Anos Exp.'}
                     </div>
                   </div>
                   <div class="bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-xl p-4 text-center">
                     <div class="text-3xl font-black text-purple-600">50+</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <div class="text-sm text-gray-400 mt-1">
                       {lang === 'es' ? 'Proyectos' : lang === 'en' ? 'Projects' : 'Projetos'}
                     </div>
                   </div>
                   <div class="bg-gradient-to-br from-pink-600/10 to-primary/10 dark:from-pink-600/20 dark:to-primary/20 rounded-xl p-4 text-center">
                     <div class="text-3xl font-black text-pink-600">100%</div>
-                    <div class="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    <div class="text-sm text-gray-400 mt-1">
                       {lang === 'es' ? 'Dedicación' : lang === 'en' ? 'Dedication' : 'Dedicação'}
                     </div>
                   </div>
@@ -207,10 +207,10 @@ const t = useTranslations(lang);
 
                 <!-- Botón Descargar CV -->
                 <div class="mt-8">
-                  <button id="download-cv-btn" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white font-bold text-lg rounded-full shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target" data-cursor-text={lang === 'es' ? 'Descargar CV' : lang === 'en' ? 'Download CV' : 'Baixar CV'}>
-                    <span class="material-symbols-outlined text-2xl group-hover:animate-bounce">download</span>
-                    <span>{lang === 'es' ? 'Descargar Currículum' : lang === 'en' ? 'Download Resume' : 'Baixar Currículo'}</span>
-                    <span class="material-symbols-outlined text-2xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                  <button id="download-cv-btn" class="group relative inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600  font-bold text-lg rounded-full shadow-xl transition-all duration-300 hover:scale-105 cursor-hover-target" data-cursor-text={lang === 'es' ? 'Descargar CV' : lang === 'en' ? 'Download CV' : 'Baixar CV'}>
+                    <span class="material-symbols-outlined text-white text-2xlgroup-hover:animate-bounce">download</span>
+                    <span class="text-white">{lang === 'es' ? 'Descargar Currículum' : lang === 'en' ? 'Download Resume' : 'Baixar Currículo'}</span>
+                    <span class="material-symbols-outlined text-white text-2xlgroup-hover:translate-x-2 transition-transform">arrow_forward</span>
                   </button>
                 </div>
               </div>
@@ -221,7 +221,7 @@ const t = useTranslations(lang);
 
       <!-- Modal Descarga CV -->
       <div id="cv-download-modal" class="hidden fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl max-w-md w-full p-8 relative animate-modal-in">
+        <div class="bg-[#1a1a1a] rounded-2xl  max-w-md w-full p-8 relative animate-modal-in">
           <button id="close-modal-btn" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-gray-100 dark:bg-gray-800 flex items-center justify-center hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
             <span class="material-symbols-outlined">close</span>
           </button>
@@ -230,17 +230,17 @@ const t = useTranslations(lang);
             <div class="w-16 h-16 bg-gradient-to-br from-primary to-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
               <span class="material-symbols-outlined text-white text-3xl">description</span>
             </div>
-            <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+            <h3 class="text-2xl font-bold  mb-2">
               {lang === 'es' ? 'Descargar Currículum' : lang === 'en' ? 'Download Resume' : 'Baixar Currículo'}
             </h3>
-            <p class="text-gray-600 dark:text-gray-400">
+            <p class="text-gray-400">
               {lang === 'es' ? 'Por favor, comparte tu correo electrónico para recibir el CV' : lang === 'en' ? 'Please share your email to receive the CV' : 'Por favor, compartilhe seu e-mail para receber o CV'}
             </p>
           </div>
 
           <form id="cv-download-form" class="space-y-4">
             <div>
-              <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              <label class="block text-sm font-semibold text-gray-300 mb-2">
                 {lang === 'es' ? 'Correo Electrónico' : lang === 'en' ? 'Email Address' : 'Endereço de E-mail'}
               </label>
               <input
@@ -248,7 +248,7 @@ const t = useTranslations(lang);
                 id="cv-email-input"
                 required
                 placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
-                class="w-full px-4 py-3 rounded-xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 text-gray-900 dark:text-white focus:border-primary focus:outline-none transition-colors"
+                class="w-full px-4 py-3 rounded-xl border-2 border-gray-700 bg-gray-900  focus:border-primary focus:outline-none transition-colors"
               />
             </div>
 
@@ -259,14 +259,14 @@ const t = useTranslations(lang);
                 required
                 class="mt-1 w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary"
               />
-              <label for="cv-consent-checkbox" class="text-sm text-gray-600 dark:text-gray-400">
+              <label for="cv-consent-checkbox" class="text-sm text-gray-400">
                 {lang === 'es' ? 'Acepto recibir el currículum y acepto la política de privacidad' : lang === 'en' ? 'I agree to receive the resume and accept the privacy policy' : 'Concordo em receber o currículo e aceito a política de privacidade'}
               </label>
             </div>
 
             <button
               type="submit"
-              class="w-full py-3 bg-gradient-to-r from-primary to-purple-600 text-white font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
+              class="w-full py-3 bg-gradient-to-r from-primary to-purple-600  font-bold rounded-xl hover:shadow-lg transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
             >
               <span class="material-symbols-outlined">download</span>
               <span>{lang === 'es' ? 'Descargar Ahora' : lang === 'en' ? 'Download Now' : 'Baixar Agora'}</span>
@@ -274,7 +274,7 @@ const t = useTranslations(lang);
           </form>
 
           <div id="cv-success-message" class="hidden mt-4 p-4 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 rounded-xl text-center">
-            <span class="material-symbols-outlined inline-block mr-2">check_circle</span>
+            <span class="material-symbols-outlined text-whiteinline-block mr-2">check_circle</span>
             {lang === 'es' ? '¡Descarga iniciada!' : lang === 'en' ? 'Download started!' : 'Download iniciado!'}
           </div>
         </div>
@@ -300,7 +300,7 @@ const t = useTranslations(lang);
                 <img
                   src="/img/mascota2.png"
                   alt="Mascot"
-                  class="relative w-full max-w-2xl h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500 rounded-2xl hover-trigger-image"
+                  class="relative w-full max-w-2xl h-auto drop- transform hover:scale-105 transition-transform duration-500 rounded-2xl hover-trigger-image"
                   data-hover-image="/img/mascota3.png"
                 />
               </div>
@@ -310,20 +310,31 @@ const t = useTranslations(lang);
             <div class="order-1 lg:order-2 space-y-8">
               <div class="parallax-quote" data-speed="0.1">
                 <div class="relative">
-                  <h2 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                 <h2
+                    class="text-2xl md:text-4xl lg:text-5xl font-black leading-tight mb-6"
+                    style={{ fontFamily: "'Inter Tight', system-ui, sans-serif" }}
+                  >
                     <span class="inline-block bg-gradient-to-r from-primary via-purple-600 to-pink-600 bg-clip-text text-transparent">
-                      {lang === 'es' ? 'El código es poesía,' : lang === 'en' ? 'Code is poetry,' : 'Código é poesia,'}
-                    </span>
-                    <br/>
-                    <span class="inline-block text-gray-900 dark:text-white">
-                      {lang === 'es' ? 'el diseño es arte' : lang === 'en' ? 'design is art' : 'design é arte'}
-                    </span>
+                      {lang === 'es'
+                        ? 'La arquitectura no es solo tecnología,'
+                        : lang === 'en'
+                        ? 'Architecture is not just technology,'
+                        : 'Arquitetura não é apenas tecnologia,'}
+                        <small class="inline-block text-white">
+                          {lang === 'es'
+                            ? 'es el arte de construir el futuro de tu organización'
+                            : lang === 'en'
+                            ? 'it is the art of building your organization’s future'
+                            : 'é a arte de construir o futuro da sua organização'}
+                        </small>
+                    </span> 
+                    
                   </h2>
                 </div>
               </div>
 
               <div class="parallax-description" data-speed="0.15">
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed mb-8">
+                <p class="text-xl md:text-2xl mt-16  text-gray-400 leading-relaxed mb-16">
                   {lang === 'es'
                     ? 'Descubre mi filosofía de desarrollo donde la arquitectura de software se encuentra con el arte del diseño. Cada línea de código cuenta una historia.'
                     : lang === 'en'
@@ -333,11 +344,11 @@ const t = useTranslations(lang);
 
                 <a
                   href={`/${lang === 'es' ? '' : lang + '/'}arquitectura`}
-                  class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 group"
+                  class="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600  text-lg font-bold rounded-full transition-all duration-300 hover:scale-105 group"
                 >
-                  <span class="material-symbols-outlined text-3xl">architecture</span>
+                  <span class="material-symbols-outlined text-white text-3xl">architecture</span>
                   <span>{lang === 'es' ? 'Ver Arquitectura' : lang === 'en' ? 'View Architecture' : 'Ver Arquitetura'}</span>
-                  <span class="material-symbols-outlined text-2xl group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  <span class="material-symbols-outlined text-white text-2xlgroup-hover:translate-x-1 transition-transform">arrow_forward</span>
                 </a>
               </div>
             </div>
@@ -351,7 +362,7 @@ const t = useTranslations(lang);
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <!-- Imagen Crossfade - Izquierda -->
             <div class="lg:col-span-5 order-2 lg:order-1">
-              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl hover-trigger-image" data-hover-image="/img/mascota2.png">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden  hover-trigger-image" data-hover-image="/img/mascota2.png">
                 <div class="crossfade-container" data-images="03,04">
                   <img src="/img/03.png" alt="Project 3" class="crossfade-image active" />
                   <img src="/img/04.png" alt="Project 4" class="crossfade-image" />
@@ -362,7 +373,7 @@ const t = useTranslations(lang);
             <!-- Texto Ultra Grande - Derecha -->
             <div class="lg:col-span-7 space-y-8 order-1 lg:order-2">
              <h2 
-              class="text-[clamp(2.5rem,12vw,9rem)] font-black leading-[0.9] ml-[-120px] tracking-tighter text-gray-900 dark:text-white" 
+              class="text-[clamp(2.5rem,12vw,9rem)] font-black leading-[0.9] ml-[-120px] tracking-tighter " 
               style="font-family: 'Inter Tight', system-ui, sans-serif;"
             >
               {lang === 'es' ? 'BUENAS' : lang === 'en' ? 'GOOD' : 'BOAS'}
@@ -377,7 +388,7 @@ const t = useTranslations(lang);
             </h2>
 
              <p
-              class="text-xl ml-[-120px] md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" 
+              class="text-xl ml-[-120px] md:text-2xl text-gray-400 max-w-2xl leading-relaxed" 
               style="font-family: 'Inter Tight', system-ui, sans-serif;"
             >
               {lang === 'es' 
@@ -391,7 +402,7 @@ const t = useTranslations(lang);
               <div class="flex flex-wrap gap-4">
                 <a
                   href={lang === 'es' ? '/skills' : `/${lang}/skills`}
-                  class="px-8 ml-[-120px] py-4 bg-gradient-to-r from-pink-600 to-purple-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="px-8 ml-[-120px] py-4 bg-gradient-to-r from-pink-600 to-purple-600  text-lg font-bold rounded-full transition-all duration-300 hover:scale-105 cursor-hover-target"
                   data-cursor-text={lang === 'es' ? 'Ver habilidades' : lang === 'en' ? 'View skills' : 'Ver habilidades'}
                 >
                   {lang === 'es' ? 'Ver Habilidades' : lang === 'en' ? 'View Skills' : 'Ver Habilidades'}
@@ -406,10 +417,10 @@ const t = useTranslations(lang);
       <section class="py-20">
         <div class="max-w-[1400px] mx-auto">
           <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h2 class="text-4xl md:text-5xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'Galería de Proyectos' : lang === 'en' ? 'Project Gallery' : 'Galeria de Projetos'}
             </h2>
-            <p class="text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto">
               {lang === 'es' ? 'Una muestra visual de mis trabajos y creaciones' : lang === 'en' ? 'A visual showcase of my works and creations' : 'Uma mostra visual dos meus trabalhos e criações'}
             </p>
           </div>
@@ -420,10 +431,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/01.png" alt="Project 1" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'Aplicación Web Moderna' : lang === 'en' ? 'Modern Web App' : 'Aplicativo Web Moderno'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'React + Node.js' : lang === 'en' ? 'React + Node.js' : 'React + Node.js'}</p>
+                  <p class="/90">{lang === 'es' ? 'React + Node.js' : lang === 'en' ? 'React + Node.js' : 'React + Node.js'}</p>
                 </div>
               </div>
             </div>
@@ -432,10 +443,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/02.png" alt="Project 2" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'E-commerce Platform' : lang === 'en' ? 'E-commerce Platform' : 'Plataforma E-commerce'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'Next.js + Stripe' : lang === 'en' ? 'Next.js + Stripe' : 'Next.js + Stripe'}</p>
+                  <p class="/90">{lang === 'es' ? 'Next.js + Stripe' : lang === 'en' ? 'Next.js + Stripe' : 'Next.js + Stripe'}</p>
                 </div>
               </div>
             </div>
@@ -444,10 +455,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/03.png" alt="Project 3" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'Dashboard Analytics' : lang === 'en' ? 'Analytics Dashboard' : 'Dashboard de Análise'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'Vue.js + D3.js' : lang === 'en' ? 'Vue.js + D3.js' : 'Vue.js + D3.js'}</p>
+                  <p class="/90">{lang === 'es' ? 'Vue.js + D3.js' : lang === 'en' ? 'Vue.js + D3.js' : 'Vue.js + D3.js'}</p>
                 </div>
               </div>
             </div>
@@ -456,10 +467,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/04.png" alt="Project 4" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'App Móvil' : lang === 'en' ? 'Mobile App' : 'App Móvel'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'React Native' : lang === 'en' ? 'React Native' : 'React Native'}</p>
+                  <p class="/90">{lang === 'es' ? 'React Native' : lang === 'en' ? 'React Native' : 'React Native'}</p>
                 </div>
               </div>
             </div>
@@ -468,10 +479,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/05.png" alt="Project 5" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'Sistema de Gestión' : lang === 'en' ? 'Management System' : 'Sistema de Gestão'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'Angular + Firebase' : lang === 'en' ? 'Angular + Firebase' : 'Angular + Firebase'}</p>
+                  <p class="/90">{lang === 'es' ? 'Angular + Firebase' : lang === 'en' ? 'Angular + Firebase' : 'Angular + Firebase'}</p>
                 </div>
               </div>
             </div>
@@ -480,10 +491,10 @@ const t = useTranslations(lang);
               <div class="masonry-card">
                 <img src="/img/yusef.jpeg" alt="Profile" class="w-full h-auto rounded-2xl" />
                 <div class="masonry-overlay">
-                  <h3 class="text-2xl font-bold text-white mb-2">
+                  <h3 class="text-2xl font-bold  mb-2">
                     {lang === 'es' ? 'Portfolio Personal' : lang === 'en' ? 'Personal Portfolio' : 'Portfolio Pessoal'}
                   </h3>
-                  <p class="text-white/90">{lang === 'es' ? 'Astro + Tailwind' : lang === 'en' ? 'Astro + Tailwind' : 'Astro + Tailwind'}</p>
+                  <p class="/90">{lang === 'es' ? 'Astro + Tailwind' : lang === 'en' ? 'Astro + Tailwind' : 'Astro + Tailwind'}</p>
                 </div>
               </div>
             </div>
@@ -502,25 +513,25 @@ const t = useTranslations(lang);
 
             <!-- Card de Redes Sociales - Derecha -->
             <div class="order-1 lg:order-2">
-              <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-2xl p-8 md:p-12 max-h-[850px] overflow-y-auto custom-scrollbar">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <div class="bg-[#1a1a1a] rounded-3xl  p-8 md:p-12 max-h-[850px] overflow-y-auto custom-scrollbar">
+                <h3 class="text-3xl md:text-4xl lg:text-5xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                   Yusef González
                 </h3>
-                <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p class="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
                   {lang === 'es'
                     ? 'Arquitecto de Software con más de 17 años de experiencia diseñando y evolucionando sistemas que generan impacto real en organizaciones y personas. En los últimos años he enfocado mi práctica en arquitecturas modernas potenciadas por Inteligencia Artificial, integrando software tradicional con machine learning, agentes inteligentes y automatización, entendiendo que la tecnología, por sí sola, representa solo una parte del éxito.'
                     : lang === 'en'
                     ? 'Software Architect with over 17 years of experience designing and evolving systems that generate real impact on organizations and people. In recent years, I have focused my practice on modern architectures powered by Artificial Intelligence, integrating traditional software with machine learning, intelligent agents, and automation, understanding that technology, by itself, represents only part of success.'
                     : 'Arquiteto de Software com mais de 17 anos de experiência projetando e evoluindo sistemas que geram impacto real em organizações e pessoas. Nos últimos anos, concentrei minha prática em arquiteturas modernas impulsionadas por Inteligência Artificial, integrando software tradicional com machine learning, agentes inteligentes e automação, entendendo que a tecnologia, por si só, representa apenas parte do sucesso.'}
                 </p>
-                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p class="text-base md:text-lg text-gray-400 mb-6 leading-relaxed">
                   {lang === 'es'
                     ? 'A lo largo de mi trayectoria he aprendido que el verdadero valor surge de la capacidad de pensar de forma sistémica, tomar decisiones técnicas con criterio y liderar personas en contextos de cambio y alta presión, especialmente cuando se incorporan componentes de IA que requieren equilibrio entre innovación, riesgo, ética y sostenibilidad técnica.'
                     : lang === 'en'
                     ? 'Throughout my career, I have learned that true value emerges from the ability to think systemically, make technical decisions with judgment, and lead people in contexts of change and high pressure, especially when incorporating AI components that require balance between innovation, risk, ethics, and technical sustainability.'
                     : 'Ao longo da minha carreira, aprendi que o verdadeiro valor surge da capacidade de pensar de forma sistêmica, tomar decisões técnicas com critério e liderar pessoas em contextos de mudança e alta pressão, especialmente ao incorporar componentes de IA que requerem equilíbrio entre inovação, risco, ética e sustentabilidade técnica.'}
                 </p>
-                <p class="text-base md:text-lg text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">
+                <p class="text-base md:text-lg text-gray-400 mb-6 leading-relaxed">
                   {lang === 'es'
                     ? 'Mi experiencia liderando equipos multidisciplinarios y multiculturales me ha permitido actuar como puente entre arquitectura, datos, modelos de IA y negocio, facilitando decisiones conscientes sobre trade-offs, costos operativos, calidad de los modelos y visión a largo plazo. Creo firmemente que un arquitecto no solo diseña software o integra modelos, sino que construye confianza, alinea equipos y habilita la evolución responsable de sistemas inteligentes.'
                     : lang === 'en'
@@ -537,21 +548,21 @@ const t = useTranslations(lang);
 
                 <!-- Cierre personal -->
                 <div class="mb-8 p-6 bg-gradient-to-br from-primary/5 via-purple-600/5 to-pink-600/5 dark:from-primary/10 dark:via-purple-600/10 dark:to-pink-600/10 rounded-2xl border border-primary/20">
-                  <p class="text-base md:text-lg text-gray-700 dark:text-gray-300 mb-3 leading-relaxed font-semibold">
+                  <p class="text-base md:text-lg text-gray-300 mb-3 leading-relaxed font-semibold">
                     {lang === 'es'
                       ? 'Mi camino no ha sido lineal, ha sido orgánico.'
                       : lang === 'en'
                       ? 'My path has not been linear, it has been organic.'
                       : 'Meu caminho não foi linear, foi orgânico.'}
                   </p>
-                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-3 leading-relaxed">
+                  <p class="text-sm md:text-base text-gray-400 mb-3 leading-relaxed">
                     {lang === 'es'
                       ? 'He sido desarrollador, diseñador, docente, arquitecto, mentor y ahora constructor de sistemas con Inteligencia Artificial, desarrollador móvil y web, ahora desarrollándome como arquitecto de software.'
                       : lang === 'en'
                       ? 'I have been a developer, designer, teacher, architect, mentor, and now a builder of Artificial Intelligence systems, mobile and web developer, now developing as a software architect.'
                       : 'Fui desenvolvedor, designer, professor, arquiteto, mentor e agora construtor de sistemas com Inteligência Artificial, desenvolvedor móvel e web, agora me desenvolvendo como arquiteto de software.'}
                   </p>
-                  <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 leading-relaxed italic">
+                  <p class="text-sm md:text-base text-gray-400 leading-relaxed italic">
                     {lang === 'es'
                       ? 'Todo esto me permitió entender que la verdadera arquitectura no se escribe solo en diagramas, sino en decisiones conscientes, personas que crecen y sistemas que pueden evolucionar sin romperse.'
                       : lang === 'en'
@@ -567,7 +578,7 @@ const t = useTranslations(lang);
                     href="https://github.com/darwinyusef"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center w-14 h-14 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    class="inline-flex items-center justify-center w-14 h-14 text-gray-900 rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
                     data-cursor-text="GitHub"
                     aria-label="GitHub"
                   >
@@ -581,7 +592,7 @@ const t = useTranslations(lang);
                     href="https://linkedin.com/in/darwinyusef"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center w-14 h-14 bg-[#0077b5] text-white rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-[#0077b5]  rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
                     data-cursor-text="LinkedIn"
                     aria-label="LinkedIn"
                   >
@@ -595,7 +606,7 @@ const t = useTranslations(lang);
                     href="https://twitter.com/darwinyusef"
                     target="_blank"
                     rel="noopener noreferrer"
-                    class="inline-flex items-center justify-center w-14 h-14 bg-black dark:bg-white text-white dark:text-black rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-black dark:bg-white  dark:text-black rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
                     data-cursor-text="Twitter/X"
                     aria-label="Twitter/X"
                   >
@@ -607,7 +618,7 @@ const t = useTranslations(lang);
                   <!-- Email -->
                   <a
                     href="mailto:wsgestor@gmail.com"
-                    class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-purple-600 text-white rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
+                    class="inline-flex items-center justify-center w-14 h-14 bg-gradient-to-r from-primary to-purple-600  rounded-xl hover:shadow-xl transition-all duration-300 hover:scale-110 cursor-hover-target"
                     data-cursor-text="Email"
                     aria-label="Email"
                   >
@@ -628,7 +639,7 @@ const t = useTranslations(lang);
           <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             <!-- Texto Ultra Grande - Izquierda -->
             <div class="lg:col-span-7 space-y-8">
-              <h2 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h2 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'CÓDIGO' : lang === 'en' ? 'CODE' : 'CÓDIGO'}
                 <br />
                 <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 via-pink-600 to-primary">
@@ -638,14 +649,14 @@ const t = useTranslations(lang);
                 {lang === 'es' ? 'ESCALABLE' : lang === 'en' ? 'SCALABLE' : 'ESCALÁVEL'}
               </h2>
 
-              <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-2xl leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <p class="text-xl md:text-2xl text-gray-400 max-w-2xl leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'Arquitecturas robustas que crecen con tu negocio. Código mantenible, testeable y listo para producción.' : lang === 'en' ? 'Robust architectures that grow with your business. Maintainable, testable code ready for production.' : 'Arquiteturas robustas que crescem com seu negócio. Código mantível, testável e pronto para produção.'}
               </p>
 
               <div class="flex flex-wrap gap-4">
                 <a
                   href={lang === 'es' ? '/blog' : `/${lang}/blog`}
-                  class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white text-lg font-bold rounded-full hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600  text-lg font-bold rounded-full transition-all duration-300 hover:scale-105 cursor-hover-target"
                   data-cursor-text={lang === 'es' ? 'Leer blog' : lang === 'en' ? 'Read blog' : 'Ler blog'}
                 >
                   {lang === 'es' ? 'Leer Blog' : lang === 'en' ? 'Read Blog' : 'Ler Blog'}
@@ -655,7 +666,7 @@ const t = useTranslations(lang);
 
             <!-- Imagen Estática Final - Derecha (sin crossfade) -->
             <div class="lg:col-span-5">
-              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl hover-trigger-image" data-hover-image="/img/mascota.png">
+              <div class="relative w-full aspect-[3/4] rounded-3xl overflow-hidden  hover-trigger-image" data-hover-image="/img/mascota.png">
                 <img src="/img/05.png" alt="Project 5" class="w-full h-full object-cover" />
               </div>
             </div>
@@ -664,7 +675,7 @@ const t = useTranslations(lang);
       </section>
 
       <section class="mt-16">
-        <div class="border-t border-gray-200 dark:border-gray-700 my-8"></div>
+        <div class="border-t border-gray-700 my-8"></div>
         <Testimonials />
       </section>
 
@@ -672,18 +683,18 @@ const t = useTranslations(lang);
       <section class="py-20">
         <div class="max-w-[1400px] mx-auto">
           <div class="text-center mb-12">
-            <h2 class="text-4xl md:text-5xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h2 class="text-4xl md:text-5xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'Próximos Eventos' : lang === 'en' ? 'Upcoming Events' : 'Próximos Eventos'}
             </h2>
-            <p class="text-lg md:text-xl text-gray-600 dark:text-gray-400">
+            <p class="text-lg md:text-xl text-gray-400">
               {lang === 'es' ? 'Únete a mis próximas charlas, talleres y eventos' : lang === 'en' ? 'Join my upcoming talks, workshops and events' : 'Participe das minhas próximas palestras, workshops e eventos'}
             </p>
           </div>
 
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             <!-- Evento 1 -->
-            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
-              <div class="bg-gradient-to-br from-primary to-purple-600 p-6 text-white">
+            <div class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800">
+              <div class="bg-gradient-to-br from-primary to-purple-600 p-6 ">
                 <div class="flex items-start justify-between">
                   <div>
                     <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
@@ -701,13 +712,13 @@ const t = useTranslations(lang);
               </div>
               <div class="p-6">
                 <div class="space-y-3 mb-6">
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span class="text-sm">18:00 - 20:00</span>
                   </div>
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -717,7 +728,7 @@ const t = useTranslations(lang);
                 </div>
                 <a
                   href="#"
-                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
                   data-cursor-text={lang === 'es' ? 'Registrarme' : lang === 'en' ? 'Register' : 'Registrar'}
                 >
                   {lang === 'es' ? 'Registrarse' : lang === 'en' ? 'Register' : 'Registrar'}
@@ -726,8 +737,8 @@ const t = useTranslations(lang);
             </div>
 
             <!-- Evento 2 -->
-            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
-              <div class="bg-gradient-to-br from-pink-600 to-purple-600 p-6 text-white">
+            <div class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800">
+              <div class="bg-gradient-to-br from-pink-600 to-purple-600 p-6 ">
                 <div class="flex items-start justify-between">
                   <div>
                     <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
@@ -745,13 +756,13 @@ const t = useTranslations(lang);
               </div>
               <div class="p-6">
                 <div class="space-y-3 mb-6">
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span class="text-sm">19:00 - 21:00</span>
                   </div>
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -761,7 +772,7 @@ const t = useTranslations(lang);
                 </div>
                 <a
                   href="#"
-                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
                   data-cursor-text={lang === 'es' ? 'Reservar' : lang === 'en' ? 'Book' : 'Reservar'}
                 >
                   {lang === 'es' ? 'Reservar Lugar' : lang === 'en' ? 'Book Seat' : 'Reservar Lugar'}
@@ -770,8 +781,8 @@ const t = useTranslations(lang);
             </div>
 
             <!-- Evento 3 -->
-            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 border border-gray-100 dark:border-gray-800">
-              <div class="bg-gradient-to-br from-purple-600 to-primary p-6 text-white">
+            <div class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800">
+              <div class="bg-gradient-to-br from-purple-600 to-primary p-6 ">
                 <div class="flex items-start justify-between">
                   <div>
                     <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
@@ -789,13 +800,13 @@ const t = useTranslations(lang);
               </div>
               <div class="p-6">
                 <div class="space-y-3 mb-6">
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
                     <span class="text-sm">17:00 - 19:00</span>
                   </div>
-                  <div class="flex items-center gap-3 text-gray-600 dark:text-gray-400">
+                  <div class="flex items-center gap-3 text-gray-400">
                     <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                       <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
                       <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
@@ -805,7 +816,7 @@ const t = useTranslations(lang);
                 </div>
                 <a
                   href="#"
-                  class="block w-full text-center px-6 py-3 bg-gray-900 dark:bg-white text-white dark:text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target"
+                  class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
                   data-cursor-text={lang === 'es' ? 'Unirme' : lang === 'en' ? 'Join' : 'Participar'}
                 >
                   {lang === 'es' ? 'Unirme' : lang === 'en' ? 'Join Now' : 'Participar'}
@@ -817,7 +828,7 @@ const t = useTranslations(lang);
       </section>
 
       <!-- Sección: Más allá del código - Parallax con Husky -->
-      <section class="py-32 relative overflow-hidden bg-gradient-to-b from-[#F8F8F8] to-white dark:from-[#0a0a0a] dark:to-[#1a1a1a]">
+      <section class="py-32 relative overflow-hidden bg-gradient-to-b  from-[#0a0a0a] to-[#1a1a1a]">
         <div class="absolute inset-0 bg-gradient-to-b from-transparent via-blue-600/5 to-transparent"></div>
 
         <!-- Elementos flotantes de fondo con parallax -->
@@ -834,18 +845,17 @@ const t = useTranslations(lang);
               <div class="parallax-lifestyle-title" data-speed="0.1">
                 <div class="relative">
                   <!-- Badge -->
-                  <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600 text-white px-4 py-2 rounded-full mb-6 shadow-lg">
-                    <span class="material-symbols-outlined text-base">pets</span>
+                  <div class="inline-flex items-center gap-2 bg-gradient-to-r from-blue-600 to-cyan-600  px-4 py-2 rounded-full mb-6 shadow-lg">
+                    <span class="material-symbols-outlined text-whitetext-base">pets</span>
                     <span class="font-bold text-sm">{lang === 'es' ? 'MÁS ALLÁ DEL CÓDIGO' : lang === 'en' ? 'BEYOND THE CODE' : 'ALÉM DO CÓDIGO'}</span>
                   </div>
 
-                  <h2 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black leading-tight mb-6" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  <h2 class="text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black mb-16 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                     <span class="inline-block bg-gradient-to-r from-blue-600 via-cyan-600 to-teal-600 bg-clip-text text-transparent">
-                      {lang === 'es' ? 'La vida' : lang === 'en' ? 'Life' : 'A vida'}
+                      {lang === 'es' ? 'Un poco de' : lang === 'en' ? 'a little bit ' : 'Um pouquinho'}
                     </span>
-                    <br/>
-                    <span class="inline-block text-gray-900 dark:text-white">
-                      {lang === 'es' ? 'fuera de la pantalla' : lang === 'en' ? 'outside the screen' : 'fora da tela'}
+                    <span class="inline-block">
+                      {lang === 'es' ? 'mi vida' : lang === 'en' ? 'of my life' : 'da minha vida'}
                     </span>
                   </h2>
                 </div>
@@ -853,7 +863,7 @@ const t = useTranslations(lang);
 
               <div class="parallax-lifestyle-content" data-speed="0.15">
                 <div class="space-y-6">
-                  <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                  <p class="mt-8 text-xl md:text-2xl text-gray-400 leading-relaxed">
                     {lang === 'es'
                       ? 'No todo en mi vida son líneas de código, arquitecturas y diagramas. Fuera de la pantalla cultivo pasiones que me mantienen creativo, equilibrado y conectado con lo que realmente importa.'
                       : lang === 'en'
@@ -864,16 +874,16 @@ const t = useTranslations(lang);
                   <!-- Hobbies cards -->
                   <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-8">
                     <!-- Card 1: Cocina -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 bg-opacity-50  flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🍽️</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Cocina & Coctelería' : lang === 'en' ? 'Cooking & Mixology' : 'Cozinha & Coquetelaria'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Explorar sabores del mundo, preparar platos gourmet y mezclar cócteles creativos —muy parecido a diseñar un buen sistema, pero comestible 😄.'
                           : lang === 'en'
@@ -883,16 +893,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 2: Bicicleta -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-green-600 to-emerald-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🚴‍♂️</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Rutas sobre dos ruedas' : lang === 'en' ? 'Routes on two wheels' : 'Rotas sobre duas rodas'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Recorrer caminos, descubrir lugares especiales y reconectar conmigo mismo mientras pedaleo.'
                           : lang === 'en'
@@ -902,16 +912,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 3: Música -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🎸</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Música que libera' : lang === 'en' ? 'Music that frees' : 'Música que liberta'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Tocar guitarra y bajo es mi válvula de escape creativa. La música me enseña ritmo, constancia y armonía.'
                           : lang === 'en'
@@ -921,16 +931,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 4: Gaming & Anime -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600 flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🎮</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Gaming & Anime' : lang === 'en' ? 'Gaming & Anime' : 'Gaming & Anime'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'League of Legends (soy manco, pero feliz 😅) y series anime como One Piece. Historias épicas y mundos complejos: pura inspiración.'
                           : lang === 'en'
@@ -940,16 +950,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 5: Fe -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-yellow-600 to-orange-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600  flex items-center justify-center shadow-lg">
                           <span class="text-2xl">📖</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Fe y propósito' : lang === 'en' ? 'Faith and purpose' : 'Fé e propósito'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'La cristiandad y la lectura de las escrituras me ayudan a mantener valores claros, propósito y una perspectiva más profunda.'
                           : lang === 'en'
@@ -959,16 +969,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 6: Perro -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-amber-600 to-yellow-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600  flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🐕</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Aventuras con mi perro' : lang === 'en' ? 'Adventures with my dog' : 'Aventuras com meu cachorro'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Paseos, juegos y caminatas largas son parte de mi rutina para mantener el equilibrio físico y mental.'
                           : lang === 'en'
@@ -978,16 +988,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 7: Pareja -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-rose-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600  flex items-center justify-center shadow-lg">
                           <span class="text-2xl">❤️</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Tiempo de calidad' : lang === 'en' ? 'Quality time' : 'Tempo de qualidade'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Momentos compartidos con mi pareja. El verdadero éxito se mide en relaciones sanas y tiempo bien vivido.'
                           : lang === 'en'
@@ -997,16 +1007,16 @@ const t = useTranslations(lang);
                     </div>
 
                     <!-- Card 8: Balance -->
-                    <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-100 dark:border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
+                    <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 border border-gray-800 hover:shadow-xl transition-all duration-300 hover:-translate-y-1">
                       <div class="flex items-center gap-4 mb-3">
-                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-teal-600 to-cyan-600 flex items-center justify-center shadow-lg">
+                        <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-orange-600 to-red-600  flex items-center justify-center shadow-lg">
                           <span class="text-2xl">🌱</span>
                         </div>
-                        <h3 class="font-bold text-lg text-gray-900 dark:text-white">
+                        <h3 class="font-bold text-lg ">
                           {lang === 'es' ? 'Balance y bienestar' : lang === 'en' ? 'Balance & wellness' : 'Equilíbrio e bem-estar'}
                         </h3>
                       </div>
-                      <p class="text-sm text-gray-600 dark:text-gray-400">
+                      <p class="text-sm text-gray-400">
                         {lang === 'es'
                           ? 'Después de un día intenso de código: salir a caminar, entrenar, jugar o simplemente respirar. El balance es clave.'
                           : lang === 'en'
@@ -1017,8 +1027,8 @@ const t = useTranslations(lang);
                   </div>
 
                   <!-- Quote -->
-                  <div class="mt-8 pl-6 border-l-4 border-blue-600">
-                    <p class="text-lg italic text-gray-700 dark:text-gray-300 font-medium">
+                  <div class="mt-16 pl-6 border-l-4 border-blue-600">
+                    <p class="text-lg italic text-gray-300 font-medium">
                       {lang === 'es'
                         ? '"Un buen desarrollador sabe cuándo desconectar. Un gran desarrollador tiene un compañero —humano o peludo— que se lo recuerda todos los días."'
                         : lang === 'en'
@@ -1031,9 +1041,9 @@ const t = useTranslations(lang);
 
               <!-- Elementos decorativos -->
               <div class="parallax-lifestyle-decorations flex gap-4 mt-12" data-speed="0.25">
-                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-600 opacity-20 animate-float"></div>
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-cyan-600 to-teal-600 opacity-20 animate-float" style="animation-delay: 0.5s;"></div>
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-teal-600 to-blue-600 opacity-20 animate-float" style="animation-delay: 1s;"></div>
+                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float"></div>
+                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float" style="animation-delay: 0.5s;"></div>
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float" style="animation-delay: 1s;"></div>
               </div>
             </div>
 
@@ -1048,16 +1058,16 @@ const t = useTranslations(lang);
                   <img
                     src="/img/husky.png"
                     alt="Yusef's Siberian Husky"
-                    class="relative w-full max-w-2xl h-auto transform hover:scale-110 transition-all duration-700 object-contain mx-auto hover-trigger-image animate-float"
+                    class="relative w-4xl h-auto transform hover:scale-110 transition-all duration-700 object-contain mx-auto hover-trigger-image animate-float"
                     style="aspect-ratio: 4/5; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.3));"
                     data-hover-image="/img/mascota.png"
                   />
 
                   <!-- Floating badge con parallax -->
-                  <div class="absolute -bottom-6 -right-6 bg-gradient-to-br from-blue-600 to-cyan-600 text-white px-8 py-4 rounded-2xl shadow-2xl hover-trigger-image animate-float" style="animation-delay: 0.5s;" data-hover-image="/img/mascota2.png">
+                  <div class="absolute -bottom-6 -right-6 bg-gradient-to-br from-orange-600 to-red-600  px-8 py-4 rounded-2xl  hover-trigger-image animate-float" style="animation-delay: 0.5s;" data-hover-image="/img/mascota2.png">
                     <div class="flex items-center gap-3">
-                      <span class="material-symbols-outlined text-3xl animate-bounce">favorite</span>
-                      <span class="font-black text-xl" style="font-family: 'Inter Tight', system-ui, sans-serif;">Best Friend</span>
+                      <span class="material-symbols-outlined text-white text-3xl animate-bounce">favorite</span>
+                      <span class="font-black text-xl text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">Best Friend</span>
                     </div>
                   </div>
                 </div>
@@ -1097,7 +1107,7 @@ const t = useTranslations(lang);
 
               <!-- Descripción -->
               <div class="parallax-contact-desc" data-speed="0.15">
-                <p class="text-xl text-gray-600 dark:text-gray-400 leading-relaxed">
+                <p class="text-xl text-gray-400 leading-relaxed">
                   {t('home.letConnect')}
                 </p>
               </div>
@@ -1107,29 +1117,29 @@ const t = useTranslations(lang);
                 <!-- Email -->
                 <a
                   href="mailto:wsgestor@gmail.com"
-                  class="group flex items-center gap-4 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-800 hover:shadow-2xl hover:-translate-y-1 transition-all duration-300 cursor-hover-target"
+                  class="group flex items-center gap-4 bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-800 hover:-translate-y-1 transition-all duration-300 cursor-hover-target"
                   data-cursor-text={lang === 'es' ? 'Envíame un correo' : lang === 'en' ? 'Send me an email' : 'Me envie um email'}
                 >
                   <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                     <span class="material-symbols-outlined text-white text-2xl">mail</span>
                   </div>
                   <div class="flex-1">
-                    <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-1">Email</h3>
+                    <h3 class="font-bold  text-lg mb-1">Email</h3>
                     <p class="text-primary font-semibold">wsgestor@gmail.com</p>
                   </div>
-                  <span class="material-symbols-outlined text-gray-400 group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                  <span class="material-symbols-outlined text-whitetext-gray-400 group-hover:translate-x-2 transition-transform">arrow_forward</span>
                 </a>
 
                 <!-- Ubicación -->
-                <div class="flex items-center gap-4 bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-100 dark:border-gray-800">
+                <div class="flex items-center gap-4 bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl p-6 shadow-xl border border-gray-800">
                   <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-purple-600 to-pink-600 flex items-center justify-center shadow-lg">
                     <span class="material-symbols-outlined text-white text-2xl">location_on</span>
                   </div>
                   <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-1">
+                    <h3 class="font-bold  text-lg mb-1">
                       {lang === 'es' ? 'Ubicación' : lang === 'en' ? 'Location' : 'Localização'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">Remote / Global</p>
+                    <p class="text-gray-400">Remote / Global</p>
                   </div>
                 </div>
 
@@ -1139,7 +1149,7 @@ const t = useTranslations(lang);
                     <span class="material-symbols-outlined text-white text-2xl">schedule</span>
                   </div>
                   <div>
-                    <h3 class="font-bold text-gray-900 dark:text-white text-lg mb-1">
+                    <h3 class="font-bold  text-lg mb-1">
                       {lang === 'es' ? 'Disponibilidad' : lang === 'en' ? 'Availability' : 'Disponibilidade'}
                     </h3>
                     <div class="flex items-center gap-2">
@@ -1156,23 +1166,23 @@ const t = useTranslations(lang);
 
             <!-- Columna Derecha: Formulario -->
             <div class="parallax-contact-form" data-speed="0.05">
-              <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-3xl shadow-2xl p-8 md:p-10 border border-gray-100 dark:border-gray-800">
-                <h3 class="text-3xl font-bold text-gray-900 dark:text-white mb-6">
+              <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-3xl  p-8 md:p-10 border border-gray-800">
+                <h3 class="text-3xl font-bold  mb-6">
                   {lang === 'es' ? 'Envíame un mensaje' : lang === 'en' ? 'Send me a message' : 'Envie-me uma mensagem'}
                 </h3>
 
                 <form class="space-y-6" id="contact-form">
                   <!-- Nombre -->
                   <div class="form-group">
-                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="name">
+                    <label class="block text-sm font-semibold text-gray-300 mb-2" for="name">
                       {lang === 'es' ? 'Nombre' : lang === 'en' ? 'Name' : 'Nome'}
                     </label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-gray-400">person</span>
+                        <span class="material-symbols-outlined text-whitetext-gray-400">person</span>
                       </div>
                       <input
-                        class="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                         id="name"
                         name="name"
                         placeholder={lang === 'es' ? 'Tu nombre' : lang === 'en' ? 'Your name' : 'Seu nome'}
@@ -1184,15 +1194,15 @@ const t = useTranslations(lang);
 
                   <!-- Email -->
                   <div class="form-group">
-                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="email">
+                    <label class="block text-sm font-semibold text-gray-300 mb-2" for="email">
                       {t('contact.email')}
                     </label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-gray-400">mail</span>
+                        <span class="material-symbols-outlined text-whitetext-gray-400">mail</span>
                       </div>
                       <input
-                        class="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                         id="email"
                         name="email"
                         placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
@@ -1204,15 +1214,15 @@ const t = useTranslations(lang);
 
                   <!-- Mensaje -->
                   <div class="form-group">
-                    <label class="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" for="message">
+                    <label class="block text-sm font-semibold text-gray-300 mb-2" for="message">
                       {t('contact.message')}
                     </label>
                     <div class="relative">
                       <div class="absolute top-3 left-4 pointer-events-none">
-                        <span class="material-symbols-outlined text-gray-400">edit_note</span>
+                        <span class="material-symbols-outlined text-whitetext-gray-400">edit_note</span>
                       </div>
                       <textarea
-                        class="w-full pl-12 pr-4 py-3 bg-white dark:bg-gray-900 border-2 border-gray-200 dark:border-gray-700 rounded-xl text-gray-900 dark:text-white focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
                         id="message"
                         name="message"
                         placeholder={lang === 'es' ? 'Escribe tu mensaje aquí...' : lang === 'en' ? 'Write your message here...' : 'Escreva sua mensagem aqui...'}
@@ -1225,12 +1235,12 @@ const t = useTranslations(lang);
                   <!-- Botón Submit -->
                   <button
                     type="submit"
-                    class="group w-full relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-white font-bold text-lg rounded-xl shadow-xl hover:shadow-2xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                    class="group w-full relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600  font-bold text-lg rounded-xl shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                   >
                     <span class="relative z-10 flex items-center gap-3">
-                      <span class="material-symbols-outlined text-2xl group-hover:rotate-12 transition-transform">send</span>
+                      <span class="material-symbols-outlined text-white text-2xlgroup-hover:rotate-12 transition-transform">send</span>
                       <span>{t('contact.send')}</span>
-                      <span class="material-symbols-outlined text-2xl group-hover:translate-x-2 transition-transform">arrow_forward</span>
+                      <span class="material-symbols-outlined text-white text-2xlgroup-hover:translate-x-2 transition-transform">arrow_forward</span>
                     </span>
                     <div class="absolute inset-0 bg-gradient-to-r from-pink-600 via-purple-600 to-primary opacity-0 group-hover:opacity-100 transition-opacity"></div>
                   </button>
@@ -1248,10 +1258,10 @@ const t = useTranslations(lang);
 
   <button
     id="chatbot-btn"
-    class="fixed bottom-6 right-6 bg-primary text-white p-4 rounded-full shadow-lg hover:opacity-90 transition-opacity z-50"
+    class="fixed bottom-6 right-6 bg-primary  p-4 rounded-full shadow-lg hover:opacity-90 transition-opacity z-50"
     aria-label="Open chatbot"
   >
-    <span class="material-symbols-outlined text-3xl">chat</span>
+    <span class="material-symbols-outlined text-white text-3xl">chat</span>
   </button>
 
   <Chatbot />
@@ -1640,14 +1650,14 @@ const t = useTranslations(lang);
   }
 
   /* Hide cursor follower on touch devices */
-  @media (hover: none) and (pointer: coarse) {
+  @media (none) and (pointer: coarse) {
     .cursor-follower {
       display: none !important;
     }
   }
 
   /* Optional: Hide default cursor on hover targets for desktop */
-  @media (hover: hover) and (pointer: fine) {
+  @media (hover) and (pointer: fine) {
     .cursor-hover-target:hover {
       cursor: none;
     }

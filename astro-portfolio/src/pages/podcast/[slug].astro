@@ -20,7 +20,7 @@ const { Content } = await podcast.render();
 ---
 
 <Layout title={podcast.data.title}>
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="relative">
@@ -42,7 +42,7 @@ const { Content } = await podcast.render();
         <!-- Back Button -->
         <a
           href={`/${lang === "es" ? "" : lang}podcast`}
-          class="absolute top-8 left-4 md:left-8 z-10 flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-full text-sm font-medium text-gray-900 dark:text-white hover:bg-white dark:hover:bg-black transition-all duration-300 shadow-lg hover:shadow-xl"
+          class="absolute top-8 left-4 md:left-8 z-10 flex items-center gap-2 px-4 py-2 bg-white/90 dark:bg-black/90 backdrop-blur-sm rounded-full text-sm font-medium  hover:hover:bg-black transition-all duration-300 shadow-lg hover:shadow-xl"
         >
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
@@ -52,7 +52,7 @@ const { Content } = await podcast.render();
 
         <!-- Episode Badge -->
         <div class="absolute top-8 right-4 md:right-8 flex gap-2">
-          <span class="px-3 py-1 bg-gradient-to-r from-pink-600 to-primary text-white text-xs font-bold rounded-full shadow-lg backdrop-blur-sm">
+          <span class="px-3 py-1 bg-gradient-to-r from-pink-600 to-primary  text-xs font-bold rounded-full shadow-lg backdrop-blur-sm">
             🎙️ PODCAST
           </span>
         </div>
@@ -61,25 +61,25 @@ const { Content } = await podcast.render();
       <!-- Article Content -->
       <article class="max-w-4xl mx-auto px-6 -mt-32 relative z-10">
         <!-- Title Card -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-2xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800 transform transition-all duration-500 hover:shadow-3xl">
-          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 dark:text-white mb-6 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+        <div class="bg-[#1a1a1a] rounded-2xl  p-8 md:p-12 mb-8 border border-gray-800 transform transition-all duration-500 hover:shadow-3xl">
+          <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold  mb-6 leading-tight" style="font-family: 'Inter Tight', system-ui, sans-serif;">
             {podcast.data.title}
           </h1>
 
           <!-- Metadata -->
-          <div class="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-gray-600 dark:text-gray-400 mb-6 pb-6 border-b border-gray-200 dark:border-gray-700">
+          <div class="flex flex-wrap items-center gap-4 md:gap-6 text-sm text-gray-400 mb-6 pb-6 border-b border-gray-700">
             <div class="flex items-center gap-2">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-primary flex items-center justify-center text-white">
-                <span class="material-symbols-outlined text-lg">mic</span>
+              <div class="w-10 h-10 rounded-full bg-gradient-to-br from-pink-600 to-primary flex items-center justify-center ">
+                <span class="material-symbols-outlined text-white text-lg">mic</span>
               </div>
-              <span class="font-medium text-gray-900 dark:text-white">Episodio</span>
+              <span class="font-medium ">Episodio</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">schedule</span>
+              <span class="material-symbols-outlined text-white text-lg">schedule</span>
               <span>{podcast.data.duration}</span>
             </div>
             <div class="flex items-center gap-2">
-              <span class="material-symbols-outlined text-lg">calendar_today</span>
+              <span class="material-symbols-outlined text-white text-lg">calendar_today</span>
               <span>{podcast.data.pubDate.toLocaleDateString(lang, { year: 'numeric', month: 'long', day: 'numeric' })}</span>
             </div>
           </div>
@@ -88,7 +88,7 @@ const { Content } = await podcast.render();
           {podcast.data.tags && podcast.data.tags.length > 0 && (
             <div class="flex flex-wrap gap-2">
               {podcast.data.tags.map((tag) => (
-                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs font-medium rounded-full hover:bg-gradient-to-r hover:from-pink-600 hover:to-primary hover:text-white transition-all duration-300 cursor-pointer">
+                <span class="px-3 py-1 bg-gray-100 dark:bg-gray-800 text-gray-300 text-xs font-medium rounded-full hover:bg-gradient-to-r hover:from-pink-600 hover:to-primary transition-all duration-300 cursor-pointer">
                   #{tag}
                 </span>
               ))}
@@ -97,16 +97,16 @@ const { Content } = await podcast.render();
         </div>
 
         <!-- Description Card -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border-l-4 border-gradient-to-b from-pink-600 to-primary transform transition-all duration-500 hover:shadow-2xl" style="border-image: linear-gradient(to bottom, #e91e63, #ff6b6b) 1;">
-          <p class="text-lg md:text-xl text-gray-700 dark:text-gray-300 leading-relaxed italic">
+        <div class="bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border-l-4 border-gradient-to-b from-pink-600 to-primary transform transition-all duration-500 hover:" style="border-image: linear-gradient(to bottom, #e91e63, #ff6b6b) 1;">
+          <p class="text-lg md:text-xl text-gray-300 leading-relaxed italic">
             {podcast.data.description}
           </p>
         </div>
 
         <!-- Audio Player Card -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-6 md:p-8 mb-8 border border-gray-100 dark:border-gray-800">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-4 flex items-center gap-2">
-            <span class="material-symbols-outlined text-2xl text-primary">headphones</span>
+        <div class="bg-[#1a1a1a] rounded-2xl shadow-xl p-6 md:p-8 mb-8 border border-gray-800">
+          <h3 class="text-xl font-bold  mb-4 flex items-center gap-2">
+            <span class="material-symbols-outlined text-white text-2xltext-primary">headphones</span>
             Escucha el episodio
           </h3>
 
@@ -127,7 +127,7 @@ const { Content } = await podcast.render();
               <div class="space-y-2">
                 <div id="progress-bar" class="relative h-2 bg-white/30 dark:bg-black/30 rounded-full cursor-pointer overflow-hidden group">
                   <div id="progress-fill" class="absolute inset-y-0 left-0 bg-gradient-to-r from-primary via-purple-600 to-pink-600 rounded-full transition-all duration-100 shadow-lg shadow-primary/50"></div>
-                  <div id="progress-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white dark:bg-gray-200 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity" style="left: 0%"></div>
+                  <div id="progress-handle" class="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-gray-200 rounded-full shadow-lg opacity-0 group-hover:opacity-100 transition-opacity" style="left: 0%"></div>
                 </div>
                 <div class="flex justify-between text-sm font-medium text-gray-700 dark:text-gray-300">
                   <span id="current-time">0:00</span>
@@ -141,7 +141,7 @@ const { Content } = await podcast.render();
                 <div class="flex items-center gap-2">
                   <!-- Skip backward 10s -->
                   <button id="skip-backward" class="p-2 rounded-full hover:bg-white/20 dark:hover:bg-black/20 transition-colors group" title="Retroceder 10s">
-                    <svg class="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-gray-300 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M11.99 5V1l-5 5 5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6h-2c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/>
                       <text x="9" y="15" font-size="8" fill="currentColor" font-weight="bold">10</text>
                     </svg>
@@ -149,17 +149,17 @@ const { Content } = await podcast.render();
 
                   <!-- Play/Pause -->
                   <button id="play-pause-btn" class="p-3 rounded-full bg-gradient-to-br from-primary via-purple-600 to-pink-600 hover:shadow-xl hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105">
-                    <svg id="play-icon" class="w-6 h-6 text-white" fill="currentColor" viewBox="0 0 24 24">
+                    <svg id="play-icon" class="w-6 h-6 " fill="currentColor" viewBox="0 0 24 24">
                       <path d="M8 5v14l11-7z"/>
                     </svg>
-                    <svg id="pause-icon" class="w-6 h-6 text-white hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <svg id="pause-icon" class="w-6 h-6  hidden" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/>
                     </svg>
                   </button>
 
                   <!-- Skip forward 10s -->
                   <button id="skip-forward" class="p-2 rounded-full hover:bg-white/20 dark:hover:bg-black/20 transition-colors group" title="Adelantar 10s">
-                    <svg class="w-5 h-5 text-gray-700 dark:text-gray-300 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
+                    <svg class="w-5 h-5 text-gray-300 group-hover:text-primary transition-colors" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M12 5V1l5 5-5 5V7c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6h2c0 4.42-3.58 8-8 8s-8-3.58-8-8 3.58-8 8-8z"/>
                       <text x="9.5" y="15" font-size="8" fill="currentColor" font-weight="bold">10</text>
                     </svg>
@@ -168,8 +168,8 @@ const { Content } = await podcast.render();
 
                 <!-- Center: Playback speed -->
                 <div class="flex items-center gap-2">
-                  <span class="text-xs font-medium text-gray-700 dark:text-gray-300 hidden sm:inline">Velocidad:</span>
-                  <select id="playback-speed" class="px-2 py-1 text-xs rounded-lg bg-white/50 dark:bg-black/50 font-medium text-gray-900 dark:text-white border border-white/30 dark:border-black/30 cursor-pointer hover:bg-white/70 dark:hover:bg-black/70 transition-colors">
+                  <span class="text-xs font-medium text-gray-300 hidden sm:inline">Velocidad:</span>
+                  <select id="playback-speed" class="px-2 py-1 text-xs rounded-lg bg-black/50 font-medium  border border-white/30 dark:border-black/30 cursor-pointer hover:bg-white/70 dark:hover:bg-black/70 transition-colors">
                     <option value="0.5">0.5x</option>
                     <option value="0.75">0.75x</option>
                     <option value="1" selected>1x</option>
@@ -185,7 +185,7 @@ const { Content } = await podcast.render();
                     <svg id="volume-icon" class="w-5 h-5 text-gray-700 dark:text-gray-300" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
                     </svg>
-                    <svg id="mute-icon" class="w-5 h-5 text-gray-700 dark:text-gray-300 hidden" fill="currentColor" viewBox="0 0 24 24">
+                    <svg id="mute-icon" class="w-5 h-5 text-gray-300 hidden" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
                     </svg>
                   </button>
@@ -197,9 +197,9 @@ const { Content } = await podcast.render();
         </div>
 
         <!-- Podcast Content Card -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 md:p-12 mb-8 border border-gray-100 dark:border-gray-800">
-          <h3 class="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
-            <span class="material-symbols-outlined text-3xl bg-gradient-to-r from-pink-600 to-primary bg-clip-text text-transparent">notes</span>
+        <div class="bg-[#1a1a1a] rounded-2xl shadow-xl p-8 md:p-12 mb-8 border border-gray-800">
+          <h3 class="text-2xl font-bold  mb-6 flex items-center gap-2">
+            <span class="material-symbols-outlined text-white text-3xl bg-gradient-to-r from-pink-600 to-primary bg-clip-text text-transparent">notes</span>
             Notas del Episodio
           </h3>
 
@@ -210,12 +210,12 @@ const { Content } = await podcast.render();
         </div>
 
         <!-- Share Section -->
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border border-gray-100 dark:border-gray-800">
-          <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-6">Comparte este episodio</h3>
+        <div class="bg-[#1a1a1a] rounded-2xl shadow-xl p-8 mb-8 border border-gray-800">
+          <h3 class="text-xl font-bold  mb-6">Comparte este episodio</h3>
           <div class="flex flex-wrap gap-3">
             <button
               id="share-twitter"
-              class="group flex items-center gap-2 px-5 py-3 bg-[#1DA1F2] text-white rounded-xl hover:bg-[#1a8cd8] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+              class="group flex items-center gap-2 px-5 py-3 bg-[#1DA1F2]  rounded-xl hover:bg-[#1a8cd8] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
@@ -225,7 +225,7 @@ const { Content } = await podcast.render();
 
             <button
               id="share-linkedin"
-              class="group flex items-center gap-2 px-5 py-3 bg-[#0077B5] text-white rounded-xl hover:bg-[#006399] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+              class="group flex items-center gap-2 px-5 py-3 bg-[#0077B5]  rounded-xl hover:bg-[#006399] transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
             >
               <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
@@ -236,7 +236,7 @@ const { Content } = await podcast.render();
 
             <button
               id="share-copy"
-              class="group flex items-center gap-2 px-5 py-3 bg-gray-700 dark:bg-gray-600 text-white rounded-xl hover:bg-gray-600 dark:hover:bg-gray-500 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
+              class="group flex items-center gap-2 px-5 py-3 bg-gray-700 dark:bg-gray-600  rounded-xl hover:bg-gray-600 dark:hover:bg-gray-500 transition-all duration-300 shadow-md hover:shadow-xl transform hover:-translate-y-1"
             >
               <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
@@ -250,7 +250,7 @@ const { Content } = await podcast.render();
         <div class="text-center mb-8">
           <a
             href={`/${lang === "es" ? "" : lang}podcast`}
-            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-pink-600 to-primary text-white font-semibold hover:shadow-2xl hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
+            class="inline-flex items-center gap-2 px-8 py-4 rounded-xl bg-gradient-to-r from-pink-600 to-primary  font-semibold hover:shadow-primary/50 transition-all duration-300 transform hover:scale-105"
           >
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>

@@ -14,17 +14,17 @@ const lang = getLangFromUrl(Astro.url);
       <div class="text-center max-w-md">
         <div class="mb-8">
           <div class="inline-block p-6 bg-primary/10 dark:bg-primary/20 rounded-full">
-            <span class="material-symbols-outlined text-primary" style="font-size: 80px;">error_outline</span>
+            <span class="material-symbols-outlined text-whitetext-primary" style="font-size: 80px;">error_outline</span>
           </div>
         </div>
 
-        <h1 class="text-6xl font-black text-gray-900 dark:text-white mb-4">404</h1>
+        <h1 class="text-6xl font-black  mb-4">404</h1>
 
         <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
           {lang === 'es' ? 'Página no encontrada' : lang === 'en' ? 'Page not found' : 'Página não encontrada'}
         </h2>
 
-        <p class="text-gray-600 dark:text-gray-400 mb-8">
+        <p class="text-gray-400 mb-8">
           {lang === 'es'
             ? 'Lo sentimos, la página que buscas no existe o ha sido movida.'
             : lang === 'en'
@@ -35,7 +35,7 @@ const lang = getLangFromUrl(Astro.url);
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
           <a
             href={`/${lang === 'es' ? '' : lang}`}
-            class="inline-flex items-center justify-center gap-2 bg-primary text-white font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
+            class="inline-flex items-center justify-center gap-2 bg-primary  font-bold py-3 px-6 rounded-lg hover:opacity-90 transition-opacity"
           >
             <span class="material-symbols-outlined">home</span>
             {lang === 'es' ? 'Volver al Inicio' : lang === 'en' ? 'Go to Home' : 'Voltar ao Início'}
@@ -43,7 +43,7 @@ const lang = getLangFromUrl(Astro.url);
 
           <button
             onclick="history.back()"
-            class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-300 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
           >
             <span class="material-symbols-outlined">arrow_back</span>
             {lang === 'es' ? 'Volver Atrás' : lang === 'en' ? 'Go Back' : 'Voltar'}

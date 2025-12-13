@@ -12,7 +12,7 @@ const t = useTranslations(lang);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
@@ -20,14 +20,14 @@ const t = useTranslations(lang);
       <section class="relative min-h-[70vh] flex items-center justify-center py-20">
         <div class="max-w-[1800px] mx-auto w-full">
           <div class="text-center">
-            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'MIS' : lang === 'en' ? 'MY' : 'MINHAS'}
               <br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 {lang === 'es' ? 'HABILIDADES' : lang === 'en' ? 'SKILLS' : 'HABILIDADES'}
               </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es'
                 ? 'Mi experiencia y dominio de tecnologías para crear soluciones digitales innovadoras.'
                 : lang === 'en'
@@ -41,17 +41,17 @@ const t = useTranslations(lang);
       <section class="pb-16 max-w-7xl mx-auto relative z-10">
       <!-- Tabs con glassmorphism -->
       <div class="flex justify-center mb-8">
-        <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl p-1.5 rounded-2xl inline-flex gap-2 shadow-2xl border border-gray-100 dark:border-gray-800">
+        <div class="bg-[#1a1a1a]/80 backdrop-blur-xl p-1.5 rounded-2xl inline-flex gap-2  border border-gray-800">
           <button
             id="tab-languages"
-            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white shadow-lg hover:scale-105"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  shadow-lg hover:scale-105"
             style="font-family: 'Inter Tight', system-ui, sans-serif;"
           >
             {lang === 'es' ? 'Tecnologías' : lang === 'en' ? 'Technologies' : 'Tecnologias'}
           </button>
           <button
             id="tab-experience"
-            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:scale-105"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:scale-105"
             style="font-family: 'Inter Tight', system-ui, sans-serif;"
           >
             {lang === 'es' ? 'Experiencia' : lang === 'en' ? 'Experience' : 'Experiência'}
@@ -63,7 +63,7 @@ const t = useTranslations(lang);
       <div id="languages-content" class="content-section">
         <div id="languages-container" class="space-y-12">
           <div class="text-center py-8">
-            <p class="text-gray-600 dark:text-gray-400">Cargando tecnologías...</p>
+            <p class="text-gray-400">Cargando tecnologías...</p>
           </div>
         </div>
       </div>
@@ -72,7 +72,7 @@ const t = useTranslations(lang);
       <div id="experience-content" class="content-section hidden">
         <div id="experience-container" class="space-y-8">
           <div class="text-center py-8">
-            <p class="text-gray-600 dark:text-gray-400">Cargando experiencia...</p>
+            <p class="text-gray-400">Cargando experiencia...</p>
           </div>
         </div>
       </div>
@@ -120,16 +120,16 @@ const t = useTranslations(lang);
     const experienceContent = document.getElementById('experience-content');
 
     if (tab === 'languages') {
-      languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
       languagesTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
-      experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
       experienceTab?.classList.add('text-slate-600', 'dark:text-slate-400');
       languagesContent?.classList.remove('hidden');
       experienceContent?.classList.add('hidden');
     } else {
-      experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
       experienceTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
-      languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
+      languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
       languagesTab?.classList.add('text-slate-600', 'dark:text-slate-400');
       experienceContent?.classList.remove('hidden');
       languagesContent?.classList.add('hidden');
@@ -165,7 +165,7 @@ const t = useTranslations(lang);
       for (const [category, categoryLanguages] of Object.entries(categories)) {
         html += `
           <section class="fade-in-section">
-            <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 mb-8 border border-gray-100 dark:border-gray-800">
+            <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl  p-6 md:p-8 mb-8 border border-gray-800">
               <h2 class="text-2xl md:text-3xl font-bold mb-8 flex items-center gap-3" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center shadow-lg">
                   <span class="material-symbols-outlined text-white text-2xl">code</span>
@@ -174,17 +174,17 @@ const t = useTranslations(lang);
               </h2>
               <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                 ${categoryLanguages.map((lang, index) => `
-                  <div class="tech-card rounded-2xl bg-white dark:bg-[#0f0f0f] p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group" style="animation-delay: ${index * 50}ms;">
+                  <div class="tech-card rounded-2xl bg-[#0f0f0f] p-6 md:p-8 shadow-xl transition-all duration-500 hover:-translate-y-2 border border-gray-800 group" style="animation-delay: ${index * 50}ms;">
                     <div class="flex items-start gap-4 mb-6">
-                      <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-white dark:bg-slate-800 shadow-lg p-3 group-hover:scale-110 transition-transform duration-300">
+                      <div class="flex h-16 w-16 flex-shrink-0 items-center justify-center rounded-xl bg-slate-800 shadow-lg p-3 group-hover:scale-110 transition-transform duration-300">
                         <img src="${lang.icon}" alt="${lang.name}" class="w-full h-full object-contain" />
                       </div>
                       <div class="flex-1">
-                        <h3 class="font-bold text-xl md:text-2xl text-gray-900 dark:text-white mb-1" style="font-family: 'Inter Tight', system-ui, sans-serif;">${lang.name}</h3>
+                        <h3 class="font-bold text-xl md:text-2xl  mb-1" style="font-family: 'Inter Tight', system-ui, sans-serif;">${lang.name}</h3>
                         <p class="text-xs md:text-sm text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 font-semibold">${lang.yearsOfExperience} años de experiencia</p>
                       </div>
                     </div>
-                    <p class="text-sm md:text-base text-gray-600 dark:text-gray-400 mb-6 leading-relaxed">${lang.description}</p>
+                    <p class="text-sm md:text-base text-gray-400 mb-6 leading-relaxed">${lang.description}</p>
 
                   ${lang.audioUrl ? `
                     <div class="audio-player" data-audio-url="${lang.audioUrl}">
@@ -194,29 +194,29 @@ const t = useTranslations(lang);
 
                       <div class="flex items-center gap-3">
                         <!-- Play/Pause Button -->
-                        <button class="play-btn flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-purple-600 text-white flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden">
-                          <span class="material-symbols-outlined text-xl play-icon transition-all duration-200 absolute">play_arrow</span>
-                          <span class="material-symbols-outlined text-xl pause-icon hidden transition-all duration-200 absolute">pause</span>
+                        <button class="play-btn flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-r from-primary to-purple-600  flex items-center justify-center hover:shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 relative overflow-hidden">
+                          <span class="material-symbols-outlined text-white text-xl play-icon transition-all duration-200 absolute">play_arrow</span>
+                          <span class="material-symbols-outlined text-white text-xl pause-icon hidden transition-all duration-200 absolute">pause</span>
                         </button>
 
                         <!-- Progress Bar -->
                         <div class="flex-1 flex items-center gap-2">
-                          <span class="current-time text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
-                          <div class="flex-1 h-2 bg-gray-200 dark:bg-gray-700 rounded-full overflow-hidden cursor-pointer progress-container">
+                          <span class="current-time text-xs text-gray-400 font-mono">0:00</span>
+                          <div class="flex-1 h-2 bg-gray-700 rounded-full overflow-hidden cursor-pointer progress-container">
                             <div class="h-2 bg-gradient-to-r from-primary to-purple-600 rounded-full transition-all progress-bar" style="width: 0%"></div>
                           </div>
-                          <span class="duration-time text-xs text-gray-600 dark:text-gray-400 font-mono">0:00</span>
+                          <span class="duration-time text-xs text-gray-400 font-mono">0:00</span>
                         </div>
 
                         <!-- Stop Button -->
-                        <button class="stop-btn flex-shrink-0 w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 flex items-center justify-center hover:bg-gray-300 dark:hover:bg-gray-600 transition-all duration-300">
-                          <span class="material-symbols-outlined text-lg">stop</span>
+                        <button class="stop-btn flex-shrink-0 w-8 h-8 rounded-full bg-gray-700 text-gray-300 flex items-center justify-center hover:bg-gray-600 transition-all duration-300">
+                          <span class="material-symbols-outlined text-white text-lg">stop</span>
                         </button>
                       </div>
                     </div>
                   ` : `
                     <div class="flex items-center gap-3">
-                      <div class="h-3 flex-1 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden">
+                      <div class="h-3 flex-1 rounded-full bg-gray-700 overflow-hidden">
                         <div class="h-3 rounded-full bg-gradient-to-r from-primary to-purple-600 transition-all duration-1000" style="width: ${lang.proficiency}%"></div>
                       </div>
                       <span class="text-sm font-bold text-primary">${lang.proficiency}%</span>
@@ -389,7 +389,7 @@ const t = useTranslations(lang);
               <div class="absolute left-8 top-20 bottom-0 w-0.5 bg-gradient-to-b from-primary to-purple-600 hidden md:block"></div>
             ` : ''}
 
-            <div class="bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl p-6 md:p-8 hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 relative group">
+            <div class="bg-[#1a1a1a] rounded-2xl shadow-xl p-6 md:p-8 transition-all duration-500 hover:-translate-y-2 border border-gray-800 relative group">
               <div class="flex flex-col md:flex-row md:items-start gap-6">
                 <!-- Timeline Icon -->
                 <div class="flex-shrink-0">
@@ -404,7 +404,7 @@ const t = useTranslations(lang);
                 <div class="flex-1">
                   <div class="flex flex-col md:flex-row md:items-start md:justify-between mb-4">
                     <div>
-                      <h3 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">${exp.position}</h3>
+                      <h3 class="text-2xl md:text-3xl font-bold  mb-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">${exp.position}</h3>
                       <p class="text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 font-semibold">${exp.company}</p>
                     </div>
                     ${exp.current ? `
@@ -415,33 +415,33 @@ const t = useTranslations(lang);
                     ` : ''}
                   </div>
 
-                  <div class="flex flex-wrap items-center gap-3 text-sm text-gray-600 dark:text-gray-400 mb-4">
+                  <div class="flex flex-wrap items-center gap-3 text-sm text-gray-400 mb-4">
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-sm">location_on</span>
+                      <span class="material-symbols-outlined text-whitetext-sm">location_on</span>
                       <span>${exp.location}</span>
                     </div>
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-sm">calendar_month</span>
+                      <span class="material-symbols-outlined text-whitetext-sm">calendar_month</span>
                       <span>${startStr} - ${endStr}</span>
                     </div>
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-sm">schedule</span>
+                      <span class="material-symbols-outlined text-whitetext-sm">schedule</span>
                       <span>${duration}</span>
                     </div>
                   </div>
 
-                  <p class="text-gray-700 dark:text-gray-300 mb-4">${exp.description}</p>
+                  <p class="text-gray-300 mb-4">${exp.description}</p>
 
                   <!-- Achievements -->
                   ${exp.achievements && exp.achievements.length > 0 ? `
                     <div class="mb-4">
-                      <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-sm text-primary">emoji_events</span>
+                      <h4 class="font-semibold  mb-2 flex items-center gap-2">
+                        <span class="material-symbols-outlined text-whitetext-sm text-primary">emoji_events</span>
                         Logros destacados:
                       </h4>
                       <ul class="space-y-2">
                         ${exp.achievements.map(achievement => `
-                          <li class="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-400">
+                          <li class="flex items-start gap-2 text-sm text-gray-400">
                             <span class="text-primary mt-0.5">▸</span>
                             <span>${achievement}</span>
                           </li>
@@ -453,8 +453,8 @@ const t = useTranslations(lang);
                   <!-- Technologies -->
                   ${exp.technologies && exp.technologies.length > 0 ? `
                     <div>
-                      <h4 class="font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2 text-sm">
-                        <span class="material-symbols-outlined text-sm text-primary">code</span>
+                      <h4 class="font-semibold  mb-2 flex items-center gap-2 text-sm">
+                        <span class="material-symbols-outlined text-whitetext-sm text-primary">code</span>
                         Tecnologías:
                       </h4>
                       <div class="flex flex-wrap gap-2">

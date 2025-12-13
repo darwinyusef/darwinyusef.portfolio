@@ -12,21 +12,21 @@ const t = useTranslations(lang);
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
       <section class="relative min-h-[70vh] flex items-center justify-center py-20">
         <div class="max-w-[1800px] mx-auto w-full">
           <div class="text-center">
-            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'MIS' : lang === 'en' ? 'MY' : 'MEUS'}
               <br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 {lang === 'es' ? 'RECURSOS' : lang === 'en' ? 'RESOURCES' : 'RECURSOS'}
               </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es'
                 ? 'Herramientas, guías y materiales útiles para desarrolladores.'
                 : lang === 'en'
@@ -39,15 +39,15 @@ const t = useTranslations(lang);
 
       <section class="pb-16 max-w-7xl mx-auto relative z-10">
       <!-- Filtros con glassmorphism -->
-      <div class="bg-white/80 dark:bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl shadow-2xl p-6 md:p-8 mb-8 border border-gray-100 dark:border-gray-800 filter-card">
+      <div class="bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl  p-6 md:p-8 mb-8 border border-gray-800 filter-card">
         <!-- Filtro de categorías -->
         <div class="mb-6">
-          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 tracking-wide uppercase" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+          <h3 class="text-sm font-semibold text-gray-300 mb-3 tracking-wide uppercase" style="font-family: 'Inter Tight', system-ui, sans-serif;">
             {lang === 'es' ? 'Categorías' : lang === 'en' ? 'Categories' : 'Categorias'}
           </h3>
           <div class="flex flex-wrap gap-2" id="category-filters">
             <button
-              class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white shadow-sm hover:shadow-md hover:scale-105"
+              class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  shadow-sm hover:shadow-md hover:scale-105"
               data-category="all"
             >
               {lang === 'es' ? 'Todos' : lang === 'en' ? 'All' : 'Todos'} <span class="category-count ml-1 text-xs opacity-90"></span>
@@ -57,7 +57,7 @@ const t = useTranslations(lang);
 
         <!-- Filtro de tipo -->
         <div>
-          <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-3 tracking-wide uppercase" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+          <h3 class="text-sm font-semibold text-gray-300 mb-3 tracking-wide uppercase" style="font-family: 'Inter Tight', system-ui, sans-serif;">
             {lang === 'es' ? 'Tipo de Recurso' : lang === 'en' ? 'Resource Type' : 'Tipo de Recurso'}
           </h3>
           <div class="flex flex-wrap gap-2" id="type-filters">
@@ -73,7 +73,7 @@ const t = useTranslations(lang);
 
       <div id="resources-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div class="col-span-full text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">Cargando recursos...</p>
+          <p class="text-gray-400">Cargando recursos...</p>
         </div>
       </div>
       </section>
@@ -120,7 +120,7 @@ const t = useTranslations(lang);
       .map(([category, count]) => {
         return `
           <button
-            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 hover:text-white shadow-sm hover:scale-105"
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105"
             data-category="${category}"
           >
             ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
@@ -182,9 +182,9 @@ const t = useTranslations(lang);
 
     document.querySelectorAll('.category-btn').forEach(btn => {
       if (btn.getAttribute('data-category') === category) {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white shadow-sm hover:shadow-md hover:scale-105';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  shadow-sm hover:shadow-md hover:scale-105';
       } else {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 hover:text-white shadow-sm hover:scale-105';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105';
       }
     });
 
@@ -196,7 +196,7 @@ const t = useTranslations(lang);
 
     document.querySelectorAll('.type-btn').forEach(btn => {
       if (btn.getAttribute('data-type') === type) {
-        btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white hover:scale-105';
+        btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  hover:scale-105';
       } else {
         btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 hover:scale-105';
       }
@@ -229,7 +229,7 @@ const t = useTranslations(lang);
           <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-gradient-to-r from-primary to-purple-600 mb-4">
             <span class="material-symbols-outlined text-white text-4xl">search_off</span>
           </div>
-          <p class="text-gray-600 dark:text-gray-400 text-lg font-medium">No hay recursos con estos filtros.</p>
+          <p class="text-gray-400 text-lg font-medium">No hay recursos con estos filtros.</p>
           <p class="text-gray-500 dark:text-gray-500 text-sm mt-2">Intenta seleccionar otros filtros</p>
         </div>
       `;
@@ -245,7 +245,7 @@ const t = useTranslations(lang);
       }[resource.type] || 'link';
 
       return `
-        <article class="resource-card bg-white dark:bg-[#1a1a1a] rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 border border-gray-100 dark:border-gray-800 group" style="animation-delay: ${index * 50}ms;">
+        <article class="resource-card bg-[#1a1a1a] rounded-2xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 border border-gray-800 group" style="animation-delay: ${index * 50}ms;">
           <div class="p-6 md:p-8">
             <div class="flex items-start justify-between mb-6">
               <div class="flex items-center gap-3">
@@ -260,18 +260,18 @@ const t = useTranslations(lang);
               </div>
             </div>
 
-            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-3 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all line-clamp-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h3 class="text-xl font-bold  mb-3 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 transition-all line-clamp-2" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               ${resource.title}
             </h3>
 
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-6 line-clamp-3 leading-relaxed">${resource.description}</p>
+            <p class="text-sm text-gray-400 mb-6 line-clamp-3 leading-relaxed">${resource.description}</p>
 
             <div class="flex items-center gap-2 mb-5 flex-wrap">
               <span class="text-xs bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg font-medium backdrop-blur-sm">
                 ${resource.category}
               </span>
               <span class="text-xs bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-medium backdrop-blur-sm">
-                <span class="material-symbols-outlined text-xs">language</span>
+                <span class="material-symbols-outlined text-whitetext-xs">language</span>
                 ${resource.language}
               </span>
             </div>
@@ -290,10 +290,10 @@ const t = useTranslations(lang);
               href="${resource.url}"
               target="_blank"
               rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-purple-600 text-white rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:gap-3 group/btn"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-purple-600  rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:gap-3 group/btn"
             >
               <span>Visitar recurso</span>
-              <span class="material-symbols-outlined text-sm group-hover/btn:translate-x-1 transition-transform">open_in_new</span>
+              <span class="material-symbols-outlined text-whitetext-sm group-hover/btn:translate-x-1 transition-transform">open_in_new</span>
             </a>
           </div>
         </article>
@@ -326,7 +326,7 @@ const t = useTranslations(lang);
       if (allResources.length === 0) {
         container.innerHTML = `
           <div class="col-span-full text-center py-8">
-            <p class="text-gray-600 dark:text-gray-400">No hay recursos disponibles.</p>
+            <p class="text-gray-400">No hay recursos disponibles.</p>
           </div>
         `;
         return;
@@ -341,7 +341,7 @@ const t = useTranslations(lang);
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
           <p class="text-red-500 dark:text-red-400">Error al cargar recursos.</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
+          <p class="text-sm text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;
     }

@@ -7,7 +7,7 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <Layout title={lang === 'es' ? 'Arquitectura de Software' : lang === 'en' ? 'Software Architecture' : 'Arquitetura de Software'}>
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
@@ -15,14 +15,14 @@ const lang = getLangFromUrl(Astro.url);
       <section class="relative min-h-[70vh] flex items-center justify-center py-20">
         <div class="max-w-[1800px] mx-auto w-full">
           <div class="text-center">
-            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'OFICINA DE' : lang === 'en' ? 'ARCHITECTURE' : 'ESCRITÓRIO DE'}
               <br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 {lang === 'es' ? 'ARQUITECTURA' : lang === 'en' ? 'OFFICE' : 'ARQUITETURA'}
               </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-4xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <p class="text-xl md:text-2xl text-gray-400 max-w-4xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es'
                 ? 'Transformamos la forma en que las organizaciones diseñan, gobiernan y evolucionan su tecnología. Creamos oficinas de arquitectura que impulsan la innovación, estandarizan las mejores prácticas y aceleran la entrega de valor al negocio a través de arquitectura empresarial moderna, mentoría estratégica y automatización inteligente.'
                 : lang === 'en'
@@ -35,15 +35,15 @@ const lang = getLangFromUrl(Astro.url);
 
       <!-- Content Section -->
       <section class="pb-20 max-w-5xl mx-auto">
-        <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-12 space-y-12">
+        <div class="bg-[#1a1a1a] rounded-3xl shadow-xl p-8 md:p-12 space-y-12">
 
           <!-- Pilares de la Oficina de Arquitectura -->
           <div class="space-y-8">
             <div class="text-center space-y-4">
-              <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h2 class="text-3xl md:text-4xl font-black " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'Pilares de nuestra Oficina de Arquitectura' : lang === 'en' ? 'Pillars of our Architecture Office' : 'Pilares do nosso Escritório de Arquitetura'}
               </h2>
-              <p class="text-lg text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
+              <p class="text-lg text-gray-400 max-w-3xl mx-auto">
                 {lang === 'es'
                   ? 'Impulsamos la transformación digital de tu organización a través de un modelo integral que combina gobernanza, innovación y entrega de valor sostenible.'
                   : lang === 'en'
@@ -58,10 +58,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🎓</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Mentoría Estratégica' : lang === 'en' ? 'Strategic Mentoring' : 'Mentoria Estratégica'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Acompañamiento experto para arquitectos y líderes técnicos. Transferencia de conocimiento en patrones modernos, mejores prácticas y toma de decisiones arquitectónicas críticas.'
                         : lang === 'en'
@@ -77,10 +77,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🏗️</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Patrones de Arquitectura Moderna' : lang === 'en' ? 'Modern Architecture Patterns' : 'Padrões de Arquitetura Moderna'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Estandarización e implementación de patrones arquitectónicos probados: microservicios, event-driven, hexagonal, CQRS. Documentación y gobierno de decisiones de diseño en proyectos.'
                         : lang === 'en'
@@ -96,10 +96,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">⚡</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Autoservicio y Automatización' : lang === 'en' ? 'Self-Service and Automation' : 'Autoatendimento e Automação'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Plataformas internas para desarrolladores (IDP), templates de proyectos, CI/CD automatizado, infrastructure as code. Reducción de tiempos de setup de semanas a horas.'
                         : lang === 'en'
@@ -115,10 +115,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">💼</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Estrategias de Ventas Técnicas' : lang === 'en' ? 'Technical Sales Strategies' : 'Estratégias de Vendas Técnicas'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Soporte arquitectónico en procesos de venta: POCs, arquitecturas de referencia, estimaciones técnicas, presentaciones para stakeholders técnicos y de negocio.'
                         : lang === 'en'
@@ -134,10 +134,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🎯</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Consultoría Especializada' : lang === 'en' ? 'Specialized Consulting' : 'Consultoria Especializada'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Asesoramiento en transformación digital, modernización de legacy systems, cloud migration, optimización de costos, selección de tecnologías y definición de target architectures.'
                         : lang === 'en'
@@ -153,10 +153,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🔍</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Due Diligence y Evaluación de Riesgos' : lang === 'en' ? 'Due Diligence and Risk Assessment' : 'Due Diligence e Avaliação de Riscos'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Auditorías técnicas profundas para M&A, evaluación de deuda técnica, análisis de escalabilidad, seguridad, compliance y viabilidad de roadmaps tecnológicos.'
                         : lang === 'en'
@@ -172,10 +172,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🚀</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Apropiación de Tecnología' : lang === 'en' ? 'Technology Adoption' : 'Apropriação de Tecnologia'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Programas de adopción tecnológica en empresas de software: evangelización, capacitación técnica, definición de estándares, creación de communities of practice y guilds.'
                         : lang === 'en'
@@ -191,10 +191,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🗺️</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Roadmapping para Equipos' : lang === 'en' ? 'Team Roadmapping' : 'Roadmapping para Equipes'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Definición de hojas de ruta técnicas alineadas con objetivos de negocio. Priorización basada en valor, gestión de dependencias, definición de hitos arquitectónicos.'
                         : lang === 'en'
@@ -210,10 +210,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">👔</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Definición de Roles en TI' : lang === 'en' ? 'IT Roles Definition' : 'Definição de Papéis em TI'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Estructuración de equipos técnicos: definición de roles, responsabilidades, career paths, skill matrices, modelos de gobernanza y operating models efectivos.'
                         : lang === 'en'
@@ -229,10 +229,10 @@ const lang = getLangFromUrl(Astro.url);
                 <div class="flex items-start gap-4">
                   <div class="text-4xl flex-shrink-0">🤖</div>
                   <div class="space-y-2">
-                    <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                    <h3 class="text-xl font-bold ">
                       {lang === 'es' ? 'Evolución Empresarial con IA' : lang === 'en' ? 'Business Evolution with AI' : 'Evolução Empresarial com IA'}
                     </h3>
-                    <p class="text-gray-600 dark:text-gray-400">
+                    <p class="text-gray-400">
                       {lang === 'es'
                         ? 'Estrategias de adopción de IA/ML en la empresa: identificación de casos de uso, arquitecturas de datos para IA, MLOps, governance de modelos, ética y responsible AI.'
                         : lang === 'en'
@@ -245,25 +245,25 @@ const lang = getLangFromUrl(Astro.url);
             </div>
           </div>
 
-          <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
+          <div class="border-t-2 border-gray-800"></div>
 
           <!-- Metodología: Arquitectura de Decisiones + Análisis + TOGAF + Agile -->
           <div class="space-y-6">
-            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h2 class="text-3xl md:text-4xl font-black " style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'Nuestro abordaje metodológico' : lang === 'en' ? 'Our methodological approach' : 'Nossa abordagem metodológica'}
             </h2>
 
             <div class="bg-gradient-to-br from-primary/5 to-purple-600/5 dark:from-primary/10 dark:to-purple-600/10 rounded-2xl p-6 md:p-8 space-y-6">
               <div class="flex items-center gap-3 mb-4">
-                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center text-white text-2xl font-bold">
+                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-primary to-purple-600 flex items-center justify-center  text-2xl font-bold">
                   🏛️
                 </div>
-                <h3 class="text-2xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                <h3 class="text-2xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                   {lang === 'es' ? 'TOGAF® + Arquitectura Empresarial Ágil' : lang === 'en' ? 'TOGAF® + Agile Enterprise Architecture' : 'TOGAF® + Arquitetura Empresarial Ágil'}
                 </h3>
               </div>
 
-              <p class="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+              <p class="text-lg text-gray-300 leading-relaxed">
                 {lang === 'es'
                   ? 'Desde el abordaje metodológico del Open Group y el framework de TOGAF®, la arquitectura empresarial ágil implica llevar a cabo ejercicios de arquitectura empresarial con capacidad de respuesta al cambio, enfocados permanentemente a la entrega de valor al negocio de manera continua y sostenible.'
                   : lang === 'en'
@@ -273,14 +273,14 @@ const lang = getLangFromUrl(Astro.url);
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <!-- Sprint de Arquitectura -->
-                <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700">
+                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
                   <div class="flex items-center gap-2 mb-3">
                     <span class="text-2xl">⚡</span>
-                    <h4 class="font-bold text-gray-900 dark:text-white">
+                    <h4 class="font-bold ">
                       {lang === 'es' ? 'Sprints de Arquitectura' : lang === 'en' ? 'Architecture Sprints' : 'Sprints de Arquitetura'}
                     </h4>
                   </div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-400">
                     {lang === 'es'
                       ? 'Experimentación práctica y puesta en operación de soluciones mínimas viables (MVP) de forma iterativa e incremental.'
                       : lang === 'en'
@@ -290,14 +290,14 @@ const lang = getLangFromUrl(Astro.url);
                 </div>
 
                 <!-- Células Ágiles -->
-                <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700">
+                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
                   <div class="flex items-center gap-2 mb-3">
                     <span class="text-2xl">🎯</span>
-                    <h4 class="font-bold text-gray-900 dark:text-white">
+                    <h4 class="font-bold ">
                       {lang === 'es' ? 'Células Ágiles de Arquitectura' : lang === 'en' ? 'Agile Architecture Cells' : 'Células Ágeis de Arquitetura'}
                     </h4>
                   </div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-400">
                     {lang === 'es'
                       ? 'Equipos empoderados y autónomos, armonizados bajo la gobernanza de la arquitectura empresarial.'
                       : lang === 'en'
@@ -307,14 +307,14 @@ const lang = getLangFromUrl(Astro.url);
                 </div>
 
                 <!-- Colaboración Continua -->
-                <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700">
+                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
                   <div class="flex items-center gap-2 mb-3">
                     <span class="text-2xl">🤝</span>
-                    <h4 class="font-bold text-gray-900 dark:text-white">
+                    <h4 class="font-bold ">
                       {lang === 'es' ? 'Colaboración con Stakeholders' : lang === 'en' ? 'Stakeholder Collaboration' : 'Colaboração com Stakeholders'}
                     </h4>
                   </div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-400">
                     {lang === 'es'
                       ? 'Equipos en continua comunicación y colaboración con stakeholders e implementadores, manteniendo el valor al negocio.'
                       : lang === 'en'
@@ -324,14 +324,14 @@ const lang = getLangFromUrl(Astro.url);
                 </div>
 
                 <!-- Personas primero -->
-                <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700">
+                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
                   <div class="flex items-center gap-2 mb-3">
                     <span class="text-2xl">👥</span>
-                    <h4 class="font-bold text-gray-900 dark:text-white">
+                    <h4 class="font-bold ">
                       {lang === 'es' ? 'Las personas primero' : lang === 'en' ? 'People first' : 'Pessoas primeiro'}
                     </h4>
                   </div>
-                  <p class="text-sm text-gray-600 dark:text-gray-400">
+                  <p class="text-sm text-gray-400">
                     {lang === 'es'
                       ? 'A las personas se las trata con respeto y están por encima de metodologías, procesos y herramientas.'
                       : lang === 'en'
@@ -341,8 +341,8 @@ const lang = getLangFromUrl(Astro.url);
                 </div>
               </div>
 
-              <div class="bg-white dark:bg-[#1a1a1a] rounded-xl p-6 border-2 border-primary/30">
-                <p class="text-base text-gray-700 dark:text-gray-300 leading-relaxed">
+              <div class="bg-[#1a1a1a] rounded-xl p-6 border-2 border-primary/30">
+                <p class="text-base text-gray-300 leading-relaxed">
                   <span class="font-bold text-primary">
                     {lang === 'es' ? '💡 Nuestro enfoque:' : lang === 'en' ? '💡 Our approach:' : '💡 Nossa abordagem:'}
                   </span>
@@ -357,22 +357,22 @@ const lang = getLangFromUrl(Astro.url);
             </div>
           </div>
 
-          <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
+          <div class="border-t-2 border-gray-800"></div>
 
           <!-- Servicios -->
           <div class="space-y-8">
-            <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white text-center" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h2 class="text-3xl md:text-4xl font-black  text-center" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'Servicios que ofrecemos' : lang === 'en' ? 'Services we offer' : 'Serviços que oferecemos'}
             </h2>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               <!-- Evaluación de requerimientos -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">📋</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Evaluación de requerimientos y modelado de datos' : lang === 'en' ? 'Requirements evaluation and data modeling' : 'Avaliação de requisitos e modelagem de dados'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Analizamos necesidades del negocio y diseñamos modelos de datos eficientes y escalables.'
                     : lang === 'en'
@@ -382,12 +382,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Diseño de arquitecturas -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">🏛️</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Diseño de arquitecturas validadas por TOGAF o ITIL' : lang === 'en' ? 'Architecture design validated by TOGAF or ITIL' : 'Design de arquiteturas validadas por TOGAF ou ITIL'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Creamos arquitecturas empresariales siguiendo frameworks reconocidos internacionalmente.'
                     : lang === 'en'
@@ -397,12 +397,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Planeación -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">📅</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Planeación con PMP o SCRUM' : lang === 'en' ? 'Planning with PMP or SCRUM' : 'Planejamento com PMP ou SCRUM'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Gestionamos proyectos con metodologías ágiles o tradicionales según las necesidades del equipo.'
                     : lang === 'en'
@@ -412,12 +412,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Testing -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">🧪</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Implementación de testing' : lang === 'en' ? 'Testing implementation' : 'Implementação de testing'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Configuramos estrategias de testing automatizado: unitarias, integración, E2E y performance.'
                     : lang === 'en'
@@ -427,12 +427,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Capacitación -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">👥</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Capacitación de usuarios' : lang === 'en' ? 'User training' : 'Capacitação de usuários'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Entrenamos a tu equipo y usuarios finales para aprovechar al máximo el sistema.'
                     : lang === 'en'
@@ -442,12 +442,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Documentación -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">📚</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Gestión de documentación' : lang === 'en' ? 'Documentation management' : 'Gestão de documentação'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Creamos y mantenemos documentación técnica clara, completa y actualizada del proyecto.'
                     : lang === 'en'
@@ -457,12 +457,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Observabilidad -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">👁️</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Observabilidad' : lang === 'en' ? 'Observability' : 'Observabilidade'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Implementamos monitoreo completo: logs, métricas y trazas para identificar problemas antes de que afecten usuarios.'
                     : lang === 'en'
@@ -472,12 +472,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Evaluación de servicios cloud -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">☁️</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Evaluación de servicios cloud' : lang === 'en' ? 'Cloud services evaluation' : 'Avaliação de serviços cloud'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Analizamos y recomendamos las mejores soluciones cloud (AWS, Azure, GCP) según tus necesidades y presupuesto.'
                     : lang === 'en'
@@ -487,12 +487,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Webtrends + Analytics -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">📊</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Webtrends + Analíticas' : lang === 'en' ? 'Webtrends + Analytics' : 'Webtrends + Analytics'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Configuramos herramientas de análisis web y analíticas avanzadas para tomar decisiones basadas en datos.'
                     : lang === 'en'
@@ -502,12 +502,12 @@ const lang = getLangFromUrl(Astro.url);
               </div>
 
               <!-- Automatización con QA y Claude -->
-              <div class="bg-white dark:bg-[#0a0a0a] border-2 border-gray-200 dark:border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
+              <div class="bg-[#0a0a0a] border-2 border-gray-800 rounded-2xl p-6 space-y-4 hover:border-primary transition-colors">
                 <div class="text-4xl">🤖</div>
-                <h3 class="text-xl font-bold text-gray-900 dark:text-white">
+                <h3 class="text-xl font-bold ">
                   {lang === 'es' ? 'Automatización generada con QA y Claude' : lang === 'en' ? 'Automation generated with QA and Claude' : 'Automação gerada com QA e Claude'}
                 </h3>
-                <p class="text-gray-600 dark:text-gray-400">
+                <p class="text-gray-400">
                   {lang === 'es'
                     ? 'Implementamos automatización inteligente de QA utilizando Claude AI para generar casos de prueba, scripts de testing y validación automatizada de calidad.'
                     : lang === 'en'
@@ -518,15 +518,15 @@ const lang = getLangFromUrl(Astro.url);
             </div>
           </div>
 
-          <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
+          <div class="border-t-2 border-gray-800"></div>
 
           <!-- Advisory Form Section -->
           <div class="space-y-8">
             <div class="text-center">
-              <h2 class="text-3xl md:text-4xl font-black text-gray-900 dark:text-white mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h2 class="text-3xl md:text-4xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? '¿En qué podemos ayudarte?' : lang === 'en' ? 'How can we help you?' : 'Como podemos ajudá-lo?'}
               </h2>
-              <p class="text-lg text-gray-600 dark:text-gray-400">
+              <p class="text-lg text-gray-400">
                 {lang === 'es'
                   ? 'Selecciona el tipo de asesoría que necesitas y cuéntanos más sobre tu proyecto'
                   : lang === 'en'
@@ -542,7 +542,7 @@ const lang = getLangFromUrl(Astro.url);
               <!-- Campos personales -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label for="advisory-name" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  <label for="advisory-name" class="block text-sm font-semibold  mb-2">
                     {lang === 'es' ? 'Nombre:' : lang === 'en' ? 'Name:' : 'Nome:'}
                   </label>
                   <input
@@ -550,12 +550,12 @@ const lang = getLangFromUrl(Astro.url);
                     id="advisory-name"
                     name="name"
                     placeholder={lang === 'es' ? 'Tu nombre completo' : lang === 'en' ? 'Your full name' : 'Seu nome completo'}
-                    class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    class="w-full px-4 py-3 border-2 border-gray-700 bg-[#1a1a1a] rounded-xl  placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                     required
                   />
                 </div>
                 <div>
-                  <label for="advisory-phone" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                  <label for="advisory-phone" class="block text-sm font-semibold  mb-2">
                     {lang === 'es' ? 'Teléfono:' : lang === 'en' ? 'Phone:' : 'Telefone:'}
                   </label>
                   <input
@@ -563,14 +563,14 @@ const lang = getLangFromUrl(Astro.url);
                     id="advisory-phone"
                     name="phone"
                     placeholder={lang === 'es' ? '+52 123 456 7890' : lang === 'en' ? '+1 123 456 7890' : '+55 123 456 7890'}
-                    class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                    class="w-full px-4 py-3 border-2 border-gray-700 bg-[#1a1a1a] rounded-xl  placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                     required
                   />
                 </div>
               </div>
 
               <div>
-                <label for="advisory-email" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                <label for="advisory-email" class="block text-sm font-semibold  mb-2">
                   {lang === 'es' ? 'Correo electrónico:' : lang === 'en' ? 'Email:' : 'E-mail:'}
                 </label>
                 <input
@@ -578,7 +578,7 @@ const lang = getLangFromUrl(Astro.url);
                   id="advisory-email"
                   name="email"
                   placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
-                  class="w-full px-4 py-3 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+                  class="w-full px-4 py-3 border-2 border-gray-700 bg-[#1a1a1a] rounded-xl  placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
                   required
                 />
               </div>
@@ -586,7 +586,7 @@ const lang = getLangFromUrl(Astro.url);
               <!-- Grid de opciones -->
               <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <!-- Opción 1: Proyecto nuevo -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="new_project" class="peer sr-only" required />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -594,14 +594,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Tengo una idea nueva' : lang === 'en' ? 'I have a new idea' : 'Tenho uma nova ideia'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 2: Mejorar existente -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="improve_existing" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -609,14 +609,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Mejorar lo que tengo' : lang === 'en' ? 'Improve what I have' : 'Melhorar o que tenho'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 3: Escalar negocio -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="scale_business" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -624,14 +624,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Crecer mi negocio' : lang === 'en' ? 'Grow my business' : 'Crescer meu negócio'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 4: IA -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="ai_integration" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -639,14 +639,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Usar Inteligencia Artificial' : lang === 'en' ? 'Use Artificial Intelligence' : 'Usar Inteligência Artificial'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 5: Resolver problemas -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="fix_problems" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -654,14 +654,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Resolver problemas' : lang === 'en' ? 'Fix problems' : 'Resolver problemas'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 6: Guiar equipo -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="guide_team" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -669,14 +669,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Guiar mi equipo técnico' : lang === 'en' ? 'Guide my tech team' : 'Guiar minha equipe técnica'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 7: Proyecto estancado -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="project_stuck" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -684,14 +684,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Mi proyecto está estancado' : lang === 'en' ? 'My project is stuck' : 'Meu projeto está estagnado'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 8: Presupuesto limitado -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="limited_budget" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -699,14 +699,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Tengo presupuesto limitado' : lang === 'en' ? 'I have limited budget' : 'Tenho orçamento limitado'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 9: Validar idea -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="validate_idea" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -714,14 +714,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Validar mi idea de negocio' : lang === 'en' ? 'Validate my business idea' : 'Validar minha ideia de negócio'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 10: Migrar tecnología -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="migrate_tech" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -729,14 +729,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Actualizar tecnología antigua' : lang === 'en' ? 'Update old technology' : 'Atualizar tecnologia antiga'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 11: Seguridad -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="security" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -744,14 +744,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Mejorar la seguridad' : lang === 'en' ? 'Improve security' : 'Melhorar a segurança'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 12: Integración -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="integration" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -759,14 +759,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Conectar mis sistemas' : lang === 'en' ? 'Connect my systems' : 'Conectar meus sistemas'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 13: Mentoring -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="mentoring" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -774,14 +774,14 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'Mentoring a la medida' : lang === 'en' ? 'Custom mentoring' : 'Mentoria personalizada'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
                 </label>
 
                 <!-- Opción 14: No estoy seguro -->
-                <label class="relative flex items-center gap-3 px-4 py-3 bg-white dark:bg-[#1a1a1a] border-2 border-gray-200 dark:border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
+                <label class="relative flex items-center gap-3 px-4 py-3 bg-[#1a1a1a] border-2 border-gray-700 rounded-xl cursor-pointer hover:border-primary transition-all duration-300 group">
                   <input type="radio" name="advisory-type" value="not_sure" class="peer sr-only" />
                   <div class="w-5 h-5 rounded-full border-2 border-gray-300 dark:border-gray-600 peer-checked:border-primary peer-checked:bg-primary transition-all duration-300 flex items-center justify-center flex-shrink-0">
                     <div class="w-2 h-2 bg-white rounded-full opacity-0 peer-checked:opacity-100"></div>
@@ -789,7 +789,7 @@ const lang = getLangFromUrl(Astro.url);
                   <svg class="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                   </svg>
-                  <span class="text-gray-700 dark:text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
+                  <span class="text-gray-300 font-medium text-sm peer-checked:text-primary transition-colors text-left">
                     {lang === 'es' ? 'No estoy seguro' : lang === 'en' ? 'Not sure' : 'Não tenho certeza'}
                   </span>
                   <div class="absolute inset-0 bg-primary/5 rounded-xl opacity-0 peer-checked:opacity-100 transition-opacity -z-10"></div>
@@ -798,14 +798,14 @@ const lang = getLangFromUrl(Astro.url);
 
               <!-- Textarea descripción -->
               <div>
-                <label for="advisory-description" class="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                <label for="advisory-description" class="block text-sm font-semibold  mb-2">
                   {lang === 'es' ? 'Cuéntanos más sobre tu proyecto:' : lang === 'en' ? 'Tell us more about your project:' : 'Conte-nos mais sobre seu projeto:'}
                 </label>
                 <textarea
                   id="advisory-description"
                   name="description"
                   placeholder={lang === 'es' ? 'Describe brevemente tu proyecto, objetivos, y cualquier detalle relevante...' : lang === 'en' ? 'Briefly describe your project, goals, and any relevant details...' : 'Descreva brevemente seu projeto, objetivos e quaisquer detalhes relevantes...'}
-                  class="w-full px-4 py-3 h-32 border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1a1a1a] rounded-xl text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none"
+                  class="w-full px-4 py-3 h-32 border-2 border-gray-700 bg-[#1a1a1a] rounded-xl  placeholder-gray-400 dark:placeholder-gray-500 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all resize-none"
                   required
                 ></textarea>
               </div>
@@ -814,7 +814,7 @@ const lang = getLangFromUrl(Astro.url);
               <button
                 type="submit"
                 id="advisory-submit-btn"
-                class="w-full px-6 py-4 bg-gradient-to-r from-primary to-purple-600 text-white font-bold text-lg rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                class="w-full px-6 py-4 bg-gradient-to-r from-primary to-purple-600  font-bold text-lg rounded-xl transition-all duration-300 hover:shadow-xl hover:scale-[1.02] disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
                 style="font-family: 'Inter Tight', system-ui, sans-serif;"
                 disabled
               >
@@ -839,10 +839,10 @@ const lang = getLangFromUrl(Astro.url);
               <div class="lg:col-span-1">
                 <div class="bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 lg:p-8 space-y-4 sticky top-4">
                   <div class="text-4xl mb-4">🚀</div>
-                  <h3 class="text-2xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  <h3 class="text-2xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                     {lang === 'es' ? 'Potencia tu proyecto' : lang === 'en' ? 'Empower your project' : 'Potencialize seu projeto'}
                   </h3>
-                  <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+                  <p class="text-gray-300 leading-relaxed">
                     {lang === 'es'
                       ? 'Potencia tu proyecto con nuestra experiencia en diseño de sistemas escalables, mantenibles y de alto rendimiento. Nuestro equipo de arquitectos te guiará hacia las mejores prácticas y tecnologías.'
                       : lang === 'en'
@@ -874,14 +874,14 @@ const lang = getLangFromUrl(Astro.url);
             </div>
           </div>
 
-          <div class="border-t-2 border-gray-200 dark:border-gray-800"></div>
+          <div class="border-t-2 border-gray-800"></div>
 
           <!-- CTA Final -->
-          <div class="bg-gradient-to-br from-primary to-purple-600 rounded-3xl p-8 md:p-12 text-center text-white">
+          <div class="bg-gradient-to-br from-primary to-purple-600 rounded-3xl p-8 md:p-12 text-center ">
             <h2 class="text-3xl md:text-4xl font-black mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? '¿Listo para escalar tu proyecto?' : lang === 'en' ? 'Ready to scale your project?' : 'Pronto para escalar seu projeto?'}
             </h2>
-            <p class="text-xl mb-8 text-white/90">
+            <p class="text-xl mb-8 /90">
               {lang === 'es'
                 ? 'Agenda una consulta gratuita de 30 minutos'
                 : lang === 'en'
@@ -903,12 +903,12 @@ const lang = getLangFromUrl(Astro.url);
     <!-- Modales -->
     <!-- Modal Hexagonal -->
     <div id="modal-hexagonal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-8 space-y-6">
           <div class="flex items-start justify-between">
             <div class="flex items-center gap-4">
               <span class="text-5xl">🏗️</span>
-              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h3 class="text-3xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'Arquitectura Hexagonal' : lang === 'en' ? 'Hexagonal Architecture' : 'Arquitetura Hexagonal'}
               </h3>
             </div>
@@ -918,12 +918,12 @@ const lang = getLangFromUrl(Astro.url);
           </div>
 
           <div class="space-y-4">
-            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+            <p class="text-lg font-semibold ">
               {lang === 'es' ? 'Ports & Adapters' : lang === 'en' ? 'Ports & Adapters' : 'Ports & Adapters'}
             </p>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
               </p>
               <p class="text-gray-700 dark:text-gray-300">
@@ -936,7 +936,7 @@ const lang = getLangFromUrl(Astro.url);
             </div>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
               </p>
               <ul class="space-y-2 text-gray-700 dark:text-gray-300">
@@ -961,12 +961,12 @@ const lang = getLangFromUrl(Astro.url);
 
     <!-- Modal Clean Architecture -->
     <div id="modal-clean" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-8 space-y-6">
           <div class="flex items-start justify-between">
             <div class="flex items-center gap-4">
               <span class="text-5xl">🧅</span>
-              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h3 class="text-3xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'Clean Architecture' : lang === 'en' ? 'Clean Architecture' : 'Clean Architecture'}
               </h3>
             </div>
@@ -976,12 +976,12 @@ const lang = getLangFromUrl(Astro.url);
           </div>
 
           <div class="space-y-4">
-            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+            <p class="text-lg font-semibold ">
               {lang === 'es' ? 'Onion Architecture' : lang === 'en' ? 'Onion Architecture' : 'Onion Architecture'}
             </p>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
               </p>
               <p class="text-gray-700 dark:text-gray-300">
@@ -994,7 +994,7 @@ const lang = getLangFromUrl(Astro.url);
             </div>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
               </p>
               <ul class="space-y-2 text-gray-700 dark:text-gray-300">
@@ -1019,12 +1019,12 @@ const lang = getLangFromUrl(Astro.url);
 
     <!-- Modal Microservicios -->
     <div id="modal-microservices" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center p-4">
-      <div class="bg-white dark:bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+      <div class="bg-[#1a1a1a] rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
         <div class="p-8 space-y-6">
           <div class="flex items-start justify-between">
             <div class="flex items-center gap-4">
               <span class="text-5xl">🔷</span>
-              <h3 class="text-3xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+              <h3 class="text-3xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
                 {lang === 'es' ? 'Microservicios' : lang === 'en' ? 'Microservices' : 'Microserviços'}
               </h3>
             </div>
@@ -1034,12 +1034,12 @@ const lang = getLangFromUrl(Astro.url);
           </div>
 
           <div class="space-y-4">
-            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+            <p class="text-lg font-semibold ">
               {lang === 'es' ? 'Servicios independientes' : lang === 'en' ? 'Independent services' : 'Serviços independentes'}
             </p>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? '¿Para qué sirve?' : lang === 'en' ? 'What is it for?' : 'Para que serve?'}
               </p>
               <p class="text-gray-700 dark:text-gray-300">
@@ -1052,7 +1052,7 @@ const lang = getLangFromUrl(Astro.url);
             </div>
 
             <div>
-              <p class="font-semibold text-gray-900 dark:text-white mb-2">
+              <p class="font-semibold  mb-2">
                 {lang === 'es' ? 'Ideal para:' : lang === 'en' ? 'Ideal for:' : 'Ideal para:'}
               </p>
               <ul class="space-y-2 text-gray-700 dark:text-gray-300">
@@ -1214,7 +1214,7 @@ const lang = getLangFromUrl(Astro.url);
 
         // Mostrar mensaje de éxito
         const successMessage = document.createElement('div');
-        successMessage.className = 'fixed top-4 right-4 bg-green-500 text-white px-6 py-4 rounded-xl shadow-lg z-50 animate-fade-in';
+        successMessage.className = 'fixed top-4 right-4 bg-green-500  px-6 py-4 rounded-xl shadow-lg z-50 animate-fade-in';
         successMessage.textContent = t.success;
         document.body.appendChild(successMessage);
 
@@ -1232,7 +1232,7 @@ const lang = getLangFromUrl(Astro.url);
 
         // Mostrar mensaje de error
         const errorMessage = document.createElement('div');
-        errorMessage.className = 'fixed top-4 right-4 bg-red-500 text-white px-6 py-4 rounded-xl shadow-lg z-50 animate-fade-in';
+        errorMessage.className = 'fixed top-4 right-4 bg-red-500  px-6 py-4 rounded-xl shadow-lg z-50 animate-fade-in';
         errorMessage.textContent = t.error;
         document.body.appendChild(errorMessage);
 

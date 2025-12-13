@@ -11,21 +11,21 @@ const postsFromContent = await getCollection('posts');
 ---
 
 <Layout title="Blog">
-  <div class="min-h-screen bg-[#F8F8F8] dark:bg-[#0a0a0a]">
+  <div class="min-h-screen bg-[#0a0a0a]">
     <Header />
 
     <main class="overflow-hidden px-5">
       <section class="relative min-h-[70vh] flex items-center justify-center py-20">
         <div class="max-w-[1800px] mx-auto w-full">
           <div class="text-center">
-            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter text-gray-900 dark:text-white mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <h1 class="text-[clamp(3rem,12vw,12rem)] font-black leading-[0.9] tracking-tighter  mb-8" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es' ? 'MI' : lang === 'en' ? 'MY' : 'MEU'}
               <br />
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-primary via-purple-600 to-pink-600">
                 BLOG
               </span>
             </h1>
-            <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+            <p class="text-xl md:text-2xl text-gray-400 max-w-3xl mx-auto leading-relaxed" style="font-family: 'Inter Tight', system-ui, sans-serif;">
               {lang === 'es'
                 ? 'Artículos, reflexiones y experiencias sobre desarrollo y tecnología.'
                 : lang === 'en'
@@ -57,7 +57,7 @@ const postsFromContent = await getCollection('posts');
               <img
                 src="/img/mascota.png"
                 alt="Blog Mascot"
-                class="relative w-80 md:w-96 lg:w-[450px] xl:w-[500px] h-auto drop-shadow-2xl transform hover:scale-105 transition-transform duration-500"
+                class="relative w-80 md:w-96 lg:w-[450px] xl:w-[500px] h-auto drop- transform hover:scale-105 transition-transform duration-500"
               />
             </div>
 
@@ -73,14 +73,14 @@ const postsFromContent = await getCollection('posts');
                     {lang === 'es' ? 'Conocimiento' : lang === 'en' ? 'Knowledge' : 'Conhecimento'}
                   </span>
                   <br/>
-                  <span class="inline-block text-gray-900 dark:text-white">
+                  <span class="inline-block ">
                     {lang === 'es' ? 'Sin Límites' : lang === 'en' ? 'Without Limits' : 'Sem Limites'}
                   </span>
                 </blockquote>
               </div>
 
               <div class="parallax-description" data-speed="0.15">
-                <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-400 leading-relaxed max-w-3xl mx-auto">
+                <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
                   {lang === 'es'
                     ? 'Sumérgete en artículos profundos sobre desarrollo, arquitectura de software, inteligencia artificial y las tecnologías que están transformando el mundo digital.'
                     : lang === 'en'
@@ -93,15 +93,15 @@ const postsFromContent = await getCollection('posts');
               <div class="parallax-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12" data-speed="0.2">
                 <div class="text-center">
                   <div class="text-3xl md:text-4xl font-bold text-primary mb-2">100+</div>
-                  <div class="text-sm text-gray-600 dark:text-gray-400">{lang === 'es' ? 'Artículos' : lang === 'en' ? 'Articles' : 'Artigos'}</div>
+                  <div class="text-sm text-gray-400">{lang === 'es' ? 'Artículos' : lang === 'en' ? 'Articles' : 'Artigos'}</div>
                 </div>
                 <div class="text-center">
                   <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-2">50k+</div>
-                  <div class="text-sm text-gray-600 dark:text-gray-400">{lang === 'es' ? 'Lectores' : lang === 'en' ? 'Readers' : 'Leitores'}</div>
+                  <div class="text-sm text-gray-400">{lang === 'es' ? 'Lectores' : lang === 'en' ? 'Readers' : 'Leitores'}</div>
                 </div>
                 <div class="text-center">
                   <div class="text-3xl md:text-4xl font-bold text-pink-600 mb-2">10+</div>
-                  <div class="text-sm text-gray-600 dark:text-gray-400">{lang === 'es' ? 'Categorías' : lang === 'en' ? 'Categories' : 'Categorias'}</div>
+                  <div class="text-sm text-gray-400">{lang === 'es' ? 'Categorías' : lang === 'en' ? 'Categories' : 'Categorias'}</div>
                 </div>
               </div>
             </div>
@@ -115,7 +115,7 @@ const postsFromContent = await getCollection('posts');
       <div class="mb-8">
         <div class="flex flex-wrap gap-2 justify-center" id="category-filters">
           <button
-            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm"
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary  shadow-sm"
             data-category="all"
           >
             {lang === 'es' ? 'Todos' : lang === 'en' ? 'All' : 'Todos'} <span class="category-count ml-1 text-xs opacity-90"></span>
@@ -125,7 +125,7 @@ const postsFromContent = await getCollection('posts');
 
       <div id="blog-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         <div class="col-span-full text-center py-8">
-          <p class="text-gray-600 dark:text-gray-400">Cargando artículos...</p>
+          <p class="text-gray-400">Cargando artículos...</p>
         </div>
       </div>
       </section>
@@ -176,7 +176,7 @@ const postsFromContent = await getCollection('posts');
       .map(([category, count]) => {
         return `
           <button
-            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm"
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary shadow-sm"
             data-category="${category}"
           >
             ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
@@ -201,9 +201,9 @@ const postsFromContent = await getCollection('posts');
 
     document.querySelectorAll('.category-btn').forEach(btn => {
       if (btn.getAttribute('data-category') === category) {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary text-white shadow-sm';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary  shadow-sm';
       } else {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary hover:text-white shadow-sm';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary shadow-sm';
       }
     });
 
@@ -221,7 +221,7 @@ const postsFromContent = await getCollection('posts');
     if (posts.length === 0) {
       container.innerHTML = `
         <div class="col-span-full text-center py-12">
-          <p class="text-gray-600 dark:text-gray-400 text-lg">No hay artículos en esta categoría.</p>
+          <p class="text-gray-400 text-lg">No hay artículos en esta categoría.</p>
         </div>
       `;
       return;
@@ -236,7 +236,7 @@ const postsFromContent = await getCollection('posts');
       });
 
       return `
-        <article class="bg-white dark:bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700">
+        <article class="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 border border-slate-200 dark:border-slate-700">
           <div class="relative">
             ${post.coverImage ? `
               <img src="${post.coverImage}" alt="${post.title}" class="w-full h-48 object-cover" />
@@ -246,7 +246,7 @@ const postsFromContent = await getCollection('posts');
               </div>
             `}
             <div class="absolute top-4 left-4">
-              <span class="bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+              <span class="bg-primary  text-xs font-bold px-3 py-1 rounded-full">
                 ${post.category}
               </span>
             </div>
@@ -257,16 +257,16 @@ const postsFromContent = await getCollection('posts');
                 <span class="inline-block bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${tag}</span>
               `).join('')}
             </div>
-            <h2 class="text-xl font-bold text-gray-900 dark:text-white mb-2 line-clamp-2 hover:text-primary transition-colors">${post.title}</h2>
-            <p class="text-sm text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">${post.excerpt}</p>
+            <h2 class="text-xl font-bold  mb-2 line-clamp-2 hover:text-primary transition-colors">${post.title}</h2>
+            <p class="text-sm text-gray-400 mb-4 line-clamp-3">${post.excerpt}</p>
             <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
               <div class="flex items-center gap-2">
-                <span class="material-symbols-outlined text-sm">person</span>
+                <span class="material-symbols-outlined text-whitetext-sm">person</span>
                 <span>${post.author}</span>
               </div>
               <div class="flex items-center gap-3">
                 <div class="flex items-center gap-1">
-                  <span class="material-symbols-outlined text-sm">schedule</span>
+                  <span class="material-symbols-outlined text-whitetext-sm">schedule</span>
                   <span>${post.readTime}</span>
                 </div>
                 <span>${formattedDate}</span>
@@ -274,7 +274,7 @@ const postsFromContent = await getCollection('posts');
             </div>
             <a href="/blog/${post.slug}" class="inline-flex items-center gap-2 text-primary hover:gap-3 font-semibold transition-all">
               Leer más
-              <span class="material-symbols-outlined text-sm">arrow_forward</span>
+              <span class="material-symbols-outlined text-whitetext-sm">arrow_forward</span>
             </a>
           </div>
         </article>
@@ -298,7 +298,7 @@ const postsFromContent = await getCollection('posts');
       if (allPosts.length === 0) {
         container.innerHTML = `
           <div class="col-span-full text-center py-8">
-            <p class="text-gray-600 dark:text-gray-400">No hay artículos disponibles.</p>
+            <p class="text-gray-400">No hay artículos disponibles.</p>
           </div>
         `;
         return;
@@ -312,7 +312,7 @@ const postsFromContent = await getCollection('posts');
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
           <p class="text-red-500 dark:text-red-400">Error al cargar artículos.</p>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
+          <p class="text-sm text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;
     }
