@@ -100,8 +100,8 @@ const t = useTranslations(lang);
                   <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary via-purple-600 to-pink-600 opacity-20 blur-2xl scale-110 animate-pulse"></div>
                   <div class="absolute -inset-4 rounded-full border-2 border-primary/30 animate-spin-slow"></div>
 
-                  <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden  ring-4 ring-white/10 dark:ring-white/5 hover-trigger-image" data-hover-image="/img/mascota.png">
-                    <img src="/img/yusef.jpeg" alt="Yusef González" class="w-full h-full object-cover" />
+                  <div class="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden  ring-4 ring-white/10 dark:ring-white/5 hover-trigger-image" data-hover-image="/img/yusef.jpeg">
+                    <img src="/img/muneyusef.png" alt="Yusef González" class="w-full h-full object-cover" />
                   </div>
 
                   <!-- Badge flotante -->
@@ -514,15 +514,18 @@ const t = useTranslations(lang);
             <!-- Card de Redes Sociales - Derecha -->
             <div class="order-1 lg:order-2">
               <div class="bg-[#1a1a1a] rounded-3xl  p-8 md:p-12 max-h-[850px] overflow-y-auto custom-scrollbar">
-                <h3 class="text-3xl md:text-4xl lg:text-5xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                  Yusef González
+                <h3 class="text-3xl text-center md:text-4xl lg:text-5xl font-black  mb-4" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                  Soft skills y su importancia
                 </h3>
+                 <div class="relative w-64 m-auto mb-12  h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-full overflow-hidden ring-4 ring-white/10 dark:ring-white/5 hover-trigger-image" data-hover-image="/img/yusef.jpeg">
+                    <img src="/img/muneyusef.png" alt="Yusef González" class="w-full h-full object-cover" />
+                </div>
                 <p class="text-lg md:text-xl text-gray-400 mb-6 leading-relaxed">
                   {lang === 'es'
-                    ? 'Arquitecto de Software con más de 17 años de experiencia diseñando y evolucionando sistemas que generan impacto real en organizaciones y personas. En los últimos años he enfocado mi práctica en arquitecturas modernas potenciadas por Inteligencia Artificial, integrando software tradicional con machine learning, agentes inteligentes y automatización, entendiendo que la tecnología, por sí sola, representa solo una parte del éxito.'
+                    ? 'Desarrollador Fullstack con más de 17 años de experiencia diseñando y buildeando sistemas que generan impacto real en organizaciones y personas. En los últimos años he enfocado mi práctica en arquitecturas modernas potenciadas por Inteligencia Artificial, integrando software tradicional con machine learning, agentes inteligentes y automatización, entendiendo que la tecnología, por sí sola, representa solo una parte del éxito.'
                     : lang === 'en'
-                    ? 'Software Architect with over 17 years of experience designing and evolving systems that generate real impact on organizations and people. In recent years, I have focused my practice on modern architectures powered by Artificial Intelligence, integrating traditional software with machine learning, intelligent agents, and automation, understanding that technology, by itself, represents only part of success.'
-                    : 'Arquiteto de Software com mais de 17 anos de experiência projetando e evoluindo sistemas que geram impacto real em organizações e pessoas. Nos últimos anos, concentrei minha prática em arquiteturas modernas impulsionadas por Inteligência Artificial, integrando software tradicional com machine learning, agentes inteligentes e automação, entendendo que a tecnologia, por si só, representa apenas parte do sucesso.'}
+                    ? 'Fullstack developer with over 17 years of experience designing and evolving systems that generate real impact on organizations and people. In recent years, I have focused my practice on modern architectures powered by Artificial Intelligence, integrating traditional software with machine learning, intelligent agents, and automation, understanding that technology, by itself, represents only part of success.'
+                    : 'Fullstack desenvolvedor com mais de 17 anos de experiência projetando e evoluindo sistemas que geram impacto real em organizações e pessoas. Nos últimos anos, concentrei minha prática em arquiteturas modernas impulsionadas por Inteligência Artificial, integrando software tradicional com machine learning, agentes inteligentes e automação, entendendo que a tecnologia, por si só, representa apenas parte do sucesso.'}
                 </p>
                 <p class="text-base md:text-lg text-gray-400 mb-6 leading-relaxed">
                   {lang === 'es'
@@ -861,7 +864,7 @@ const t = useTranslations(lang);
                 </div>
               </div>
 
-              <div class="parallax-lifestyle-content" data-speed="0.15">
+              <div class="parallax-lifestyle-content pb-36" data-speed="0.15">
                 <div class="space-y-6">
                   <p class="mt-8 text-xl md:text-2xl text-gray-400 leading-relaxed">
                     {lang === 'es'
@@ -1039,12 +1042,7 @@ const t = useTranslations(lang);
                 </div>
               </div>
 
-              <!-- Elementos decorativos -->
-              <div class="parallax-lifestyle-decorations flex gap-4 mt-12" data-speed="0.25">
-                <div class="w-20 h-20 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float"></div>
-                <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float" style="animation-delay: 0.5s;"></div>
-                <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-orange-600 to-red-600 opacity-20 animate-float" style="animation-delay: 1s;"></div>
-              </div>
+              
             </div>
 
             <!-- Imagen del Husky con efecto parallax mejorado -->
@@ -1144,7 +1142,7 @@ const t = useTranslations(lang);
                 </div>
 
                 <!-- Disponibilidad -->
-                <div class="flex items-center gap-4 bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 rounded-2xl p-6 shadow-xl border border-green-100 dark:border-green-800/30">
+                <div class="flex items-center gap-4 from-green-900/20 to-emerald-900/20 rounded-2xl p-6 shadow-xl border border-green-800/30">
                   <div class="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
                     <span class="material-symbols-outlined text-white text-2xl">schedule</span>
                   </div>
@@ -1179,10 +1177,10 @@ const t = useTranslations(lang);
                     </label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-whitetext-gray-400">person</span>
+                        <span class="material-symbols-outlined text-gray-400">person</span>
                       </div>
                       <input
-                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none text-gray-300"
                         id="name"
                         name="name"
                         placeholder={lang === 'es' ? 'Tu nombre' : lang === 'en' ? 'Your name' : 'Seu nome'}
@@ -1199,10 +1197,10 @@ const t = useTranslations(lang);
                     </label>
                     <div class="relative">
                       <div class="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
-                        <span class="material-symbols-outlined text-whitetext-gray-400">mail</span>
+                        <span class="material-symbols-outlined text-gray-400">mail</span>
                       </div>
                       <input
-                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none"
                         id="email"
                         name="email"
                         placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
@@ -1219,10 +1217,10 @@ const t = useTranslations(lang);
                     </label>
                     <div class="relative">
                       <div class="absolute top-3 left-4 pointer-events-none">
-                        <span class="material-symbols-outlined text-whitetext-gray-400">edit_note</span>
+                        <span class="material-symbols-outlined text-gray-400">edit_note</span>
                       </div>
                       <textarea
-                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl  focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
+                        class="w-full pl-12 pr-4 py-3 bg-gray-900 border-2 border-gray-700 rounded-xl text-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all outline-none resize-none"
                         id="message"
                         name="message"
                         placeholder={lang === 'es' ? 'Escribe tu mensaje aquí...' : lang === 'en' ? 'Write your message here...' : 'Escreva sua mensagem aqui...'}
@@ -1235,7 +1233,7 @@ const t = useTranslations(lang);
                   <!-- Botón Submit -->
                   <button
                     type="submit"
-                    class="group w-full relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600  font-bold text-lg rounded-xl shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
+                    class="group w-full relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-gradient-to-r from-primary via-purple-600 to-pink-600 text-gray-300 font-bold text-lg rounded-xl shadow-xl transition-all duration-300 hover:scale-105 overflow-hidden"
                   >
                     <span class="relative z-10 flex items-center gap-3">
                       <span class="material-symbols-outlined text-white text-2xlgroup-hover:rotate-12 transition-transform">send</span>
