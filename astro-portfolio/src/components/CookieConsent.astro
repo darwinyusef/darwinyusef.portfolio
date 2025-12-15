@@ -43,70 +43,125 @@ const lang = getLangFromUrl(Astro.url);
 </div>
 
 <div id="cookie-settings-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-  <div class="bg-[#1a1a2e] rounded-lg  w-full max-w-2xl">
-    <div class="flex items-center justify-between p-6 border-b border-gray-700">
-      <h3 class="text-xl font-bold ">
-        {lang === 'es' ? 'Configuración de Cookies' : lang === 'en' ? 'Cookie Settings' : 'Configurações de Cookies'}
-      </h3>
-      <button id="close-settings-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
-        <span class="material-symbols-outlined">close</span>
+  <div class="bg-white dark:bg-[#1a1a2e] rounded-2xl w-full max-w-2xl shadow-2xl overflow-hidden">
+    <!-- Header -->
+    <div class="flex items-center justify-between p-6 border-b border-gray-200 dark:border-gray-700 bg-gradient-to-r from-primary/10 to-purple-600/10">
+      <div class="flex items-center gap-3">
+        <span class="material-symbols-outlined text-primary text-3xl">cookie</span>
+        <h3 class="text-2xl font-bold text-gray-900 dark:text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+          {lang === 'es' ? 'Preferencias de Cookies' : lang === 'en' ? 'Cookie Preferences' : 'Preferências de Cookies'}
+        </h3>
+      </div>
+      <button id="close-settings-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-colors">
+        <span class="material-symbols-outlined text-2xl">close</span>
       </button>
     </div>
 
-    <div class="p-6 space-y-4">
-      <div class="flex items-start justify-between">
-        <div class="flex-1">
-          <h4 class="font-semibold  mb-1">
-            {lang === 'es' ? 'Cookies Necesarias' : lang === 'en' ? 'Necessary Cookies' : 'Cookies Necessários'}
-          </h4>
-          <p class="text-sm text-gray-400">
-            {lang === 'es'
-              ? 'Estas cookies son esenciales para el funcionamiento del sitio web.'
-              : lang === 'en'
-              ? 'These cookies are essential for the website to function properly.'
-              : 'Estes cookies são essenciais para o funcionamento do site.'}
-          </p>
+    <!-- Content -->
+    <div class="p-6 space-y-6 max-h-[60vh] overflow-y-auto">
+      <!-- Cookies Esenciales -->
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-green-600 dark:text-green-400">verified_user</span>
+              <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                {lang === 'es' ? 'Cookies Esenciales' : lang === 'en' ? 'Essential Cookies' : 'Cookies Essenciais'}
+              </h4>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+              {lang === 'es'
+                ? 'Necesarias para el funcionamiento básico del sitio. No se pueden desactivar.'
+                : lang === 'en'
+                ? 'Required for basic site functionality. Cannot be disabled.'
+                : 'Necessários para o funcionamento básico do site. Não podem ser desativados.'}
+            </p>
+          </div>
+          <div class="flex-shrink-0">
+            <div class="relative inline-block w-14 h-8 bg-green-600 rounded-full cursor-not-allowed opacity-60">
+              <div class="absolute top-1 right-1 bg-white w-6 h-6 rounded-full shadow-md"></div>
+            </div>
+            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1 text-center">{lang === 'es' ? 'Siempre activas' : lang === 'en' ? 'Always active' : 'Sempre ativas'}</p>
+          </div>
         </div>
-        <input type="checkbox" checked disabled class="mt-1 w-12 h-6 rounded-full bg-primary cursor-not-allowed" />
       </div>
 
-      <div class="flex items-start justify-between">
-        <div class="flex-1">
-          <h4 class="font-semibold  mb-1">
-            {lang === 'es' ? 'Cookies Analíticas' : lang === 'en' ? 'Analytics Cookies' : 'Cookies Analíticos'}
-          </h4>
-          <p class="text-sm text-gray-400">
-            {lang === 'es'
-              ? 'Nos ayudan a entender cómo interactúas con el sitio web.'
-              : lang === 'en'
-              ? 'Help us understand how you interact with the website.'
-              : 'Nos ajudam a entender como você interage com o site.'}
-          </p>
+      <!-- Cookies de Análisis -->
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-blue-600 dark:text-blue-400">analytics</span>
+              <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                {lang === 'es' ? 'Cookies de Análisis' : lang === 'en' ? 'Analytics Cookies' : 'Cookies de Análise'}
+              </h4>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              {lang === 'es'
+                ? 'Ayudan a mejorar el sitio mediante el análisis de cómo los visitantes interactúan con él.'
+                : lang === 'en'
+                ? 'Help improve the site by analyzing how visitors interact with it.'
+                : 'Ajudam a melhorar o site analisando como os visitantes interagem com ele.'}
+            </p>
+            <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <span class="material-symbols-outlined text-sm">info</span>
+              <span>{lang === 'es' ? 'Google Analytics, métricas de uso' : lang === 'en' ? 'Google Analytics, usage metrics' : 'Google Analytics, métricas de uso'}</span>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <label class="relative inline-block w-14 h-8 cursor-pointer">
+              <input type="checkbox" id="analytics-cookies" class="sr-only peer" />
+              <div class="w-14 h-8 bg-gray-300 dark:bg-gray-600 rounded-full peer-checked:bg-primary transition-colors"></div>
+              <div class="absolute top-1 left-1 bg-white w-6 h-6 rounded-full shadow-md transition-transform peer-checked:translate-x-6"></div>
+            </label>
+          </div>
         </div>
-        <input type="checkbox" id="analytics-cookies" class="mt-1 w-12 h-6 rounded-full" />
       </div>
 
-      <div class="flex items-start justify-between">
-        <div class="flex-1">
-          <h4 class="font-semibold  mb-1">
-            {lang === 'es' ? 'Cookies de Marketing' : lang === 'en' ? 'Marketing Cookies' : 'Cookies de Marketing'}
-          </h4>
-          <p class="text-sm text-gray-400">
-            {lang === 'es'
-              ? 'Se utilizan para personalizar la publicidad que ves.'
-              : lang === 'en'
-              ? 'Used to personalize the advertising you see.'
-              : 'Usados ​​para personalizar a publicidade que você vê.'}
-          </p>
+      <!-- Cookies de Marketing -->
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5 border-2 border-gray-200 dark:border-gray-700 hover:border-primary/50 dark:hover:border-primary/50 transition-colors">
+        <div class="flex items-start justify-between gap-4">
+          <div class="flex-1">
+            <div class="flex items-center gap-2 mb-2">
+              <span class="material-symbols-outlined text-purple-600 dark:text-purple-400">campaign</span>
+              <h4 class="font-bold text-lg text-gray-900 dark:text-white">
+                {lang === 'es' ? 'Cookies de Marketing' : lang === 'en' ? 'Marketing Cookies' : 'Cookies de Marketing'}
+              </h4>
+            </div>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-3">
+              {lang === 'es'
+                ? 'Se utilizan para rastrear visitantes y mostrar anuncios relevantes y personalizados.'
+                : lang === 'en'
+                ? 'Used to track visitors and display relevant and personalized ads.'
+                : 'Usados para rastrear visitantes e exibir anúncios relevantes e personalizados.'}
+            </p>
+            <div class="flex items-center gap-2 text-xs text-gray-500 dark:text-gray-400">
+              <span class="material-symbols-outlined text-sm">info</span>
+              <span>{lang === 'es' ? 'Redes sociales, publicidad dirigida' : lang === 'en' ? 'Social media, targeted advertising' : 'Redes sociais, publicidade direcionada'}</span>
+            </div>
+          </div>
+          <div class="flex-shrink-0">
+            <label class="relative inline-block w-14 h-8 cursor-pointer">
+              <input type="checkbox" id="marketing-cookies" class="sr-only peer" />
+              <div class="w-14 h-8 bg-gray-300 dark:bg-gray-600 rounded-full peer-checked:bg-primary transition-colors"></div>
+              <div class="absolute top-1 left-1 bg-white w-6 h-6 rounded-full shadow-md transition-transform peer-checked:translate-x-6"></div>
+            </label>
+          </div>
         </div>
-        <input type="checkbox" id="marketing-cookies" class="mt-1 w-12 h-6 rounded-full" />
       </div>
     </div>
 
-    <div class="flex gap-3 p-6 border-t border-gray-700">
+    <!-- Footer -->
+    <div class="flex gap-3 p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/30">
+      <button
+        id="reject-all-btn"
+        class="flex-1 bg-white dark:bg-gray-700 text-gray-900 dark:text-white py-3 px-6 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-600 transition-colors font-semibold border-2 border-gray-300 dark:border-gray-600"
+      >
+        {lang === 'es' ? 'Rechazar Todas' : lang === 'en' ? 'Reject All' : 'Rejeitar Todas'}
+      </button>
       <button
         id="save-settings-btn"
-        class="flex-1 bg-primary  py-2 px-4 rounded-lg hover:opacity-90 transition-opacity font-medium"
+        class="flex-1 bg-gradient-to-r from-primary to-purple-600 text-white py-3 px-6 rounded-xl hover:opacity-90 transition-opacity font-semibold shadow-lg"
       >
         {lang === 'es' ? 'Guardar Preferencias' : lang === 'en' ? 'Save Preferences' : 'Salvar Preferências'}
       </button>
@@ -114,19 +169,56 @@ const lang = getLangFromUrl(Astro.url);
   </div>
 </div>
 
+<style>
+  /* Custom scrollbar for modal */
+  .max-h-\[60vh\]::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .max-h-\[60vh\]::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .max-h-\[60vh\]::-webkit-scrollbar-thumb {
+    background: linear-gradient(180deg, #3b82f6 0%, #8b5cf6 100%);
+    border-radius: 10px;
+  }
+
+  .max-h-\[60vh\]::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(180deg, #2563eb 0%, #7c3aed 100%);
+  }
+</style>
+
 <script>
   function getCookieConsent() {
-    return localStorage.getItem('cookieConsent');
+    return sessionStorage.getItem('cookieConsent');
   }
 
   function setCookieConsent(value: string) {
-    localStorage.setItem('cookieConsent', value);
-    localStorage.setItem('cookieConsentDate', new Date().toISOString());
+    sessionStorage.setItem('cookieConsent', value);
+    sessionStorage.setItem('cookieConsentDate', new Date().toISOString());
   }
 
   function setCookiePreferences(analytics: boolean, marketing: boolean) {
-    localStorage.setItem('analyticsConsent', analytics.toString());
-    localStorage.setItem('marketingConsent', marketing.toString());
+    sessionStorage.setItem('analyticsConsent', analytics.toString());
+    sessionStorage.setItem('marketingConsent', marketing.toString());
+
+    // Aplicar las preferencias inmediatamente
+    if (analytics) {
+      console.log('✓ Cookies de análisis activadas');
+      // Aquí se puede inicializar Google Analytics u otras herramientas
+    } else {
+      console.log('✗ Cookies de análisis desactivadas');
+      // Aquí se puede desactivar Google Analytics
+    }
+
+    if (marketing) {
+      console.log('✓ Cookies de marketing activadas');
+      // Aquí se pueden activar scripts de marketing
+    } else {
+      console.log('✗ Cookies de marketing desactivadas');
+      // Aquí se pueden desactivar scripts de marketing
+    }
   }
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -137,6 +229,7 @@ const lang = getLangFromUrl(Astro.url);
     const settingsBtn = document.getElementById('cookie-settings-btn');
     const closeSettingsBtn = document.getElementById('close-settings-btn');
     const saveSettingsBtn = document.getElementById('save-settings-btn');
+    const rejectAllBtn = document.getElementById('reject-all-btn');
 
     const consent = getCookieConsent();
 
@@ -156,20 +249,54 @@ const lang = getLangFromUrl(Astro.url);
       cookieConsent?.classList.add('hidden');
     });
 
+    // Cargar preferencias actuales desde sessionStorage
+    function loadCurrentPreferences() {
+      const analyticsConsent = sessionStorage.getItem('analyticsConsent') === 'true';
+      const marketingConsent = sessionStorage.getItem('marketingConsent') === 'true';
+      const analyticsCheckbox = document.getElementById('analytics-cookies') as HTMLInputElement;
+      const marketingCheckbox = document.getElementById('marketing-cookies') as HTMLInputElement;
+
+      if (analyticsCheckbox) analyticsCheckbox.checked = analyticsConsent;
+      if (marketingCheckbox) marketingCheckbox.checked = marketingConsent;
+    }
+
+    // Event listeners para cambios inmediatos en los toggles
+    const analyticsCheckbox = document.getElementById('analytics-cookies') as HTMLInputElement;
+    const marketingCheckbox = document.getElementById('marketing-cookies') as HTMLInputElement;
+
+    analyticsCheckbox?.addEventListener('change', (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      const marketingChecked = marketingCheckbox?.checked || false;
+      setCookiePreferences(isChecked, marketingChecked);
+    });
+
+    marketingCheckbox?.addEventListener('change', (e) => {
+      const isChecked = (e.target as HTMLInputElement).checked;
+      const analyticsChecked = analyticsCheckbox?.checked || false;
+      setCookiePreferences(analyticsChecked, isChecked);
+    });
+
     settingsBtn?.addEventListener('click', () => {
       cookieSettingsModal?.classList.remove('hidden');
+      // Cargar preferencias actuales al abrir el modal
+      loadCurrentPreferences();
     });
 
     closeSettingsBtn?.addEventListener('click', () => {
       cookieSettingsModal?.classList.add('hidden');
     });
 
-    saveSettingsBtn?.addEventListener('click', () => {
-      const analytics = (document.getElementById('analytics-cookies') as HTMLInputElement)?.checked || false;
-      const marketing = (document.getElementById('marketing-cookies') as HTMLInputElement)?.checked || false;
+    rejectAllBtn?.addEventListener('click', () => {
+      setCookieConsent('rejected');
+      setCookiePreferences(false, false);
+      cookieConsent?.classList.add('hidden');
+      cookieSettingsModal?.classList.add('hidden');
+    });
 
+    saveSettingsBtn?.addEventListener('click', () => {
+      // Las preferencias ya se guardaron automáticamente al cambiar los toggles
+      // Solo necesitamos marcar el consentimiento como personalizado y cerrar el modal
       setCookieConsent('customized');
-      setCookiePreferences(analytics, marketing);
 
       cookieConsent?.classList.add('hidden');
       cookieSettingsModal?.classList.add('hidden');

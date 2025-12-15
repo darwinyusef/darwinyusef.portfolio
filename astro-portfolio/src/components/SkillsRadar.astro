@@ -279,8 +279,6 @@ const { lang = 'es' } = Astro.props;
 </div>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-
   interface Skill {
     id: number;
     name: string;
@@ -469,7 +467,10 @@ const { lang = 'es' } = Astro.props;
 
   async function loadSkillsRadar() {
     try {
-      const response = await fetch(`${backendUrl}/api/v1/skills`);
+      // Intentar cargar desde GitHub primero
+      const githubUrl = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/skills_radar.json';
+      const response = await fetch(githubUrl);
+
       if (!response.ok) throw new Error('Failed to load skills');
 
       const skills: Skill[] = await response.json();

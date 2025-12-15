@@ -152,43 +152,6 @@ const lang = getLangFromUrl(Astro.url);
             </label>
           </div>
 
-          <!-- Preferencias de Cookies -->
-          <div class="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 rounded-xl p-6 border border-blue-200 dark:border-blue-800">
-            <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-600 text-2xl">cookie</span>
-              <h3 class="text-lg font-bold ">Preferencias de Cookies</h3>
-            </div>
-            <div class="space-y-3">
-              <label class="flex items-center justify-between cursor-pointer">
-                <div>
-                  <div class="font-semibold ">Cookies Esenciales</div>
-                  <div class="text-sm text-gray-400">Necesarias para el funcionamiento</div>
-                </div>
-                <input type="checkbox" checked disabled class="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary">
-              </label>
-              <label class="flex items-center justify-between cursor-pointer">
-                <div>
-                  <div class="font-semibold ">Cookies de Análisis</div>
-                  <div class="text-sm text-gray-400">Ayudan a mejorar el sitio</div>
-                </div>
-                <div class="relative">
-                  <input type="checkbox" id="analytics-cookies-toggle" class="sr-only peer">
-                  <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-                </div>
-              </label>
-              <label class="flex items-center justify-between cursor-pointer">
-                <div>
-                  <div class="font-semibold ">Cookies de Marketing</div>
-                  <div class="text-sm text-gray-400">Para personalización</div>
-                </div>
-                <div class="relative">
-                  <input type="checkbox" id="marketing-cookies-toggle" class="sr-only peer">
-                  <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
-                </div>
-              </label>
-            </div>
-          </div>
-
           <!-- Botones de Acción -->
           <div class="flex gap-3">
             <button id="reset-accessibility" class="flex-1 px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-300 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
@@ -419,8 +382,6 @@ const lang = getLangFromUrl(Astro.url);
     const reduceMotionToggle = document.getElementById('reduce-motion-toggle') as HTMLInputElement;
     const lineHeightToggle = document.getElementById('line-height-toggle') as HTMLInputElement;
     const largeCursorToggle = document.getElementById('large-cursor-toggle') as HTMLInputElement;
-    const analyticsCookiesToggle = document.getElementById('analytics-cookies-toggle') as HTMLInputElement;
-    const marketingCookiesToggle = document.getElementById('marketing-cookies-toggle') as HTMLInputElement;
 
     if (!modal || !openBtn) return;
 
@@ -438,8 +399,6 @@ const lang = getLangFromUrl(Astro.url);
         if (reduceMotionToggle) reduceMotionToggle.checked = prefs.reduceMotion || false;
         if (lineHeightToggle) lineHeightToggle.checked = prefs.lineHeight || false;
         if (largeCursorToggle) largeCursorToggle.checked = prefs.largeCursor || false;
-        if (analyticsCookiesToggle) analyticsCookiesToggle.checked = prefs.analyticsCookies !== false;
-        if (marketingCookiesToggle) marketingCookiesToggle.checked = prefs.marketingCookies || false;
 
         applyPreferences();
       }
@@ -538,8 +497,6 @@ const lang = getLangFromUrl(Astro.url);
         reduceMotion: reduceMotionToggle?.checked || false,
         lineHeight: lineHeightToggle?.checked || false,
         largeCursor: largeCursorToggle?.checked || false,
-        analyticsCookies: analyticsCookiesToggle?.checked || false,
-        marketingCookies: marketingCookiesToggle?.checked || false,
       };
 
       localStorage.setItem('accessibility-preferences', JSON.stringify(preferences));
@@ -565,8 +522,6 @@ const lang = getLangFromUrl(Astro.url);
       if (reduceMotionToggle) reduceMotionToggle.checked = false;
       if (lineHeightToggle) lineHeightToggle.checked = false;
       if (largeCursorToggle) largeCursorToggle.checked = false;
-      if (analyticsCookiesToggle) analyticsCookiesToggle.checked = true;
-      if (marketingCookiesToggle) marketingCookiesToggle.checked = false;
 
       applyPreferences();
       localStorage.removeItem('accessibility-preferences');

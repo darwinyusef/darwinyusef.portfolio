@@ -44,14 +44,14 @@ const t = useTranslations(lang);
         <div class="bg-[#1a1a1a]/80 backdrop-blur-xl p-1.5 rounded-2xl inline-flex gap-2  border border-gray-800">
           <button
             id="tab-languages"
-            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  shadow-lg hover:scale-105"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 bg-gradient-to-r from-primary to-purple-600 text-white shadow-lg hover:scale-105"
             style="font-family: 'Inter Tight', system-ui, sans-serif;"
           >
             {lang === 'es' ? 'Tecnologías' : lang === 'en' ? 'Technologies' : 'Tecnologias'}
           </button>
           <button
             id="tab-experience"
-            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:scale-105"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:scale-105"
             style="font-family: 'Inter Tight', system-ui, sans-serif;"
           >
             {lang === 'es' ? 'Experiencia' : lang === 'en' ? 'Experience' : 'Experiência'}
@@ -120,17 +120,23 @@ const t = useTranslations(lang);
     const experienceContent = document.getElementById('experience-content');
 
     if (tab === 'languages') {
-      languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
+      // Active state for languages tab
+      languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
       languagesTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
-      experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
+      // Inactive state for experience tab
+      experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
       experienceTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      // Show/hide content
       languagesContent?.classList.remove('hidden');
       experienceContent?.classList.add('hidden');
     } else {
-      experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
+      // Active state for experience tab
+      experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
       experienceTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
-      languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', '', 'shadow-lg');
+      // Inactive state for languages tab
+      languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
       languagesTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      // Show/hide content
       experienceContent?.classList.remove('hidden');
       languagesContent?.classList.add('hidden');
     }

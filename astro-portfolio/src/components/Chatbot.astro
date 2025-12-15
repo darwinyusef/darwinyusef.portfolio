@@ -61,8 +61,8 @@ const t = useTranslations(lang);
 </div>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-  let sessionId = crypto.randomUUID();
+  // Historial de conversación
+  let conversationHistory: Array<{role: string, content: string}> = [];
 
   function addMessage(content: string, isUser: boolean) {
     const messagesContainer = document.getElementById('chat-messages');
@@ -83,6 +83,8 @@ const t = useTranslations(lang);
           <span class="material-symbols-outlined text-whitetext-gray-300 text-sm">person</span>
         </div>
       `;
+      // Agregar al historial
+      conversationHistory.push({ role: 'user', content: content });
     } else {
       messageDiv.innerHTML = `
         <div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center flex-shrink-0">
@@ -90,10 +92,12 @@ const t = useTranslations(lang);
         </div>
         <div class="flex-1">
           <div class="bg-gray-100 dark:bg-gray-800 rounded-lg p-3">
-            <p class="text-sm  whitespace-pre-wrap">${content}</p>
+            <div class="text-sm  chatbot-response">${content}</div>
           </div>
         </div>
       `;
+      // Agregar al historial
+      conversationHistory.push({ role: 'assistant', content: content });
     }
 
     messagesContainer.appendChild(messageDiv);
@@ -167,17 +171,14 @@ const t = useTranslations(lang);
         addLoadingMessage();
 
         try {
-          const response = await fetch(`${backendUrl}/api/v1/chatbot/ask`, {
+          const response = await fetch('/api/chat-assistant.json', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
               question: question,
-              session_id: sessionId,
-              course: 'general',
-              topic: null,
-              level: 'intermediate'
+              conversationHistory: conversationHistory
             }),
           });
 
@@ -185,15 +186,54 @@ const t = useTranslations(lang);
 
           if (response.ok) {
             const data = await response.json();
-            addMessage(data.respuestaIA || data.respuestaAgent || 'No pude procesar tu pregunta.', false);
+            addMessage(data.response || 'No pude procesar tu pregunta.', false);
           } else {
+            const errorData = await response.json().catch(() => ({}));
             addMessage('Lo siento, hubo un error al procesar tu pregunta. Por favor intenta de nuevo.', false);
+            console.error('Error del servidor:', errorData);
           }
         } catch (error) {
           removeLoadingMessage();
-          addMessage('Error de conexión. Por favor verifica que el backend esté funcionando.', false);
+          addMessage('Error de conexión. Por favor verifica tu conexión a internet.', false);
+          console.error('Error de red:', error);
         }
       });
     }
   });
 </script>
+
+<style>
+  /* Estilos para las respuestas HTML del chatbot */
+  :global(.chatbot-response p) {
+    margin-bottom: 0.75rem;
+  }
+
+  :global(.chatbot-response p:last-child) {
+    margin-bottom: 0;
+  }
+
+  :global(.chatbot-response strong) {
+    font-weight: 600;
+    color: #3b82f6;
+  }
+
+  :global(.chatbot-response ul) {
+    list-style: disc;
+    margin-left: 1.25rem;
+    margin-bottom: 0.75rem;
+  }
+
+  :global(.chatbot-response li) {
+    margin-bottom: 0.5rem;
+  }
+
+  :global(.chatbot-response a) {
+    color: #3b82f6;
+    text-decoration: underline;
+    transition: color 0.2s;
+  }
+
+  :global(.chatbot-response a:hover) {
+    color: #2563eb;
+  }
+</style>
