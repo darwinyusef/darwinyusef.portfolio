@@ -160,7 +160,6 @@ const lang = getLangFromUrl(Astro.url);
 </Layout>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
   let selectedRating = 5;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -194,23 +193,16 @@ const lang = getLangFromUrl(Astro.url);
 
       const formData = new FormData(form);
       const data = {
-        entity_type: 'portfolio',
-        entity_id: 1,
-        interaction_type: 'testimonial',
-        content: formData.get('content'),
-        metadata: {
-          name: formData.get('name'),
-          role: formData.get('role'),
-          company: formData.get('company'),
-          email: formData.get('email'),
-          rating: selectedRating,
-          is_active: false,
-          date: new Date().toISOString()
-        }
+        name: formData.get('name') as string,
+        role: formData.get('role') as string,
+        company: formData.get('company') as string,
+        email: formData.get('email') as string,
+        content: formData.get('content') as string,
+        rating: selectedRating
       };
 
       try {
-        const response = await fetch(`${backendUrl}/api/v1/interaction`, {
+        const response = await fetch('/api/testimonial.json', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

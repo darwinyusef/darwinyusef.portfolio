@@ -26,8 +26,6 @@ const lang = getLangFromUrl(Astro.url);
 </div>
 
 <script>
-  const backendUrl = 'http://localhost:8000';
-
   interface Event {
     id: number;
     title: string;
@@ -42,7 +40,9 @@ const lang = getLangFromUrl(Astro.url);
     if (!container) return;
 
     try {
-      const response = await fetch(`${backendUrl}/api/v1/activities?upcoming=true&limit=3`);
+      // Cargar desde GitHub
+      const githubUrl = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/events.json';
+      const response = await fetch(githubUrl);
 
       let events: Event[] = [];
 

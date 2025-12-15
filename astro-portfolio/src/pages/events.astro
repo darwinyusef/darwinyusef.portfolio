@@ -6,122 +6,6 @@ import { getLangFromUrl, useTranslations } from '../i18n/utils';
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Event data structure
-const events = [
-  {
-    city: "Madrid",
-    date: "Diciembre 15, 2025",
-    country: "Hola",
-    title: "Tech Summit 2025: Arquitectura Empresarial y Transformación Digital",
-    venue: "Palacio de Congresos de Madrid",
-    ticketUrl: "https://example.com/tickets",
-    region: "europa",
-    featured: true,
-    description: "Únete al evento tecnológico más importante del año donde exploraremos las últimas tendencias en arquitectura empresarial, frameworks como TOGAF, migración a microservicios cloud-native, estrategias de transformación digital, y casos de éxito de empresas Fortune 500. Con speakers internacionales, workshops prácticos, networking con CTOs y arquitectos de soluciones de las principales empresas tecnológicas de Europa y América Latina."
-  },
-  {
-    city: "Buenos Aires",
-    date: "Diciembre 20, 2025",
-    country: "Argentina",
-    title: "AI & ML en Producción: De la Experimentación al Despliegue Escalable",
-    venue: "Buenos Aires Tech Park",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica",
-    featured: true,
-    description: "Conferencia intensiva de 3 días enfocada en llevar modelos de IA generativa a producción. Aprende técnicas avanzadas de fine-tuning con Hugging Face, implementación de RAG (Retrieval Augmented Generation), optimización de modelos con quantización, deployment en AWS/Azure/GCP, monitoreo en tiempo real, estrategias de reducción de costos, evaluación de LLMs, prompt engineering empresarial, y gobernanza de IA. Incluye laboratorios hands-on y certificado de participación."
-  },
-  {
-    city: "Bogotá",
-    date: "Enero 15, 2026",
-    country: "Colombia",
-    title: "Workshop: Full Stack Development con React & Node.js",
-    venue: "Centro de Innovación Digital",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Madrid",
-    date: "Febrero 10, 2026",
-    country: "España",
-    title: "Conferencia: El Futuro del Desarrollo Web",
-    venue: "Tech Hub Madrid",
-    ticketUrl: "https://example.com/tickets",
-    region: "europa"
-  },
-  {
-    city: "São Paulo",
-    date: "Marzo 5, 2026",
-    country: "Brasil",
-    title: "Meetup: JavaScript Moderno y TypeScript",
-    venue: "Campus São Paulo",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Ciudad de México",
-    date: "Marzo 22, 2026",
-    country: "México",
-    title: "Taller: Arquitectura de Microservicios",
-    venue: "Innovation Center CDMX",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Barcelona",
-    date: "Abril 18, 2026",
-    country: "España",
-    title: "Summit: DevOps & Cloud Computing",
-    venue: "Barcelona Tech Park",
-    ticketUrl: "https://example.com/tickets",
-    region: "europa"
-  },
-  {
-    city: "Lima",
-    date: "Mayo 8, 2026",
-    country: "Perú",
-    title: "Webinar: AI & Machine Learning para Desarrolladores",
-    venue: "Online & Presencial",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Buenos Aires",
-    date: "Mayo 28, 2026",
-    country: "Argentina",
-    title: "Hackathon: Construye tu Startup en 48 Horas",
-    venue: "BA Innovation Hub",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Lisboa",
-    date: "Junio 12, 2026",
-    country: "Portugal",
-    title: "Conferencia: Web3 y Blockchain para Todos",
-    venue: "Web Summit Venue",
-    ticketUrl: "https://example.com/tickets",
-    region: "europa"
-  },
-  {
-    city: "Santiago",
-    date: "Julio 3, 2026",
-    country: "Chile",
-    title: "Workshop: Performance Optimization & Best Practices",
-    venue: "Digital Hub Santiago",
-    ticketUrl: "https://example.com/tickets",
-    region: "latinoamerica"
-  },
-  {
-    city: "Online",
-    date: "Agosto 15, 2026",
-    country: "Global",
-    title: "Masterclass: De Junior a Senior Developer",
-    venue: "Plataforma Virtual",
-    ticketUrl: "https://example.com/tickets",
-    region: "online"
-  }
-];
-
 const regions = [
   { id: "all", name: lang === 'es' ? 'Todas las Regiones' : lang === 'en' ? 'All Regions' : 'Todas as Regiões' },
   { id: "latinoamerica", name: lang === 'es' ? 'Latinoamérica' : lang === 'en' ? 'Latin America' : 'América Latina' },
@@ -170,69 +54,14 @@ const regions = [
             </span>
           </div>
 
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {events.filter(event => event.featured).map((event) => (
-              <article class="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl  overflow-hidden hover:shadow-purple-500/30 transition-all duration-500 hover:-translate-y-2 border-2 border-purple-900/50 relative group">
-
-                <!-- Featured Badge -->
-                <div class="absolute top-4 left-4 z-10">
-                  <div class="flex items-center gap-2 bg-gradient-to-r from-red-600 to-pink-600  px-4 py-2 rounded-full shadow-lg font-bold text-sm">
-                    <span class="material-symbols-outlined text-whitetext-base animate-pulse">fiber_new</span>
-                    {lang === 'es' ? 'DESTACADO' : lang === 'en' ? 'FEATURED' : 'DESTAQUE'}
-                  </div>
-                </div>
-
-                <!-- Header con Gradiente -->
-                <div class="bg-gradient-to-br from-primary to-purple-600 p-8  relative overflow-hidden h-48">
-                  <div class="absolute top-0 right-0 w-40 h-40  rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
-                  <div class="absolute bottom-0 left-0 w-32 h-32  rounded-full -ml-16 -mb-16 group-hover:scale-150 transition-transform duration-700"></div>
-
-                  <div class="relative z-10 h-full flex flex-col justify-between">
-                    <div>
-
-                      <h2 class="mt-16 text-4xl font-black mb-2 text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                        {event.city}
-                      </h2>
-                    </div>
-                    <div class="flex items-center gap-3">
-                      <span class="material-symbols-outlined">calendar_today</span>
-                      <span class="text-lg font-bold">{event.date}</span>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Content -->
-                <div class="p-6">
-                  <h3 class="font-bold text-2xl  mb-4 leading-tight hover:text-primary transition-colors">
-                    {event.title}
-                  </h3>
-
-                  <!-- Full Description -->
-                  <p class="text-base text-gray-300 mb-6 leading-relaxed">
-                    {event.description}
-                  </p>
-
-                  <!-- Venue -->
-                  <div class="flex items-center gap-3 text-sm text-gray-400 mb-6 bg-purple-900/30 px-4 py-3 rounded-lg">
-                    <span class="material-symbols-outlined text-whitetext-primary">place</span>
-                    <span class="font-semibold">{event.venue}</span>
-                  </div>
-
-                  <!-- CTA Button -->
-                  <a
-                    href={event.ticketUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-primary to-purple-600  rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group"
-                    style="font-family: 'Inter Tight', system-ui, sans-serif;"
-                  >
-                    <span>{lang === 'es' ? 'Registrarse Ahora' : lang === 'en' ? 'Register Now' : 'Registrar Agora'}</span>
-                    <span class="material-symbols-outlined text-whitegroup-hover:translate-x-1 transition-transform">arrow_forward</span>
-                  </a>
-                </div>
-              </article>
-            ))}
+          <div class="grid grid-cols-1 lg:grid-cols-2 gap-8" id="featured-events-container">
+            <!-- Featured events will be loaded here dynamically -->
+            <div class="col-span-full text-center py-8">
+              <p class="text-gray-400">{lang === 'es' ? 'Cargando eventos destacados...' : lang === 'en' ? 'Loading featured events...' : 'Carregando eventos destacados...'}</p>
+            </div>
           </div>
+        </div>
+
         </div>
 
         <!-- Photo Gallery Carousel Section -->
@@ -454,69 +283,10 @@ const regions = [
       <section class="py-20">
         <div class="max-w-[1400px] mx-auto">
           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="events-container">
-            {events.filter(event => !event.featured).map((event, index) => (
-              <article
-                class="event-item group bg-[#1a1a1a] rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-hover-target"
-                data-region={event.region}
-                data-cursor-text={lang === 'es' ? 'Ver detalles' : lang === 'en' ? 'View details' : 'Ver detalhes'}
-                style={`animation-delay: ${index * 50}ms;`}
-              >
-                <!-- Header con Gradiente -->
-                <div class="bg-gradient-to-br from-primary to-purple-600 p-6  relative overflow-hidden">
-                  <div class="absolute top-0 right-0 w-32 h-32  rounded-full -mr-16 -mt-16"></div>
-                  <div class="absolute bottom-0 left-0 w-24 h-24  rounded-full -ml-12 -mb-12"></div>
-
-                  <div class="relative z-10 flex items-start justify-between">
-                    <div>
-                      <div class="text-sm font-semibold uppercase mb-2 opacity-90">
-                        {event.country}
-                      </div>
-                      <h2 class="text-3xl font-black" style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                        {event.city}
-                      </h2>
-                    </div>
-                    <div class="text-right">
-                      <div class="text-4xl font-black">{event.date.split(' ')[1]}</div>
-                      <div class="text-sm uppercase opacity-90">{event.date.split(' ')[0]}</div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Content -->
-                <div class="p-6">
-                  <h3 class="text-xl font-bold  mb-4 leading-tight min-h-[3.5rem]">
-                    {event.title}
-                  </h3>
-
-                  <div class="space-y-3 mb-6">
-                    <div class="flex items-center gap-3 text-sm text-gray-400">
-                      <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-                      </svg>
-                      <span>{event.date}</span>
-                    </div>
-
-                    <div class="flex items-center gap-3 text-sm text-gray-400">
-                      <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                      </svg>
-                      <span>{event.venue}</span>
-                    </div>
-                  </div>
-
-                  <!-- CTA Button -->
-                  <a
-                    href={event.ticketUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="block w-full text-center px-6 py-4 bg-gradient-to-r from-primary to-purple-600  rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
-                    style="font-family: 'Inter Tight', system-ui, sans-serif;"
-                  >
-                    {lang === 'es' ? 'Registrarse' : lang === 'en' ? 'Register' : 'Registrar-se'}
-                  </a>
-                </div>
-              </article>
-            ))}
+            <!-- Events will be loaded here dynamically -->
+            <div class="col-span-full text-center py-8">
+              <p class="text-gray-400">{lang === 'es' ? 'Cargando eventos...' : lang === 'en' ? 'Loading events...' : 'Carregando eventos...'}</p>
+            </div>
           </div>
 
           <!-- No Results Message -->
@@ -543,20 +313,27 @@ const regions = [
                   ? 'Subscribe and receive notifications about new events and workshops'
                   : 'Inscreva-se e receba notificações sobre novos eventos e workshops'}
               </p>
-              <form class="flex flex-col sm:flex-row gap-4">
+              <form class="flex flex-col sm:flex-row gap-4" id="newsletter-form">
                 <input
                   type="email"
+                  id="newsletter-email"
+                  name="email"
                   placeholder={lang === 'es' ? 'tu@email.com' : lang === 'en' ? 'your@email.com' : 'seu@email.com'}
-                  class="flex-1 px-6 py-4 rounded-2xl border-2 border-gray-700 bg-[#0a0a0a] focus:outline-none focus:border-primary text-lg transition-colors"
+                  class="flex-1 px-6 py-4 rounded-2xl border-2 border-gray-700 bg-[#0a0a0a] text-white focus:outline-none focus:border-primary text-lg transition-colors"
+                  required
                 />
                 <button
                   type="submit"
-                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600  rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 hover:shadow-xl"
+                  id="newsletter-submit"
+                  class="px-8 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg hover:scale-105 transition-all duration-300 hover:shadow-xl"
                   style="font-family: 'Inter Tight', system-ui, sans-serif;"
                 >
                   {lang === 'es' ? 'Suscribirse' : lang === 'en' ? 'Subscribe' : 'Inscrever-se'}
                 </button>
               </form>
+
+              <!-- Newsletter Status Message -->
+              <div id="newsletter-status" class="hidden mt-6 p-4 rounded-xl text-center"></div>
             </div>
           </div>
         </div>
@@ -738,9 +515,220 @@ const regions = [
     }
   }
 
+  // Load events from GitHub
+  interface Event {
+    id: number;
+    city: string;
+    date: string;
+    country: string;
+    title: string;
+    venue: string;
+    ticketUrl: string;
+    region: string;
+    featured: boolean;
+    is_active: boolean;
+    description?: string;
+  }
+
+  let allEvents: Event[] = [];
+
+  async function loadEvents() {
+    const featuredContainer = document.getElementById('featured-events-container');
+    const eventsContainer = document.getElementById('events-container');
+    const lang = document.documentElement.lang || 'es';
+
+    try {
+      const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/events.json');
+      if (!response.ok) throw new Error('Failed to load events');
+
+      const events: Event[] = await response.json();
+      allEvents = events.filter(event => event.is_active);
+
+      // Render featured events
+      const featuredEvents = allEvents.filter(event => event.featured);
+      if (featuredContainer && featuredEvents.length > 0) {
+        featuredContainer.innerHTML = featuredEvents.map(event => `
+          <article class="bg-gradient-to-br from-[#1a1a2e] to-[#16213e] rounded-2xl overflow-hidden hover:shadow-purple-500/30 transition-all duration-500 hover:-translate-y-2 border-2 border-purple-900/50 relative group">
+            <div class="absolute top-4 left-4 z-10">
+              <div class="flex items-center gap-2 bg-gradient-to-r from-red-600 to-pink-600 px-4 py-2 rounded-full shadow-lg font-bold text-sm text-white">
+                <span class="material-symbols-outlined text-base animate-pulse">fiber_new</span>
+                ${lang === 'es' ? 'DESTACADO' : lang === 'en' ? 'FEATURED' : 'DESTAQUE'}
+              </div>
+            </div>
+            <div class="bg-gradient-to-br from-primary to-purple-600 p-8 text-white relative overflow-hidden h-48">
+              <div class="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700"></div>
+              <div class="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full -ml-16 -mb-16 group-hover:scale-150 transition-transform duration-700"></div>
+              <div class="relative z-10 h-full flex flex-col justify-between">
+                <div>
+                  <h2 class="mt-16 text-4xl font-black mb-2 text-white" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                    ${event.city}
+                  </h2>
+                </div>
+                <div class="flex items-center gap-3">
+                  <span class="material-symbols-outlined">calendar_today</span>
+                  <span class="text-lg font-bold">${event.date}</span>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="font-bold text-2xl text-white mb-4 leading-tight hover:text-primary transition-colors">
+                ${event.title}
+              </h3>
+              <p class="text-base text-gray-300 mb-6 leading-relaxed">
+                ${event.description || ''}
+              </p>
+              <div class="flex items-center gap-3 text-sm text-gray-400 mb-6 bg-purple-900/30 px-4 py-3 rounded-lg">
+                <span class="material-symbols-outlined text-primary">place</span>
+                <span class="font-semibold">${event.venue}</span>
+              </div>
+              <a
+                href="${event.ticketUrl}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2 w-full px-6 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl group"
+                style="font-family: 'Inter Tight', system-ui, sans-serif;"
+              >
+                <span>${lang === 'es' ? 'Registrarse Ahora' : lang === 'en' ? 'Register Now' : 'Registrar Agora'}</span>
+                <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+              </a>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // Render regular events
+      const regularEvents = allEvents.filter(event => !event.featured);
+      if (eventsContainer && regularEvents.length > 0) {
+        eventsContainer.innerHTML = regularEvents.map((event, index) => `
+          <article
+            class="event-item group bg-[#1a1a1a] rounded-3xl shadow-xl overflow-hidden transition-all duration-500 hover:-translate-y-2 cursor-hover-target"
+            data-region="${event.region}"
+            style="animation-delay: ${index * 50}ms;"
+          >
+            <div class="bg-gradient-to-br from-primary to-purple-600 p-6 text-white relative overflow-hidden">
+              <div class="absolute top-0 right-0 w-32 h-32 bg-white/10 rounded-full -mr-16 -mt-16"></div>
+              <div class="absolute bottom-0 left-0 w-24 h-24 bg-white/10 rounded-full -ml-12 -mb-12"></div>
+              <div class="relative z-10 flex items-start justify-between">
+                <div>
+                  <div class="text-sm font-semibold uppercase mb-2 opacity-90">
+                    ${event.country}
+                  </div>
+                  <h2 class="text-3xl font-black" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                    ${event.city}
+                  </h2>
+                </div>
+                <div class="text-right">
+                  <div class="text-4xl font-black">${event.date.split(' ')[1] || ''}</div>
+                  <div class="text-sm uppercase opacity-90">${event.date.split(' ')[0] || ''}</div>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-bold text-white mb-4 leading-tight min-h-[3.5rem]">
+                ${event.title}
+              </h3>
+              <div class="space-y-3 mb-6">
+                <div class="flex items-center gap-3 text-sm text-gray-400">
+                  <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                  </svg>
+                  <span>${event.date}</span>
+                </div>
+                <div class="flex items-center gap-3 text-sm text-gray-400">
+                  <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
+                  </svg>
+                  <span>${event.venue}</span>
+                </div>
+              </div>
+              <a
+                href="${event.ticketUrl}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block w-full text-center px-6 py-4 bg-gradient-to-r from-primary to-purple-600 text-white rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 hover:shadow-xl"
+                style="font-family: 'Inter Tight', system-ui, sans-serif;"
+              >
+                ${lang === 'es' ? 'Registrarse' : lang === 'en' ? 'Register' : 'Registrar-se'}
+              </a>
+            </div>
+          </article>
+        `).join('');
+      }
+
+      // Setup filters after events are loaded
+      setupFilters();
+
+    } catch (error) {
+      console.error('Error loading events:', error);
+      if (featuredContainer) {
+        featuredContainer.innerHTML = `
+          <div class="col-span-full text-center py-8">
+            <p class="text-red-500 dark:text-red-400">${lang === 'es' ? 'Error al cargar eventos destacados' : lang === 'en' ? 'Error loading featured events' : 'Erro ao carregar eventos destacados'}</p>
+          </div>
+        `;
+      }
+      if (eventsContainer) {
+        eventsContainer.innerHTML = `
+          <div class="col-span-full text-center py-8">
+            <p class="text-red-500 dark:text-red-400">${lang === 'es' ? 'Error al cargar eventos' : lang === 'en' ? 'Error loading events' : 'Erro ao carregar eventos'}</p>
+          </div>
+        `;
+      }
+    }
+  }
+
+  function setupFilters() {
+    const filterButtons = document.querySelectorAll('.region-filter');
+    const noResults = document.getElementById('no-results');
+
+    // Set default active filter to "all"
+    const allButton = document.querySelector('[data-region="all"]');
+    if (allButton) {
+      allButton.classList.add('active');
+    }
+
+    filterButtons.forEach(button => {
+      button.addEventListener('click', () => {
+        const selectedRegion = button.getAttribute('data-region');
+        const eventItems = document.querySelectorAll('.event-item');
+
+        // Update active button
+        filterButtons.forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+
+        // Filter events
+        let visibleCount = 0;
+
+        eventItems.forEach((item, index) => {
+          const itemRegion = item.getAttribute('data-region');
+
+          if (selectedRegion === 'all' || itemRegion === selectedRegion) {
+            item.classList.remove('hidden');
+            // Stagger animation
+            setTimeout(() => {
+              (item as HTMLElement).style.opacity = '1';
+              (item as HTMLElement).style.transform = 'translateY(0)';
+            }, index * 50);
+            visibleCount++;
+          } else {
+            item.classList.add('hidden');
+          }
+        });
+
+        // Show/hide no results message
+        if (visibleCount === 0) {
+          noResults?.classList.remove('hidden');
+        } else {
+          noResults?.classList.add('hidden');
+        }
+      });
+    });
+  }
+
   // Filter functionality
   document.addEventListener('DOMContentLoaded', () => {
     initParallax();
+    loadEvents();
     // Carousel controls
     const nextBtn = document.getElementById('carousel-next');
     const prevBtn = document.getElementById('carousel-prev');
@@ -778,50 +766,97 @@ const regions = [
       }
     });
 
-    const filterButtons = document.querySelectorAll('.region-filter');
-    const eventItems = document.querySelectorAll('.event-item');
-    const noResults = document.getElementById('no-results');
+    // Newsletter form handling
+    const newsletterForm = document.getElementById('newsletter-form') as HTMLFormElement;
+    const newsletterStatus = document.getElementById('newsletter-status') as HTMLDivElement;
+    const newsletterSubmit = document.getElementById('newsletter-submit') as HTMLButtonElement;
+    const lang = document.documentElement.lang || 'es';
 
-    // Set default active filter to "all"
-    const allButton = document.querySelector('[data-region="all"]');
-    if (allButton) {
-      allButton.classList.add('active');
-    }
+    if (newsletterForm) {
+      newsletterForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    filterButtons.forEach(button => {
-      button.addEventListener('click', () => {
-        const selectedRegion = button.dataset.region;
+        const emailInput = document.getElementById('newsletter-email') as HTMLInputElement;
+        const email = emailInput.value.trim();
 
-        // Update active button
-        filterButtons.forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
+        if (!email) return;
 
-        // Filter events
-        let visibleCount = 0;
+        // Disable button and show loading
+        const originalButtonText = newsletterSubmit.innerHTML;
+        newsletterSubmit.disabled = true;
+        newsletterSubmit.innerHTML = `
+          <span class="flex items-center gap-2 justify-center">
+            <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <span>${lang === 'es' ? 'Suscribiendo...' : lang === 'en' ? 'Subscribing...' : 'Inscrevendo...'}</span>
+          </span>
+        `;
 
-        eventItems.forEach((item, index) => {
-          const itemRegion = item.dataset.region;
+        try {
+          const response = await fetch('/api/send-email', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              name: 'Suscriptor Newsletter',
+              email: email,
+              message: `Nueva suscripción al newsletter de eventos desde la página de eventos.`,
+            }),
+          });
 
-          if (selectedRegion === 'all' || itemRegion === selectedRegion) {
-            item.classList.remove('hidden');
-            // Stagger animation
+          const result = await response.json();
+
+          if (result.success) {
+            // Show success message
+            newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20 border-2 border-green-500 text-green-700 dark:text-green-400';
+            newsletterStatus.innerHTML = `
+              <div class="flex items-center justify-center gap-2">
+                <span class="material-symbols-outlined">check_circle</span>
+                <span class="font-semibold">
+                  ${lang === 'es' ? '¡Suscripción exitosa! Recibirás notificaciones sobre nuevos eventos.' : lang === 'en' ? 'Successfully subscribed! You will receive notifications about new events.' : 'Inscrição bem-sucedida! Você receberá notificações sobre novos eventos.'}
+                </span>
+              </div>
+            `;
+            newsletterStatus.classList.remove('hidden');
+
+            // Clear form
+            emailInput.value = '';
+
+            // Hide message after 5 seconds
             setTimeout(() => {
-              item.style.opacity = '1';
-              item.style.transform = 'translateY(0)';
-            }, index * 50);
-            visibleCount++;
+              newsletterStatus.classList.add('hidden');
+            }, 5000);
           } else {
-            item.classList.add('hidden');
+            throw new Error(result.error || 'Error al suscribirse');
           }
-        });
+        } catch (error) {
+          // Show error message
+          newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-red-50 dark:bg-red-900/20 border-2 border-red-500 text-red-700 dark:text-red-400';
+          newsletterStatus.innerHTML = `
+            <div class="flex items-center justify-center gap-2">
+              <span class="material-symbols-outlined">error</span>
+              <span class="font-semibold">
+                ${lang === 'es' ? 'Error al suscribirse. Por favor, intenta nuevamente.' : lang === 'en' ? 'Error subscribing. Please try again.' : 'Erro ao inscrever. Por favor, tente novamente.'}
+              </span>
+            </div>
+          `;
+          newsletterStatus.classList.remove('hidden');
 
-        // Show/hide no results message
-        if (visibleCount === 0) {
-          noResults?.classList.remove('hidden');
-        } else {
-          noResults?.classList.add('hidden');
+          console.error('Newsletter subscription error:', error);
+
+          // Hide message after 5 seconds
+          setTimeout(() => {
+            newsletterStatus.classList.add('hidden');
+          }, 5000);
+        } finally {
+          // Restore button
+          newsletterSubmit.disabled = false;
+          newsletterSubmit.innerHTML = originalButtonText;
         }
       });
-    });
+    }
   });
 </script>
