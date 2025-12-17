@@ -45,7 +45,7 @@
       "title": "Generar comunidad de podcast y blog",
       "description": "Generar para el podcast y el sistema de blog actual una comunidad activa",
       "weight": 12,
-      "progress": 15,
+      "progress": 0,
       "correlation": {
         "E1": 3,
         "E2": 3,
@@ -55,10 +55,12 @@
         "E6": 0
       },
       "subtasks": [
-        "Crear sistema de comentarios en blog",
+        "Darle un buen nombre y abrirlo en spotify - apple poadcast",
         "Implementar newsletter semanal",
-        "Organizar sesiones Q&A mensuales",
-        "Crear grupo de Discord/Slack"
+        "agregar algunas canciones basicas de fondo para ambientar",
+        "crear el sistema de automatización para publicar en redes sociales",
+        "Organizar sesiones semanales para integrar el poadcast",
+        "Crear grupo de Discord"
       ],
       "notes": "Prioridad alta - Base para visibilidad"
     },
@@ -67,7 +69,7 @@
       "title": "Laboratorios de IA y Arquitectura",
       "description": "Generar múltiples laboratorios de IA y de arquitectura de software con servicios integrados en línea e iniciar con los contenidos en varias redes sociales",
       "weight": 15,
-      "progress": 25,
+      "progress": 0,
       "correlation": {
         "E1": 2,
         "E2": 2,
@@ -80,7 +82,8 @@
         "Crear 3 labs de IA en GitHub",
         "Documentar arquitecturas de referencia",
         "Grabar tutoriales en video",
-        "Publicar casos de uso reales"
+        "Publicar casos de uso reales", 
+        "mi imagen y marca personal va a comenzar a desarrollarse a partir de estos laboratorios"
       ],
       "notes": "Alto impacto técnico y de visibilidad"
     },
@@ -89,7 +92,7 @@
       "title": "Visibilidad en Redes Sociales",
       "description": "Ser más visible en redes sociales como Arquitecto líder de software a través de la comunidad",
       "weight": 10,
-      "progress": 30,
+      "progress": 0,
       "correlation": {
         "E1": 3,
         "E2": 3,
@@ -111,7 +114,7 @@
       "title": "Contenido de Arquitecturas y Patrones",
       "description": "Desarrollar en cada lenguaje de programación las distintas formas de arquitecturas y los patrones de diseño posibles creando contenido online (realtime - concurrency - architect - docker - integrations - n8n - k8s - Orquestación gran escala)",
       "weight": 14,
-      "progress": 20,
+      "progress": 0,
       "correlation": {
         "E1": 2,
         "E2": 2,
@@ -133,7 +136,7 @@
       "title": "Sistema de Entrenamiento Agéntico con IA",
       "description": "Crear mi propio sistema de Entrenamiento Agéntico con IA para desarrolladores",
       "weight": 13,
-      "progress": 10,
+      "progress": 0,
       "correlation": {
         "E1": 1,
         "E2": 1,
@@ -155,7 +158,7 @@
       "title": "Oficina de Arquitectura de Software",
       "description": "Crear la oficina de arquitectura de software - y así Poder integrar a cabalidad multitud de herramientas de IA a mis proyectos",
       "weight": 11,
-      "progress": 35,
+      "progress": 0,
       "correlation": {
         "E1": 1,
         "E2": 1,
@@ -177,7 +180,7 @@
       "title": "Certificaciones AWS, K8s y Maestría",
       "description": "Iniciar con la certificación de AWS - K8S e iniciar con la maestría en 2028",
       "weight": 8,
-      "progress": 5,
+      "progress": 0,
       "correlation": {
         "E1": 0,
         "E2": 1,
@@ -199,7 +202,7 @@
       "title": "Aumentar Ingresos y Nueva Empresa",
       "description": "Aumentar mis ingresos actuales enrolándome en una excelente empresa (2026: creé mi portfolio estoy enviando cv a varias empresas)",
       "weight": 12,
-      "progress": 40,
+      "progress": 0,
       "correlation": {
         "E1": 1,
         "E2": 2,
@@ -221,7 +224,7 @@
       "title": "Migración Frontend a Mobile",
       "description": "Mi frontend se migrará al mobile - Desarrollar varias aplicaciones en entornos móviles",
       "weight": 9,
-      "progress": 18,
+      "progress": 0,
       "correlation": {
         "E1": 0,
         "E2": 1,
@@ -240,10 +243,10 @@
     },
     {
       "id": "G10",
-      "title": "Poner en Marcha 7 Proyectos",
-      "description": "Poner en marcha los 7 de los proyectos y actualizar los necesarios",
+      "title": "Poner en Marcha 8 Proyectos",
+      "description": "Poner en marcha los 8 de los proyectos y actualizar los necesarios",
       "weight": 6,
-      "progress": 28,
+      "progress": 1.25,
       "correlation": {
         "E1": 1,
         "E2": 1,
@@ -253,10 +256,15 @@
         "E6": 3
       },
       "subtasks": [
-        "Auditar proyectos existentes",
-        "Priorizar top 7 proyectos",
-        "Actualizar tecnologías",
-        "Lanzar y promocionar"
+        "Portafolio actual",
+        "Aquicramos corporativa stack de tecnología",
+        "Aquicreamos.Explora - Aplicación de talentos exploración",
+        "Aquicreamos.Aprende Aplicación Academica",
+        "Aquicreamos.Nomina Aplicación de gestión de nomina leads y proyectos",
+        "Cristianismo digital Aplicación de Cristianismo Digital",
+        "Aplicación DarkHusky - Mascotas",
+        "Aplicación de ingles Academica", 
+        ""
       ],
       "notes": "Cleanup y consolidación de portfolio"
     }

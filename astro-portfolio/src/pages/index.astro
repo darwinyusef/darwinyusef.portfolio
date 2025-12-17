@@ -1722,6 +1722,20 @@ const t = useTranslations(lang);
     </div>
   </div>
 
+  <!-- Botón de WhatsApp -->
+  <a
+    href="https://me.ha"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="fixed bottom-6 left-6 bg-gradient-to-br from-green-500 to-green-600 text-white p-4 rounded-full shadow-lg hover:shadow-2xl hover:scale-110 transition-all duration-300 z-50 group"
+    aria-label="Contáctame por WhatsApp"
+    title="WhatsApp"
+  >
+    <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+    </svg>
+  </a>
+
   <!-- Botón flotante para abrir videos -->
   <button
     id="videos-toggle-btn"
@@ -1826,6 +1840,16 @@ const t = useTranslations(lang);
     </div>
   </div>
 
+  <!-- Botón de Opciones de Accesibilidad -->
+  <button
+    id="accessibility-btn"
+    class="fixed bottom-44 right-6 bg-gradient-to-br from-blue-600 to-cyan-600 p-4 rounded-full shadow-lg hover:scale-110 transition-all duration-300 z-50 group"
+    aria-label="Opciones de Accesibilidad"
+    title="Opciones de Accesibilidad"
+  >
+    <span class="material-symbols-outlined text-white text-3xl">accessibility</span>
+  </button>
+
   <!-- Botón de Metas 2026-2027 -->
   <button
     id="goals-btn"
@@ -1838,149 +1862,335 @@ const t = useTranslations(lang);
 
   <button
     id="chatbot-btn"
-    class="fixed bottom-6 right-6 bg-primary  p-4 rounded-full shadow-lg hover:opacity-90 transition-opacity z-50"
+    class="fixed bottom-6 right-6 bg-primary p-4 rounded-full shadow-lg hover:opacity-90 transition-opacity z-50"
     aria-label="Open chatbot"
   >
     <span class="material-symbols-outlined text-white text-3xl">chat</span>
   </button>
+
+  <!-- Modal de Opciones de Accesibilidad -->
+  <div
+    id="accessibility-modal"
+    class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4"
+  >
+    <div class="relative w-full max-w-2xl mx-auto">
+      <!-- Close button -->
+      <button
+        id="close-accessibility-modal"
+        class="absolute -top-12 right-0 text-gray-400 hover:text-white transition-colors duration-300 z-10"
+        aria-label="Cerrar opciones de accesibilidad"
+      >
+        <span class="material-symbols-outlined text-4xl">close</span>
+      </button>
+
+      <!-- Content -->
+      <div class="bg-gradient-to-br from-gray-900 via-gray-900 to-blue-900/20 backdrop-blur-xl rounded-3xl border-2 border-blue-500/30 shadow-2xl overflow-hidden">
+
+        <!-- Header -->
+        <div class="relative bg-gradient-to-r from-blue-600 via-cyan-600 to-blue-600 p-6 overflow-hidden">
+          <div class="absolute inset-0 bg-black/20"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-center gap-4">
+              <div class="w-14 h-14 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <span class="material-symbols-outlined text-white text-4xl">accessibility</span>
+              </div>
+              <div>
+                <h2 class="text-3xl font-black text-white">Opciones de Accesibilidad</h2>
+                <p class="text-white/90 text-sm mt-1">Personaliza tu experiencia de navegación</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Options -->
+        <div class="p-6 space-y-4">
+
+          <!-- Font Size -->
+          <div class="bg-gray-900/50 rounded-xl p-5 border border-gray-800 hover:border-blue-500/50 transition-all">
+            <div class="flex items-center justify-between mb-3">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-2xl">text_fields</span>
+                <div>
+                  <h3 class="text-white font-semibold">Tamaño de Fuente</h3>
+                  <p class="text-gray-400 text-xs">Ajusta el tamaño del texto</p>
+                </div>
+              </div>
+              <div class="flex items-center gap-2">
+                <button class="font-size-btn px-3 py-1 rounded bg-gray-800 hover:bg-blue-600 text-white text-sm transition-all" data-size="small">A</button>
+                <button class="font-size-btn px-3 py-1 rounded bg-blue-600 text-white text-lg transition-all" data-size="normal">A</button>
+                <button class="font-size-btn px-3 py-1 rounded bg-gray-800 hover:bg-blue-600 text-white text-xl transition-all" data-size="large">A</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- High Contrast -->
+          <div class="bg-gray-900/50 rounded-xl p-5 border border-gray-800 hover:border-blue-500/50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-2xl">contrast</span>
+                <div>
+                  <h3 class="text-white font-semibold">Alto Contraste</h3>
+                  <p class="text-gray-400 text-xs">Mejora la visibilidad del contenido</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="high-contrast-toggle" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Reduce Motion -->
+          <div class="bg-gray-900/50 rounded-xl p-5 border border-gray-800 hover:border-blue-500/50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-2xl">motion_photos_off</span>
+                <div>
+                  <h3 class="text-white font-semibold">Reducir Movimiento</h3>
+                  <p class="text-gray-400 text-xs">Desactiva animaciones y transiciones</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="reduce-motion-toggle" class="sr-only peer">
+                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Focus Indicators -->
+          <div class="bg-gray-900/50 rounded-xl p-5 border border-gray-800 hover:border-blue-500/50 transition-all">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <span class="material-symbols-outlined text-blue-400 text-2xl">visibility</span>
+                <div>
+                  <h3 class="text-white font-semibold">Indicadores de Enfoque</h3>
+                  <p class="text-gray-400 text-xs">Resalta elementos interactivos</p>
+                </div>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="focus-indicators-toggle" class="sr-only peer" checked>
+                <div class="w-11 h-6 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600"></div>
+              </label>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Footer -->
+        <div class="p-6 bg-gradient-to-r from-gray-900/90 to-blue-900/30 border-t-2 border-gray-800">
+          <div class="flex items-center gap-3">
+            <span class="material-symbols-outlined text-blue-400 text-xl">info</span>
+            <p class="text-gray-300 text-sm">
+              Los cambios se guardan automáticamente y persisten entre sesiones.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
 
   <!-- Modal de Metas 2026-2027 -->
   <div
     id="goals-modal"
     class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4 overflow-y-auto"
   >
-    <div class="relative w-full max-w-4xl mx-auto my-8">
+    <div class="relative w-full max-w-7xl mx-auto my-8">
       <!-- Close button -->
       <button
         id="close-goals-modal"
-        class="absolute -top-12 right-0 text-gray-400 hover:text-white transition-colors duration-300"
+        class="absolute -top-12 right-0 text-gray-400 hover:text-white transition-colors duration-300 z-10"
         aria-label="Cerrar metas"
       >
         <span class="material-symbols-outlined text-4xl">close</span>
       </button>
 
       <!-- Content -->
-      <div class="bg-[#1a1a1a]/90 backdrop-blur-xl rounded-2xl border border-gray-800 overflow-hidden">
-        <!-- Header -->
-        <div class="bg-gradient-to-r from-purple-600 to-pink-600 p-6">
-          <h2 class="text-3xl font-bold text-white text-center mb-2">🎯 Metas 2026-2027</h2>
-          <p class="text-white/90 text-center text-sm">Progreso hacia mis objetivos profesionales</p>
+      <div class="bg-gradient-to-br from-gray-900 via-gray-900 to-purple-900/20 backdrop-blur-xl rounded-3xl border-2 border-purple-500/30 shadow-2xl overflow-hidden">
+
+        <!-- Header with Gradient -->
+        <div class="relative bg-gradient-to-r from-purple-600 via-pink-600 to-purple-600 p-8 overflow-hidden">
+          <div class="absolute inset-0 bg-black/20"></div>
+          <div class="relative z-10">
+            <div class="flex items-center justify-center gap-4 mb-3">
+              <div class="w-16 h-16 rounded-2xl bg-white/10 backdrop-blur-sm flex items-center justify-center">
+                <span class="text-5xl">🎯</span>
+              </div>
+              <div>
+                <h2 class="text-4xl font-black text-white">Plan Estratégico 2026-2027</h2>
+                <p class="text-white/90 text-lg mt-1">Matriz de Correlación y Seguimiento de Objetivos</p>
+              </div>
+            </div>
+          </div>
         </div>
 
-        <!-- Chart Container -->
-        <div class="p-6">
-          <canvas id="goals-chart" class="w-full" style="max-height: 400px;"></canvas>
+        <!-- Dashboard Summary Cards -->
+        <div class="p-8 bg-gradient-to-r from-purple-950/40 to-pink-950/40 border-b-2 border-purple-500/20">
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+            <!-- Card 1: Progreso Ponderado -->
+            <div class="group relative bg-gradient-to-br from-purple-900/50 to-purple-800/30 rounded-2xl p-6 border-2 border-purple-500/30 hover:border-purple-400/50 transition-all duration-300 hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-br from-purple-600/10 to-pink-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="relative z-10">
+                <div class="flex items-center gap-4 mb-3">
+                  <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg">
+                    <span class="material-symbols-outlined text-white text-3xl">analytics</span>
+                  </div>
+                  <div>
+                    <p class="text-purple-300 text-xs uppercase font-bold tracking-wider">Progreso Total</p>
+                    <p class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-purple-300 to-pink-300" id="weighted-progress">0.0%</p>
+                  </div>
+                </div>
+                <div class="h-2 bg-gray-800 rounded-full overflow-hidden">
+                  <div class="h-full bg-gradient-to-r from-purple-500 to-pink-500 rounded-full transition-all duration-500" id="weighted-progress-bar" style="width: 0%"></div>
+                </div>
+                <p class="text-gray-400 text-xs mt-3">Σ (peso × progreso) / 100</p>
+              </div>
+            </div>
+
+            <!-- Card 2: Total Goals -->
+            <div class="group relative bg-gradient-to-br from-blue-900/50 to-blue-800/30 rounded-2xl p-6 border-2 border-blue-500/30 hover:border-blue-400/50 transition-all duration-300 hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-cyan-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="relative z-10">
+                <div class="flex items-center gap-4 mb-3">
+                  <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center shadow-lg">
+                    <span class="material-symbols-outlined text-white text-3xl">target</span>
+                  </div>
+                  <div>
+                    <p class="text-blue-300 text-xs uppercase font-bold tracking-wider">Total Metas</p>
+                    <p class="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-300 to-cyan-300" id="total-goals">10</p>
+                  </div>
+                </div>
+                <p class="text-gray-400 text-xs mt-3">6 ejes estratégicos principales</p>
+              </div>
+            </div>
+
+            <!-- Card 3: Last Updated -->
+            <div class="group relative bg-gradient-to-br from-green-900/50 to-green-800/30 rounded-2xl p-6 border-2 border-green-500/30 hover:border-green-400/50 transition-all duration-300 hover:scale-105">
+              <div class="absolute inset-0 bg-gradient-to-br from-green-600/10 to-emerald-600/10 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity"></div>
+              <div class="relative z-10">
+                <div class="flex items-center gap-4 mb-3">
+                  <div class="w-14 h-14 rounded-xl bg-gradient-to-br from-green-500 to-emerald-500 flex items-center justify-center shadow-lg">
+                    <span class="material-symbols-outlined text-white text-3xl">schedule</span>
+                  </div>
+                  <div>
+                    <p class="text-green-300 text-xs uppercase font-bold tracking-wider">Última Actualización</p>
+                    <p class="text-2xl font-black text-white" id="last-updated">-</p>
+                  </div>
+                </div>
+                <p class="text-gray-400 text-xs mt-3">Período: 2026-2027</p>
+              </div>
+            </div>
+
+          </div>
         </div>
 
-        <!-- Goals List -->
-        <div class="p-6 space-y-4">
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">📢 Comunidad de Podcast y Blog</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="15" data-goal="0">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-purple-600 to-pink-600 h-2 rounded-full transition-all duration-500" style="width: 15%"></div>
+        <!-- Tabs Navigation -->
+        <div class="bg-gray-900/80 border-b-2 border-gray-800 px-8">
+          <div class="flex gap-2 overflow-x-auto">
+            <button class="goals-tab-btn flex items-center gap-2 px-6 py-4 text-white font-semibold border-b-4 border-purple-500 bg-purple-900/30 transition-all" data-tab="overview">
+              <span class="material-symbols-outlined">dashboard</span>
+              <span>Vista General</span>
+            </button>
+            <button class="goals-tab-btn flex items-center gap-2 px-6 py-4 text-gray-400 font-semibold border-b-4 border-transparent hover:text-white hover:bg-gray-800/50 transition-all" data-tab="axes">
+              <span class="material-symbols-outlined">hub</span>
+              <span>Ejes Estratégicos</span>
+            </button>
+            <button class="goals-tab-btn flex items-center gap-2 px-6 py-4 text-gray-400 font-semibold border-b-4 border-transparent hover:text-white hover:bg-gray-800/50 transition-all" data-tab="goals">
+              <span class="material-symbols-outlined">list</span>
+              <span>Metas Detalladas</span>
+            </button>
+            <button class="goals-tab-btn flex items-center gap-2 px-6 py-4 text-gray-400 font-semibold border-b-4 border-transparent hover:text-white hover:bg-gray-800/50 transition-all" data-tab="chart">
+              <span class="material-symbols-outlined">radar</span>
+              <span>Gráfica Radar</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tab Contents -->
+        <div class="p-8 min-h-[500px] max-h-[600px] overflow-y-auto custom-scrollbar">
+
+          <!-- Tab 1: Overview -->
+          <div class="goals-tab-content" data-tab="overview">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <!-- Left: Strategic Axes -->
+              <div>
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-indigo-600 to-purple-600 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-2xl">hub</span>
+                  </div>
+                  <h3 class="text-white font-bold text-2xl">Ejes Estratégicos</h3>
+                </div>
+                <div id="strategic-axes" class="grid grid-cols-1 gap-3">
+                  <!-- Axes will be loaded dynamically -->
+                </div>
+              </div>
+
+              <!-- Right: Chart Preview -->
+              <div>
+                <div class="flex items-center gap-3 mb-6">
+                  <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-600 to-purple-600 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-white text-2xl">radar</span>
+                  </div>
+                  <h3 class="text-white font-bold text-2xl">Progreso General</h3>
+                </div>
+                <div class="bg-gray-900/50 rounded-2xl p-6 border-2 border-gray-800">
+                  <canvas id="goals-chart-overview" class="w-full" style="max-height: 350px;"></canvas>
+                </div>
+              </div>
             </div>
           </div>
 
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🔬 Laboratorios de IA y Arquitectura</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="25" data-goal="1">
+          <!-- Tab 2: Strategic Axes -->
+          <div class="goals-tab-content hidden" data-tab="axes">
+            <div class="mb-6">
+              <h3 class="text-white font-bold text-3xl mb-2">Ejes Estratégicos 2026-2027</h3>
+              <p class="text-gray-400">Los 6 pilares fundamentales de la estrategia profesional</p>
             </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-blue-600 to-cyan-600 h-2 rounded-full transition-all duration-500" style="width: 25%"></div>
-            </div>
-          </div>
-
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🌟 Visibilidad en Redes Sociales</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="30" data-goal="2">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-green-600 to-emerald-600 h-2 rounded-full transition-all duration-500" style="width: 30%"></div>
+            <div id="strategic-axes-detail" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <!-- Detailed axes will be loaded here -->
             </div>
           </div>
 
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">💻 Contenido de Arquitecturas y Patrones</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="20" data-goal="3">
+          <!-- Tab 3: Goals List -->
+          <div class="goals-tab-content hidden" data-tab="goals">
+            <div class="mb-6">
+              <h3 class="text-white font-bold text-3xl mb-2">Metas Estratégicas</h3>
+              <p class="text-gray-400">10 objetivos principales con correlación a ejes estratégicos</p>
             </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-yellow-600 to-orange-600 h-2 rounded-full transition-all duration-500" style="width: 20%"></div>
-            </div>
-          </div>
-
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🤖 Sistema de Entrenamiento Agéntico con IA</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="10" data-goal="4">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-red-600 to-pink-600 h-2 rounded-full transition-all duration-500" style="width: 10%"></div>
+            <div id="goals-container" class="space-y-4">
+              <!-- Goals will be loaded dynamically with full strategic data -->
             </div>
           </div>
 
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🏢 Oficina de Arquitectura de Software</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="35" data-goal="5">
+          <!-- Tab 4: Radar Chart -->
+          <div class="goals-tab-content hidden" data-tab="chart">
+            <div class="mb-6">
+              <h3 class="text-white font-bold text-3xl mb-2">Visualización Radar</h3>
+              <p class="text-gray-400">Gráfica interactiva del progreso de todas las metas</p>
             </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-indigo-600 to-purple-600 h-2 rounded-full transition-all duration-500" style="width: 35%"></div>
-            </div>
-          </div>
-
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🎓 Certificaciones AWS, K8s y Maestría</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="5" data-goal="6">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-teal-600 to-cyan-600 h-2 rounded-full transition-all duration-500" style="width: 5%"></div>
+            <div class="bg-gray-900/50 rounded-2xl p-8 border-2 border-gray-800">
+              <canvas id="goals-chart" class="w-full" style="max-height: 500px;"></canvas>
             </div>
           </div>
 
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">💰 Aumentar Ingresos y Nueva Empresa</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="40" data-goal="7">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-green-600 to-lime-600 h-2 rounded-full transition-all duration-500" style="width: 40%"></div>
-            </div>
-          </div>
-
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">📱 Migración Frontend a Mobile</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="18" data-goal="8">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-blue-600 to-indigo-600 h-2 rounded-full transition-all duration-500" style="width: 18%"></div>
-            </div>
-          </div>
-
-          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800">
-            <div class="flex items-start justify-between mb-3">
-              <h3 class="text-white font-semibold flex-1">🚀 Poner en Marcha 7 Proyectos</h3>
-              <input type="number" class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm" min="0" max="100" value="28" data-goal="9">
-            </div>
-            <div class="w-full bg-gray-800 rounded-full h-2">
-              <div class="bg-gradient-to-r from-orange-600 to-red-600 h-2 rounded-full transition-all duration-500" style="width: 28%"></div>
-            </div>
-          </div>
         </div>
 
         <!-- Footer Info -->
-        <div class="p-6 bg-gray-900/50 border-t border-gray-800">
-          <p class="text-gray-400 text-sm text-center">
-            💡 Actualiza los valores para ajustar tu progreso. Los cambios se reflejan en la gráfica en tiempo real.
-          </p>
+        <div class="p-6 bg-gradient-to-r from-gray-900/90 to-purple-900/30 border-t-2 border-gray-800">
+          <div class="flex items-center justify-between flex-wrap gap-4">
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-purple-400 text-2xl">info</span>
+              <p class="text-gray-300 text-sm">
+                Actualiza los valores en tiempo real. Los cambios se reflejan automáticamente en todas las vistas.
+              </p>
+            </div>
+            <div class="text-gray-500 text-xs">
+              Fórmula: <code class="bg-gray-800 px-2 py-1 rounded text-purple-300">Σ (peso × progreso) / 100</code>
+            </div>
+          </div>
         </div>
+
       </div>
     </div>
   </div>
@@ -2418,14 +2628,33 @@ const t = useTranslations(lang);
     });
   });
 
-  // Goals Modal and Chart functionality
+  // Goals Modal and Chart functionality - Strategic Matrix
   document.addEventListener('DOMContentLoaded', async () => {
     const goalsBtn = document.getElementById('goals-btn');
     const goalsModal = document.getElementById('goals-modal');
     const closeGoalsBtn = document.getElementById('close-goals-modal');
     const chartCanvas = document.getElementById('goals-chart') as HTMLCanvasElement;
+    const goalsContainer = document.getElementById('goals-container');
+    const axesContainer = document.getElementById('strategic-axes');
+    const weightedProgressEl = document.getElementById('weighted-progress');
+    const lastUpdatedEl = document.getElementById('last-updated');
 
     let goalsChart: any = null;
+    let strategicData: any = null;
+
+    // Goal emoji mapping
+    const goalEmojis: { [key: string]: string } = {
+      'G1': '📢',
+      'G2': '🔬',
+      'G3': '🌟',
+      'G4': '💻',
+      'G5': '🤖',
+      'G6': '🏢',
+      'G7': '🎓',
+      'G8': '💰',
+      'G9': '📱',
+      'G10': '🚀'
+    };
 
     // Load Chart.js dynamically
     const loadChartJS = async () => {
@@ -2443,10 +2672,8 @@ const t = useTranslations(lang);
     // Load goals data from JSON
     const loadGoalsData = async () => {
       try {
-        // Try local file first
         let response = await fetch('/goals-2026.json');
 
-        // If local fails, try GitHub
         if (!response.ok) {
           response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/goals-2026.json');
         }
@@ -2455,40 +2682,230 @@ const t = useTranslations(lang);
         return data;
       } catch (error) {
         console.error('Error loading goals data:', error);
-        // Fallback data
-        return {
-          goals: [
-            { name: "Comunidad de Podcast y Blog", progress: 15, color: "rgba(147, 51, 234, 0.7)" },
-            { name: "Laboratorios de IA y Arquitectura", progress: 25, color: "rgba(37, 99, 235, 0.7)" },
-            { name: "Visibilidad en Redes Sociales", progress: 30, color: "rgba(34, 197, 94, 0.7)" },
-            { name: "Contenido de Arquitecturas y Patrones", progress: 20, color: "rgba(234, 179, 8, 0.7)" },
-            { name: "Sistema de Entrenamiento Agéntico con IA", progress: 10, color: "rgba(239, 68, 68, 0.7)" },
-            { name: "Oficina de Arquitectura de Software", progress: 35, color: "rgba(99, 102, 241, 0.7)" },
-            { name: "Certificaciones AWS, K8s y Maestría", progress: 5, color: "rgba(20, 184, 166, 0.7)" },
-            { name: "Aumentar Ingresos y Nueva Empresa", progress: 40, color: "rgba(132, 204, 22, 0.7)" },
-            { name: "Migración Frontend a Mobile", progress: 18, color: "rgba(59, 130, 246, 0.7)" },
-            { name: "Poner en Marcha 7 Proyectos", progress: 28, color: "rgba(249, 115, 22, 0.7)" }
-          ]
-        };
+        return null;
       }
     };
 
-    // Initialize chart
-    const initChart = async (goalsData: any) => {
+    // Calculate weighted progress
+    const calculateWeightedProgress = (goals: any[]) => {
+      let total = 0;
+      goals.forEach((goal: any) => {
+        total += (goal.weight * goal.progress) / 100;
+      });
+      return total.toFixed(1);
+    };
+
+    // Render strategic axes (overview)
+    const renderAxes = (axes: any[]) => {
+      if (!axesContainer) return;
+
+      axesContainer.innerHTML = axes.map((axis: any) => `
+        <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-xl p-4 border-2 border-gray-700 hover:border-purple-500/50 transition-all duration-300 hover:scale-105 group">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-10 h-10 rounded-lg flex items-center justify-center" style="background: ${axis.color}">
+              <span class="text-white font-bold text-lg">${axis.id}</span>
+            </div>
+            <div class="flex-1">
+              <p class="text-white font-bold text-sm group-hover:text-purple-300 transition-colors">${axis.name}</p>
+            </div>
+          </div>
+          <p class="text-gray-400 text-xs leading-relaxed">${axis.description}</p>
+        </div>
+      `).join('');
+    };
+
+    // Render detailed axes
+    const renderAxesDetail = (data: any) => {
+      const axesDetailContainer = document.getElementById('strategic-axes-detail');
+      if (!axesDetailContainer) return;
+
+      axesDetailContainer.innerHTML = data.axes.map((axis: any) => {
+        // Count goals correlated with this axis
+        const correlatedGoals = data.goals.filter((g: any) => g.correlation[axis.id] > 0);
+        const avgCorrelation = correlatedGoals.reduce((sum: number, g: any) => sum + g.correlation[axis.id], 0) / correlatedGoals.length;
+
+        return `
+          <div class="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-6 border-2 hover:border-purple-500/50 transition-all duration-300 group" style="border-color: ${axis.color}">
+            <div class="flex items-center gap-4 mb-4">
+              <div class="w-16 h-16 rounded-xl flex items-center justify-center shadow-lg" style="background: ${axis.color}">
+                <span class="text-white font-black text-2xl">${axis.id}</span>
+              </div>
+              <div class="flex-1">
+                <h4 class="text-white font-bold text-xl mb-1 group-hover:text-purple-300 transition-colors">${axis.name}</h4>
+                <p class="text-gray-400 text-sm">${axis.description}</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-2 gap-3 mt-4 pt-4 border-t border-gray-700">
+              <div class="bg-gray-800/50 rounded-lg p-3">
+                <p class="text-gray-400 text-xs mb-1">Metas Relacionadas</p>
+                <p class="text-white font-bold text-2xl">${correlatedGoals.length}</p>
+              </div>
+              <div class="bg-gray-800/50 rounded-lg p-3">
+                <p class="text-gray-400 text-xs mb-1">Correlación Promedio</p>
+                <p class="text-white font-bold text-2xl">${avgCorrelation.toFixed(1)}</p>
+              </div>
+            </div>
+
+            <div class="mt-4">
+              <p class="text-gray-500 text-xs mb-2">Top Metas Correlacionadas:</p>
+              <div class="space-y-1">
+                ${correlatedGoals
+                  .sort((a: any, b: any) => b.correlation[axis.id] - a.correlation[axis.id])
+                  .slice(0, 3)
+                  .map((g: any) => `
+                    <div class="flex items-center gap-2 text-xs">
+                      <span class="text-gray-400">${g.id}</span>
+                      <span class="flex-1 text-gray-300">${g.title}</span>
+                      <span class="text-purple-400 font-bold">${'●'.repeat(g.correlation[axis.id])}</span>
+                    </div>
+                  `).join('')}
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    // Render goals with strategic data
+    const renderGoals = (data: any) => {
+      if (!goalsContainer) return;
+
+      goalsContainer.innerHTML = data.goals.map((goal: any, index: number) => {
+        const emoji = goalEmojis[goal.id] || '🎯';
+        const correlationBadges = Object.entries(goal.correlation)
+          .map(([axisId, value]: [string, any]) => {
+            const axis = data.axes.find((a: any) => a.id === axisId);
+            if (!axis || value === 0) return '';
+
+            const intensity = value === 3 ? 'font-bold' : value === 2 ? 'font-semibold' : '';
+            return `<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs ${intensity}" style="background: ${axis.color}; color: white;">
+              ${axisId} <span class="text-[10px]">●${'●'.repeat(value - 1)}</span>
+            </span>`;
+          })
+          .filter(Boolean)
+          .join('');
+
+        const subtasksHTML = goal.subtasks.length > 0 ? `
+          <div class="mt-3 pt-3 border-t border-gray-800">
+            <button class="flex items-center gap-2 text-gray-400 hover:text-white text-sm mb-2 subtasks-toggle" data-goal="${goal.id}">
+              <span class="material-symbols-outlined text-sm toggle-icon">expand_more</span>
+              <span>Subtareas (${goal.subtasks.length})</span>
+            </button>
+            <ul class="hidden space-y-1 ml-6 text-sm text-gray-400 subtasks-list" data-goal="${goal.id}">
+              ${goal.subtasks.map((task: string) => `<li class="flex items-start gap-2"><span class="text-primary">•</span><span>${task}</span></li>`).join('')}
+            </ul>
+          </div>
+        ` : '';
+
+        return `
+          <div class="goal-item bg-gray-900/50 rounded-xl p-4 border border-gray-800 hover:border-gray-700 transition-all">
+            <div class="flex items-start justify-between gap-4 mb-3">
+              <div class="flex-1">
+                <div class="flex items-center gap-2 mb-2">
+                  <span class="text-2xl">${emoji}</span>
+                  <h3 class="text-white font-semibold flex-1">${goal.title}</h3>
+                  <span class="px-2 py-1 bg-purple-600/20 text-purple-300 rounded text-xs font-bold">${goal.weight}%</span>
+                </div>
+                <p class="text-gray-400 text-sm mb-2">${goal.description}</p>
+                <div class="flex flex-wrap gap-1 mb-2">
+                  ${correlationBadges}
+                </div>
+                ${goal.notes ? `<p class="text-gray-500 text-xs italic mt-2">💡 ${goal.notes}</p>` : ''}
+              </div>
+              <div class="flex flex-col items-end gap-2 flex-shrink-0">
+                <input
+                  type="number"
+                  class="goal-progress w-16 bg-gray-800 text-white rounded px-2 py-1 text-sm text-center border border-gray-700 focus:border-primary focus:outline-none"
+                  min="0"
+                  max="100"
+                  value="${goal.progress}"
+                  data-goal="${index}"
+                  data-goal-id="${goal.id}"
+                >
+                <span class="text-xs text-gray-500">%</span>
+              </div>
+            </div>
+            <div class="w-full bg-gray-800 rounded-full h-2.5">
+              <div class="bg-gradient-to-r from-purple-600 to-pink-600 h-2.5 rounded-full transition-all duration-500 goal-progress-bar" style="width: ${goal.progress}%"></div>
+            </div>
+            ${subtasksHTML}
+          </div>
+        `;
+      }).join('');
+
+      // Add toggle functionality for subtasks
+      document.querySelectorAll('.subtasks-toggle').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          const goalId = (e.currentTarget as HTMLElement).getAttribute('data-goal');
+          const list = document.querySelector(`.subtasks-list[data-goal="${goalId}"]`);
+          const icon = (e.currentTarget as HTMLElement).querySelector('.toggle-icon');
+
+          if (list && icon) {
+            list.classList.toggle('hidden');
+            icon.textContent = list.classList.contains('hidden') ? 'expand_more' : 'expand_less';
+          }
+        });
+      });
+    };
+
+    // Update weighted progress display
+    const updateWeightedProgress = (data: any) => {
+      if (!weightedProgressEl || !lastUpdatedEl) return;
+
+      const weighted = calculateWeightedProgress(data.goals);
+      weightedProgressEl.textContent = `${weighted}%`;
+      lastUpdatedEl.textContent = data.lastUpdated || '-';
+
+      // Update progress bar
+      const progressBar = document.getElementById('weighted-progress-bar');
+      if (progressBar) {
+        progressBar.style.width = `${weighted}%`;
+      }
+    };
+
+    // Tab switching functionality
+    const setupTabs = () => {
+      const tabButtons = document.querySelectorAll('.goals-tab-btn');
+      const tabContents = document.querySelectorAll('.goals-tab-content');
+
+      tabButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const targetTab = btn.getAttribute('data-tab');
+
+          // Update button styles
+          tabButtons.forEach(b => {
+            b.classList.remove('text-white', 'border-purple-500', 'bg-purple-900/30');
+            b.classList.add('text-gray-400', 'border-transparent');
+          });
+          btn.classList.remove('text-gray-400', 'border-transparent');
+          btn.classList.add('text-white', 'border-purple-500', 'bg-purple-900/30');
+
+          // Update content visibility
+          tabContents.forEach(content => {
+            if (content.getAttribute('data-tab') === targetTab) {
+              content.classList.remove('hidden');
+            } else {
+              content.classList.add('hidden');
+            }
+          });
+        });
+      });
+    };
+
+    // Initialize charts (both overview and detailed)
+    const initCharts = async (data: any) => {
       await loadChartJS();
 
       const Chart = (window as any).Chart;
 
-      const ctx = chartCanvas.getContext('2d');
-      if (!ctx) return;
-
-      goalsChart = new Chart(ctx, {
+      const chartConfig = {
         type: 'radar',
         data: {
-          labels: goalsData.goals.map((g: any) => g.name),
+          labels: data.goals.map((g: any) => `${goalEmojis[g.id] || '🎯'} ${g.id}`),
           datasets: [{
-            label: 'Progreso 2026-2027 (%)',
-            data: goalsData.goals.map((g: any) => g.progress),
+            label: 'Progreso (%)',
+            data: data.goals.map((g: any) => g.progress),
             backgroundColor: 'rgba(147, 51, 234, 0.2)',
             borderColor: 'rgba(147, 51, 234, 1)',
             borderWidth: 2,
@@ -2510,7 +2927,10 @@ const t = useTranslations(lang);
               ticks: {
                 stepSize: 20,
                 color: '#9ca3af',
-                backdropColor: 'transparent'
+                backdropColor: 'transparent',
+                callback: function(value: any) {
+                  return value + '%';
+                }
               },
               grid: {
                 color: 'rgba(75, 85, 99, 0.3)'
@@ -2518,7 +2938,8 @@ const t = useTranslations(lang);
               pointLabels: {
                 color: '#e5e7eb',
                 font: {
-                  size: 11
+                  size: 10,
+                  weight: 'bold'
                 }
               }
             }
@@ -2526,19 +2947,46 @@ const t = useTranslations(lang);
           plugins: {
             legend: {
               labels: {
-                color: '#e5e7eb'
+                color: '#e5e7eb',
+                font: {
+                  size: 12
+                }
               }
             },
             tooltip: {
               callbacks: {
                 label: function(context: any) {
-                  return context.parsed.r + '%';
+                  const goal = data.goals[context.dataIndex];
+                  return [
+                    `Progreso: ${context.parsed.r}%`,
+                    `Peso: ${goal.weight}%`,
+                    `Contribución: ${(goal.weight * goal.progress / 100).toFixed(1)}pts`
+                  ];
+                },
+                title: function(context: any) {
+                  const goal = data.goals[context[0].dataIndex];
+                  return goal.title;
                 }
               }
             }
           }
         }
-      });
+      };
+
+      // Overview chart (smaller)
+      const overviewCanvas = document.getElementById('goals-chart-overview') as HTMLCanvasElement;
+      if (overviewCanvas) {
+        const ctxOverview = overviewCanvas.getContext('2d');
+        if (ctxOverview) {
+          new Chart(ctxOverview, chartConfig);
+        }
+      }
+
+      // Main chart (larger, in chart tab)
+      const ctx = chartCanvas.getContext('2d');
+      if (ctx) {
+        goalsChart = new Chart(ctx, chartConfig);
+      }
     };
 
     // Update chart when progress inputs change
@@ -2546,21 +2994,25 @@ const t = useTranslations(lang);
       const progressInputs = document.querySelectorAll('.goal-progress');
 
       progressInputs.forEach((input) => {
-        input.addEventListener('change', (e) => {
+        input.addEventListener('input', (e) => {
           const target = e.target as HTMLInputElement;
           const goalIndex = parseInt(target.getAttribute('data-goal') || '0');
-          const newValue = parseInt(target.value);
+          const newValue = parseInt(target.value) || 0;
 
           // Update progress bar
-          const progressBar = target.closest('.goal-item')?.querySelector('.bg-gradient-to-r') as HTMLElement;
+          const progressBar = target.closest('.goal-item')?.querySelector('.goal-progress-bar') as HTMLElement;
           if (progressBar) {
             progressBar.style.width = `${newValue}%`;
           }
 
           // Update chart
-          if (goalsChart) {
+          if (goalsChart && strategicData) {
             goalsChart.data.datasets[0].data[goalIndex] = newValue;
             goalsChart.update();
+
+            // Update weighted progress
+            strategicData.goals[goalIndex].progress = newValue;
+            updateWeightedProgress(strategicData);
           }
         });
       });
@@ -2572,9 +3024,22 @@ const t = useTranslations(lang);
       goalsModal?.classList.add('flex');
 
       if (!goalsChart) {
-        const goalsData = await loadGoalsData();
-        await initChart(goalsData);
-        setupProgressInputs();
+        strategicData = await loadGoalsData();
+
+        if (strategicData) {
+          // Render all views
+          renderAxes(strategicData.axes);
+          renderAxesDetail(strategicData);
+          renderGoals(strategicData);
+          updateWeightedProgress(strategicData);
+
+          // Initialize charts
+          await initCharts(strategicData);
+
+          // Setup interactivity
+          setupProgressInputs();
+          setupTabs();
+        }
       }
     });
 
@@ -2599,6 +3064,128 @@ const t = useTranslations(lang);
         closeModal();
       }
     });
+  });
+
+  // Accessibility Modal functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const accessibilityBtn = document.getElementById('accessibility-btn');
+    const accessibilityModal = document.getElementById('accessibility-modal');
+    const closeAccessibilityBtn = document.getElementById('close-accessibility-modal');
+
+    // Load saved preferences
+    const loadPreferences = () => {
+      const fontSize = localStorage.getItem('fontSize') || 'normal';
+      const highContrast = localStorage.getItem('highContrast') === 'true';
+      const reduceMotion = localStorage.getItem('reduceMotion') === 'true';
+      const focusIndicators = localStorage.getItem('focusIndicators') !== 'false';
+
+      applyFontSize(fontSize);
+      applyHighContrast(highContrast);
+      applyReduceMotion(reduceMotion);
+      applyFocusIndicators(focusIndicators);
+
+      // Update UI
+      document.getElementById('high-contrast-toggle')?.setAttribute('checked', highContrast ? 'checked' : '');
+      document.getElementById('reduce-motion-toggle')?.setAttribute('checked', reduceMotion ? 'checked' : '');
+      document.getElementById('focus-indicators-toggle')?.setAttribute('checked', focusIndicators ? 'checked' : '');
+    };
+
+    // Font Size
+    const applyFontSize = (size: string) => {
+      document.documentElement.classList.remove('text-small', 'text-large');
+      if (size === 'small') document.documentElement.classList.add('text-small');
+      if (size === 'large') document.documentElement.classList.add('text-large');
+
+      document.querySelectorAll('.font-size-btn').forEach(btn => {
+        btn.classList.remove('bg-blue-600');
+        btn.classList.add('bg-gray-800');
+        if (btn.getAttribute('data-size') === size) {
+          btn.classList.remove('bg-gray-800');
+          btn.classList.add('bg-blue-600');
+        }
+      });
+    };
+
+    document.querySelectorAll('.font-size-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const size = (e.target as HTMLElement).getAttribute('data-size') || 'normal';
+        applyFontSize(size);
+        localStorage.setItem('fontSize', size);
+      });
+    });
+
+    // High Contrast
+    const applyHighContrast = (enabled: boolean) => {
+      if (enabled) {
+        document.documentElement.classList.add('high-contrast');
+      } else {
+        document.documentElement.classList.remove('high-contrast');
+      }
+    };
+
+    document.getElementById('high-contrast-toggle')?.addEventListener('change', (e) => {
+      const enabled = (e.target as HTMLInputElement).checked;
+      applyHighContrast(enabled);
+      localStorage.setItem('highContrast', enabled.toString());
+    });
+
+    // Reduce Motion
+    const applyReduceMotion = (enabled: boolean) => {
+      if (enabled) {
+        document.documentElement.classList.add('reduce-motion');
+      } else {
+        document.documentElement.classList.remove('reduce-motion');
+      }
+    };
+
+    document.getElementById('reduce-motion-toggle')?.addEventListener('change', (e) => {
+      const enabled = (e.target as HTMLInputElement).checked;
+      applyReduceMotion(enabled);
+      localStorage.setItem('reduceMotion', enabled.toString());
+    });
+
+    // Focus Indicators
+    const applyFocusIndicators = (enabled: boolean) => {
+      if (enabled) {
+        document.documentElement.classList.add('focus-indicators');
+      } else {
+        document.documentElement.classList.remove('focus-indicators');
+      }
+    };
+
+    document.getElementById('focus-indicators-toggle')?.addEventListener('change', (e) => {
+      const enabled = (e.target as HTMLInputElement).checked;
+      applyFocusIndicators(enabled);
+      localStorage.setItem('focusIndicators', enabled.toString());
+    });
+
+    // Open/Close modal
+    accessibilityBtn?.addEventListener('click', () => {
+      accessibilityModal?.classList.remove('hidden');
+      accessibilityModal?.classList.add('flex');
+    });
+
+    const closeAccessibilityModal = () => {
+      accessibilityModal?.classList.add('hidden');
+      accessibilityModal?.classList.remove('flex');
+    };
+
+    closeAccessibilityBtn?.addEventListener('click', closeAccessibilityModal);
+
+    accessibilityModal?.addEventListener('click', (e) => {
+      if (e.target === accessibilityModal) {
+        closeAccessibilityModal();
+      }
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && accessibilityModal && !accessibilityModal.classList.contains('hidden')) {
+        closeAccessibilityModal();
+      }
+    });
+
+    // Load preferences on page load
+    loadPreferences();
   });
 </script>
 
