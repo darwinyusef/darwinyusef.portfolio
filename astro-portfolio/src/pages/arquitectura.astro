@@ -113,6 +113,14 @@ const lang = getLangFromUrl(Astro.url);
               <!-- 1. Mentoría -->
               <div class="pillar-card group bg-gradient-to-br from-primary/10 to-purple-600/10 dark:from-primary/20 dark:to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="0">
                 <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
+                <button
+                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
+                  data-video-title={lang === 'es' ? 'Mentoría Estratégica' : lang === 'en' ? 'Strategic Mentoring' : 'Mentoria Estratégica'}
+                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
+                >
+                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+                </button>
                 <div class="relative z-10 flex items-start gap-4">
                   <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎓</div>
                   <div class="space-y-2">
@@ -133,6 +141,14 @@ const lang = getLangFromUrl(Astro.url);
               <!-- 2. Ordenamiento de Patrones -->
               <div class="pillar-card group bg-gradient-to-br from-purple-600/10 to-pink-600/10 dark:from-purple-600/20 dark:to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="1">
                 <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
+                <button
+                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
+                  data-video-title={lang === 'es' ? 'Patrones de Arquitectura Moderna' : lang === 'en' ? 'Modern Architecture Patterns' : 'Padrões de Arquitetura Moderna'}
+                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
+                >
+                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+                </button>
                 <div class="relative z-10 flex items-start gap-4">
                   <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🏗️</div>
                   <div class="space-y-2">
@@ -1065,6 +1081,42 @@ const lang = getLangFromUrl(Astro.url);
         </div>
       </section>
     </main>
+
+    <!-- Modal de Video para Estrategias -->
+    <div
+      id="strategy-video-modal"
+      class="fixed inset-0 bg-black/95 backdrop-blur-md z-[100] hidden items-center justify-center p-4"
+    >
+      <div class="relative w-full max-w-md mx-auto">
+        <!-- Close button -->
+        <button
+          id="close-strategy-video-modal"
+          class="absolute -top-12 right-0 text-gray-400 hover:text-white transition-colors duration-300"
+          aria-label={lang === 'es' ? 'Cerrar video' : lang === 'en' ? 'Close video' : 'Fechar vídeo'}
+        >
+          <span class="material-symbols-outlined text-4xl">close</span>
+        </button>
+
+        <!-- Video title -->
+        <h3
+          id="strategy-video-title"
+          class="text-white text-xl font-bold mb-4 text-center bg-gradient-to-r from-primary to-purple-600 bg-clip-text text-transparent"
+        ></h3>
+
+        <!-- Video container (9:16 aspect ratio for shorts) -->
+        <div class="relative w-full bg-gray-950 rounded-2xl overflow-hidden shadow-2xl border border-gray-800/50" style="aspect-ratio: 9/16;">
+          <iframe
+            id="strategy-video-iframe"
+            class="w-full h-full"
+            src=""
+            title={lang === 'es' ? 'Video de Estrategia' : lang === 'en' ? 'Strategy Video' : 'Vídeo de Estratégia'}
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </div>
   </div>
 </Layout>
 
@@ -1411,6 +1463,80 @@ const lang = getLangFromUrl(Astro.url);
 
     // Check inicial
     checkFormValidity();
+  });
+
+  // Strategy Video Modal functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('strategy-video-modal');
+    const iframe = document.getElementById('strategy-video-iframe') as HTMLIFrameElement;
+    const title = document.getElementById('strategy-video-title');
+    const closeBtn = document.getElementById('close-strategy-video-modal');
+    const videoButtons = document.querySelectorAll('.strategy-video-btn');
+
+    // Function to extract YouTube video ID from URL
+    function getYouTubeVideoId(url: string): string {
+      const patterns = [
+        /youtube\.com\/shorts\/([^?]+)/,
+        /youtube\.com\/watch\?v=([^&]+)/,
+        /youtu\.be\/([^?]+)/,
+        /youtube\.com\/embed\/([^?]+)/
+      ];
+
+      for (const pattern of patterns) {
+        const match = url.match(pattern);
+        if (match) return match[1];
+      }
+
+      return '';
+    }
+
+    // Open modal when clicking strategy video button
+    videoButtons.forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent strategy card from triggering
+
+        const videoUrl = button.getAttribute('data-video-url');
+        const videoTitle = button.getAttribute('data-video-title');
+
+        if (videoUrl && iframe && title && modal) {
+          const videoId = getYouTubeVideoId(videoUrl);
+          if (videoId) {
+            iframe.src = `https://www.youtube.com/embed/${videoId}?autoplay=1`;
+            title.textContent = videoTitle || '';
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+          }
+        }
+      });
+    });
+
+    // Close modal
+    function closeModal() {
+      if (modal && iframe) {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        iframe.src = '';
+      }
+    }
+
+    if (closeBtn) {
+      closeBtn.addEventListener('click', closeModal);
+    }
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          closeModal();
+        }
+      });
+    }
+
+    // Close on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && !modal.classList.contains('hidden')) {
+        closeModal();
+      }
+    });
   });
 </script>
 
