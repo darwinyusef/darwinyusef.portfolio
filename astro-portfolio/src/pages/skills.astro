@@ -147,7 +147,9 @@ const t = useTranslations(lang);
     if (!container) return;
 
     try {
-      const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/languages.json');
+      // const response = await fetch('https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/languages.json');
+      const response = await fetch('./script.json');
+      
       if (!response.ok) throw new Error('Failed to load languages');
 
       const allLanguages: Language[] = await response.json();
