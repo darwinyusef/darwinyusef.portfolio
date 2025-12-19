@@ -200,7 +200,7 @@ const lang = getLangFromUrl(Astro.url);
     const html = `
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-6">
-          <span class="material-symbols-outlined text-whitetext-4xl text-primary">star</span>
+          <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">star</span>
           <h2 class="text-3xl font-bold ">Videos Destacados</h2>
           <span class="px-3 py-1 bg-gradient-to-r from-primary to-purple-600  text-sm font-bold rounded-full">NUEVO</span>
         </div>
@@ -248,7 +248,7 @@ const lang = getLangFromUrl(Astro.url);
 
                 <!-- Content -->
                 <div class="p-6">
-                  <h3 class="font-bold text-2xl  mb-4 leading-tight hover:text-primary transition-colors">
+                  <h3 class="font-bold text-2xl  mb-4 leading-tight hover:text-blue-400 transition-colors">
                     ${video.title}
                   </h3>
 
@@ -269,7 +269,7 @@ const lang = getLangFromUrl(Astro.url);
                   ` : ''}
 
                   <!-- Watch Now Button -->
-                  <div class="flex items-center gap-2 text-primary font-bold group-hover:gap-4 transition-all">
+                  <div class="flex items-center gap-2 text-blue-400 font-bold group-hover:gap-4 transition-all">
                     <span>Ver ahora</span>
                     <span class="material-symbols-outlined">arrow_forward</span>
                   </div>
@@ -409,7 +409,7 @@ const lang = getLangFromUrl(Astro.url);
             ` : ''}
           </div>
           <div class="p-5">
-            <h3 class="font-bold text-lg  mb-2 line-clamp-2 hover:text-primary transition-colors">${video.title}</h3>
+            <h3 class="font-bold text-lg  mb-2 line-clamp-2 hover:text-blue-400 transition-colors">${video.title}</h3>
             <p class="text-sm text-gray-400 line-clamp-3 mb-3">${video.description}</p>
             ${video.tags && video.tags.length > 0 ? `
               <div class="flex flex-wrap gap-2">

@@ -42,7 +42,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
 
       <!-- Parallax Inspiration Banner -->
       <section class="py-32 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-pink-600/5 to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-pink-600/5 to-transparent pb-16"></div>
 
         <!-- Elementos flotantes de fondo con parallax -->
         <div class="parallax-bg absolute inset-0 pointer-events-none">
@@ -74,38 +74,42 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                   </span>
                   <br/>
                   <span class="inline-block bg-gradient-to-r from-purple-600 via-pink-600 to-primary bg-clip-text text-transparent">
-                    {lang === 'es' ? 'Historias Reales' : lang === 'en' ? 'Real Stories' : 'Histórias Reais'}
+                    {lang === 'es' ? 'Datos Reales' : lang === 'en' ? 'Real Datas' : 'Histórias Reais'}
                   </span>
                   <br/>
-                  <span class="inline-block ">
-                    {lang === 'es' ? 'de Expertos' : lang === 'en' ? 'from Experts' : 'de Especialistas'}
-                  </span>
+                <span class="inline-block text-white">
+                  {lang === 'es'
+                    ? 'para la comunidad TI'
+                    : lang === 'en'
+                    ? 'for the tech community'
+                    : 'para a comunidade de TI'}
+                </span>
                 </blockquote>
               </div>
 
               <div class="parallax-description-podcast" data-speed="0.15">
                 <p class="text-xl md:text-2xl text-gray-400 leading-relaxed max-w-3xl mx-auto">
                   {lang === 'es'
-                    ? 'Conversaciones profundas con líderes tecnológicos que comparten sus experiencias, desafíos superados y lecciones aprendidas en el camino hacia el éxito.'
+                    ? 'Conversaciones profundas con personas que se mueven en el ámbito de la tecnología y comparten sus experiencias, desafíos superados y lecciones aprendidas en su camino profesional.'
                     : lang === 'en'
-                    ? 'Deep conversations with tech leaders sharing their experiences, overcome challenges and lessons learned on the path to success.'
-                    : 'Conversas profundas com líderes tecnológicos compartilhando suas experiências, desafios superados e lições aprendidas no caminho para o sucesso.'}
+                    ? 'Deep conversations with people active in the technology space who share their experiences, challenges overcome, and lessons learned throughout their professional journey.'
+                    : 'Conversas profundas com pessoas que atuam no universo da tecnologia e compartilham suas experiências, desafios superados e lições aprendidas ao longo de sua trajetória profissional.'}
                 </p>
               </div>
 
               <!-- Podcast Features -->
               <div class="parallax-podcast-features grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12" data-speed="0.2">
-                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700">
+                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border">
                   <div class="text-4xl mb-2">🎙️</div>
-                  <div class="text-sm font-semibold ">{lang === 'es' ? 'Audio HD' : lang === 'en' ? 'HD Audio' : 'Áudio HD'}</div>
+                  <div class="text-sm text-white font-semibold ">{lang === 'es' ? 'Audio HD' : lang === 'en' ? 'HD Audio' : 'Áudio HD'}</div>
                 </div>
-                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700">
+                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border">
                   <div class="text-4xl mb-2">💡</div>
-                  <div class="text-sm font-semibold ">{lang === 'es' ? 'Insights' : lang === 'en' ? 'Insights' : 'Insights'}</div>
+                  <div class="text-sm text-white font-semibold ">{lang === 'es' ? 'Insights' : lang === 'en' ? 'Insights' : 'Insights'}</div>
                 </div>
-                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border border-gray-700">
+                <div class="text-center p-4 rounded-xl bg-gray-800/50 backdrop-blur-sm border">
                   <div class="text-4xl mb-2">⏱️</div>
-                  <div class="text-sm font-semibold ">{lang === 'es' ? 'Episodios' : lang === 'en' ? 'Episodes' : 'Episódios'}</div>
+                  <div class="text-sm text-white font-semibold ">{lang === 'es' ? 'Episodios' : lang === 'en' ? 'Episodes' : 'Episódios'}</div>
                 </div>
               </div>
             </div>
@@ -118,7 +122,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
         {podcastsFromContent.length > 0 && (
           <div class="mb-16">
             <div class="flex items-center gap-3 mb-8">
-              <span class="material-symbols-outlined text-whitetext-4xl text-primary">star</span>
+              <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">star</span>
               <h2 class="text-3xl font-bold ">
                 {lang === 'es' ? 'Episodio Destacado' : lang === 'en' ? 'Featured Episode' : 'Episódio Destacado'}
               </h2>
@@ -153,7 +157,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                         data-audio={latestPodcast.data.audioUrl}
                         data-title={latestPodcast.data.title}
                       >
-                        <span class="material-symbols-outlined text-whitetext-primary text-6xl group-hover/play:scale-110 transition-transform">play_circle</span>
+                        <span class="material-symbols-outlined text-whitetext-blue-400 text-6xl group-hover/play:scale-110 transition-transform">play_circle</span>
                       </button>
 
                       <!-- Duration Badge -->
@@ -253,7 +257,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                         data-audio={podcast.data.audioUrl}
                         data-title={podcast.data.title}
                       >
-                        <span class="material-symbols-outlined text-whitetext-primary text-4xl">play_arrow</span>
+                        <span class="material-symbols-outlined text-whitetext-blue-400 text-4xl">play_arrow</span>
                       </button>
 
                       <!-- Duration -->
@@ -274,7 +278,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                         })}
                       </div>
 
-                      <h3 class="font-bold text-lg  mb-4 leading-tight line-clamp-2 group-hover:text-primary transition-colors" style="font-family: 'Inter Tight', system-ui, sans-serif;">
+                      <h3 class="font-bold text-lg  mb-4 leading-tight line-clamp-2 group-hover:text-blue-400 transition-colors" style="font-family: 'Inter Tight', system-ui, sans-serif;">
                         {podcast.data.title}
                       </h3>
 
@@ -322,7 +326,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-3 min-w-0 flex-1">
-              <span class="material-symbols-outlined text-whitetext-primary text-2xl flex-shrink-0">podcast</span>
+              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl flex-shrink-0">podcast</span>
               <div class="min-w-0 flex-1">
                 <div class="text-base font-bold  truncate" id="current-title">
                   Título del episodio

@@ -92,7 +92,7 @@ const postsFromContent = await getCollection('posts');
               <!-- Stats o features -->
               <div class="parallax-stats grid grid-cols-3 gap-6 max-w-2xl mx-auto mt-12" data-speed="0.2">
                 <div class="text-center">
-                  <div class="text-3xl md:text-4xl font-bold text-primary mb-2">100+</div>
+                  <div class="text-3xl md:text-4xl font-bold text-blue-400 mb-2">100+</div>
                   <div class="text-sm text-gray-400">{lang === 'es' ? 'Artículos' : lang === 'en' ? 'Articles' : 'Artigos'}</div>
                 </div>
                 <div class="text-center">
@@ -257,7 +257,7 @@ const postsFromContent = await getCollection('posts');
                 <span class="inline-block bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-xs font-semibold px-2 py-1 rounded-md">${tag}</span>
               `).join('')}
             </div>
-            <h2 class="text-xl font-bold  mb-2 line-clamp-2 hover:text-primary transition-colors">${post.title}</h2>
+            <h2 class="text-xl font-bold  mb-2 line-clamp-2 hover:text-blue-400 transition-colors">${post.title}</h2>
             <p class="text-sm text-gray-400 mb-4 line-clamp-3">${post.excerpt}</p>
             <div class="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-4">
               <div class="flex items-center gap-2">
@@ -272,7 +272,7 @@ const postsFromContent = await getCollection('posts');
                 <span>${formattedDate}</span>
               </div>
             </div>
-            <a href="/blog/${post.slug}" class="inline-flex items-center gap-2 text-primary hover:gap-3 font-semibold transition-all">
+            <a href="/blog/${post.slug}" class="inline-flex items-center gap-2 text-blue-400 hover:gap-3 font-semibold transition-all">
               Leer más
               <span class="material-symbols-outlined text-whitetext-sm">arrow_forward</span>
             </a>

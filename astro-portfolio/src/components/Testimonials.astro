@@ -71,7 +71,7 @@ const lang = getLangFromUrl(Astro.url);
   <div class="relative w-full max-w-4xl">
     <button
       id="close-modal"
-      class="absolute -top-12 right-0  hover:text-primary transition-colors"
+      class="absolute -top-12 right-0  hover:text-blue-400 transition-colors"
       aria-label="Cerrar"
     >
       <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -122,7 +122,7 @@ const lang = getLangFromUrl(Astro.url);
             <div class="flex-1 min-w-0">
               <h3 class="font-bold text-lg text-slate-900 dark: truncate">${testimonial.name}</h3>
               <p class="text-sm text-slate-600 dark:text-slate-400 truncate">${testimonial.role}</p>
-              <p class="text-xs text-primary font-semibold mt-1 truncate">${testimonial.company}</p>
+              <p class="text-xs text-blue-400 font-semibold mt-1 truncate">${testimonial.company}</p>
             </div>
           </div>
 
@@ -135,7 +135,7 @@ const lang = getLangFromUrl(Astro.url);
 
           <!-- Contenido -->
           <div class="flex-1 relative mb-6">
-            <svg class="absolute -top-2 -left-2 w-8 h-8 text-primary/20" fill="currentColor" viewBox="0 0 32 32">
+            <svg class="absolute -top-2 -left-2 w-8 h-8 text-blue-400/20" fill="currentColor" viewBox="0 0 32 32">
               <path d="M10 8c-3.3 0-6 2.7-6 6v10h10V14h-6c0-2.2 1.8-4 4-4V8zm16 0c-3.3 0-6 2.7-6 6v10h10V14h-6c0-2.2 1.8-4 4-4V8z"/>
             </svg>
             <p class="text-slate-700 dark:text-slate-300 leading-relaxed pl-6 italic text-sm">${testimonial.content}</p>

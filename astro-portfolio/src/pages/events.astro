@@ -45,7 +45,7 @@ const regions = [
       <section class="pb-16 max-w-7xl mx-auto">
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6">
-            <span class="material-symbols-outlined text-whitetext-4xl text-primary">star</span>
+            <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">star</span>
             <h2 class="text-3xl font-bold ">
               {lang === 'es' ? 'Eventos Destacados' : lang === 'en' ? 'Featured Events' : 'Eventos Destacados'}
             </h2>
@@ -68,7 +68,7 @@ const regions = [
         <div class="mt-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-whitetext-4xl text-primary">photo_library</span>
+              <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">photo_library</span>
               <h2 class="text-3xl font-bold ">
                 {lang === 'es' ? 'Momentos de Eventos Anteriores' : lang === 'en' ? 'Moments from Previous Events' : 'Momentos de Eventos Anteriores'}
               </h2>
@@ -571,14 +571,14 @@ const regions = [
               </div>
             </div>
             <div class="p-6">
-              <h3 class="font-bold text-2xl text-white mb-4 leading-tight hover:text-primary transition-colors">
+              <h3 class="font-bold text-2xl text-white mb-4 leading-tight hover:text-blue-400 transition-colors">
                 ${event.title}
               </h3>
               <p class="text-base text-gray-300 mb-6 leading-relaxed">
                 ${event.description || ''}
               </p>
               <div class="flex items-center gap-3 text-sm text-gray-400 mb-6 bg-purple-900/30 px-4 py-3 rounded-lg">
-                <span class="material-symbols-outlined text-primary">place</span>
+                <span class="material-symbols-outlined text-blue-400">place</span>
                 <span class="font-semibold">${event.venue}</span>
               </div>
               <a
@@ -629,13 +629,13 @@ const regions = [
               </h3>
               <div class="space-y-3 mb-6">
                 <div class="flex items-center gap-3 text-sm text-gray-400">
-                  <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
                   </svg>
                   <span>${event.date}</span>
                 </div>
                 <div class="flex items-center gap-3 text-sm text-gray-400">
-                  <svg class="w-5 h-5 text-primary" fill="currentColor" viewBox="0 0 20 20">
+                  <svg class="w-5 h-5 text-blue-400" fill="currentColor" viewBox="0 0 20 20">
                     <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
                   </svg>
                   <span>${event.venue}</span>

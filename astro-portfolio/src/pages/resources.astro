@@ -253,7 +253,7 @@ const t = useTranslations(lang);
                   <span class="material-symbols-outlined text-white text-2xl">${typeIcon}</span>
                 </div>
                 <div>
-                  <span class="inline-block bg-gradient-to-r from-primary/10 to-purple-600/10 text-primary text-xs font-bold px-3 py-1.5 rounded-full border border-primary/20">
+                  <span class="inline-block bg-gradient-to-r from-primary/10 to-purple-600/10 text-blue-400 text-xs font-bold px-3 py-1.5 rounded-full border border-primary/20">
                     ${resource.type}
                   </span>
                 </div>
@@ -279,7 +279,7 @@ const t = useTranslations(lang);
             ${resource.tags && resource.tags.length > 0 ? `
               <div class="flex flex-wrap gap-2 mb-6">
                 ${resource.tags.slice(0, 4).map(tag => `
-                  <span class="text-xs bg-gradient-to-r from-primary/5 to-purple-600/5 text-primary px-3 py-1 rounded-lg border border-primary/10 font-medium">
+                  <span class="text-xs bg-gradient-to-r from-primary/5 to-purple-600/5 text-blue-400 px-3 py-1 rounded-lg border border-primary/10 font-medium">
                     #${tag}
                   </span>
                 `).join('')}

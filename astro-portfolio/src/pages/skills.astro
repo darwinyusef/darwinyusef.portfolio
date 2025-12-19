@@ -227,7 +227,7 @@ const t = useTranslations(lang);
                       <div class="h-3 flex-1 rounded-full bg-gray-700 overflow-hidden">
                         <div class="h-3 rounded-full bg-gradient-to-r from-primary to-purple-600 transition-all duration-1000" style="width: ${lang.proficiency}%"></div>
                       </div>
-                      <span class="text-sm font-bold text-primary">${lang.proficiency}%</span>
+                      <span class="text-sm font-bold text-blue-400">${lang.proficiency}%</span>
                     </div>
                   `}
                   </div>
@@ -444,13 +444,13 @@ const t = useTranslations(lang);
                   ${exp.achievements && exp.achievements.length > 0 ? `
                     <div class="mb-4">
                       <h4 class="font-semibold  mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-whitetext-sm text-primary">emoji_events</span>
+                        <span class="material-symbols-outlined text-whitetext-sm text-blue-400">emoji_events</span>
                         Logros destacados:
                       </h4>
                       <ul class="space-y-2">
                         ${exp.achievements.map(achievement => `
                           <li class="flex items-start gap-2 text-sm text-gray-400">
-                            <span class="text-primary mt-0.5">▸</span>
+                            <span class="text-blue-400 mt-0.5">▸</span>
                             <span>${achievement}</span>
                           </li>
                         `).join('')}
@@ -462,12 +462,12 @@ const t = useTranslations(lang);
                   ${exp.technologies && exp.technologies.length > 0 ? `
                     <div>
                       <h4 class="font-semibold  mb-2 flex items-center gap-2 text-sm">
-                        <span class="material-symbols-outlined text-whitetext-sm text-primary">code</span>
+                        <span class="material-symbols-outlined text-whitetext-sm text-blue-400">code</span>
                         Tecnologías:
                       </h4>
                       <div class="flex flex-wrap gap-2">
                         ${exp.technologies.map(tech => `
-                          <span class="bg-primary/10 dark:bg-primary/20 text-primary text-xs font-semibold px-3 py-1 rounded-full">
+                          <span class="bg-primary/10 dark:bg-primary/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">
                             ${tech}
                           </span>
                         `).join('')}

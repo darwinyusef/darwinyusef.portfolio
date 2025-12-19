@@ -14,7 +14,7 @@ const lang = getLangFromUrl(Astro.url);
       <div class="text-center max-w-md">
         <div class="mb-8">
           <div class="inline-block p-6 bg-primary/10 dark:bg-primary/20 rounded-full">
-            <span class="material-symbols-outlined text-whitetext-primary" style="font-size: 80px;">error_outline</span>
+            <span class="material-symbols-outlined text-whitetext-blue-400" style="font-size: 80px;">error_outline</span>
           </div>
         </div>
 
@@ -55,16 +55,16 @@ const lang = getLangFromUrl(Astro.url);
             {lang === 'es' ? 'Enlaces útiles:' : lang === 'en' ? 'Useful links:' : 'Links úteis:'}
           </p>
           <div class="flex flex-wrap justify-center gap-4 text-sm">
-            <a href={`/${lang === 'es' ? '' : lang}/services`} class="text-primary hover:underline">
+            <a href={`/${lang === 'es' ? '' : lang}/services`} class="text-blue-400 hover:underline">
               {lang === 'es' ? 'Servicios' : lang === 'en' ? 'Services' : 'Serviços'}
             </a>
-            <a href={`/${lang === 'es' ? '' : lang}/skills`} class="text-primary hover:underline">
+            <a href={`/${lang === 'es' ? '' : lang}/skills`} class="text-blue-400 hover:underline">
               {lang === 'es' ? 'Habilidades' : lang === 'en' ? 'Skills' : 'Habilidades'}
             </a>
-            <a href={`/${lang === 'es' ? '' : lang}/podcast`} class="text-primary hover:underline">
+            <a href={`/${lang === 'es' ? '' : lang}/podcast`} class="text-blue-400 hover:underline">
               Podcast
             </a>
-            <a href={`/${lang === 'es' ? '' : lang}/#contact`} class="text-primary hover:underline">
+            <a href={`/${lang === 'es' ? '' : lang}/#contact`} class="text-blue-400 hover:underline">
               {lang === 'es' ? 'Contacto' : lang === 'en' ? 'Contact' : 'Contato'}
             </a>
           </div>
