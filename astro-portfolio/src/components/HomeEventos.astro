@@ -1,0 +1,311 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+
+<div class="max-w-[1400px] mx-auto">
+  <div class="text-center mb-12">
+    <h2
+      class="text-4xl md:text-5xl font-black mb-4"
+      style="font-family: 'Inter Tight', system-ui, sans-serif;"
+    >
+      {
+        lang === "es"
+          ? "Próximos Eventos"
+          : lang === "en"
+            ? "Upcoming Events"
+            : "Próximos Eventos"
+      }
+    </h2>
+    <p class="text-lg md:text-xl text-gray-400">
+      {
+        lang === "es"
+          ? "Únete a mis próximas charlas, talleres y eventos físicos u online"
+          : lang === "en"
+            ? "Join me for my upcoming talks, workshops, and in-person or online events."
+            : "Participe das minhas próximas palestras, workshops e eventos presenciais ou online."
+      }
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <!-- Evento 1 -->
+    <div
+      class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800"
+    >
+      <div class="bg-gradient-to-br from-primary to-purple-600 p-6">
+        <div class="flex items-start justify-between">
+          <div>
+            <div
+              class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2"
+            >
+              {
+                lang === "es"
+                  ? "Taller"
+                  : lang === "en"
+                    ? "Workshop"
+                    : "Workshop"
+              }
+            </div>
+            <h3
+              class="text-2xl font-bold mb-2"
+              style="font-family: 'Inter Tight', system-ui, sans-serif;"
+            >
+              {
+                lang === "es"
+                  ? "Full Stack con React"
+                  : lang === "en"
+                    ? "Full Stack with React"
+                    : "Full Stack com React"
+              }
+            </h3>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-black">15</div>
+            <div class="text-sm uppercase">
+              {lang === "es" ? "Dic" : lang === "en" ? "Dec" : "Dez"}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm">18:00 - 20:00</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span class="text-sm"
+              >{
+                lang === "es" ? "Online" : lang === "en" ? "Online" : "Online"
+              }</span
+            >
+          </div>
+        </div>
+        <a
+          href="#"
+          class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
+          data-cursor-text={lang === "es"
+            ? "Registrarme"
+            : lang === "en"
+              ? "Register"
+              : "Registrar"}
+        >
+          {
+            lang === "es"
+              ? "Registrarse"
+              : lang === "en"
+                ? "Register"
+                : "Registrar"
+          }
+        </a>
+      </div>
+    </div>
+
+    <!-- Evento 2 -->
+    <div
+      class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800"
+    >
+      <div class="bg-gradient-to-br from-pink-600 to-purple-600 p-6">
+        <div class="flex items-start justify-between">
+          <div>
+            <div
+              class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2"
+            >
+              {lang === "es" ? "Charla" : lang === "en" ? "Talk" : "Palestra"}
+            </div>
+            <h3
+              class="text-2xl font-bold mb-2"
+              style="font-family: 'Inter Tight', system-ui, sans-serif;"
+            >
+              {
+                lang === "es"
+                  ? "Arquitectura Escalable"
+                  : lang === "en"
+                    ? "Scalable Architecture"
+                    : "Arquitetura Escalável"
+              }
+            </h3>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-black">22</div>
+            <div class="text-sm uppercase">
+              {lang === "es" ? "Dic" : lang === "en" ? "Dec" : "Dez"}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm">19:00 - 21:00</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span class="text-sm">Zoom Webinar</span>
+          </div>
+        </div>
+        <a
+          href="#"
+          class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
+          data-cursor-text={lang === "es"
+            ? "Reservar"
+            : lang === "en"
+              ? "Book"
+              : "Reservar"}
+        >
+          {
+            lang === "es"
+              ? "Reservar Lugar"
+              : lang === "en"
+                ? "Book Seat"
+                : "Reservar Lugar"
+          }
+        </a>
+      </div>
+    </div>
+
+    <!-- Evento 3 -->
+    <div
+      class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800"
+    >
+      <div class="bg-gradient-to-br from-purple-600 to-primary p-6">
+        <div class="flex items-start justify-between">
+          <div>
+            <div
+              class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2"
+            >
+              {lang === "es" ? "Meetup" : lang === "en" ? "Meetup" : "Meetup"}
+            </div>
+            <h3
+              class="text-2xl font-bold mb-2"
+              style="font-family: 'Inter Tight', system-ui, sans-serif;"
+            >
+              {
+                lang === "es"
+                  ? "Networking Developers"
+                  : lang === "en"
+                    ? "Developers Networking"
+                    : "Networking Developers"
+              }
+            </h3>
+          </div>
+          <div class="text-right">
+            <div class="text-3xl font-black">28</div>
+            <div class="text-sm uppercase">
+              {lang === "es" ? "Dic" : lang === "en" ? "Dec" : "Dez"}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="p-6">
+        <div class="space-y-3 mb-6">
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+            <span class="text-sm">17:00 - 19:00</span>
+          </div>
+          <div class="flex items-center gap-3 text-gray-400">
+            <svg
+              class="h-5 w-5"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+              ></path>
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            <span class="text-sm">Discord Community</span>
+          </div>
+        </div>
+        <a
+          href="#"
+          class="block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target bg-red-400"
+          data-cursor-text={lang === "es"
+            ? "Unirme"
+            : lang === "en"
+              ? "Join"
+              : "Participar"}
+        >
+          {lang === "es" ? "Unirme" : lang === "en" ? "Join Now" : "Participar"}
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
