@@ -56,8 +56,10 @@ const t = useTranslations(lang);
       }
     </a>
     <a
-      href={`${lang === "es" ? "" : lang + "/"}podcast`}
-      class="text-gray-400 hover:text-blue-400 dark:hover:text-blue-400 transition-colors cursor-hover-target"
+      href="https://wpaqc.com/podcast"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-gray-400 hover:text-blue-400 dark:hover:text-blue-400 transition-colors cursor-hover-target flex items-center gap-1"
       data-cursor-text={lang === "es"
         ? "Escucha el podcast"
         : lang === "en"
@@ -65,10 +67,13 @@ const t = useTranslations(lang);
           : "Ouça o podcast"}
     >
       Podcast
+      <span class="material-symbols-outlined text-xs">open_in_new</span>
     </a>
     <a
-      href={`${lang === "es" ? "" : lang + "/"}blog`}
-      class="text-gray-400 hover:text-blue-400 dark:hover:text-blue-400 transition-colors cursor-hover-target"
+      href="https://wpaqc.com/blog"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-gray-400 hover:text-blue-400 dark:hover:text-blue-400 transition-colors cursor-hover-target flex items-center gap-1"
       data-cursor-text={lang === "es"
         ? "Leer artículos"
         : lang === "en"
@@ -76,6 +81,7 @@ const t = useTranslations(lang);
           : "Ler artigos"}
     >
       Blog
+      <span class="material-symbols-outlined text-xs">open_in_new</span>
     </a>
     <a
       href={`${lang === "es" ? "" : lang + "/"}arquitectura`}
@@ -244,10 +250,13 @@ const t = useTranslations(lang);
       {lang === "es" ? "Eventos" : lang === "en" ? "Events" : "Eventos"}
     </a>
     <a
-      href={`/${lang === "es" ? "" : lang}/podcast`}
-      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+      href="https://wpaqc.com/podcast"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center justify-between"
     >
       Podcast
+      <span class="material-symbols-outlined text-xs">open_in_new</span>
     </a>
     <a
       href={`/${lang === "es" ? "" : lang}/videos`}
@@ -256,10 +265,13 @@ const t = useTranslations(lang);
       Videos
     </a>
     <a
-      href={`/${lang === "es" ? "" : lang}/blog`}
-      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+      href="https://wpaqc.com/blog"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center justify-between"
     >
       Blog
+      <span class="material-symbols-outlined text-xs">open_in_new</span>
     </a>
     <a
       href={`/${lang === "es" ? "" : lang}/resources`}

@@ -40,23 +40,8 @@ const posts = defineCollection({
   }),
 });
 
-const podcasts = defineCollection({
-  type: 'content',
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    pubDate: z.date(),
-    duration: z.string(),
-    audioUrl: z.string(),
-    coverImage: z.string().optional(),
-    tags: z.array(z.string()).default([]),
-    is_active: z.boolean().default(true),
-  }),
-});
-
 export const collections = {
   skills,
   services,
   posts,
-  podcasts,
 };
