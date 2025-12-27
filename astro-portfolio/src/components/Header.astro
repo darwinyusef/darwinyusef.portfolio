@@ -226,10 +226,13 @@ const t = useTranslations(lang);
       {t("nav.skills")}
     </a>
     <a
-      href={`/${lang === "es" ? "" : lang}/services`}
-      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors"
+      href="https://wpaqc.com/aquicreamos"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="block px-4 py-2 text-gray-400 hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors flex items-center gap-1"
     >
       {t("nav.services")}
+      <span class="material-symbols-outlined text-xs">open_in_new</span>
     </a>
     <a
       href={`/${lang === "es" ? "" : lang}/arquitectura`}
