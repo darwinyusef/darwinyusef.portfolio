@@ -62,7 +62,7 @@ const t = useTranslations(lang);
           </h3>
           <div class="flex flex-wrap gap-2" id="type-filters">
             <button
-              class="type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 hover:scale-105"
+              class="type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-slate-300 hover:bg-slate-600 hover:scale-105"
               data-type="all"
             >
               {lang === 'es' ? 'Todos los tipos' : lang === 'en' ? 'All Types' : 'Todos os tipos'}
@@ -120,7 +120,7 @@ const t = useTranslations(lang);
       .map(([category, count]) => {
         return `
           <button
-            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105"
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105"
             data-category="${category}"
           >
             ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
@@ -156,7 +156,7 @@ const t = useTranslations(lang);
       .map(([type, count]) => {
         return `
           <button
-            class="type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600"
+            class="type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-slate-300 hover:bg-slate-600"
             data-type="${type}"
           >
             ${type} <span class="text-xs opacity-75">(${count})</span>
@@ -184,7 +184,7 @@ const t = useTranslations(lang);
       if (btn.getAttribute('data-category') === category) {
         btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  shadow-sm hover:shadow-md hover:scale-105';
       } else {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-gradient-to-r hover:from-primary hover:to-purple-600 shadow-sm hover:scale-105';
       }
     });
 
@@ -198,7 +198,7 @@ const t = useTranslations(lang);
       if (btn.getAttribute('data-type') === type) {
         btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-gradient-to-r from-primary to-purple-600  hover:scale-105';
       } else {
-        btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-300 dark:hover:bg-slate-600 hover:scale-105';
+        btn.className = 'type-btn px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-slate-300 hover:bg-slate-600 hover:scale-105';
       }
     });
 
@@ -230,7 +230,7 @@ const t = useTranslations(lang);
             <span class="material-symbols-outlined text-white text-4xl">search_off</span>
           </div>
           <p class="text-gray-400 text-lg font-medium">No hay recursos con estos filtros.</p>
-          <p class="text-gray-500 dark:text-gray-500 text-sm mt-2">Intenta seleccionar otros filtros</p>
+          <p class="text-gray-500 text-sm mt-2">Intenta seleccionar otros filtros</p>
         </div>
       `;
       return;
@@ -267,11 +267,11 @@ const t = useTranslations(lang);
             <p class="text-sm text-gray-400 mb-6 line-clamp-3 leading-relaxed">${resource.description}</p>
 
             <div class="flex items-center gap-2 mb-5 flex-wrap">
-              <span class="text-xs bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg font-medium backdrop-blur-sm">
+              <span class="text-xs bg-slate-800/50 text-slate-300 px-3 py-1.5 rounded-lg font-medium backdrop-blur-sm">
                 ${resource.category}
               </span>
-              <span class="text-xs bg-slate-100 dark:bg-slate-800/50 text-slate-700 dark:text-slate-300 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-medium backdrop-blur-sm">
-                <span class="material-symbols-outlined text-whitetext-xs">language</span>
+              <span class="text-xs bg-slate-800/50 text-slate-300 px-3 py-1.5 rounded-lg flex items-center gap-1.5 font-medium backdrop-blur-sm">
+                <span class="material-symbols-outlined text-white text-xs">language</span>
                 ${resource.language}
               </span>
             </div>
@@ -293,7 +293,7 @@ const t = useTranslations(lang);
               class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-purple-600  rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:gap-3 group/btn"
             >
               <span>Visitar recurso</span>
-              <span class="material-symbols-outlined text-whitetext-sm group-hover/btn:translate-x-1 transition-transform">open_in_new</span>
+              <span class="material-symbols-outlined text-white text-sm group-hover/btn:translate-x-1 transition-transform">open_in_new</span>
             </a>
           </div>
         </article>
@@ -340,7 +340,7 @@ const t = useTranslations(lang);
       console.error('Error loading resources:', error);
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
-          <p class="text-red-500 dark:text-red-400">Error al cargar recursos.</p>
+          <p class="text-red-400">Error al cargar recursos.</p>
           <p class="text-sm text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;

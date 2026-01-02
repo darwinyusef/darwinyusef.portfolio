@@ -97,13 +97,13 @@ const lang = getLangFromUrl(Astro.url);
 
         return `
           <div class="flex items-center gap-4">
-            <div class="bg-primary/10 dark:bg-primary/20 p-3 rounded-lg flex-shrink-0">
-              <span class="material-symbols-outlined text-whitetext-blue-400">event</span>
+            <div class="bg-primary/20 p-3 rounded-lg flex-shrink-0">
+              <span class="material-symbols-outlined text-blue-400">event</span>
             </div>
             <div class="flex-1 min-w-0">
               <p class="font-semibold  truncate">${event.title}</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">${formattedDate}</p>
-              ${event.location ? `<p class="text-xs text-gray-400 dark:text-gray-500">${event.location}</p>` : ''}
+              <p class="text-sm text-gray-400">${formattedDate}</p>
+              ${event.location ? `<p class="text-xs text-gray-500">${event.location}</p>` : ''}
             </div>
           </div>
         `;

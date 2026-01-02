@@ -44,7 +44,7 @@ const lang = getLangFromUrl(Astro.url);
               id="name"
               name="name"
               required
-              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
               placeholder={lang === 'es' ? 'Juan Pérez' : lang === 'en' ? 'John Doe' : 'João Silva'}
             />
           </div>
@@ -59,7 +59,7 @@ const lang = getLangFromUrl(Astro.url);
                 id="role"
                 name="role"
                 required
-                class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
+                class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
                 placeholder={lang === 'es' ? 'CEO, CTO, etc.' : lang === 'en' ? 'CEO, CTO, etc.' : 'CEO, CTO, etc.'}
               />
             </div>
@@ -72,7 +72,7 @@ const lang = getLangFromUrl(Astro.url);
                 type="text"
                 id="company"
                 name="company"
-                class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
+                class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
                 placeholder={lang === 'es' ? 'Nombre de la empresa' : lang === 'en' ? 'Company name' : 'Nome da empresa'}
               />
             </div>
@@ -87,7 +87,7 @@ const lang = getLangFromUrl(Astro.url);
               id="email"
               name="email"
               required
-              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
               placeholder="email@example.com"
             />
           </div>
@@ -100,7 +100,7 @@ const lang = getLangFromUrl(Astro.url);
               {[1, 2, 3, 4, 5].map(num => (
                 <button
                   type="button"
-                  class="rating-btn w-12 h-12 rounded-lg border-2 border-gray-300 dark:border-gray-700 hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
+                  class="rating-btn w-12 h-12 rounded-lg border-2 border-gray-700 hover:border-primary hover:bg-primary/10 flex items-center justify-center transition-colors"
                   data-rating={num}
                 >
                   <span class="text-2xl">{num === 1 ? '😞' : num === 2 ? '😐' : num === 3 ? '🙂' : num === 4 ? '😊' : '😍'}</span>
@@ -119,12 +119,12 @@ const lang = getLangFromUrl(Astro.url);
               name="content"
               rows="6"
               required
-              class="w-full bg-gray-100 dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
+              class="w-full bg-gray-800 border border-gray-700 rounded-lg p-3 text-base focus:ring-2 focus:ring-primary focus:border-transparent "
               placeholder={lang === 'es' ? 'Comparte tu experiencia trabajando conmigo...' :
                            lang === 'en' ? 'Share your experience working with me...' :
                            'Compartilhe sua experiência trabalhando comigo...'}
             ></textarea>
-            <p class="text-xs text-gray-500 dark:text-gray-400 mt-1">
+            <p class="text-xs text-gray-400 mt-1">
               {lang === 'es' ? 'Mínimo 50 caracteres' : lang === 'en' ? 'Minimum 50 characters' : 'Mínimo 50 caracteres'}
             </p>
           </div>
@@ -172,10 +172,10 @@ const lang = getLangFromUrl(Astro.url);
       btn.addEventListener('click', () => {
         ratingButtons.forEach(b => {
           b.classList.remove('border-primary', 'bg-primary/10');
-          b.classList.add('border-gray-300', 'dark:border-gray-700');
+          b.classList.add('border-gray-700');
         });
 
-        btn.classList.remove('border-gray-300', 'dark:border-gray-700');
+        btn.classList.remove('border-gray-700');
         btn.classList.add('border-primary', 'bg-primary/10');
 
         const rating = btn.dataset.rating;
@@ -212,8 +212,8 @@ const lang = getLangFromUrl(Astro.url);
           message.classList.remove('hidden');
           if (response.ok) {
             message.textContent = '✓ ¡Gracias por tu testimonio! Será revisado antes de ser publicado.';
-            message.classList.add('text-green-600', 'dark:text-green-400');
-            message.classList.remove('text-red-600', 'dark:text-red-400');
+            message.classList.add('text-green-400');
+            message.classList.remove('text-red-400');
             form.reset();
             selectedRating = 5;
             ratingButtons.forEach(b => {
@@ -222,15 +222,15 @@ const lang = getLangFromUrl(Astro.url);
             ratingButtons[4]?.classList.add('border-primary', 'bg-primary/10');
           } else {
             message.textContent = '✗ Error al enviar el testimonio. Por favor intenta de nuevo.';
-            message.classList.add('text-red-600', 'dark:text-red-400');
-            message.classList.remove('text-green-600', 'dark:text-green-400');
+            message.classList.add('text-red-400');
+            message.classList.remove('text-green-400');
           }
         }
       } catch (error) {
         if (message) {
           message.classList.remove('hidden');
           message.textContent = '✗ Error de conexión. Por favor intenta más tarde.';
-          message.classList.add('text-red-600', 'dark:text-red-400');
+          message.classList.add('text-red-400');
         }
       }
     });

@@ -51,7 +51,7 @@ const t = useTranslations(lang);
           </button>
           <button
             id="tab-experience"
-            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:scale-105"
+            class="tab-btn px-6 py-3 rounded-xl font-semibold transition-all duration-300 text-slate-400 hover:text-white hover:scale-105"
             style="font-family: 'Inter Tight', system-ui, sans-serif;"
           >
             {lang === 'es' ? 'Experiencia' : lang === 'en' ? 'Experience' : 'Experiência'}
@@ -122,20 +122,20 @@ const t = useTranslations(lang);
     if (tab === 'languages') {
       // Active state for languages tab
       languagesTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
-      languagesTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      languagesTab?.classList.remove('text-slate-400');
       // Inactive state for experience tab
       experienceTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
-      experienceTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      experienceTab?.classList.add('text-slate-400');
       // Show/hide content
       languagesContent?.classList.remove('hidden');
       experienceContent?.classList.add('hidden');
     } else {
       // Active state for experience tab
       experienceTab?.classList.add('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
-      experienceTab?.classList.remove('text-slate-600', 'dark:text-slate-400');
+      experienceTab?.classList.remove('text-slate-400');
       // Inactive state for languages tab
       languagesTab?.classList.remove('bg-gradient-to-r', 'from-primary', 'to-purple-600', 'text-white', 'shadow-lg');
-      languagesTab?.classList.add('text-slate-600', 'dark:text-slate-400');
+      languagesTab?.classList.add('text-slate-400');
       // Show/hide content
       experienceContent?.classList.remove('hidden');
       languagesContent?.classList.add('hidden');
@@ -260,7 +260,7 @@ const t = useTranslations(lang);
       console.error('Error loading languages:', error);
       container.innerHTML = `
         <div class="text-center py-8">
-          <p class="text-red-500 dark:text-red-400">Error al cargar lenguajes.</p>
+          <p class="text-red-400">Error al cargar lenguajes.</p>
         </div>
       `;
     }
@@ -416,7 +416,7 @@ const t = useTranslations(lang);
                       <p class="text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-primary to-purple-600 font-semibold">${exp.company}</p>
                     </div>
                     ${exp.current ? `
-                      <span class="mt-2 md:mt-0 inline-flex items-center gap-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 px-3 py-1 rounded-full text-xs font-bold">
+                      <span class="mt-2 md:mt-0 inline-flex items-center gap-1 bg-green-900/30 text-green-400 px-3 py-1 rounded-full text-xs font-bold">
                         <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
                         Actual
                       </span>
@@ -425,15 +425,15 @@ const t = useTranslations(lang);
 
                   <div class="flex flex-wrap items-center gap-3 text-sm text-gray-400 mb-4">
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-whitetext-sm">location_on</span>
+                      <span class="material-symbols-outlined text-white text-sm">location_on</span>
                       <span>${exp.location}</span>
                     </div>
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-whitetext-sm">calendar_month</span>
+                      <span class="material-symbols-outlined text-white text-sm">calendar_month</span>
                       <span>${startStr} - ${endStr}</span>
                     </div>
                     <div class="flex items-center gap-1">
-                      <span class="material-symbols-outlined text-whitetext-sm">schedule</span>
+                      <span class="material-symbols-outlined text-white text-sm">schedule</span>
                       <span>${duration}</span>
                     </div>
                   </div>
@@ -444,7 +444,7 @@ const t = useTranslations(lang);
                   ${exp.achievements && exp.achievements.length > 0 ? `
                     <div class="mb-4">
                       <h4 class="font-semibold  mb-2 flex items-center gap-2">
-                        <span class="material-symbols-outlined text-whitetext-sm text-blue-400">emoji_events</span>
+                        <span class="material-symbols-outlined text-white text-sm text-blue-400">emoji_events</span>
                         Logros destacados:
                       </h4>
                       <ul class="space-y-2">
@@ -462,12 +462,12 @@ const t = useTranslations(lang);
                   ${exp.technologies && exp.technologies.length > 0 ? `
                     <div>
                       <h4 class="font-semibold  mb-2 flex items-center gap-2 text-sm">
-                        <span class="material-symbols-outlined text-whitetext-sm text-blue-400">code</span>
+                        <span class="material-symbols-outlined text-white text-sm text-blue-400">code</span>
                         Tecnologías:
                       </h4>
                       <div class="flex flex-wrap gap-2">
                         ${exp.technologies.map(tech => `
-                          <span class="bg-primary/10 dark:bg-primary/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">
+                          <span class="bg-primary/20 text-blue-400 text-xs font-semibold px-3 py-1 rounded-full">
                             ${tech}
                           </span>
                         `).join('')}
@@ -495,7 +495,7 @@ const t = useTranslations(lang);
       console.error('Error loading experience:', error);
       container.innerHTML = `
         <div class="text-center py-8">
-          <p class="text-red-500 dark:text-red-400">Error al cargar experiencia.</p>
+          <p class="text-red-400">Error al cargar experiencia.</p>
         </div>
       `;
     }

@@ -153,11 +153,11 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
 
                       <!-- Play Button Overlay -->
                       <button
-                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-white/90 dark:bg-black/90 backdrop-blur-sm flex items-center justify-center  hover:scale-110 transition-all duration-300 group/play z-10"
+                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-24 h-24 rounded-full bg-black/90 backdrop-blur-sm flex items-center justify-center  hover:scale-110 transition-all duration-300 group/play z-10"
                         data-audio={latestPodcast.data.audioUrl}
                         data-title={latestPodcast.data.title}
                       >
-                        <span class="material-symbols-outlined text-whitetext-blue-400 text-6xl group-hover/play:scale-110 transition-transform">play_circle</span>
+                        <span class="material-symbols-outlined text-blue-400 text-6xl group-hover/play:scale-110 transition-transform">play_circle</span>
                       </button>
 
                       <!-- Duration Badge -->
@@ -171,7 +171,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                     <div class="p-8 md:p-10 flex flex-col justify-center">
                       <div class="flex items-center gap-2 mb-4">
                         <span class="px-3 py-1 bg-gradient-to-r from-red-500 to-pink-500  text-xs font-bold rounded-full uppercase">En vivo</span>
-                        <span class="text-sm text-gray-500 dark:text-gray-400">
+                        <span class="text-sm text-gray-400">
                           {new Date(latestPodcast.data.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR', {
                             year: 'numeric',
                             month: 'long',
@@ -194,7 +194,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                           class="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-primary to-purple-600  rounded-xl font-bold text-lg transition-all duration-300 hover:shadow-xl hover:scale-105 group/btn"
                         >
                           <span>{lang === 'es' ? 'Ver Episodio Completo' : lang === 'en' ? 'Watch Full Episode' : 'Ver Episódio Completo'}</span>
-                          <span class="material-symbols-outlined text-whitegroup-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
+                          <span class="material-symbols-outlined text-white group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
                         </a>
                       </div>
                     </div>
@@ -212,7 +212,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
               <div class="w-full border-t-2 border-gray-700"></div>
             </div>
             <div class="relative flex justify-center">
-              <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 rounded-full border-2 border-gray-700">
+              <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-400 rounded-full border-2 border-gray-700">
                 {lang === 'es' ? 'Todos los episodios' : lang === 'en' ? 'All episodes' : 'Todos os episódios'}
               </span>
             </div>
@@ -244,7 +244,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                       <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent"></div>
 
                       <!-- Author Badge -->
-                      <div class="absolute top-3 left-3 flex items-center gap-2 bg-white/95 dark:bg-black/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
+                      <div class="absolute top-3 left-3 flex items-center gap-2 bg-black/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg">
                         <div class="w-6 h-6 rounded-full bg-gradient-to-br from-pink-600 to-primary flex items-center justify-center">
                           <span class="material-symbols-outlined text-white text-xs">person</span>
                         </div>
@@ -253,24 +253,24 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
 
                       <!-- Play Button -->
                       <button
-                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-white/95 dark:bg-black/95 backdrop-blur-sm flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100"
+                        class="play-podcast-btn absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-14 h-14 rounded-full bg-black/95 backdrop-blur-sm flex items-center justify-center shadow-xl hover:scale-110 transition-all duration-300 opacity-0 group-hover:opacity-100"
                         data-audio={podcast.data.audioUrl}
                         data-title={podcast.data.title}
                       >
-                        <span class="material-symbols-outlined text-whitetext-blue-400 text-4xl">play_arrow</span>
+                        <span class="material-symbols-outlined text-blue-400 text-4xl">play_arrow</span>
                       </button>
 
                       <!-- Duration -->
                       <div class="absolute bottom-3 right-3 bg-black/80 backdrop-blur-sm  px-2.5 py-1 rounded-full text-xs font-bold flex items-center gap-1">
-                        <span class="material-symbols-outlined text-whitetext-xs">schedule</span>
+                        <span class="material-symbols-outlined text-white text-xs">schedule</span>
                         {podcast.data.duration}
                       </div>
                     </div>
 
                     <!-- Content -->
                     <div class="p-5">
-                      <div class="text-xs text-gray-500 dark:text-gray-400 mb-2 font-medium flex items-center gap-1">
-                        <span class="material-symbols-outlined text-whitetext-xs">calendar_today</span>
+                      <div class="text-xs text-gray-400 mb-2 font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-white text-xs">calendar_today</span>
                         {new Date(podcast.data.pubDate).toLocaleDateString(lang === 'es' ? 'es-ES' : lang === 'en' ? 'en-US' : 'pt-BR', {
                           year: 'numeric',
                           month: 'short',
@@ -287,7 +287,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
                           href={lang === "es" ? `/podcast/${podcast.slug}` : `/${lang}/podcast/${podcast.slug}`}
                           class="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-gradient-to-r from-pink-600 to-primary  rounded-xl font-semibold text-sm transition-all duration-300 hover:shadow-lg hover:scale-105"
                         >
-                          <span class="material-symbols-outlined text-whitetext-base">headphones</span>
+                          <span class="material-symbols-outlined text-white text-base">headphones</span>
                           <span>{lang === 'es' ? 'Escuchar' : lang === 'en' ? 'Listen' : 'Ouvir'}</span>
                         </a>
                       </div>
@@ -326,12 +326,12 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
         <div class="flex-1 min-w-0">
           <div class="flex items-center justify-between mb-2">
             <div class="flex items-center gap-3 min-w-0 flex-1">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl flex-shrink-0">podcast</span>
+              <span class="material-symbols-outlined text-blue-400 text-2xl flex-shrink-0">podcast</span>
               <div class="min-w-0 flex-1">
                 <div class="text-base font-bold  truncate" id="current-title">
                   Título del episodio
                 </div>
-                <div class="text-xs text-gray-500 dark:text-gray-400">
+                <div class="text-xs text-gray-400">
                   {lang === 'es' ? 'Reproduciendo ahora' : lang === 'en' ? 'Now playing' : 'Reproduzindo agora'}
                 </div>
               </div>
@@ -340,7 +340,7 @@ const podcastsFromContent = await getCollection("podcasts", ({ data }) => data.i
             <!-- Close Button -->
             <button
               id="close-player-btn"
-              class="ml-4 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 transition-all duration-300 flex-shrink-0"
+              class="ml-4 h-10 w-10 flex items-center justify-center rounded-full hover:bg-gray-800 text-gray-500 hover:text-gray-300 transition-all duration-300 flex-shrink-0"
             >
               <span class="material-symbols-outlined">close</span>
             </button>

@@ -138,7 +138,7 @@ const lang = getLangFromUrl(Astro.url);
     <div class="bg-[#1a1a2e] rounded-lg w-full max-w-4xl">
       <div class="flex items-center justify-between p-4 border-b border-gray-700">
         <h3 id="modal-title" class="font-bold "></h3>
-        <button id="close-modal-btn" class="text-gray-500 hover:text-gray-700 dark:hover:text-gray-300">
+        <button id="close-modal-btn" class="text-gray-500 hover:text-gray-300">
           <span class="material-symbols-outlined">close</span>
         </button>
       </div>
@@ -200,7 +200,7 @@ const lang = getLangFromUrl(Astro.url);
     const html = `
       <div class="mb-8">
         <div class="flex items-center gap-3 mb-6">
-          <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">star</span>
+          <span class="material-symbols-outlined text-4xl text-blue-400">star</span>
           <h2 class="text-3xl font-bold ">Videos Destacados</h2>
           <span class="px-3 py-1 bg-gradient-to-r from-primary to-purple-600  text-sm font-bold rounded-full">NUEVO</span>
         </div>
@@ -214,7 +214,7 @@ const lang = getLangFromUrl(Astro.url);
                 <!-- NUEVO Badge -->
                 <div class="absolute top-4 left-4 z-10">
                   <div class="flex items-center gap-2 bg-gradient-to-r from-red-600 to-pink-600  px-4 py-2 rounded-full shadow-lg font-bold text-sm">
-                    <span class="material-symbols-outlined text-whitetext-base animate-pulse">fiber_new</span>
+                    <span class="material-symbols-outlined text-white text-base animate-pulse">fiber_new</span>
                     DESTACADO
                   </div>
                 </div>
@@ -234,7 +234,7 @@ const lang = getLangFromUrl(Astro.url);
                   <!-- Duration & Category -->
                   ${video.duration ? `
                     <div class="absolute bottom-4 right-4 bg-black/90  text-sm font-bold px-3 py-2 rounded-lg backdrop-blur-sm">
-                      <span class="material-symbols-outlined text-whitetext-base align-middle mr-1">schedule</span>
+                      <span class="material-symbols-outlined text-white text-base align-middle mr-1">schedule</span>
                       ${video.duration}
                     </div>
                   ` : ''}
@@ -261,7 +261,7 @@ const lang = getLangFromUrl(Astro.url);
                   ${video.tags && video.tags.length > 0 ? `
                     <div class="flex flex-wrap gap-2 mb-4">
                       ${video.tags.map(tag => `
-                        <span class="text-sm bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 text-purple-700 dark:text-purple-300 px-3 py-1.5 rounded-lg font-semibold border border-purple-200 dark:border-purple-700">
+                        <span class="text-sm bg-gradient-to-r from-purple-900/30 to-pink-900/30 text-purple-300 px-3 py-1.5 rounded-lg font-semibold border border-purple-700">
                           #${tag}
                         </span>
                       `).join('')}
@@ -286,7 +286,7 @@ const lang = getLangFromUrl(Astro.url);
           <div class="w-full border-t-2 border-gray-700"></div>
         </div>
         <div class="relative flex justify-center">
-          <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 rounded-full border-2 border-gray-700">
+          <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-400 rounded-full border-2 border-gray-700">
             Todos los videos
           </span>
         </div>
@@ -329,7 +329,7 @@ const lang = getLangFromUrl(Astro.url);
       .map(([category, count]) => {
         return `
           <button
-            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary shadow-sm"
+            class="category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-primary shadow-sm"
             data-category="${category}"
           >
             ${category} <span class="ml-1 text-xs opacity-75">(${count})</span>
@@ -359,7 +359,7 @@ const lang = getLangFromUrl(Astro.url);
       if (btn.getAttribute('data-category') === category) {
         btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-primary  shadow-sm';
       } else {
-        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 hover:bg-primary shadow-sm';
+        btn.className = 'category-btn px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-300 bg-slate-700 text-slate-300 hover:bg-primary shadow-sm';
       }
     });
 
@@ -388,7 +388,7 @@ const lang = getLangFromUrl(Astro.url);
       const thumbnail = video.thumbnail || getYouTubeThumbnail(video.youtube_url);
 
       return `
-        <div class="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer video-card border border-slate-200 dark:border-slate-700"
+        <div class="bg-[#1a1a2e] rounded-xl shadow-lg overflow-hidden transition-all duration-300 hover:-translate-y-1 cursor-pointer video-card border border-slate-700"
              data-video='${JSON.stringify(video).replace(/'/g, "&apos;")}'>
           <div class="relative group">
             <img src="${thumbnail}" alt="${video.title}" class="w-full h-48 object-cover" />
@@ -414,7 +414,7 @@ const lang = getLangFromUrl(Astro.url);
             ${video.tags && video.tags.length > 0 ? `
               <div class="flex flex-wrap gap-2">
                 ${video.tags.slice(0, 3).map(tag => `
-                  <span class="text-xs bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 px-2 py-1 rounded-md">
+                  <span class="text-xs bg-slate-800 text-slate-300 px-2 py-1 rounded-md">
                     ${tag}
                   </span>
                 `).join('')}
@@ -509,7 +509,7 @@ const lang = getLangFromUrl(Astro.url);
       console.error('Error loading videos:', error);
       container.innerHTML = `
         <div class="col-span-full text-center py-8">
-          <p class="text-red-500 dark:text-red-400">Error al cargar videos.</p>
+          <p class="text-red-400">Error al cargar videos.</p>
           <p class="text-sm text-gray-400 mt-2">Por favor, intenta de nuevo más tarde.</p>
         </div>
       `;

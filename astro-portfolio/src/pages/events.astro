@@ -45,7 +45,7 @@ const regions = [
       <section class="pb-16 max-w-7xl mx-auto">
         <div class="mb-8">
           <div class="flex items-center gap-3 mb-6">
-            <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">star</span>
+            <span class="material-symbols-outlined text-4xl text-blue-400">star</span>
             <h2 class="text-3xl font-bold ">
               {lang === 'es' ? 'Eventos Destacados' : lang === 'en' ? 'Featured Events' : 'Eventos Destacados'}
             </h2>
@@ -68,7 +68,7 @@ const regions = [
         <div class="mt-16">
           <div class="flex items-center justify-between mb-6">
             <div class="flex items-center gap-3">
-              <span class="material-symbols-outlined text-whitetext-4xl text-blue-400">photo_library</span>
+              <span class="material-symbols-outlined text-4xl text-blue-400">photo_library</span>
               <h2 class="text-3xl font-bold ">
                 {lang === 'es' ? 'Momentos de Eventos Anteriores' : lang === 'en' ? 'Moments from Previous Events' : 'Momentos de Eventos Anteriores'}
               </h2>
@@ -169,9 +169,9 @@ const regions = [
           <!-- Carousel Indicators -->
           <div class="flex justify-center gap-2 mt-6">
             <button class="carousel-indicator w-3 h-3 rounded-full bg-primary transition-all duration-300" data-index="0"></button>
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300" data-index="1"></button>
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300" data-index="2"></button>
-            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-300 dark:bg-gray-600 transition-all duration-300" data-index="3"></button>
+            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-600 transition-all duration-300" data-index="1"></button>
+            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-600 transition-all duration-300" data-index="2"></button>
+            <button class="carousel-indicator w-3 h-3 rounded-full bg-gray-600 transition-all duration-300" data-index="3"></button>
           </div>
         </div>
 
@@ -181,7 +181,7 @@ const regions = [
             <div class="w-full border-t-2 border-gray-700"></div>
           </div>
           <div class="relative flex justify-center">
-            <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-500 dark:text-gray-400 rounded-full border-2 border-gray-700">
+            <span class="bg-[#0a0a0a] px-6 py-2 text-sm font-semibold text-gray-400 rounded-full border-2 border-gray-700">
               {lang === 'es' ? 'Todos los eventos' : lang === 'en' ? 'All events' : 'Todos os eventos'}
             </span>
           </div>
@@ -454,11 +454,11 @@ const regions = [
     // Update indicators
     indicators.forEach((indicator, index) => {
       if (index === currentSlide) {
-        indicator.classList.remove('bg-gray-300', 'dark:bg-gray-600');
+        indicator.classList.remove('bg-gray-600');
         indicator.classList.add('bg-primary', 'scale-125');
       } else {
         indicator.classList.remove('bg-primary', 'scale-125');
-        indicator.classList.add('bg-gray-300', 'dark:bg-gray-600');
+        indicator.classList.add('bg-gray-600');
       }
     });
   }
@@ -663,14 +663,14 @@ const regions = [
       if (featuredContainer) {
         featuredContainer.innerHTML = `
           <div class="col-span-full text-center py-8">
-            <p class="text-red-500 dark:text-red-400">${lang === 'es' ? 'Error al cargar eventos destacados' : lang === 'en' ? 'Error loading featured events' : 'Erro ao carregar eventos destacados'}</p>
+            <p class="text-red-400">${lang === 'es' ? 'Error al cargar eventos destacados' : lang === 'en' ? 'Error loading featured events' : 'Erro ao carregar eventos destacados'}</p>
           </div>
         `;
       }
       if (eventsContainer) {
         eventsContainer.innerHTML = `
           <div class="col-span-full text-center py-8">
-            <p class="text-red-500 dark:text-red-400">${lang === 'es' ? 'Error al cargar eventos' : lang === 'en' ? 'Error loading events' : 'Erro ao carregar eventos'}</p>
+            <p class="text-red-400">${lang === 'es' ? 'Error al cargar eventos' : lang === 'en' ? 'Error loading events' : 'Erro ao carregar eventos'}</p>
           </div>
         `;
       }
@@ -811,7 +811,7 @@ const regions = [
 
           if (result.success) {
             // Show success message
-            newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-green-50 dark:bg-green-900/20 border-2 border-green-500 text-green-700 dark:text-green-400';
+            newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-green-900/20 border-2 border-green-500 text-green-400';
             newsletterStatus.innerHTML = `
               <div class="flex items-center justify-center gap-2">
                 <span class="material-symbols-outlined">check_circle</span>
@@ -834,7 +834,7 @@ const regions = [
           }
         } catch (error) {
           // Show error message
-          newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-red-50 dark:bg-red-900/20 border-2 border-red-500 text-red-700 dark:text-red-400';
+          newsletterStatus.className = 'mt-6 p-4 rounded-xl text-center bg-red-900/20 border-2 border-red-500 text-red-400';
           newsletterStatus.innerHTML = `
             <div class="flex items-center justify-center gap-2">
               <span class="material-symbols-outlined">error</span>

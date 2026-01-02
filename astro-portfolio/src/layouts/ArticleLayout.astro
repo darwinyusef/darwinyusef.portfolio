@@ -15,7 +15,7 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <!DOCTYPE html>
-<html lang={lang} class="dark">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
@@ -29,7 +29,7 @@ const lang = getLangFromUrl(Astro.url);
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen">
+  <body class="bg-background-dark font-display text-gray-200 min-h-screen">
     <!-- Global Cursor Follower -->
     <div id="cursor-follower" class="cursor-follower">
       <span id="cursor-text"></span>
@@ -49,7 +49,7 @@ const lang = getLangFromUrl(Astro.url);
 
     <button
       id="accessibility-btn"
-      class="fixed bottom-24 right-6 bg-gray-800 dark:bg-gray-700  p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
+      class="fixed bottom-24 right-6 bg-gray-700 p-3 rounded-full shadow-lg hover:opacity-90 transition-opacity z-40"
       aria-label="Accessibility"
       title="Accessibility Options"
     >
@@ -74,15 +74,9 @@ const lang = getLangFromUrl(Astro.url);
   }
 
   .article-wrapper {
-    background: white;
-    dark:background: #1a1a1a;
+    background: #1a1a1a;
     border-radius: 24px;
     padding: 3rem;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
-
-  .dark .article-wrapper {
-    background: #1a1a1a;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
   }
 

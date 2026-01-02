@@ -14,23 +14,20 @@ const lang = getLangFromUrl(Astro.url);
 ---
 
 <!DOCTYPE html>
-<html lang={lang} class="dark">
+<html lang={lang}>
   <head>
     <meta charset="UTF-8" />
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
-    <script is:inline>
-      document.documentElement.classList.add('dark');
-    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
     <title>{title}</title>
   </head>
-  <body class="bg-background-light dark:bg-background-dark font-display text-gray-800 dark:text-gray-200 min-h-screen">
+  <body class="bg-[#0a0a0a] font-display text-gray-200 min-h-screen">
     <!-- Global Cursor Follower -->
     <div id="cursor-follower" class="cursor-follower">
       <span id="cursor-text"></span>
@@ -73,10 +70,10 @@ const lang = getLangFromUrl(Astro.url);
         <!-- Content -->
         <div class="p-6 space-y-6">
           <!-- Tamaño de Texto -->
-          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl">format_size</span>
-              <h3 class="text-lg font-bold ">Tamaño de Texto</h3>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">format_size</span>
+              <h3 class="text-lg font-bold text-white">Tamaño de Texto</h3>
             </div>
             <div class="flex items-center gap-4">
               <button id="decrease-text" class="w-12 h-12 rounded-xl bg-gray-800 border-2 border-gray-700 flex items-center justify-center hover:border-primary transition-colors">
@@ -93,71 +90,71 @@ const lang = getLangFromUrl(Astro.url);
           </div>
 
           <!-- Contraste -->
-          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl">contrast</span>
-              <h3 class="text-lg font-bold ">Alto Contraste</h3>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">contrast</span>
+              <h3 class="text-lg font-bold text-white">Alto Contraste</h3>
             </div>
             <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-gray-700 dark:text-gray-300">Activar modo de alto contraste</span>
+              <span class="text-gray-300">Activar modo de alto contraste</span>
               <div class="relative">
                 <input type="checkbox" id="high-contrast-toggle" class="sr-only peer">
-                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all border-gray-600 peer-checked:bg-primary"></div>
               </div>
             </label>
           </div>
 
           <!-- Animaciones -->
-          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl">motion_photos_off</span>
-              <h3 class="text-lg font-bold ">Reducir Movimiento</h3>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">motion_photos_off</span>
+              <h3 class="text-lg font-bold text-white">Reducir Movimiento</h3>
             </div>
             <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-gray-700 dark:text-gray-300">Desactivar animaciones y efectos</span>
+              <span class="text-gray-300">Desactivar animaciones y efectos</span>
               <div class="relative">
                 <input type="checkbox" id="reduce-motion-toggle" class="sr-only peer">
-                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all border-gray-600 peer-checked:bg-primary"></div>
               </div>
             </label>
           </div>
 
           <!-- Espacio entre Líneas -->
-          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl">format_line_spacing</span>
-              <h3 class="text-lg font-bold ">Espaciado de Líneas</h3>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">format_line_spacing</span>
+              <h3 class="text-lg font-bold text-white">Espaciado de Líneas</h3>
             </div>
             <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-gray-700 dark:text-gray-300">Aumentar espacio entre líneas</span>
+              <span class="text-gray-300">Aumentar espacio entre líneas</span>
               <div class="relative">
                 <input type="checkbox" id="line-height-toggle" class="sr-only peer">
-                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all border-gray-600 peer-checked:bg-primary"></div>
               </div>
             </label>
           </div>
 
           <!-- Cursor Grande -->
-          <div class="bg-gray-50 dark:bg-gray-900/50 rounded-xl p-6 border border-gray-800">
+          <div class="bg-gray-900/50 rounded-xl p-6 border border-gray-800">
             <div class="flex items-center gap-3 mb-4">
-              <span class="material-symbols-outlined text-whitetext-blue-400 text-2xl">mouse</span>
-              <h3 class="text-lg font-bold ">Cursor Grande</h3>
+              <span class="material-symbols-outlined text-blue-400 text-2xl">mouse</span>
+              <h3 class="text-lg font-bold text-white">Cursor Grande</h3>
             </div>
             <label class="flex items-center justify-between cursor-pointer">
-              <span class="text-gray-700 dark:text-gray-300">Usar cursor de mayor tamaño</span>
+              <span class="text-gray-300">Usar cursor de mayor tamaño</span>
               <div class="relative">
                 <input type="checkbox" id="large-cursor-toggle" class="sr-only peer">
-                <div class="w-14 h-8 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all dark:border-gray-600 peer-checked:bg-primary"></div>
+                <div class="w-14 h-8 bg-gray-700 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-1 after:left-1 after:bg-white after:border-gray-300 after:border after:rounded-full after:h-6 after:w-6 after:transition-all border-gray-600 peer-checked:bg-primary"></div>
               </div>
             </label>
           </div>
 
           <!-- Botones de Acción -->
           <div class="flex gap-3">
-            <button id="reset-accessibility" class="flex-1 px-6 py-3 bg-gray-200 dark:bg-gray-800 text-gray-300 font-semibold rounded-xl hover:bg-gray-300 dark:hover:bg-gray-700 transition-colors">
+            <button id="reset-accessibility" class="flex-1 px-6 py-3 bg-gray-800 text-white font-semibold rounded-xl hover:bg-gray-700 transition-colors">
               Restablecer
             </button>
-            <button id="save-accessibility" class="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-purple-600  font-semibold rounded-xl hover:shadow-lg transition-all hover:scale-105">
+            <button id="save-accessibility" class="flex-1 px-6 py-3 bg-gradient-to-r from-primary to-purple-600 text-white font-semibold rounded-xl hover:shadow-lg transition-all hover:scale-105">
               Guardar Preferencias
             </button>
           </div>
@@ -278,20 +275,6 @@ const lang = getLangFromUrl(Astro.url);
 </style>
 
 <script>
-  // Force dark mode permanently
-  (function() {
-    document.documentElement.classList.add('dark');
-    const observer = new MutationObserver(() => {
-      if (!document.documentElement.classList.contains('dark')) {
-        document.documentElement.classList.add('dark');
-      }
-    });
-    observer.observe(document.documentElement, {
-      attributes: true,
-      attributeFilter: ['class']
-    });
-  })();
-
   // Global Cursor Follower Effect
   function initCursorFollower() {
     const cursorFollower = document.getElementById('cursor-follower');

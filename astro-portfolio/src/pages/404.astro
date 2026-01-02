@@ -13,14 +13,14 @@ const lang = getLangFromUrl(Astro.url);
     <main class="flex-1 flex items-center justify-center px-4">
       <div class="text-center max-w-md">
         <div class="mb-8">
-          <div class="inline-block p-6 bg-primary/10 dark:bg-primary/20 rounded-full">
-            <span class="material-symbols-outlined text-whitetext-blue-400" style="font-size: 80px;">error_outline</span>
+          <div class="inline-block p-6 bg-primary/20 rounded-full">
+            <span class="material-symbols-outlined text-blue-400" style="font-size: 80px;">error_outline</span>
           </div>
         </div>
 
         <h1 class="text-6xl font-black  mb-4">404</h1>
 
-        <h2 class="text-2xl font-bold text-gray-800 dark:text-gray-200 mb-4">
+        <h2 class="text-2xl font-bold text-gray-200 mb-4">
           {lang === 'es' ? 'Página no encontrada' : lang === 'en' ? 'Page not found' : 'Página não encontrada'}
         </h2>
 
@@ -43,7 +43,7 @@ const lang = getLangFromUrl(Astro.url);
 
           <button
             onclick="history.back()"
-            class="inline-flex items-center justify-center gap-2 border border-gray-300 dark:border-gray-600 text-gray-300 font-bold py-3 px-6 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            class="inline-flex items-center justify-center gap-2 border border-gray-600 text-gray-300 font-bold py-3 px-6 rounded-lg hover:bg-gray-800 transition-colors"
           >
             <span class="material-symbols-outlined">arrow_back</span>
             {lang === 'es' ? 'Volver Atrás' : lang === 'en' ? 'Go Back' : 'Voltar'}
@@ -51,7 +51,7 @@ const lang = getLangFromUrl(Astro.url);
         </div>
 
         <div class="mt-12">
-          <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+          <p class="text-sm text-gray-400 mb-4">
             {lang === 'es' ? 'Enlaces útiles:' : lang === 'en' ? 'Useful links:' : 'Links úteis:'}
           </p>
           <div class="flex flex-wrap justify-center gap-4 text-sm">
