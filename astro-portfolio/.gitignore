@@ -23,4 +23,7 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea
 
-*/conf.json
+/conf.json
+
+docs/
+astro-portfolio/docs

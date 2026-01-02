@@ -1,0 +1,69 @@
+[
+  {
+    "id": "deploy-portfolio",
+    "execute-command": "/scripts/deploy.sh",
+    "command-working-directory": "/workspace",
+    "response-message": "Deployment initiated",
+    "trigger-rule": {
+      "and": [
+        {
+          "match": {
+            "type": "payload-hmac-sha256",
+            "secret": "your-webhook-secret-here",
+            "parameter": {
+              "source": "header",
+              "name": "X-Hub-Signature-256"
+            }
+          }
+        },
+        {
+          "match": {
+            "type": "value",
+            "value": "refs/heads/main",
+            "parameter": {
+              "source": "payload",
+              "name": "ref"
+            }
+          }
+        }
+      ]
+    },
+    "pass-arguments-to-command": [
+      {
+        "source": "payload",
+        "name": "head_commit.id"
+      },
+      {
+        "source": "payload",
+        "name": "pusher.name"
+      },
+      {
+        "source": "payload",
+        "name": "head_commit.message"
+      }
+    ],
+    "pass-environment-to-command": [
+      {
+        "envname": "COMMIT_ID",
+        "source": "payload",
+        "name": "head_commit.id"
+      },
+      {
+        "envname": "PUSHER",
+        "source": "payload",
+        "name": "pusher.name"
+      }
+    ]
+  },
+  {
+    "id": "health-check",
+    "execute-command": "/bin/echo",
+    "pass-arguments-to-command": [
+      {
+        "source": "string",
+        "name": "Webhook server is running"
+      }
+    ],
+    "response-message": "OK"
+  }
+]
