@@ -24,6 +24,7 @@ pnpm-debug.log*
 .idea
 
 /conf.json
+public/conf.json
 
 docs/
 astro-portfolio/docs
