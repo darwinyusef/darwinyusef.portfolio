@@ -1,22 +1,25 @@
-name: Portfolio CI/CD
+name: Deploy to Production
 
 on:
   push:
     branches:
       - main
-      - develop
     paths:
       - 'astro-portfolio/**'
       - '.github/workflows/**'
-  pull_request:
-    branches:
-      - main
-      - develop
   workflow_dispatch:
+    inputs:
+      environment:
+        description: 'Environment to deploy'
+        required: true
+        default: 'production'
+        type: choice
+        options:
+          - production
+          - staging
 
 env:
   NODE_VERSION: '20'
-  DOCKER_IMAGE: astro-portfolio
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
 
@@ -61,90 +64,79 @@ jobs:
           retention-days: 1
 
   # ========================================
-  # Build Docker Image
+  # Deploy to Server
   # ========================================
-  build-docker:
-    name: Build Docker Image
+  deploy:
+    name: Deploy to Server
     runs-on: ubuntu-latest
     needs: build-test
-    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop')
-
-    permissions:
-      contents: read
-      packages: write
-
-    defaults:
-      run:
-        working-directory: ./astro-portfolio
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Extract metadata for Docker
-        id: meta
-        uses: docker/metadata-action@v5
-        with:
-          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          tags: |
-            type=ref,event=branch
-            type=sha,prefix={{branch}}-
-            type=raw,value=latest,enable={{is_default_branch}}
-
-      - name: Build and push Docker image
-        uses: docker/build-push-action@v5
-        with:
-          context: ./astro-portfolio
-          file: ./astro-portfolio/Dockerfile
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=gha
-          cache-to: type=gha,mode=max
-          build-args: |
-            NODE_ENV=production
-
-  # ========================================
-  # Trigger Jenkins Deployment
-  # ========================================
-  trigger-jenkins:
-    name: Trigger Jenkins Deploy
-    runs-on: ubuntu-latest
-    needs: build-docker
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
     steps:
-      - name: Trigger Jenkins Build
+      - name: Deploy via SSH
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          port: ${{ secrets.SSH_PORT || 22 }}
+          command_timeout: 30m
+          script: |
+            echo "🚀 Starting deployment with Caddy + HTTPS..."
+
+            # Navegar al directorio del proyecto
+            cd /opt/portfolio || exit 1
+
+            # Hacer pull de los últimos cambios
+            echo "📥 Pulling latest changes from GitHub..."
+            git pull origin main
+
+            # Navegar al directorio de la aplicación
+            cd astro-portfolio || exit 1
+
+            # Detener contenedores actuales (sin eliminar volúmenes)
+            echo "⏸️  Stopping current containers..."
+            docker compose -f docker-compose-caddy.yml down
+
+            # Construir y levantar nueva versión con Caddy
+            echo "🔨 Building and starting new containers (Portfolio + Caddy + Minio)..."
+            docker compose -f docker-compose-caddy.yml up -d --build
+
+            # Esperar a que los contenedores estén saludables
+            echo "⏳ Waiting for containers to be healthy..."
+            sleep 20
+
+            # Limpiar recursos no utilizados
+            echo "🧹 Cleaning up unused Docker resources..."
+            docker system prune -f
+
+            # Verificar que los contenedores están corriendo
+            echo "✅ Checking containers status..."
+            docker ps | grep -E '(astro-portfolio|portfolio-caddy)' || exit 1
+
+            # Verificar certificados SSL
+            echo "🔒 Checking SSL certificates..."
+            docker exec portfolio-caddy caddy list-certificates | head -n 5
+
+            # Reload Caddy sin downtime
+            echo "🔄 Reloading Caddy configuration..."
+            docker exec portfolio-caddy caddy reload --config /etc/caddy/Caddyfile
+
+            echo "🎉 Deployment completed successfully with HTTPS!"
+
+      - name: Health check
         run: |
-          curl -X POST \
-            -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
-            http://YOUR_SERVER_IP:8080/job/portfolio-deploy/build \
-            -H "Jenkins-Crumb:${{ secrets.JENKINS_CRUMB }}" \
-            || echo "Jenkins trigger failed, but continuing"
-        continue-on-error: true
+          echo "🏥 Performing health check..."
+          sleep 10
 
-      - name: Wait for Jenkins
-        run: sleep 10
+          response=$(curl -s -o /dev/null -w "%{http_code}" ${{ secrets.SITE_URL }})
 
-      - name: Check Jenkins Build Status
-        run: |
-          # Obtener el último build
-          LAST_BUILD=$(curl -s -u ${{ secrets.JENKINS_USER }}:${{ secrets.JENKINS_TOKEN }} \
-            http://YOUR_SERVER_IP:8080/job/portfolio-deploy/lastBuild/api/json | \
-            jq -r '.number')
-
-          echo "Last Jenkins build: $LAST_BUILD"
-        continue-on-error: true
+          if [ $response -eq 200 ]; then
+            echo "✅ Health check passed! Site is responding with status code: $response"
+          else
+            echo "❌ Health check failed! Site returned status code: $response"
+            exit 1
+          fi
 
   # ========================================
   # Notify
@@ -152,7 +144,7 @@ jobs:
   notify:
     name: Notify Deployment
     runs-on: ubuntu-latest
-    needs: [build-test, build-docker, trigger-jenkins]
+    needs: [build-test, deploy]
     if: always()
 
     steps:
@@ -161,22 +153,20 @@ jobs:
           echo "## Deployment Summary 🚀" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Actor:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
-          echo "- **Build Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
+          echo "- **Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Message:** ${{ github.event.head_commit.message }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Status:** ${{ job.status }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **Live Site:** https://darwinyusef.com" >> $GITHUB_STEP_SUMMARY
 
-          if [ "${{ github.ref }}" == "refs/heads/main" ]; then
-            echo "🌐 **Live:** https://darwinyusef.com" >> $GITHUB_STEP_SUMMARY
-          fi
+      - name: Deployment status
+        if: success()
+        run: |
+          echo "✅ Deployment successful! Portfolio is live at https://darwinyusef.com"
 
-      # Opcional: Notificación a Discord/Slack
-      # - name: Discord Notification
-      #   uses: sarisia/actions-status-discord@v1
-      #   if: always()
-      #   with:
-      #     webhook: ${{ secrets.DISCORD_WEBHOOK }}
-      #     status: ${{ job.status }}
-      #     title: Portfolio Deployment
-      #     description: Deployed to production
-      #     url: https://darwinyusef.com
+      - name: Deployment failed
+        if: failure()
+        run: |
+          echo "❌ Deployment failed! Please check the logs above for details."
+          exit 1

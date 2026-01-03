@@ -10,8 +10,13 @@ Portfolio personal con auto-deploy. Todo corre en Docker.
 
 | Archivo | Para qué |
 |---------|----------|
-| **[SETUP.md](./SETUP.md)** | 👉 **Instalación completa** |
-| **[WEBHOOK-AUTODEPLOY.md](./WEBHOOK-AUTODEPLOY.md)** | Auto-deploy desde GitHub |
+| **[DEPLOY-COMPLETO.md](./DEPLOY-COMPLETO.md)** | 📖 **Guía completa de deployment** |
+| **[PASO-0-INSTALAR-DOCKER.md](./PASO-0-INSTALAR-DOCKER.md)** | 🐳 Instalar Docker y Docker Compose |
+| **[PASO-1-CONFIGURAR-DNS.md](./PASO-1-CONFIGURAR-DNS.md)** | 🌐 Configurar DNS paso a paso |
+| **[PASO-2-CONFIGURAR-CADDY.md](./PASO-2-CONFIGURAR-CADDY.md)** | 🔒 Configurar HTTPS con Caddy |
+| **[GITHUB-ACTIONS-DEPLOY.md](./GITHUB-ACTIONS-DEPLOY.md)** | 🚀 CI/CD con GitHub Actions |
+| **[CONFIGURACION-DOMINIOS-CADDY.md](./CONFIGURACION-DOMINIOS-CADDY.md)** | ⚙️ Guía completa de Caddy |
+| **[WEBHOOK-AUTODEPLOY.md](./WEBHOOK-AUTODEPLOY.md)** | Auto-deploy con Webhook |
 | **[CONFIGURACION-EMAIL-GRATIS.md](./CONFIGURACION-EMAIL-GRATIS.md)** | Email gratis (Cloudflare + Gmail) |
 | **[COMANDOS-RAPIDOS.md](./COMANDOS-RAPIDOS.md)** | Comandos útiles |
 
@@ -24,11 +29,11 @@ Portfolio personal con auto-deploy. Todo corre en Docker.
 npm install
 npm run dev
 
-# Docker básico
+# Docker básico (sin HTTPS)
 docker-compose up -d --build
 
-# Producción con auto-deploy
-docker-compose -f docker-compose.full.yml up -d
+# Producción con Caddy + HTTPS automático
+docker compose -f docker-compose-caddy.yml up -d --build
 ```
 
 ---
@@ -36,10 +41,12 @@ docker-compose -f docker-compose.full.yml up -d
 ## 🛠️ Stack
 
 - **Frontend:** Astro 5 + Tailwind 4
-- **Deploy:** Docker + Nginx + Certbot
-- **CI/CD:** Webhook Worker
+- **Reverse Proxy:** Caddy (HTTPS automático)
+- **Deploy:** Docker + GitHub Actions
+- **CI/CD:** GitHub Actions (zero RAM en servidor)
 - **Email:** Cloudflare + Gmail SMTP
 - **Storage:** Minio
+- **Idiomas:** Español, Inglés, Portugués
 
 ---
 
@@ -60,11 +67,11 @@ astro-portfolio/
 
 ## 🚀 Deploy en Servidor
 
-**1. Lee:** [SETUP.md](./SETUP.md)
+**1. Guía completa:** [DEPLOY-COMPLETO.md](./DEPLOY-COMPLETO.md)
 
-**2. Resumen:**
+**2. Resumen rápido:**
 ```bash
-# Instala Docker
+# Paso 0: Instala Docker (ver PASO-0-INSTALAR-DOCKER.md)
 curl -fsSL https://get.docker.com | sh
 
 # Clona proyecto

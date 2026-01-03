@@ -1,0 +1,161 @@
+# ============================================
+# Caddy Configuration - Portfolio Multidominio
+# Soporte para múltiples dominios con HTTPS automático
+# ============================================
+
+# Configuración global
+{
+	# Email para notificaciones de Let's Encrypt
+	email your-email@example.com
+
+	# Usar el servidor de producción de Let's Encrypt
+	# Para testing, comenta esta línea y usa staging
+	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
+}
+
+# ============================================
+# Dominio Principal - darwinyusef.com
+# ============================================
+darwinyusef.com, www.darwinyusef.com {
+	# Reverse proxy al contenedor de Astro
+	reverse_proxy astro-portfolio:4321 {
+		# Headers para preservar información del cliente
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	# Logs
+	log {
+		output file /var/log/caddy/darwinyusef.log
+		format json
+	}
+
+	# Compresión
+	encode gzip zstd
+
+	# Headers de seguridad
+	header {
+		# Security headers
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+
+		# Remove server header
+		-Server
+	}
+}
+
+# ============================================
+# Subdominio - Arquitectura
+# ============================================
+arquitectura.darwinyusef.com {
+	# Si tienes una app separada para arquitectura
+	reverse_proxy astro-portfolio:4321 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/arquitectura.log
+		format json
+	}
+
+	encode gzip zstd
+}
+
+# ============================================
+# Subdominio - Blog
+# ============================================
+blog.darwinyusef.com {
+	reverse_proxy astro-portfolio:4321 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/blog.log
+		format json
+	}
+
+	encode gzip zstd
+}
+
+# ============================================
+# Subdominio - API
+# ============================================
+api.darwinyusef.com {
+	reverse_proxy astro-portfolio:4321 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/api.log
+		format json
+	}
+
+	encode gzip zstd
+
+	# CORS para API
+	header {
+		Access-Control-Allow-Origin "*"
+		Access-Control-Allow-Methods "GET, POST, OPTIONS"
+		Access-Control-Allow-Headers "Content-Type, Authorization"
+	}
+}
+
+# ============================================
+# Subdominio - Minio (Storage)
+# ============================================
+minio.darwinyusef.com {
+	reverse_proxy minio:9000 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/minio.log
+	}
+
+	encode gzip
+}
+
+# ============================================
+# Subdominio - Minio Console
+# ============================================
+console.minio.darwinyusef.com {
+	reverse_proxy minio:9090 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/minio-console.log
+	}
+}
+
+# ============================================
+# Redirecciones y Manejo de Errores
+# ============================================
+
+# Redirect HTTP to HTTPS (automático en Caddy)
+# Caddy maneja esto automáticamente
+
+# Custom error pages (opcional)
+# handle_errors {
+#     respond "Error {http.error.status_code}"
+# }
