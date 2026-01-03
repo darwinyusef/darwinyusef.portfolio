@@ -1,15 +1,14 @@
 # ============================================
 # Caddy Configuration - Portfolio Multidominio
-# Soporte para m�ltiples dominios con HTTPS autom�tico
+# Soporte para múltiples dominios con HTTPS automático
 # ============================================
 
-# Configuraci�n global
+# Configuración global
 {
 	# Email para notificaciones de Let's Encrypt
 	email your-email@example.com
 
-	# Usar el servidor de producci�n de Let's Encrypt
-	# Para testing, comenta esta l�nea y usa staging
+	# Usar el servidor de producción de Let's Encrypt
 	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
@@ -19,7 +18,7 @@
 darwinyusef.com, www.darwinyusef.com {
 	# Reverse proxy al contenedor de Astro
 	reverse_proxy astro-portfolio:8080 {
-		# Headers para preservar informaci�n del cliente
+		# Headers para preservar información del cliente
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -32,7 +31,7 @@ darwinyusef.com, www.darwinyusef.com {
 		format json
 	}
 
-	# Compresi�n
+	# Compresión
 	encode gzip zstd
 
 	# Headers de seguridad
@@ -53,7 +52,6 @@ darwinyusef.com, www.darwinyusef.com {
 # Subdominio - Arquitectura
 # ============================================
 arquitectura.darwinyusef.com {
-	# Si tienes una app separada para arquitectura
 	reverse_proxy astro-portfolio:8080 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
@@ -92,7 +90,8 @@ blog.darwinyusef.com {
 # Subdominio - API
 # ============================================
 api.darwinyusef.com {
-	reverse_proxy backend:3001 {
+	# Usamos el nombre del contenedor ya que puede estar en otro proyecto de compose
+	reverse_proxy portfolio-backend:3001 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -119,7 +118,7 @@ api.darwinyusef.com {
 # Subdominio - Minio (Storage)
 # ============================================
 minio.darwinyusef.com {
-	reverse_proxy minio:9000 {
+	reverse_proxy portfolio-minio:9000 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -137,7 +136,7 @@ minio.darwinyusef.com {
 # Subdominio - Minio Console
 # ============================================
 console.minio.darwinyusef.com {
-	reverse_proxy minio:9090 {
+	reverse_proxy portfolio-minio:9090 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -148,15 +147,3 @@ console.minio.darwinyusef.com {
 		output file /var/log/caddy/minio-console.log
 	}
 }
-
-# ============================================
-# Redirecciones y Manejo de Errores
-# ============================================
-
-# Redirect HTTP to HTTPS (autom�tico en Caddy)
-# Caddy maneja esto autom�ticamente
-
-# Custom error pages (opcional)
-# handle_errors {
-#     respond "Error {http.error.status_code}"
-# }
