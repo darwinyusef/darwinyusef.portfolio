@@ -4,6 +4,10 @@ import Header from '../components/Header.astro';
 import { getLangFromUrl } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
+
+// Cargar datos de arquitectura desde JSON
+const response = await fetch(new URL('/data/architecture.json', Astro.url.origin));
+const architectureData = await response.json();
 ---
 
 <Layout title={lang === 'es' ? 'Arquitectura de Software' : lang === 'en' ? 'Software Architecture' : 'Arquitetura de Software'}>
@@ -110,221 +114,32 @@ const lang = getLangFromUrl(Astro.url);
 
             <!-- Grid de Pilares con Parallax -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10 pillars-grid">
-              <!-- 1. Mentoría -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="0">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Mentoría Estratégica' : lang === 'en' ? 'Strategic Mentoring' : 'Mentoria Estratégica'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎓</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-blue-400 transition-colors">
-                      {lang === 'es' ? 'Mentoría Estratégica' : lang === 'en' ? 'Strategic Mentoring' : 'Mentoria Estratégica'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Acompañamiento experto para arquitectos y líderes técnicos. Transferencia de conocimiento en patrones modernos, mejores prácticas y toma de decisiones arquitectónicas críticas.'
-                        : lang === 'en'
-                        ? 'Expert guidance for architects and technical leaders. Knowledge transfer in modern patterns, best practices, and critical architectural decision-making.'
-                        : 'Acompanhamento especializado para arquitetos e líderes técnicos. Transferência de conhecimento em padrões modernos, melhores práticas e tomada de decisões arquitetônicas críticas.'}
-                    </p>
+              {architectureData.pillars.filter((p: any) => p.is_active).map((pillar: any, index: number) => (
+                <div class={`pillar-card group bg-gradient-to-br ${pillar.gradient} rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden`} data-index={index}>
+                  <div class={`absolute inset-0 bg-gradient-to-br ${pillar.gradient.replace('/20', '/0')} group-hover:${pillar.gradient.replace('/20', '/5')} transition-all duration-500`}></div>
+                  {pillar.videoUrl && (
+                    <button
+                      class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+                      data-video-url={pillar.videoUrl}
+                      data-video-title={pillar.title[lang]}
+                      title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
+                    >
+                      <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+                    </button>
+                  )}
+                  <div class="relative z-10 flex items-start gap-4">
+                    <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">{pillar.icon}</div>
+                    <div class="space-y-2">
+                      <h3 class="text-xl font-bold group-hover:text-blue-400 transition-colors">
+                        {pillar.title[lang]}
+                      </h3>
+                      <p class="text-gray-400 text-sm">
+                        {pillar.description[lang]}
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              <!-- 2. Ordenamiento de Patrones -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="1">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Patrones de Arquitectura Moderna' : lang === 'en' ? 'Modern Architecture Patterns' : 'Padrões de Arquitetura Moderna'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🏗️</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-purple-600 transition-colors">
-                      {lang === 'es' ? 'Patrones de Arquitectura Moderna' : lang === 'en' ? 'Modern Architecture Patterns' : 'Padrões de Arquitetura Moderna'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Estandarización e implementación de patrones arquitectónicos probados: microservicios, event-driven, hexagonal, CQRS. Documentación y gobierno de decisiones de diseño en proyectos.'
-                        : lang === 'en'
-                        ? 'Standardization and implementation of proven architectural patterns: microservices, event-driven, hexagonal, CQRS. Documentation and governance of design decisions in projects.'
-                        : 'Padronização e implementação de padrões arquitetônicos comprovados: microsserviços, event-driven, hexagonal, CQRS. Documentação e governança de decisões de design em projetos.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 3. Autoservicio y Automatización -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/20 to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="2">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">⚡</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-pink-600 transition-colors">
-                      {lang === 'es' ? 'Autoservicio y Automatización' : lang === 'en' ? 'Self-Service and Automation' : 'Autoatendimento e Automação'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Plataformas internas para desarrolladores (IDP), templates de proyectos, CI/CD automatizado, infrastructure as code. Reducción de tiempos de setup de semanas a horas.'
-                        : lang === 'en'
-                        ? 'Internal developer platforms (IDP), project templates, automated CI/CD, infrastructure as code. Reduction of setup times from weeks to hours.'
-                        : 'Plataformas internas para desenvolvedores (IDP), templates de projetos, CI/CD automatizado, infrastructure as code. Redução de tempos de configuração de semanas para horas.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 4. Estrategias de Ventas -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="3">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">💼</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-blue-400 transition-colors">
-                      {lang === 'es' ? 'Estrategias de Ventas Técnicas' : lang === 'en' ? 'Technical Sales Strategies' : 'Estratégias de Vendas Técnicas'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Soporte arquitectónico en procesos de venta: POCs, arquitecturas de referencia, estimaciones técnicas, presentaciones para stakeholders técnicos y de negocio.'
-                        : lang === 'en'
-                        ? 'Architectural support in sales processes: POCs, reference architectures, technical estimates, presentations for technical and business stakeholders.'
-                        : 'Suporte arquitetônico em processos de venda: POCs, arquiteturas de referência, estimativas técnicas, apresentações para stakeholders técnicos e de negócio.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 5. Consultoría -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="4">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🎯</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-purple-600 transition-colors">
-                      {lang === 'es' ? 'Consultoría Especializada' : lang === 'en' ? 'Specialized Consulting' : 'Consultoria Especializada'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Asesoramiento en transformación digital, modernización de legacy systems, cloud migration, optimización de costos, selección de tecnologías y definición de target architectures.'
-                        : lang === 'en'
-                        ? 'Consulting on digital transformation, legacy system modernization, cloud migration, cost optimization, technology selection, and target architecture definition.'
-                        : 'Assessoria em transformação digital, modernização de sistemas legados, migração para cloud, otimização de custos, seleção de tecnologias e definição de arquiteturas alvo.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 6. Due Diligence -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/20 to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="5">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🔍</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-pink-600 transition-colors">
-                      {lang === 'es' ? 'Due Diligence y Evaluación de Riesgos' : lang === 'en' ? 'Due Diligence and Risk Assessment' : 'Due Diligence e Avaliação de Riscos'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Auditorías técnicas profundas para M&A, evaluación de deuda técnica, análisis de escalabilidad, seguridad, compliance y viabilidad de roadmaps tecnológicos.'
-                        : lang === 'en'
-                        ? 'Deep technical audits for M&A, technical debt assessment, scalability analysis, security, compliance, and technological roadmap viability.'
-                        : 'Auditorias técnicas profundas para M&A, avaliação de dívida técnica, análise de escalabilidade, segurança, compliance e viabilidade de roadmaps tecnológicos.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 7. Apropiación de Tecnología -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="6">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🚀</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-blue-400 transition-colors">
-                      {lang === 'es' ? 'Apropiación de Tecnología' : lang === 'en' ? 'Technology Adoption' : 'Apropriação de Tecnologia'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Programas de adopción tecnológica en empresas de software: evangelización, capacitación técnica, definición de estándares, creación de communities of practice y guilds.'
-                        : lang === 'en'
-                        ? 'Technology adoption programs in software companies: evangelization, technical training, standards definition, communities of practice and guilds creation.'
-                        : 'Programas de adoção tecnológica em empresas de software: evangelização, capacitação técnica, definição de padrões, criação de communities of practice e guilds.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 8. Roadmapping -->
-              <div class="pillar-card group bg-gradient-to-br from-purple-600/20 to-pink-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-purple-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="7">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-600/0 to-pink-600/0 group-hover:from-purple-600/5 group-hover:to-pink-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🗺️</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-purple-600 transition-colors">
-                      {lang === 'es' ? 'Roadmapping para Equipos' : lang === 'en' ? 'Team Roadmapping' : 'Roadmapping para Equipes'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Definición de hojas de ruta técnicas alineadas con objetivos de negocio. Priorización basada en valor, gestión de dependencias, definición de hitos arquitectónicos.'
-                        : lang === 'en'
-                        ? 'Definition of technical roadmaps aligned with business objectives. Value-based prioritization, dependency management, architectural milestone definition.'
-                        : 'Definição de roadmaps técnicos alinhados com objetivos de negócio. Priorização baseada em valor, gestão de dependências, definição de marcos arquitetônicos.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 9. Roles en TI -->
-              <div class="pillar-card group bg-gradient-to-br from-pink-600/20 to-primary/20 rounded-2xl p-6 border-2 border-transparent hover:border-pink-600 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="8">
-                <div class="absolute inset-0 bg-gradient-to-br from-pink-600/0 to-primary/0 group-hover:from-pink-600/5 group-hover:to-primary/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">👔</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-pink-600 transition-colors">
-                      {lang === 'es' ? 'Definición de Roles en TI' : lang === 'en' ? 'IT Roles Definition' : 'Definição de Papéis em TI'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Estructuración de equipos técnicos: definición de roles, responsabilidades, career paths, skill matrices, modelos de gobernanza y operating models efectivos.'
-                        : lang === 'en'
-                        ? 'Technical team structuring: role definition, responsibilities, career paths, skill matrices, governance models, and effective operating models.'
-                        : 'Estruturação de equipes técnicas: definição de papéis, responsabilidades, career paths, matrizes de habilidades, modelos de governança e operating models efetivos.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              <!-- 10. Evolución con IA -->
-              <div class="pillar-card group bg-gradient-to-br from-primary/20 to-purple-600/20 rounded-2xl p-6 border-2 border-transparent hover:border-primary transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden" data-index="9">
-                <div class="absolute inset-0 bg-gradient-to-br from-primary/0 to-purple-600/0 group-hover:from-primary/5 group-hover:to-purple-600/5 transition-all duration-500"></div>
-                <div class="relative z-10 flex items-start gap-4">
-                  <div class="text-5xl flex-shrink-0 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500">🤖</div>
-                  <div class="space-y-2">
-                    <h3 class="text-xl font-bold  group-hover:text-blue-400 transition-colors">
-                      {lang === 'es' ? 'Evolución Empresarial con IA' : lang === 'en' ? 'Business Evolution with AI' : 'Evolução Empresarial com IA'}
-                    </h3>
-                    <p class="text-gray-400 text-sm">
-                      {lang === 'es'
-                        ? 'Estrategias de adopción de IA/ML en la empresa: identificación de casos de uso, arquitecturas de datos para IA, MLOps, governance de modelos, ética y responsible AI.'
-                        : lang === 'en'
-                        ? 'AI/ML adoption strategies in the enterprise: use case identification, data architectures for AI, MLOps, model governance, ethics and responsible AI.'
-                        : 'Estratégias de adoção de IA/ML na empresa: identificação de casos de uso, arquiteturas de dados para IA, MLOps, governança de modelos, ética e IA responsável.'}
-                    </p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 
@@ -342,86 +157,28 @@ const lang = getLangFromUrl(Astro.url);
                   🏛️
                 </div>
                 <h3 class="text-2xl font-bold " style="font-family: 'Inter Tight', system-ui, sans-serif;">
-                  {lang === 'es' ? 'TOGAF® + Arquitectura Empresarial Ágil' : lang === 'en' ? 'TOGAF® + Agile Enterprise Architecture' : 'TOGAF® + Arquitetura Empresarial Ágil'}
+                  {architectureData.methodology.title[lang]}
                 </h3>
               </div>
 
               <p class="text-lg text-gray-300 leading-relaxed">
-                {lang === 'es'
-                  ? 'Desde el abordaje metodológico del Open Group y el framework de TOGAF®, la arquitectura empresarial ágil implica llevar a cabo ejercicios de arquitectura empresarial con capacidad de respuesta al cambio, enfocados permanentemente a la entrega de valor al negocio de manera continua y sostenible.'
-                  : lang === 'en'
-                  ? 'From the Open Group\'s methodological approach and the TOGAF® framework, agile enterprise architecture involves conducting enterprise architecture exercises with the ability to respond to change, permanently focused on delivering business value in a continuous and sustainable manner.'
-                  : 'Da abordagem metodológica do Open Group e do framework TOGAF®, a arquitetura empresarial ágil implica realizar exercícios de arquitetura empresarial com capacidade de resposta à mudança, focados permanentemente na entrega de valor ao negócio de forma contínua e sustentável.'}
+                {architectureData.methodology.description[lang]}
               </p>
 
               <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <!-- Sprint de Arquitectura -->
-                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">⚡</span>
-                    <h4 class="font-bold ">
-                      {lang === 'es' ? 'Sprints de Arquitectura' : lang === 'en' ? 'Architecture Sprints' : 'Sprints de Arquitetura'}
-                    </h4>
+                {architectureData.methodology.principles.filter((p: any) => p.is_active).map((principle: any) => (
+                  <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
+                    <div class="flex items-center gap-2 mb-3">
+                      <span class="text-2xl">{principle.icon}</span>
+                      <h4 class="font-bold ">
+                        {principle.title[lang]}
+                      </h4>
+                    </div>
+                    <p class="text-sm text-gray-400">
+                      {principle.description[lang]}
+                    </p>
                   </div>
-                  <p class="text-sm text-gray-400">
-                    {lang === 'es'
-                      ? 'Experimentación práctica y puesta en operación de soluciones mínimas viables (MVP) de forma iterativa e incremental.'
-                      : lang === 'en'
-                      ? 'Practical experimentation and operationalization of minimum viable solutions (MVP) in an iterative and incremental manner.'
-                      : 'Experimentação prática e operacionalização de soluções mínimas viáveis (MVP) de forma iterativa e incremental.'}
-                  </p>
-                </div>
-
-                <!-- Células Ágiles -->
-                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">🎯</span>
-                    <h4 class="font-bold ">
-                      {lang === 'es' ? 'Células Ágiles de Arquitectura' : lang === 'en' ? 'Agile Architecture Cells' : 'Células Ágeis de Arquitetura'}
-                    </h4>
-                  </div>
-                  <p class="text-sm text-gray-400">
-                    {lang === 'es'
-                      ? 'Equipos empoderados y autónomos, armonizados bajo la gobernanza de la arquitectura empresarial.'
-                      : lang === 'en'
-                      ? 'Empowered and autonomous teams, harmonized under enterprise architecture governance.'
-                      : 'Equipes empoderadas e autônomas, harmonizadas sob a governança da arquitetura empresarial.'}
-                  </p>
-                </div>
-
-                <!-- Colaboración Continua -->
-                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">🤝</span>
-                    <h4 class="font-bold ">
-                      {lang === 'es' ? 'Colaboración con Stakeholders' : lang === 'en' ? 'Stakeholder Collaboration' : 'Colaboração com Stakeholders'}
-                    </h4>
-                  </div>
-                  <p class="text-sm text-gray-400">
-                    {lang === 'es'
-                      ? 'Equipos en continua comunicación y colaboración con stakeholders e implementadores, manteniendo el valor al negocio.'
-                      : lang === 'en'
-                      ? 'Teams in continuous communication and collaboration with stakeholders and implementers, maintaining business value.'
-                      : 'Equipes em comunicação contínua e colaboração com stakeholders e implementadores, mantendo o valor ao negócio.'}
-                  </p>
-                </div>
-
-                <!-- Personas primero -->
-                <div class="bg-[#1a1a1a] rounded-xl p-5 border-2 border-gray-700">
-                  <div class="flex items-center gap-2 mb-3">
-                    <span class="text-2xl">👥</span>
-                    <h4 class="font-bold ">
-                      {lang === 'es' ? 'Las personas primero' : lang === 'en' ? 'People first' : 'Pessoas primeiro'}
-                    </h4>
-                  </div>
-                  <p class="text-sm text-gray-400">
-                    {lang === 'es'
-                      ? 'A las personas se las trata con respeto y están por encima de metodologías, procesos y herramientas.'
-                      : lang === 'en'
-                      ? 'People are treated with respect and are above methodologies, processes, and tools.'
-                      : 'As pessoas são tratadas com respeito e estão acima de metodologias, processos e ferramentas.'}
-                  </p>
-                </div>
+                ))}
               </div>
 
               <div class="bg-[#1a1a1a] rounded-xl p-6 border-2 border-primary/30">
@@ -430,11 +187,7 @@ const lang = getLangFromUrl(Astro.url);
                     {lang === 'es' ? '💡 Nuestro enfoque:' : lang === 'en' ? '💡 Our approach:' : '💡 Nossa abordagem:'}
                   </span>
                   {' '}
-                  {lang === 'es'
-                    ? 'Permitimos los cambios, la experimentación práctica y la entrega continua de valor al negocio de forma sostenible, donde la capacidad de respuesta al cambio es fundamental para el éxito de tu arquitectura empresarial.'
-                    : lang === 'en'
-                    ? 'We enable changes, practical experimentation, and continuous delivery of business value in a sustainable way, where the ability to respond to change is fundamental to the success of your enterprise architecture.'
-                    : 'Permitimos mudanças, experimentação prática e entrega contínua de valor ao negócio de forma sustentável, onde a capacidade de resposta à mudança é fundamental para o sucesso de sua arquitetura empresarial.'}
+                  {architectureData.methodology.approach[lang]}
                 </p>
               </div>
             </div>
@@ -461,265 +214,33 @@ const lang = getLangFromUrl(Astro.url);
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 strategies-grid">
-              <!-- Estrategia 1: Transformación Digital Integral -->
-              <div class="strategy-card group bg-gradient-to-br from-blue-500/20 to-cyan-500/20 border-2 border-transparent hover:border-blue-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-blue-500/0 to-cyan-500/0 group-hover:from-blue-500/5 group-hover:to-cyan-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Transformación Digital Integral' : lang === 'en' ? 'Comprehensive Digital Transformation' : 'Transformação Digital Integral'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
+              {architectureData.strategies.filter((s: any) => s.is_active).map((strategy: any, index: number) => (
+                <div
+                  class={`strategy-card group bg-gradient-to-br ${strategy.gradient} border-2 border-transparent ${strategy.borderHover} rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden`}
+                  data-index={index}
                 >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🚀</div>
-                  <h3 class="text-xl font-bold  group-hover:text-blue-500 transition-colors">
-                    {lang === 'es' ? 'Transformación Digital Integral' : lang === 'en' ? 'Comprehensive Digital Transformation' : 'Transformação Digital Integral'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Rediseñamos procesos de negocio aprovechando tecnologías emergentes para crear ventajas competitivas sostenibles y acelerar la innovación organizacional.'
-                      : lang === 'en'
-                      ? 'We redesign business processes leveraging emerging technologies to create sustainable competitive advantages and accelerate organizational innovation.'
-                      : 'Redesenhamos processos de negócio aproveitando tecnologias emergentes para criar vantagens competitivas sustentáveis e acelerar a inovação organizacional.'}
-                  </p>
+                  <div class="absolute inset-0 bg-gradient-to-br opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
+                  <button
+                    class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+                    data-video-url={strategy.videoUrl}
+                    data-video-title={strategy.title[lang]}
+                    title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
+                  >
+                    <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+                  </button>
+                  <div class="relative z-10">
+                    <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">
+                      {strategy.icon}
+                    </div>
+                    <h3 class={`text-xl font-bold ${strategy.textHover} transition-colors`}>
+                      {strategy.title[lang]}
+                    </h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                      {strategy.description[lang]}
+                    </p>
+                  </div>
                 </div>
-              </div>
-
-              <!-- Estrategia 2: Modernización de Sistemas Legacy -->
-              <div class="strategy-card group bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-transparent hover:border-purple-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-purple-500/0 to-pink-500/0 group-hover:from-purple-500/5 group-hover:to-pink-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Modernización de Sistemas Legacy' : lang === 'en' ? 'Legacy Systems Modernization' : 'Modernização de Sistemas Legacy'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔄</div>
-                  <h3 class="text-xl font-bold  group-hover:text-purple-500 transition-colors">
-                    {lang === 'es' ? 'Modernización de Sistemas Legacy' : lang === 'en' ? 'Legacy Systems Modernization' : 'Modernização de Sistemas Legacy'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Transformamos sistemas heredados en arquitecturas modernas y ágiles mediante estrategias de refactoring, replatforming o rebuild según el contexto de negocio.'
-                      : lang === 'en'
-                      ? 'We transform legacy systems into modern, agile architectures through refactoring, replatforming, or rebuild strategies based on business context.'
-                      : 'Transformamos sistemas legados em arquiteturas modernas e ágeis mediante estratégias de refactoring, replatforming ou rebuild conforme o contexto de negócio.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 3: Gobernanza Arquitectónica -->
-              <div class="strategy-card group bg-gradient-to-br from-emerald-500/20 to-teal-500/20 border-2 border-transparent hover:border-emerald-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/0 to-teal-500/0 group-hover:from-emerald-500/5 group-hover:to-teal-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Gobernanza Arquitectónica' : lang === 'en' ? 'Architecture Governance' : 'Governança Arquitetônica'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">⚖️</div>
-                  <h3 class="text-xl font-bold  group-hover:text-emerald-500 transition-colors">
-                    {lang === 'es' ? 'Gobernanza Arquitectónica' : lang === 'en' ? 'Architecture Governance' : 'Governança Arquitetônica'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Establecemos frameworks de gobernanza que equilibran autonomía de equipos con estándares corporativos, asegurando coherencia arquitectónica y velocidad de entrega.'
-                      : lang === 'en'
-                      ? 'We establish governance frameworks that balance team autonomy with corporate standards, ensuring architectural coherence and delivery speed.'
-                      : 'Estabelecemos frameworks de governança que equilibram autonomia de equipes com padrões corporativos, assegurando coerência arquitetônica e velocidade de entrega.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 4: Adopción Cloud-First -->
-              <div class="strategy-card group bg-gradient-to-br from-sky-500/20 to-indigo-500/20 border-2 border-transparent hover:border-sky-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-sky-500/0 to-indigo-500/0 group-hover:from-sky-500/5 group-hover:to-indigo-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Adopción Cloud-First' : lang === 'en' ? 'Cloud-First Adoption' : 'Adoção Cloud-First'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">☁️</div>
-                  <h3 class="text-xl font-bold  group-hover:text-sky-500 transition-colors">
-                    {lang === 'es' ? 'Adopción Cloud-First' : lang === 'en' ? 'Cloud-First Adoption' : 'Adoção Cloud-First'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Diseñamos estrategias de migración cloud optimizando costos, seguridad y rendimiento. Implementamos arquitecturas multi-cloud y híbridas con FinOps integrado.'
-                      : lang === 'en'
-                      ? 'We design cloud migration strategies optimizing costs, security, and performance. We implement multi-cloud and hybrid architectures with integrated FinOps.'
-                      : 'Desenhamos estratégias de migração cloud otimizando custos, segurança e desempenho. Implementamos arquiteturas multi-cloud e híbridas com FinOps integrado.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 5: Innovación y Experimentación -->
-              <div class="strategy-card group bg-gradient-to-br from-amber-500/20 to-orange-500/20 border-2 border-transparent hover:border-amber-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-amber-500/0 to-orange-500/0 group-hover:from-amber-500/5 group-hover:to-orange-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Innovación y Experimentación' : lang === 'en' ? 'Innovation and Experimentation' : 'Inovação e Experimentação'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">💡</div>
-                  <h3 class="text-xl font-bold  group-hover:text-amber-500 transition-colors">
-                    {lang === 'es' ? 'Innovación y Experimentación' : lang === 'en' ? 'Innovation and Experimentation' : 'Inovação e Experimentação'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Creamos labs de innovación y frameworks de experimentación controlada para validar ideas rápidamente, minimizando riesgos y maximizando aprendizaje organizacional.'
-                      : lang === 'en'
-                      ? 'We create innovation labs and controlled experimentation frameworks to validate ideas quickly, minimizing risks and maximizing organizational learning.'
-                      : 'Criamos labs de inovação e frameworks de experimentação controlada para validar ideias rapidamente, minimizando riscos e maximizando aprendizado organizacional.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 6: Desarrollo de Capacidades -->
-              <div class="strategy-card group bg-gradient-to-br from-rose-500/20 to-red-500/20 border-2 border-transparent hover:border-rose-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-rose-500/0 to-red-500/0 group-hover:from-rose-500/5 group-hover:to-red-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Desarrollo de Capacidades' : lang === 'en' ? 'Capability Development' : 'Desenvolvimento de Capacidades'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🎓</div>
-                  <h3 class="text-xl font-bold  group-hover:text-rose-500 transition-colors">
-                    {lang === 'es' ? 'Desarrollo de Capacidades' : lang === 'en' ? 'Capability Development' : 'Desenvolvimento de Capacidades'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Construimos programas de upskilling y reskilling para arquitectos y desarrolladores, estableciendo comunidades de práctica y centros de excelencia técnica.'
-                      : lang === 'en'
-                      ? 'We build upskilling and reskilling programs for architects and developers, establishing communities of practice and technical excellence centers.'
-                      : 'Construímos programas de upskilling e reskilling para arquitetos e desenvolvedores, estabelecendo comunidades de prática e centros de excelência técnica.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 7: Integración de Ecosistemas -->
-              <div class="strategy-card group bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 border-2 border-transparent hover:border-violet-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-violet-500/0 to-fuchsia-500/0 group-hover:from-violet-500/5 group-hover:to-fuchsia-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Integración de Ecosistemas' : lang === 'en' ? 'Ecosystem Integration' : 'Integração de Ecossistemas'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔗</div>
-                  <h3 class="text-xl font-bold  group-hover:text-violet-500 transition-colors">
-                    {lang === 'es' ? 'Integración de Ecosistemas' : lang === 'en' ? 'Ecosystem Integration' : 'Integração de Ecossistemas'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Orquestamos integraciones complejas entre sistemas internos, partners y terceros mediante APIs, eventos y arquitecturas orientadas a servicios de última generación.'
-                      : lang === 'en'
-                      ? 'We orchestrate complex integrations between internal systems, partners, and third parties through APIs, events, and next-generation service-oriented architectures.'
-                      : 'Orquestramos integrações complexas entre sistemas internos, parceiros e terceiros mediante APIs, eventos e arquiteturas orientadas a serviços de última geração.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 8: Seguridad por Diseño -->
-              <div class="strategy-card group bg-gradient-to-br from-red-500/20 to-orange-600/20 border-2 border-transparent hover:border-red-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-red-500/0 to-orange-600/0 group-hover:from-red-500/5 group-hover:to-orange-600/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Seguridad por Diseño' : lang === 'en' ? 'Security by Design' : 'Segurança por Design'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">🔐</div>
-                  <h3 class="text-xl font-bold  group-hover:text-red-500 transition-colors">
-                    {lang === 'es' ? 'Seguridad por Diseño' : lang === 'en' ? 'Security by Design' : 'Segurança por Design'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Incorporamos seguridad desde las etapas tempranas del diseño arquitectónico, implementando Zero Trust, DevSecOps y análisis continuo de vulnerabilidades.'
-                      : lang === 'en'
-                      ? 'We incorporate security from early stages of architectural design, implementing Zero Trust, DevSecOps, and continuous vulnerability analysis.'
-                      : 'Incorporamos segurança desde as etapas iniciais do design arquitetônico, implementando Zero Trust, DevSecOps e análise contínua de vulnerabilidades.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 9: DevOps y Entrega Continua -->
-              <div class="strategy-card group bg-gradient-to-br from-green-500/20 to-lime-500/20 border-2 border-transparent hover:border-green-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-green-500/0 to-lime-500/0 group-hover:from-green-500/5 group-hover:to-lime-500/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'DevOps y Entrega Continua' : lang === 'en' ? 'DevOps and Continuous Delivery' : 'DevOps e Entrega Contínua'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">⚡</div>
-                  <h3 class="text-xl font-bold  group-hover:text-green-500 transition-colors">
-                    {lang === 'es' ? 'DevOps y Entrega Continua' : lang === 'en' ? 'DevOps and Continuous Delivery' : 'DevOps e Entrega Contínua'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Implementamos pipelines automatizados de CI/CD, infraestructura como código y prácticas de deployment frecuente para acortar ciclos de feedback y time-to-market.'
-                      : lang === 'en'
-                      ? 'We implement automated CI/CD pipelines, infrastructure as code, and frequent deployment practices to shorten feedback cycles and time-to-market.'
-                      : 'Implementamos pipelines automatizados de CI/CD, infraestrutura como código e práticas de deployment frequente para encurtar ciclos de feedback e time-to-market.'}
-                  </p>
-                </div>
-              </div>
-
-              <!-- Estrategia 10: Decisiones Basadas en Datos -->
-              <div class="strategy-card group bg-gradient-to-br from-cyan-500/20 to-blue-600/20 border-2 border-transparent hover:border-cyan-500 rounded-2xl p-6 space-y-4 transition-all duration-500 hover:-translate-y-2 cursor-pointer relative overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-br from-cyan-500/0 to-blue-600/0 group-hover:from-cyan-500/5 group-hover:to-blue-600/5 transition-all duration-500"></div>
-                <button
-                  class="strategy-video-btn absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
-                  data-video-url="https://youtube.com/shorts/4d_K-DYSi5M"
-                  data-video-title={lang === 'es' ? 'Decisiones Basadas en Datos' : lang === 'en' ? 'Data-Driven Decisions' : 'Decisões Baseadas em Dados'}
-                  title={lang === 'es' ? 'Ver video explicativo' : lang === 'en' ? 'Watch explanatory video' : 'Ver vídeo explicativo'}
-                >
-                  <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
-                </button>
-                <div class="relative z-10">
-                  <div class="text-4xl mb-3 group-hover:scale-125 group-hover:rotate-12 transition-transform duration-500 inline-block">📊</div>
-                  <h3 class="text-xl font-bold  group-hover:text-cyan-500 transition-colors">
-                    {lang === 'es' ? 'Decisiones Basadas en Datos' : lang === 'en' ? 'Data-Driven Decisions' : 'Decisões Baseadas em Dados'}
-                  </h3>
-                  <p class="text-gray-400 text-sm leading-relaxed">
-                    {lang === 'es'
-                      ? 'Establecemos arquitecturas de datos modernas con data lakes, data mesh y analytics en tiempo real para fundamentar decisiones arquitectónicas en evidencia cuantitativa.'
-                      : lang === 'en'
-                      ? 'We establish modern data architectures with data lakes, data mesh, and real-time analytics to ground architectural decisions in quantitative evidence.'
-                      : 'Estabelecemos arquiteturas de dados modernas com data lakes, data mesh e analytics em tempo real para fundamentar decisões arquitetônicas em evidência quantitativa.'}
-                  </p>
-                </div>
-              </div>
+              ))}
             </div>
           </div>
 

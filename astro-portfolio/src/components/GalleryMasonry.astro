@@ -2,6 +2,11 @@
 import { getLangFromUrl} from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 import UpcomingEvents from "../components/UpcomingEvents.astro";
+
+// Cargar proyectos desde JSON
+const response = await fetch(new URL('/data/projects.json', Astro.url.origin));
+const projects = await response.json();
+const activeProjects = projects.filter((p: any) => p.is_active);
 ---
 
 <div class="max-w-[1400px] mx-auto">
@@ -31,288 +36,37 @@ import UpcomingEvents from "../components/UpcomingEvents.astro";
 
   <!-- Masonry Grid -->
   <div class="masonry-grid">
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/01.png"
-          alt="Project 1"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {"Innobiza web APP"}
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Aplicación de comercio minorista de otros artículos en establecimientos especializados"
-                : lang === "en"
-                  ? "Retail application for specialized goods"
-                  : "Aplicação de varejo para artigos especializados"
-            }
-          </p>
+    {activeProjects.map((project: any) => (
+      <div
+        class="masonry-item cursor-hover-target"
+        data-cursor-text={lang === "es"
+          ? "Ver proyecto"
+          : lang === "en"
+            ? "View project"
+            : "Ver projeto"}
+      >
+        <div class="masonry-card">
+          <img
+            src={project.image}
+            alt={project.alt}
+            class="w-full h-auto rounded-2xl"
+          />
+          <div class="masonry-overlay">
+            <h3 class="text-2xl font-bold mb-2">
+              {typeof project.title === 'object' ? project.title[lang] : project.title}
+            </h3>
+            <p class="/90">
+              {project.description[lang]}
+            </p>
+          </div>
         </div>
       </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/02.JPG"
-          alt="Project 2"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {"WEB APP ACADEMICA PARA PROGRMACIÓN E IA"}
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Aplicación académica enfocada en programación y tecnología con inteligencia artificial"
-                : lang === "en"
-                  ? "Academic application focused on programming and technology with artificial intelligence"
-                  : "Aplicação acadêmica focada em programação e tecnologia com inteligência artificial"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/03.png"
-          alt="Project 3"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {
-              lang === "es"
-                ? "WebAPP Clinica centro médico la quinta"
-                : lang === "en"
-                  ? "Analytics Dashboard"
-                  : "Dashboard de Análise"
-            }
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Web + Aplicación de marketing para empresa prestadora de servicios de salud"
-                : lang === "en"
-                  ? "Marketing application for a healthcare services company"
-                  : "Aplicação de marketing para empresa prestadora de serviços de saúde"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/04.JPG"
-          alt="Project 4"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {
-              lang === "es"
-                ? "Web-QR-APP + Laser +  E-commerce Darkhusky"
-                : lang === "en"
-                  ? "Web-QR-APP + Laser +  E-commerce Darkhusky"
-                  : "Web-QR-APP + Laser +  E-commerce Darkhusky"
-            }
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Aplicación web E-commerce + QR Laser productos personalizados para mascotas"
-                : lang === "en"
-                  ? "Web E-commerce + QR Laser customized pet products"
-                  : "Aplicação web E-commerce + QR Laser produtos personalizados para animais de estimação"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/05.JPG"
-          alt="Project 5"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {
-              lang === "es"
-                ? "WebApp darwinyusef.com IA contents + Chatbot"
-                : lang === "en"
-                  ? "WebApp darwinyusef.com IA contents + Chatbot"
-                  : "WebApp darwinyusef.com AI + Chatbot"
-            }
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Portafolio: Ing Darwin Yusef + IA Chatbot"
-                : lang === "en"
-                  ? "Portfolio: Eng. Darwin Yusef + IA Chatbot"
-                  : "Portafolio: Ing Darwin Yusef + IA Chatbot"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/06.JPG"
-          alt="Profile"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {
-              lang === "es"
-                ? "WEBAPP Mobile Exploración de talentos + IA contents"
-                : lang === "en"
-                  ? "WEBAPP Mobile Talent exploration + IA contents"
-                  : "WEBAPP Mobile Exploração de talentos + conteúdo IA"
-            }
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "WEB APP Mobile Psicologica para niños de exploración de talentos con IA"
-                : lang === "en"
-                  ? "Web App Mobile Psychological Talent Exploration Tool for Children with AI"
-                  : "Aplicativo web e aplicativo móvel para exploração de talentos psicológicos em crianças com IA"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/07.png"
-          alt="Profile"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {"FIXING MORAFIX REPAIR"}
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "WEBAPP Mobile Repación de equipos y servicios técnicos"
-                : lang === "en"
-                  ? "WEBAPP Mobile Equipment Repair and Technical Services"
-                  : "Aplicativo Web Mobile; Reparo de equipamentos e serviços técnicos"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div
-      class="masonry-item cursor-hover-target"
-      data-cursor-text={lang === "es"
-        ? "Ver proyecto"
-        : lang === "en"
-          ? "View project"
-          : "Ver projeto"}
-    >
-      <div class="masonry-card">
-        <img
-          src="./websites/08.JPG"
-          alt="Profile"
-          class="w-full h-auto rounded-2xl"
-        />
-        <div class="masonry-overlay">
-          <h3 class="text-2xl font-bold mb-2">
-            {
-              lang === "es"
-                ? "Doctora María Perez - WEBAPP Psicología"
-                : lang === "en"
-                  ? "Dr. Maria Perez - WEBAPP Psychology"
-                  : "Dra. Maria Perez - Psicologia WEBAPP"
-            }
-          </h3>
-          <p class="/90">
-            {
-              lang === "es"
-                ? "Portfolio personal de psicología con chatbot + IA"
-                : lang === "en"
-                  ? "Personal psychology portfolio with chatbot + AI"
-                  : "Portfólio de psicologia pessoal com chatbot + IA"
-            }
-          </p>
-        </div>
-      </div>
-    </div>
+    ))}
   </div>
 </div>
 
 <style>
-    
+
   /* Masonry Gallery */
   .masonry-grid {
     column-count: 1;

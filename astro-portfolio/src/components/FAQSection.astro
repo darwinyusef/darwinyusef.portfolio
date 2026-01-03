@@ -1,0 +1,222 @@
+---
+import { getLangFromUrl } from "../i18n/utils";
+const lang = getLangFromUrl(Astro.url);
+
+// Cargar FAQ desde JSON
+const response = await fetch(new URL('/data/faq.json', Astro.url.origin));
+const faqs = await response.json();
+---
+
+<!-- FAQ Section - Contratación y Mentoring -->
+<section id="faq" class="py-20 px-6">
+  <div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="text-center mb-16">
+      <div
+        class="inline-flex items-center gap-2 bg-primary/10 text-blue-400 px-4 py-2 rounded-full text-sm font-semibold mb-6"
+      >
+        <span class="material-symbols-outlined text-lg">help</span>
+        <span>
+          {lang === "es" ? "Preguntas Frecuentes" : lang === "en" ? "FAQ" : "Perguntas Frequentes"}
+        </span>
+      </div>
+      <h2
+        class="text-4xl md:text-5xl font-black mb-6"
+        style="font-family: 'Inter Tight', system-ui, sans-serif;"
+      >
+        {lang === "es" ? "¿Cómo trabajar conmigo?" : lang === "en" ? "How to work with me?" : "Como trabalhar comigo?"}
+      </h2>
+      <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+        {
+          lang === "es"
+            ? "Respuestas a las preguntas más comunes sobre contratación de proyectos, mentoring y apoyo empresarial en arquitectura de software."
+            : lang === "en"
+              ? "Answers to the most common questions about hiring for projects, mentoring, and enterprise support in software architecture."
+              : "Respostas às perguntas mais comuns sobre contratação de projetos, mentoria e suporte empresarial em arquitetura de software."
+        }
+      </p>
+    </div>
+
+    <!-- FAQ Items -->
+    <div class="space-y-4">
+      {faqs.map((faq: any) => (
+        <div class="faq-item bg-[#1a1a1a]/80 backdrop-blur-xl rounded-2xl border border-gray-800 overflow-hidden transition-all duration-300 hover:border-primary/50">
+          <div class="p-6 flex items-start justify-between gap-4">
+            <button class="faq-question flex items-start gap-4 flex-1 text-left group">
+              <div class={`w-12 h-12 rounded-xl bg-gradient-to-br ${faq.gradient} flex items-center justify-center flex-shrink-0`}>
+                <span class="material-symbols-outlined text-white">{faq.icon}</span>
+              </div>
+              <div class="flex-1">
+                <h3 class="font-bold text-lg mb-2">{faq.question[lang]}</h3>
+                <p class="text-sm text-gray-400">{faq.subtitle[lang]}</p>
+              </div>
+              <span class="material-symbols-outlined text-gray-400 group-hover:text-blue-400 transition-all duration-300 faq-icon ml-4">
+                expand_more
+              </span>
+            </button>
+            <button
+              class="faq-video-btn flex-shrink-0 w-10 h-10 rounded-full bg-red-600 hover:bg-red-700 flex items-center justify-center transition-all duration-300 hover:scale-110 shadow-lg"
+              data-video-url={faq.videoUrl}
+              data-video-title={faq.videoTitle[lang]}
+              title="Ver video explicativo"
+            >
+              <span class="material-symbols-outlined text-white text-lg">play_arrow</span>
+            </button>
+          </div>
+
+          <div class="faq-answer hidden px-6 pb-6">
+            <div class="pl-16 text-gray-300 space-y-4">
+              {/* Renderizar respuesta según tipo de FAQ */}
+
+              {/* FAQ 1: Proceso con steps */}
+              {faq.answer.steps && (
+                <>
+                  <p>{faq.answer.intro[lang]}</p>
+                  <ol class="list-decimal list-inside space-y-3 text-sm">
+                    {faq.answer.steps.map((step: any) => (
+                      <li>
+                        <strong class="text-blue-400">{step.title[lang]}</strong>
+                        {' '}{step.description[lang]}
+                      </li>
+                    ))}
+                  </ol>
+                  {faq.answer.cta && (
+                    <a
+                      href={faq.answer.cta.link}
+                      class="inline-flex items-center gap-2 text-blue-400 hover:underline text-sm font-semibold mt-4"
+                    >
+                      <span>{faq.answer.cta.text[lang]}</span>
+                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                  )}
+                </>
+              )}
+
+              {/* FAQ 2: Mentoring con items */}
+              {faq.answer.items && !faq.answer.items[0].iconColor && (
+                <>
+                  <p>{faq.answer.intro[lang]}</p>
+                  <ul class="space-y-3 text-sm">
+                    {faq.answer.items.map((item: any) => (
+                      <li class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-blue-400 text-lg mt-0.5">check_circle</span>
+                        <div>
+                          <strong class="text-white">{item.title[lang]}</strong>
+                          <span class="text-gray-400"> {item.description[lang]}</span>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                  {faq.answer.note && (
+                    <p class="text-sm text-gray-400 italic">{faq.answer.note[lang]}</p>
+                  )}
+                </>
+              )}
+
+              {/* FAQ 3: Apoyo empresarial con services */}
+              {faq.answer.services && (
+                <>
+                  <p>{faq.answer.intro[lang]}</p>
+                  <div class="grid md:grid-cols-2 gap-4 text-sm">
+                    {faq.answer.services.map((service: any) => (
+                      <div class="bg-gray-900/50 rounded-xl p-4 border border-gray-800">
+                        <div class="flex items-center gap-2 mb-2">
+                          <span class="material-symbols-outlined text-blue-400">{service.icon}</span>
+                          <strong class="text-white">{service.title[lang]}</strong>
+                        </div>
+                        <p class="text-gray-400">{service.description[lang]}</p>
+                      </div>
+                    ))}
+                  </div>
+                  {faq.answer.cta && (
+                    <a
+                      href={faq.answer.cta.link}
+                      class="inline-flex items-center gap-2 text-blue-400 hover:underline text-sm font-semibold mt-4"
+                    >
+                      <span>{faq.answer.cta.text[lang]}</span>
+                      <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                    </a>
+                  )}
+                </>
+              )}
+
+              {/* FAQ 4: Modalidades de colaboración con modes */}
+              {faq.answer.modes && (
+                <>
+                  <p>{faq.answer.intro[lang]}</p>
+                  <div class="space-y-3 text-sm">
+                    {faq.answer.modes.map((mode: any) => (
+                      <div class="flex items-start gap-3 p-3 bg-gray-900/30 rounded-lg">
+                        <span class="material-symbols-outlined text-blue-400 text-xl">{mode.icon}</span>
+                        <div>
+                          <strong class="text-white">{mode.title[lang]}</strong>
+                          <p class="text-gray-400 mt-1">{mode.description[lang]}</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  {faq.answer.note && (
+                    <p class="text-sm text-blue-400 font-semibold">{faq.answer.note[lang]}</p>
+                  )}
+                </>
+              )}
+
+              {/* FAQ 5: Tiempos con items que tienen iconColor */}
+              {faq.answer.items && faq.answer.items[0]?.iconColor && (
+                <ul class="space-y-3 text-sm">
+                  {faq.answer.items.map((item: any) => (
+                    <li class="flex items-start gap-3">
+                      <span class={`material-symbols-outlined ${item.iconColor} text-lg`}>{item.icon}</span>
+                      <div>
+                        <strong class="text-white">{item.title[lang]}</strong>
+                        <span class="text-gray-400"> {item.description[lang]}</span>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  // FAQ accordion functionality
+  document.addEventListener('DOMContentLoaded', () => {
+    const faqQuestions = document.querySelectorAll('.faq-question');
+
+    faqQuestions.forEach((question) => {
+      question.addEventListener('click', () => {
+        const faqItem = question.closest('.faq-item');
+        const answer = faqItem?.querySelector('.faq-answer');
+        const icon = question.querySelector('.faq-icon');
+
+        // Toggle answer
+        answer?.classList.toggle('hidden');
+
+        // Rotate icon
+        if (icon) {
+          icon.style.transform = answer?.classList.contains('hidden')
+            ? 'rotate(0deg)'
+            : 'rotate(180deg)';
+        }
+      });
+    });
+
+    // Video button functionality
+    const videoButtons = document.querySelectorAll('.faq-video-btn');
+
+    videoButtons.forEach((button) => {
+      button.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const videoUrl = (button as HTMLElement).dataset.videoUrl;
+        if (videoUrl) {
+          window.open(videoUrl, '_blank');
+        }
+      });
+    });
+  });
+</script>

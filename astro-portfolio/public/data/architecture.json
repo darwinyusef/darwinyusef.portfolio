@@ -1,0 +1,475 @@
+{
+  "pillars": [
+    {
+      "id": 1,
+      "icon": "🎓",
+      "title": {
+        "es": "Mentoría Estratégica",
+        "en": "Strategic Mentoring",
+        "pt": "Mentoria Estratégica"
+      },
+      "description": {
+        "es": "Acompañamiento experto para arquitectos y líderes técnicos. Transferencia de conocimiento en patrones modernos, mejores prácticas y toma de decisiones arquitectónicas críticas.",
+        "en": "Expert guidance for architects and technical leaders. Knowledge transfer in modern patterns, best practices, and critical architectural decision-making.",
+        "pt": "Acompanhamento especializado para arquitetos e líderes técnicos. Transferência de conhecimento em padrões modernos, melhores práticas e tomada de decisões arquitetônicas críticas."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-primary/20 to-purple-600/20",
+      "iconBg": "bg-gradient-to-br from-primary to-purple-600",
+      "borderHover": "hover:border-primary",
+      "textHover": "group-hover:text-blue-400",
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "icon": "🏗️",
+      "title": {
+        "es": "Patrones de Arquitectura Moderna",
+        "en": "Modern Architecture Patterns",
+        "pt": "Padrões de Arquitetura Moderna"
+      },
+      "description": {
+        "es": "Estandarización e implementación de patrones arquitectónicos probados: microservicios, event-driven, hexagonal, CQRS. Documentación y gobierno de decisiones de diseño en proyectos.",
+        "en": "Standardization and implementation of proven architectural patterns: microservices, event-driven, hexagonal, CQRS. Documentation and governance of design decisions in projects.",
+        "pt": "Padronização e implementação de padrões arquitetônicos comprovados: microsserviços, event-driven, hexagonal, CQRS. Documentação e governança de decisões de design em projetos."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-purple-600/20 to-pink-600/20",
+      "iconBg": "bg-gradient-to-br from-purple-600 to-pink-600",
+      "borderHover": "hover:border-purple-600",
+      "textHover": "group-hover:text-purple-600",
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "icon": "⚡",
+      "title": {
+        "es": "Autoservicio y Automatización",
+        "en": "Self-Service and Automation",
+        "pt": "Autoatendimento e Automação"
+      },
+      "description": {
+        "es": "Plataformas internas para desarrolladores (IDP), templates de proyectos, CI/CD automatizado, infrastructure as code. Reducción de tiempos de setup de semanas a horas.",
+        "en": "Internal developer platforms (IDP), project templates, automated CI/CD, infrastructure as code. Reduction of setup times from weeks to hours.",
+        "pt": "Plataformas internas para desenvolvedores (IDP), templates de projetos, CI/CD automatizado, infrastructure as code. Redução de tempos de configuração de semanas para horas."
+      },
+      "videoUrl": null,
+      "gradient": "from-pink-600/20 to-primary/20",
+      "iconBg": "bg-gradient-to-br from-pink-600 to-primary",
+      "borderHover": "hover:border-pink-600",
+      "textHover": "group-hover:text-pink-600",
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "icon": "💼",
+      "title": {
+        "es": "Estrategias de Ventas Técnicas",
+        "en": "Technical Sales Strategies",
+        "pt": "Estratégias de Vendas Técnicas"
+      },
+      "description": {
+        "es": "Soporte arquitectónico en procesos de venta: POCs, arquitecturas de referencia, estimaciones técnicas, presentaciones para stakeholders técnicos y de negocio.",
+        "en": "Architectural support in sales processes: POCs, reference architectures, technical estimates, presentations for technical and business stakeholders.",
+        "pt": "Suporte arquitetônico em processos de venda: POCs, arquiteturas de referência, estimativas técnicas, apresentações para stakeholders técnicos e de negócio."
+      },
+      "videoUrl": null,
+      "gradient": "from-primary/20 to-purple-600/20",
+      "iconBg": "bg-gradient-to-br from-primary to-purple-600",
+      "borderHover": "hover:border-primary",
+      "textHover": "group-hover:text-blue-400",
+      "is_active": true
+    },
+    {
+      "id": 5,
+      "icon": "🎯",
+      "title": {
+        "es": "Consultoría Especializada",
+        "en": "Specialized Consulting",
+        "pt": "Consultoria Especializada"
+      },
+      "description": {
+        "es": "Asesoramiento en transformación digital, modernización de legacy systems, cloud migration, optimización de costos, selección de tecnologías y definición de target architectures.",
+        "en": "Consulting on digital transformation, legacy system modernization, cloud migration, cost optimization, technology selection, and target architecture definition.",
+        "pt": "Assessoria em transformação digital, modernização de sistemas legados, migração para cloud, otimização de custos, seleção de tecnologias e definição de arquiteturas alvo."
+      },
+      "videoUrl": null,
+      "gradient": "from-purple-600/20 to-pink-600/20",
+      "iconBg": "bg-gradient-to-br from-purple-600 to-pink-600",
+      "borderHover": "hover:border-purple-600",
+      "textHover": "group-hover:text-purple-600",
+      "is_active": true
+    },
+    {
+      "id": 6,
+      "icon": "🔍",
+      "title": {
+        "es": "Due Diligence y Evaluación de Riesgos",
+        "en": "Due Diligence and Risk Assessment",
+        "pt": "Due Diligence e Avaliação de Riscos"
+      },
+      "description": {
+        "es": "Auditorías técnicas profundas para M&A, evaluación de deuda técnica, análisis de escalabilidad, seguridad, compliance y viabilidad de roadmaps tecnológicos.",
+        "en": "Deep technical audits for M&A, technical debt assessment, scalability analysis, security, compliance, and technological roadmap viability.",
+        "pt": "Auditorias técnicas profundas para M&A, avaliação de dívida técnica, análise de escalabilidade, segurança, compliance e viabilidade de roadmaps tecnológicos."
+      },
+      "videoUrl": null,
+      "gradient": "from-pink-600/20 to-primary/20",
+      "iconBg": "bg-gradient-to-br from-pink-600 to-primary",
+      "borderHover": "hover:border-pink-600",
+      "textHover": "group-hover:text-pink-600",
+      "is_active": true
+    },
+    {
+      "id": 7,
+      "icon": "🚀",
+      "title": {
+        "es": "Apropiación de Tecnología",
+        "en": "Technology Adoption",
+        "pt": "Apropriação de Tecnologia"
+      },
+      "description": {
+        "es": "Programas de adopción tecnológica en empresas de software: evangelización, capacitación técnica, definición de estándares, creación de communities of practice y guilds.",
+        "en": "Technology adoption programs in software companies: evangelization, technical training, standards definition, communities of practice and guilds creation.",
+        "pt": "Programas de adoção tecnológica em empresas de software: evangelização, capacitação técnica, definição de padrões, criação de communities of practice e guilds."
+      },
+      "videoUrl": null,
+      "gradient": "from-primary/20 to-purple-600/20",
+      "iconBg": "bg-gradient-to-br from-primary to-purple-600",
+      "borderHover": "hover:border-primary",
+      "textHover": "group-hover:text-blue-400",
+      "is_active": true
+    },
+    {
+      "id": 8,
+      "icon": "🗺️",
+      "title": {
+        "es": "Roadmapping para Equipos",
+        "en": "Team Roadmapping",
+        "pt": "Roadmapping para Equipes"
+      },
+      "description": {
+        "es": "Definición de hojas de ruta técnicas alineadas con objetivos de negocio. Priorización basada en valor, gestión de dependencias, definición de hitos arquitectónicos.",
+        "en": "Definition of technical roadmaps aligned with business objectives. Value-based prioritization, dependency management, architectural milestone definition.",
+        "pt": "Definição de roadmaps técnicos alinhados com objetivos de negócio. Priorização baseada em valor, gestão de dependências, definição de marcos arquitetônicos."
+      },
+      "videoUrl": null,
+      "gradient": "from-purple-600/20 to-pink-600/20",
+      "iconBg": "bg-gradient-to-br from-purple-600 to-pink-600",
+      "borderHover": "hover:border-purple-600",
+      "textHover": "group-hover:text-purple-600",
+      "is_active": true
+    },
+    {
+      "id": 9,
+      "icon": "👔",
+      "title": {
+        "es": "Definición de Roles en TI",
+        "en": "IT Roles Definition",
+        "pt": "Definição de Papéis em TI"
+      },
+      "description": {
+        "es": "Estructuración de equipos técnicos: definición de roles, responsabilidades, career paths, skill matrices, modelos de gobernanza y operating models efectivos.",
+        "en": "Technical team structuring: role definition, responsibilities, career paths, skill matrices, governance models, and effective operating models.",
+        "pt": "Estruturação de equipes técnicas: definição de papéis, responsabilidades, career paths, matrizes de habilidades, modelos de governança e operating models efetivos."
+      },
+      "videoUrl": null,
+      "gradient": "from-pink-600/20 to-primary/20",
+      "iconBg": "bg-gradient-to-br from-pink-600 to-primary",
+      "borderHover": "hover:border-pink-600",
+      "textHover": "group-hover:text-pink-600",
+      "is_active": true
+    },
+    {
+      "id": 10,
+      "icon": "🤖",
+      "title": {
+        "es": "Evolución Empresarial con IA",
+        "en": "Business Evolution with AI",
+        "pt": "Evolução Empresarial com IA"
+      },
+      "description": {
+        "es": "Estrategias de adopción de IA/ML en la empresa: identificación de casos de uso, arquitecturas de datos para IA, MLOps, governance de modelos, ética y responsible AI.",
+        "en": "AI/ML adoption strategies in the enterprise: use case identification, data architectures for AI, MLOps, model governance, ethics and responsible AI.",
+        "pt": "Estratégias de adoção de IA/ML na empresa: identificação de casos de uso, arquiteturas de dados para IA, MLOps, governança de modelos, ética e IA responsável."
+      },
+      "videoUrl": null,
+      "gradient": "from-primary/20 to-purple-600/20",
+      "iconBg": "bg-gradient-to-br from-primary to-purple-600",
+      "borderHover": "hover:border-primary",
+      "textHover": "group-hover:text-blue-400",
+      "is_active": true
+    }
+  ],
+  "strategies": [
+    {
+      "id": 1,
+      "icon": "🚀",
+      "title": {
+        "es": "Transformación Digital Integral",
+        "en": "Comprehensive Digital Transformation",
+        "pt": "Transformação Digital Integral"
+      },
+      "description": {
+        "es": "Rediseñamos procesos de negocio aprovechando tecnologías emergentes para crear ventajas competitivas sostenibles y acelerar la innovación organizacional.",
+        "en": "We redesign business processes leveraging emerging technologies to create sustainable competitive advantages and accelerate organizational innovation.",
+        "pt": "Redesenhamos processos de negócio aproveitando tecnologias emergentes para criar vantagens competitivas sustentáveis e acelerar a inovação organizacional."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-blue-500/20 to-cyan-500/20",
+      "borderHover": "hover:border-blue-500",
+      "textHover": "group-hover:text-blue-500",
+      "is_active": true
+    },
+    {
+      "id": 2,
+      "icon": "🔄",
+      "title": {
+        "es": "Modernización de Sistemas Legacy",
+        "en": "Legacy Systems Modernization",
+        "pt": "Modernização de Sistemas Legacy"
+      },
+      "description": {
+        "es": "Transformamos sistemas heredados en arquitecturas modernas y ágiles mediante estrategias de refactoring, replatforming o rebuild según el contexto de negocio.",
+        "en": "We transform legacy systems into modern, agile architectures through refactoring, replatforming, or rebuild strategies based on business context.",
+        "pt": "Transformamos sistemas legados em arquiteturas modernas e ágeis mediante estratégias de refactoring, replatforming ou rebuild conforme o contexto de negócio."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-purple-500/20 to-pink-500/20",
+      "borderHover": "hover:border-purple-500",
+      "textHover": "group-hover:text-purple-500",
+      "is_active": true
+    },
+    {
+      "id": 3,
+      "icon": "⚖️",
+      "title": {
+        "es": "Gobernanza Arquitectónica",
+        "en": "Architecture Governance",
+        "pt": "Governança Arquitetônica"
+      },
+      "description": {
+        "es": "Establecemos frameworks de gobernanza que equilibran autonomía de equipos con estándares corporativos, asegurando coherencia arquitectónica y velocidad de entrega.",
+        "en": "We establish governance frameworks that balance team autonomy with corporate standards, ensuring architectural coherence and delivery speed.",
+        "pt": "Estabelecemos frameworks de governança que equilibram autonomia de equipes com padrões corporativos, assegurando coerência arquitetônica e velocidade de entrega."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-emerald-500/20 to-teal-500/20",
+      "borderHover": "hover:border-emerald-500",
+      "textHover": "group-hover:text-emerald-500",
+      "is_active": true
+    },
+    {
+      "id": 4,
+      "icon": "☁️",
+      "title": {
+        "es": "Adopción Cloud-First",
+        "en": "Cloud-First Adoption",
+        "pt": "Adoção Cloud-First"
+      },
+      "description": {
+        "es": "Diseñamos estrategias de migración cloud optimizando costos, seguridad y rendimiento. Implementamos arquitecturas multi-cloud y híbridas con FinOps integrado.",
+        "en": "We design cloud migration strategies optimizing costs, security, and performance. We implement multi-cloud and hybrid architectures with integrated FinOps.",
+        "pt": "Desenhamos estratégias de migração cloud otimizando custos, segurança e desempenho. Implementamos arquiteturas multi-cloud e híbridas com FinOps integrado."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-sky-500/20 to-indigo-500/20",
+      "borderHover": "hover:border-sky-500",
+      "textHover": "group-hover:text-sky-500",
+      "is_active": true
+    },
+    {
+      "id": 5,
+      "icon": "💡",
+      "title": {
+        "es": "Innovación y Experimentación",
+        "en": "Innovation and Experimentation",
+        "pt": "Inovação e Experimentação"
+      },
+      "description": {
+        "es": "Creamos labs de innovación y frameworks de experimentación controlada para validar ideas rápidamente, minimizando riesgos y maximizando aprendizaje organizacional.",
+        "en": "We create innovation labs and controlled experimentation frameworks to validate ideas quickly, minimizing risks and maximizing organizational learning.",
+        "pt": "Criamos labs de inovação e frameworks de experimentação controlada para validar ideias rapidamente, minimizando riscos e maximizando aprendizado organizacional."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-amber-500/20 to-orange-500/20",
+      "borderHover": "hover:border-amber-500",
+      "textHover": "group-hover:text-amber-500",
+      "is_active": true
+    },
+    {
+      "id": 6,
+      "icon": "🎓",
+      "title": {
+        "es": "Desarrollo de Capacidades",
+        "en": "Capability Development",
+        "pt": "Desenvolvimento de Capacidades"
+      },
+      "description": {
+        "es": "Construimos programas de upskilling y reskilling para arquitectos y desarrolladores, estableciendo comunidades de práctica y centros de excelencia técnica.",
+        "en": "We build upskilling and reskilling programs for architects and developers, establishing communities of practice and technical excellence centers.",
+        "pt": "Construímos programas de upskilling e reskilling para arquitetos e desenvolvedores, estabelecendo comunidades de prática e centros de excelência técnica."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-rose-500/20 to-red-500/20",
+      "borderHover": "hover:border-rose-500",
+      "textHover": "group-hover:text-rose-500",
+      "is_active": true
+    },
+    {
+      "id": 7,
+      "icon": "🔗",
+      "title": {
+        "es": "Integración de Ecosistemas",
+        "en": "Ecosystem Integration",
+        "pt": "Integração de Ecossistemas"
+      },
+      "description": {
+        "es": "Orquestamos integraciones complejas entre sistemas internos, partners y terceros mediante APIs, eventos y arquitecturas orientadas a servicios de última generación.",
+        "en": "We orchestrate complex integrations between internal systems, partners, and third parties through APIs, events, and next-generation service-oriented architectures.",
+        "pt": "Orquestramos integrações complexas entre sistemas internos, parceiros e terceiros mediante APIs, eventos e arquiteturas orientadas a serviços de última geração."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-violet-500/20 to-fuchsia-500/20",
+      "borderHover": "hover:border-violet-500",
+      "textHover": "group-hover:text-violet-500",
+      "is_active": true
+    },
+    {
+      "id": 8,
+      "icon": "🔐",
+      "title": {
+        "es": "Seguridad por Diseño",
+        "en": "Security by Design",
+        "pt": "Segurança por Design"
+      },
+      "description": {
+        "es": "Incorporamos seguridad desde las etapas tempranas del diseño arquitectónico, implementando Zero Trust, DevSecOps y análisis continuo de vulnerabilidades.",
+        "en": "We incorporate security from early stages of architectural design, implementing Zero Trust, DevSecOps, and continuous vulnerability analysis.",
+        "pt": "Incorporamos segurança desde as etapas iniciais do design arquitetônico, implementando Zero Trust, DevSecOps e análise contínua de vulnerabilidades."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-red-500/20 to-orange-600/20",
+      "borderHover": "hover:border-red-500",
+      "textHover": "group-hover:text-red-500",
+      "is_active": true
+    },
+    {
+      "id": 9,
+      "icon": "⚡",
+      "title": {
+        "es": "DevOps y Entrega Continua",
+        "en": "DevOps and Continuous Delivery",
+        "pt": "DevOps e Entrega Contínua"
+      },
+      "description": {
+        "es": "Implementamos pipelines automatizados de CI/CD, infraestructura como código y prácticas de deployment frecuente para acortar ciclos de feedback y time-to-market.",
+        "en": "We implement automated CI/CD pipelines, infrastructure as code, and frequent deployment practices to shorten feedback cycles and time-to-market.",
+        "pt": "Implementamos pipelines automatizados de CI/CD, infraestrutura como código e práticas de deployment frequente para encurtar ciclos de feedback e time-to-market."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-green-500/20 to-lime-500/20",
+      "borderHover": "hover:border-green-500",
+      "textHover": "group-hover:text-green-500",
+      "is_active": true
+    },
+    {
+      "id": 10,
+      "icon": "📊",
+      "title": {
+        "es": "Decisiones Basadas en Datos",
+        "en": "Data-Driven Decisions",
+        "pt": "Decisões Baseadas em Dados"
+      },
+      "description": {
+        "es": "Establecemos arquitecturas de datos modernas con data lakes, data mesh y analytics en tiempo real para fundamentar decisiones arquitectónicas en evidencia cuantitativa.",
+        "en": "We establish modern data architectures with data lakes, data mesh, and real-time analytics to ground architectural decisions in quantitative evidence.",
+        "pt": "Estabelecemos arquiteturas de dados modernas com data lakes, data mesh e analytics em tempo real para fundamentar decisões arquitetônicas em evidência quantitativa."
+      },
+      "videoUrl": "https://youtube.com/shorts/4d_K-DYSi5M",
+      "gradient": "from-cyan-500/20 to-blue-600/20",
+      "borderHover": "hover:border-cyan-500",
+      "textHover": "group-hover:text-cyan-500",
+      "is_active": true
+    }
+  ],
+  "methodology": {
+    "title": {
+      "es": "TOGAF® + Arquitectura Empresarial Ágil",
+      "en": "TOGAF® + Agile Enterprise Architecture",
+      "pt": "TOGAF® + Arquitetura Empresarial Ágil"
+    },
+    "description": {
+      "es": "Desde el abordaje metodológico del Open Group y el framework de TOGAF®, la arquitectura empresarial ágil implica llevar a cabo ejercicios de arquitectura empresarial con capacidad de respuesta al cambio, enfocados permanentemente a la entrega de valor al negocio de manera continua y sostenible.",
+      "en": "From the Open Group's methodological approach and the TOGAF® framework, agile enterprise architecture involves conducting enterprise architecture exercises with the ability to respond to change, permanently focused on delivering business value in a continuous and sustainable manner.",
+      "pt": "Da abordagem metodológica do Open Group e do framework TOGAF®, a arquitetura empresarial ágil implica realizar exercícios de arquitetura empresarial com capacidade de resposta à mudança, focados permanentemente na entrega de valor ao negócio de forma contínua e sustentável."
+    },
+    "principles": [
+      {
+        "id": 1,
+        "icon": "⚡",
+        "title": {
+          "es": "Sprints de Arquitectura",
+          "en": "Architecture Sprints",
+          "pt": "Sprints de Arquitetura"
+        },
+        "description": {
+          "es": "Experimentación práctica y puesta en operación de soluciones mínimas viables (MVP) de forma iterativa e incremental.",
+          "en": "Practical experimentation and operationalization of minimum viable solutions (MVP) in an iterative and incremental manner.",
+          "pt": "Experimentação prática e operacionalização de soluções mínimas viáveis (MVP) de forma iterativa e incremental."
+        },
+        "is_active": true
+      },
+      {
+        "id": 2,
+        "icon": "🎯",
+        "title": {
+          "es": "Células Ágiles de Arquitectura",
+          "en": "Agile Architecture Cells",
+          "pt": "Células Ágeis de Arquitetura"
+        },
+        "description": {
+          "es": "Equipos empoderados y autónomos, armonizados bajo la gobernanza de la arquitectura empresarial.",
+          "en": "Empowered and autonomous teams, harmonized under enterprise architecture governance.",
+          "pt": "Equipes empoderadas e autônomas, harmonizadas sob a governança da arquitetura empresarial."
+        },
+        "is_active": true
+      },
+      {
+        "id": 3,
+        "icon": "🤝",
+        "title": {
+          "es": "Colaboración con Stakeholders",
+          "en": "Stakeholder Collaboration",
+          "pt": "Colaboração com Stakeholders"
+        },
+        "description": {
+          "es": "Equipos en continua comunicación y colaboración con stakeholders e implementadores, manteniendo el valor al negocio.",
+          "en": "Teams in continuous communication and collaboration with stakeholders and implementers, maintaining business value.",
+          "pt": "Equipes em comunicação contínua e colaboração com stakeholders e implementadores, mantendo o valor ao negócio."
+        },
+        "is_active": true
+      },
+      {
+        "id": 4,
+        "icon": "👥",
+        "title": {
+          "es": "Las personas primero",
+          "en": "People first",
+          "pt": "Pessoas primeiro"
+        },
+        "description": {
+          "es": "A las personas se las trata con respeto y están por encima de metodologías, procesos y herramientas.",
+          "en": "People are treated with respect and are above methodologies, processes, and tools.",
+          "pt": "As pessoas são tratadas com respeito e estão acima de metodologias, processos e ferramentas."
+        },
+        "is_active": true
+      }
+    ],
+    "approach": {
+      "es": "Permitimos los cambios, la experimentación práctica y la entrega continua de valor al negocio de forma sostenible, donde la capacidad de respuesta al cambio es fundamental para el éxito de tu arquitectura empresarial.",
+      "en": "We enable changes, practical experimentation, and continuous delivery of business value in a sustainable way, where the ability to respond to change is fundamental to the success of your enterprise architecture.",
+      "pt": "Permitimos mudanças, experimentação prática e entrega contínua de valor ao negócio de forma sustentável, onde a capacidade de resposta à mudança é fundamental para o sucesso de sua arquitetura empresarial."
+    }
+  }
+}
