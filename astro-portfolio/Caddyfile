@@ -18,7 +18,7 @@
 # ============================================
 darwinyusef.com, www.darwinyusef.com {
 	# Reverse proxy al contenedor de Astro
-	reverse_proxy astro-portfolio:4321 {
+	reverse_proxy astro-portfolio:8080 {
 		# Headers para preservar informaci�n del cliente
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
@@ -54,7 +54,7 @@ darwinyusef.com, www.darwinyusef.com {
 # ============================================
 arquitectura.darwinyusef.com {
 	# Si tienes una app separada para arquitectura
-	reverse_proxy astro-portfolio:4321 {
+	reverse_proxy astro-portfolio:8080 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -73,7 +73,7 @@ arquitectura.darwinyusef.com {
 # Subdominio - Blog
 # ============================================
 blog.darwinyusef.com {
-	reverse_proxy astro-portfolio:4321 {
+	reverse_proxy astro-portfolio:8080 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
