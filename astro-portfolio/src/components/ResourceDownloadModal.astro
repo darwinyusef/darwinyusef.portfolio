@@ -1,0 +1,240 @@
+---
+// Componente Modal para Descargar Recursos (Lead Magnet)
+---
+
+<div id="resource-download-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
+  <div class="bg-gradient-to-br from-slate-900 to-slate-800 rounded-2xl shadow-2xl w-full max-w-md border border-slate-700">
+    <!-- Header -->
+    <div class="relative p-6 border-b border-slate-700">
+      <button id="close-resource-modal" class="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-3">
+        <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+          <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+          </svg>
+        </div>
+        <div>
+          <h3 id="resource-modal-title" class="text-xl font-bold text-white">Descargar Recurso</h3>
+          <p class="text-sm text-slate-400">Recurso gratuito para ti</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Body -->
+    <div class="p-6">
+      <p id="resource-modal-description" class="text-slate-300 text-sm mb-6 leading-relaxed">
+        Ingresa tu email para recibir el recurso directamente en tu bandeja de entrada.
+      </p>
+
+      <form id="resource-download-form" class="space-y-4">
+        <!-- Nombre (opcional) -->
+        <div>
+          <label for="resource-name-input" class="block text-sm font-medium text-slate-300 mb-2">
+            Nombre (opcional)
+          </label>
+          <input
+            type="text"
+            id="resource-name-input"
+            placeholder="Tu nombre"
+            class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          />
+        </div>
+
+        <!-- Email (requerido) -->
+        <div>
+          <label for="resource-email-input" class="block text-sm font-medium text-slate-300 mb-2">
+            Email <span class="text-red-400">*</span>
+          </label>
+          <input
+            type="email"
+            id="resource-email-input"
+            placeholder="tu@email.com"
+            required
+            class="w-full bg-slate-800 border border-slate-600 text-white rounded-lg px-4 py-3 focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all"
+          />
+        </div>
+
+        <!-- Consentimiento -->
+        <div class="flex items-start gap-2">
+          <input
+            type="checkbox"
+            id="resource-consent-checkbox"
+            required
+            class="mt-1 w-4 h-4 text-blue-600 bg-slate-800 border-slate-600 rounded focus:ring-blue-500"
+          />
+          <label for="resource-consent-checkbox" class="text-xs text-slate-400">
+            Acepto recibir el recurso y contenido relacionado por email. Puedes darte de baja en cualquier momento.
+          </label>
+        </div>
+
+        <!-- Botón Submit -->
+        <button
+          type="submit"
+          class="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white font-semibold py-3 px-6 rounded-lg transition-all transform hover:scale-105 active:scale-95 flex items-center justify-center gap-2"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 19v-8.93a2 2 0 01.89-1.664l7-4.666a2 2 0 012.22 0l7 4.666A2 2 0 0121 10.07V19M3 19a2 2 0 002 2h14a2 2 0 002-2M3 19l6.75-4.5M21 19l-6.75-4.5M3 10l6.75 4.5M21 10l-6.75 4.5m0 0l-1.14.76a2 2 0 01-2.22 0l-1.14-.76"></path>
+          </svg>
+          <span>Enviar a mi Email</span>
+        </button>
+      </form>
+
+      <!-- Mensaje de éxito -->
+      <div id="resource-success-message" class="hidden mt-4 p-4 bg-green-500/10 border border-green-500/50 rounded-lg">
+        <p class="text-green-400 text-sm flex items-center gap-2">
+          <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+          ¡Listo! Revisa tu email para descargar el recurso.
+        </p>
+      </div>
+
+      <!-- Beneficios -->
+      <div class="mt-6 pt-6 border-t border-slate-700">
+        <p class="text-xs text-slate-400 text-center">
+          🎁 Sin costo • 📚 Contenido de calidad • 🚀 Descarga inmediata
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { getApiUrl } from '../config/api.js';
+
+  let currentResourceId = '';
+
+  // Función para abrir el modal
+  window.openResourceModal = function(resourceId, title, description) {
+    const modal = document.getElementById('resource-download-modal');
+    const titleEl = document.getElementById('resource-modal-title');
+    const descEl = document.getElementById('resource-modal-description');
+    const form = document.getElementById('resource-download-form');
+    const successMessage = document.getElementById('resource-success-message');
+
+    currentResourceId = resourceId;
+
+    if (titleEl) titleEl.textContent = title;
+    if (descEl) descEl.textContent = description || 'Ingresa tu email para recibir el recurso.';
+
+    if (form) form.reset();
+    if (successMessage) successMessage.classList.add('hidden');
+
+    if (modal) {
+      modal.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const modal = document.getElementById('resource-download-modal');
+    const closeBtn = document.getElementById('close-resource-modal');
+    const form = document.getElementById('resource-download-form') as HTMLFormElement;
+    const successMessage = document.getElementById('resource-success-message');
+
+    // Cerrar modal
+    function closeModal() {
+      if (modal) {
+        modal.classList.add('hidden');
+        document.body.style.overflow = '';
+      }
+      if (form) form.reset();
+      if (successMessage) successMessage.classList.add('hidden');
+    }
+
+    closeBtn?.addEventListener('click', closeModal);
+
+    modal?.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // Submit form
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nameInput = document.getElementById('resource-name-input') as HTMLInputElement;
+      const emailInput = document.getElementById('resource-email-input') as HTMLInputElement;
+      const consentCheckbox = document.getElementById('resource-consent-checkbox') as HTMLInputElement;
+      const submitButton = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+
+      if (!emailInput.value || !consentCheckbox.checked) {
+        alert('Por favor completa los campos requeridos');
+        return;
+      }
+
+      const originalButtonHTML = submitButton.innerHTML;
+      submitButton.disabled = true;
+      submitButton.innerHTML = `
+        <svg class="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+        <span>Enviando...</span>
+      `;
+
+      try {
+        const response = await fetch(getApiUrl(`/api/resources/${currentResourceId}/request`), {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: nameInput.value || 'Anónimo',
+            email: emailInput.value
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          successMessage?.classList.remove('hidden');
+          form.reset();
+
+          // Descargar automáticamente si hay URL
+          if (result.resource?.download_url) {
+            setTimeout(() => {
+              const link = document.createElement('a');
+              link.href = result.resource.download_url;
+              link.target = '_blank';
+              link.download = result.resource.title;
+              link.click();
+            }, 500);
+          }
+
+          setTimeout(() => {
+            closeModal();
+          }, 3000);
+        } else {
+          throw new Error(result.error || 'Error al solicitar el recurso');
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('Hubo un error al procesar tu solicitud. Por favor intenta nuevamente.');
+      } finally {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonHTML;
+      }
+    });
+  });
+</script>
+
+<style>
+  /* Animaciones suaves */
+  #resource-download-modal {
+    animation: fadeIn 0.2s ease-out;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

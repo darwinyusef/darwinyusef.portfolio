@@ -1,32 +1,14 @@
-import type { APIRoute } from 'astro';
+import express from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-export const prerender = false;
+const router = express.Router();
 
-interface Message {
-  role: string;
-  content: string;
-}
-
-interface ContextData {
-  skills?: any[];
-  services?: any[];
-  events?: any[];
-  architecture?: any;
-  hobbies?: any[];
-}
-
-/**
- * Carga el contexto desde GitHub o archivos locales
- */
-async function loadContext(): Promise<ContextData> {
-  const context: ContextData = {};
-
+async function loadContext() {
+  const context = {};
   const githubBaseUrl = 'https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information';
 
   try {
-    // Cargar skills/lenguajes
     try {
       const skillsResponse = await fetch(`${githubBaseUrl}/languages.json`);
       if (skillsResponse.ok) {
@@ -34,9 +16,8 @@ async function loadContext(): Promise<ContextData> {
         console.log('✅ Skills cargadas desde GitHub:', context.skills?.length);
       }
     } catch (e) {
-      // Intentar cargar desde local
       try {
-        const localPath = join(process.cwd(), 'public', 'languages.json');
+        const localPath = join(process.cwd(), 'data', 'languages.json');
         context.skills = JSON.parse(readFileSync(localPath, 'utf-8'));
         console.log('✅ Skills cargadas desde local:', context.skills?.length);
       } catch (localError) {
@@ -44,7 +25,6 @@ async function loadContext(): Promise<ContextData> {
       }
     }
 
-    // Cargar servicios
     try {
       const servicesResponse = await fetch(`${githubBaseUrl}/services.json`);
       if (servicesResponse.ok) {
@@ -55,7 +35,6 @@ async function loadContext(): Promise<ContextData> {
       console.warn('⚠️ No se pudieron cargar servicios desde GitHub');
     }
 
-    // Cargar eventos
     try {
       const eventsResponse = await fetch(`${githubBaseUrl}/events.json`);
       if (eventsResponse.ok) {
@@ -63,9 +42,8 @@ async function loadContext(): Promise<ContextData> {
         console.log('✅ Eventos cargados desde GitHub:', context.events?.length);
       }
     } catch (e) {
-      // Intentar cargar desde local
       try {
-        const localPath = join(process.cwd(), 'information', 'events.json');
+        const localPath = join(process.cwd(), 'data', 'events.json');
         context.events = JSON.parse(readFileSync(localPath, 'utf-8'));
         console.log('✅ Eventos cargados desde local:', context.events?.length);
       } catch (localError) {
@@ -73,7 +51,6 @@ async function loadContext(): Promise<ContextData> {
       }
     }
 
-    // Cargar arquitectura
     try {
       const archResponse = await fetch(`${githubBaseUrl}/architecture.json`);
       if (archResponse.ok) {
@@ -91,46 +68,38 @@ async function loadContext(): Promise<ContextData> {
   return context;
 }
 
-/**
- * Construye el contexto en formato compacto para el sistema prompt
- */
-function buildContextPrompt(context: ContextData): string {
+function buildContextPrompt(context) {
   let prompt = '';
 
-  // Skills/Tecnologías
   if (context.skills && context.skills.length > 0) {
     const activeSkills = context.skills
-      .filter((s: any) => s.is_active)
-      .map((s: any) => `${s.name} (${s.yearsOfExperience}años, ${s.proficiency}%)`)
+      .filter((s) => s.is_active)
+      .map((s) => `${s.name} (${s.yearsOfExperience}años, ${s.proficiency}%)`)
       .join(', ');
     prompt += `\n**TECNOLOGÍAS Y SKILLS:**\n${activeSkills}\n`;
   }
 
-  // Servicios
   if (context.services && context.services.length > 0) {
     const activeServices = context.services
-      .filter((s: any) => s.is_active)
-      .map((s: any) => `- ${s.name}: ${s.description}`)
+      .filter((s) => s.is_active)
+      .map((s) => `- ${s.name}: ${s.description}`)
       .join('\n');
     prompt += `\n**SERVICIOS OFRECIDOS:**\n${activeServices}\n`;
   }
 
-  // Eventos
   if (context.events && context.events.length > 0) {
     const upcomingEvents = context.events
-      .filter((e: any) => e.is_active)
+      .filter((e) => e.is_active)
       .slice(0, 5)
-      .map((e: any) => `- ${e.title} (${e.city}, ${e.date})`)
+      .map((e) => `- ${e.title} (${e.city}, ${e.date})`)
       .join('\n');
     prompt += `\n**PRÓXIMOS EVENTOS:**\n${upcomingEvents}\n`;
   }
 
-  // Arquitectura
   if (context.architecture) {
     prompt += `\n**ESPECIALIZACIÓN EN ARQUITECTURA:**\n${context.architecture.description || 'Arquitectura Empresarial y Soluciones Cloud'}\n`;
   }
 
-  // Hobbies (Un poco de mi vida)
   prompt += `\n**UN POCO DE MI VIDA (Hobbies y Pasiones):**
 - 🍽️ Cocina & Coctelería: Explorar sabores del mundo y preparar platos gourmet
 - 🚴‍♂️ Ciclismo: Rutas sobre dos ruedas, descubrir lugares especiales
@@ -142,50 +111,39 @@ function buildContextPrompt(context: ContextData): string {
   return prompt;
 }
 
-export const POST: APIRoute = async ({ request }) => {
+router.post('/', async (req, res) => {
   console.log('🔵 API /chat-assistant llamada');
 
   try {
-    const body = await request.json();
-    const { question, conversationHistory } = body;
+    const { question, conversationHistory } = req.body;
 
     if (!question) {
-      return new Response(
-        JSON.stringify({ error: 'La pregunta es requerida' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
+      return res.status(400).json({ error: 'La pregunta es requerida' });
     }
 
-    // Obtener la API key de OpenAI
-    let apiKey: string | null = null;
+    let apiKey = process.env.OPENAI_API_KEY;
 
-    try {
-      const confPath = join(process.cwd(), 'public', 'conf.json');
-      const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
-      apiKey = confData.openai;
-      console.log('✅ Token de OpenAI obtenido');
-    } catch (error) {
-      apiKey = import.meta.env.OPENAI_API_KEY;
+    if (!apiKey) {
+      try {
+        const confPath = join(process.cwd(), 'data', 'conf.json');
+        const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
+        apiKey = confData.openai;
+        console.log('✅ Token de OpenAI obtenido');
+      } catch (error) {
+        console.error('❌ No se pudo leer conf.json');
+      }
     }
 
     if (!apiKey) {
-      return new Response(
-        JSON.stringify({
-          error: 'La API de OpenAI no está configurada',
-        }),
-        { status: 500, headers: { 'Content-Type': 'application/json' } }
-      );
+      return res.status(500).json({ error: 'La API de OpenAI no está configurada' });
     }
 
-    // Cargar contexto dinámico
     console.log('📚 Cargando contexto...');
     const context = await loadContext();
     const contextPrompt = buildContextPrompt(context);
 
-    // Preparar mensajes para OpenAI
-    const messages: Message[] = [];
+    const messages = [];
 
-    // Sistema: definir el rol y contexto
     messages.push({
       role: 'system',
       content: `Eres un asistente virtual inteligente de Yusef González, arquitecto de software y desarrollador fullstack con más de 17 años de experiencia.
@@ -237,9 +195,8 @@ Si te preguntan sobre precios o aspectos comerciales:
 Mantén un tono profesional pero cercano, como si fueras el asistente personal de Yusef que conoce todo sobre su trabajo y vida profesional.`
     });
 
-    // Agregar historial de conversación si existe
     if (conversationHistory && Array.isArray(conversationHistory)) {
-      conversationHistory.forEach((msg: Message) => {
+      conversationHistory.forEach((msg) => {
         if (msg.role === 'user' || msg.role === 'assistant') {
           messages.push({
             role: msg.role,
@@ -249,13 +206,11 @@ Mantén un tono profesional pero cercano, como si fueras el asistente personal d
       });
     }
 
-    // Agregar la pregunta actual
     messages.push({
       role: 'user',
       content: question
     });
 
-    // Llamar a la API de OpenAI
     console.log('🚀 Llamando a OpenAI con', messages.length, 'mensajes');
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -281,31 +236,17 @@ Mantén un tono profesional pero cercano, como si fueras el asistente personal d
     const aiResponse = data.choices?.[0]?.message?.content || 'No pude generar una respuesta.';
     console.log('✅ Respuesta generada');
 
-    return new Response(
-      JSON.stringify({
-        response: aiResponse,
-        success: true
-      }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    return res.json({
+      response: aiResponse,
+      success: true
+    });
   } catch (error) {
     console.error('❌ Error en /api/chat-assistant:', error);
-    return new Response(
-      JSON.stringify({
-        error: error instanceof Error ? error.message : 'Error interno del servidor',
-        success: false
-      }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    return res.status(500).json({
+      error: error.message || 'Error interno del servidor',
+      success: false
+    });
   }
-};
+});
+
+export default router;

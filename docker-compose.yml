@@ -1,0 +1,74 @@
+version: '3.8'
+
+services:
+  # Caddy - Reverse Proxy
+  caddy:
+    image: caddy:2-alpine
+    container_name: portfolio-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./astro-portfolio/Caddyfile:/etc/caddy/Caddyfile
+      - caddy-data:/data
+      - caddy-config:/config
+      - caddy-logs:/var/log/caddy
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    depends_on:
+      - frontend
+      - backend
+
+  # Frontend - Astro estático con Nginx
+  frontend:
+    build:
+      context: ./astro-portfolio
+      dockerfile: Dockerfile
+    container_name: astro-portfolio
+    expose:
+      - "8080"
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 5s
+
+  # Backend - Express API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    expose:
+      - "3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+    env_file:
+      - ./backend/.env
+    volumes:
+      - backend-data:/app/data
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+
+networks:
+  portfolio-network:
+    driver: bridge
+
+volumes:
+  backend-data:
+  caddy-data:
+  caddy-config:
+  caddy-logs:

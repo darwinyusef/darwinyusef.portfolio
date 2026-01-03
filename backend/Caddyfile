@@ -1,0 +1,17 @@
+api.darwinyusef.com {
+    reverse_proxy backend:3001
+
+    encode gzip
+
+    log {
+        output file /var/log/caddy/api.log
+    }
+
+    header {
+        -Server
+        X-Frame-Options "DENY"
+        X-Content-Type-Options "nosniff"
+        X-XSS-Protection "1; mode=block"
+        Referrer-Policy "strict-origin-when-cross-origin"
+    }
+}

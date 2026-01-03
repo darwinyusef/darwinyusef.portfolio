@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
+import ResourceDownloadModal from '../components/ResourceDownloadModal.astro';
 import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -79,6 +80,8 @@ const t = useTranslations(lang);
       </section>
     </main>
   </div>
+
+  <ResourceDownloadModal />
 </Layout>
 
 <script>
@@ -286,15 +289,13 @@ const t = useTranslations(lang);
               </div>
             ` : ''}
 
-            <a
-              href="${resource.url}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-purple-600  rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:gap-3 group/btn"
+            <button
+              onclick="openResourceModal('${resource.id}', '${resource.title.replace(/'/g, "\\'")}', '${resource.description.replace(/'/g, "\\'")}')"
+              class="inline-flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-primary to-purple-600 rounded-lg font-semibold transition-all duration-300 hover:shadow-lg hover:gap-3 group/btn"
             >
-              <span>Visitar recurso</span>
-              <span class="material-symbols-outlined text-white text-sm group-hover/btn:translate-x-1 transition-transform">open_in_new</span>
-            </a>
+              <span>Descargar recurso</span>
+              <span class="material-symbols-outlined text-white text-sm group-hover/btn:translate-x-1 transition-transform">download</span>
+            </button>
           </div>
         </article>
       `;

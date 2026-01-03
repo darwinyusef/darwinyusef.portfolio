@@ -10,8 +10,8 @@ RUN apk add --no-cache libc6-compat
 # Copiar archivos de dependencias
 COPY package.json package-lock.json* ./
 
-# Instalar dependencias de producción
-RUN npm ci --only=production && \
+# Instalar dependencias con npm install
+RUN npm install && \
     npm cache clean --force
 
 # ========================================
@@ -24,13 +24,10 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json package-lock.json* ./
 
-# Instalar todas las dependencias (incluyendo devDependencies)
-RUN npm ci
-
 # Copiar código fuente
 COPY . .
 
-# Build de producción
+# Build de producción (estático)
 ENV NODE_ENV=production
 RUN npm run build
 
