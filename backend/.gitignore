@@ -1,0 +1,4 @@
+node_modules
+.env
+data/conf.json
+data/newsletter-subscriptions.json

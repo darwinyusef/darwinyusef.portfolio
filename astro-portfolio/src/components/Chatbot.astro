@@ -61,6 +61,8 @@ const t = useTranslations(lang);
 </div>
 
 <script>
+  import { getApiUrl } from '../config/api.js';
+
   // Historial de conversación
   let conversationHistory: Array<{role: string, content: string}> = [];
 
@@ -171,7 +173,7 @@ const t = useTranslations(lang);
         addLoadingMessage();
 
         try {
-          const response = await fetch('/api/chat-assistant.json', {
+          const response = await fetch(getApiUrl('/api/chat-assistant'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

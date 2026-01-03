@@ -1,0 +1,385 @@
+{
+  "info": {
+    "name": "Portfolio API - Yusef González",
+    "description": "Colección completa de endpoints para api.darwinyusef.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:3001",
+      "type": "string"
+    },
+    {
+      "key": "prod_url",
+      "value": "https://api.darwinyusef.com",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/health",
+          "host": ["{{base_url}}"],
+          "path": ["health"]
+        }
+      }
+    },
+    {
+      "name": "Chat Assistant",
+      "item": [
+        {
+          "name": "Send Message",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Hola, ¿qué tecnologías dominas?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/chat-assistant",
+              "host": ["{{base_url}}"],
+              "path": ["api", "chat-assistant"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Ask AI",
+      "item": [
+        {
+          "name": "Ask Question",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"question\": \"¿Cómo implementar microservicios con Docker?\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/ask-ai",
+              "host": ["{{base_url}}"],
+              "path": ["api", "ask-ai"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Newsletter",
+      "item": [
+        {
+          "name": "Subscribe",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/newsletter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "newsletter"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Contact",
+      "item": [
+        {
+          "name": "Send Email",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Juan Pérez\",\n  \"email\": \"juan@example.com\",\n  \"message\": \"Me gustaría trabajar contigo en un proyecto\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/send-email",
+              "host": ["{{base_url}}"],
+              "path": ["api", "send-email"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Testimonials",
+      "item": [
+        {
+          "name": "Submit Testimonial",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"María García\",\n  \"email\": \"maria@example.com\",\n  \"company\": \"Tech Solutions\",\n  \"role\": \"CTO\",\n  \"message\": \"Excelente profesional, entrega resultados de calidad\",\n  \"rating\": 5\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/testimonial",
+              "host": ["{{base_url}}"],
+              "path": ["api", "testimonial"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "CV Download",
+      "item": [
+        {
+          "name": "Request CV",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Carlos López\",\n  \"email\": \"carlos@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/download-cv",
+              "host": ["{{base_url}}"],
+              "path": ["api", "download-cv"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "List All Resources",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/resources",
+              "host": ["{{base_url}}"],
+              "path": ["api", "resources"]
+            }
+          }
+        },
+        {
+          "name": "Request Resource - Architecture Guide",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Pedro Sánchez\",\n  \"email\": \"pedro@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/resources/architecture-guide/request",
+              "host": ["{{base_url}}"],
+              "path": ["api", "resources", "architecture-guide", "request"]
+            }
+          }
+        },
+        {
+          "name": "Request Resource - FullStack Roadmap",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Ana Martínez\",\n  \"email\": \"ana@example.com\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/api/resources/fullstack-roadmap/request",
+              "host": ["{{base_url}}"],
+              "path": ["api", "resources", "fullstack-roadmap", "request"]
+            }
+          }
+        },
+        {
+          "name": "Resource Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/resources/stats/all",
+              "host": ["{{base_url}}"],
+              "path": ["api", "resources", "stats", "all"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "MinIO Admin",
+      "item": [
+        {
+          "name": "MinIO Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/health",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "health"]
+            }
+          }
+        },
+        {
+          "name": "Get Lead Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/stats",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "stats"]
+            }
+          }
+        },
+        {
+          "name": "List Files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/files?prefix=raw/",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "files"],
+              "query": [
+                {
+                  "key": "prefix",
+                  "value": "raw/"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export Campaign - JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/export/architecture-guide",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "export", "architecture-guide"]
+            }
+          }
+        },
+        {
+          "name": "Export Campaign - CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/export/architecture-guide?format=csv",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "export", "architecture-guide"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Export All Leads - JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/export-all",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "export-all"]
+            }
+          }
+        },
+        {
+          "name": "Export All Leads - CSV",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/export-all?format=csv",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "export-all"],
+              "query": [
+                {
+                  "key": "format",
+                  "value": "csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Read JSONL File",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/minio/read?path=raw/campaign=newsletter/date=2026-01-03/leads.jsonl",
+              "host": ["{{base_url}}"],
+              "path": ["api", "minio", "read"],
+              "query": [
+                {
+                  "key": "path",
+                  "value": "raw/campaign=newsletter/date=2026-01-03/leads.jsonl"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

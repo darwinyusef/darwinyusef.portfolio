@@ -160,6 +160,8 @@ const lang = getLangFromUrl(Astro.url);
 </Layout>
 
 <script>
+  import { getApiUrl } from '../config/api.js';
+
   let selectedRating = 5;
 
   document.addEventListener('DOMContentLoaded', () => {
@@ -202,7 +204,7 @@ const lang = getLangFromUrl(Astro.url);
       };
 
       try {
-        const response = await fetch('/api/testimonial.json', {
+        const response = await fetch(getApiUrl('/api/testimonial'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(data)

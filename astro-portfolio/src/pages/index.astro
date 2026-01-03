@@ -3255,6 +3255,8 @@ const t = useTranslations(lang);
 <link rel="stylesheet" href="/styles_global.css" />
 
 <script>
+  import { getApiUrl } from '../config/api.js';
+
   // About content is now statically rendered in the HTML, no backend needed
 
   // Crossfade Animation for Images
@@ -3368,7 +3370,7 @@ const t = useTranslations(lang);
       };
 
       try {
-        const response = await fetch("/api/send-email", {
+        const response = await fetch(getApiUrl("/api/send-email"), {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
@@ -4758,31 +4760,34 @@ const t = useTranslations(lang);
       `;
 
       try {
-        // Send confirmation email
-        const response = await fetch("/api/send-email", {
+        // Enviar solicitud de CV al backend
+        const response = await fetch(getApiUrl("/api/download-cv"), {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name: "Descarga de CV",
-            email: emailInput.value,
-            message: `Solicitud de descarga de CV desde el portfolio. Email: ${emailInput.value}`,
+            name: emailInput.value.split('@')[0], // Extraer nombre del email
+            email: emailInput.value
           }),
         });
 
         const result = await response.json();
 
         if (result.success) {
-          // Download CV
-          const link = document.createElement("a");
-          link.href = "/cv/Yusef_Gonzalez_CV.pdf";
-          link.download = "Yusef_Gonzalez_CV.pdf";
-          document.body.appendChild(link);
-          link.click();
-          document.body.removeChild(link);
-
+          // Mostrar mensaje de éxito
           successMessage?.classList.remove("hidden");
+
+          // Si hay URL del CV, descargarlo directamente
+          if (result.cvUrl) {
+            const link = document.createElement("a");
+            link.href = result.cvUrl;
+            link.download = "Yusef_Gonzalez_CV.pdf";
+            link.target = "_blank";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+          }
 
           setTimeout(() => {
             modal.classList.add("hidden");
@@ -4791,9 +4796,9 @@ const t = useTranslations(lang);
             successMessage?.classList.add("hidden");
             submitButton.disabled = false;
             submitButton.innerHTML = originalButtonText;
-          }, 2000);
+          }, 3000);
         } else {
-          throw new Error(result.error || "Error al enviar confirmación");
+          throw new Error(result.error || "Error al solicitar el CV");
         }
       } catch (error) {
         console.error("Error downloading CV:", error);

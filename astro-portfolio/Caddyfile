@@ -1,15 +1,15 @@
 # ============================================
 # Caddy Configuration - Portfolio Multidominio
-# Soporte para múltiples dominios con HTTPS automático
+# Soporte para mï¿½ltiples dominios con HTTPS automï¿½tico
 # ============================================
 
-# Configuración global
+# Configuraciï¿½n global
 {
 	# Email para notificaciones de Let's Encrypt
 	email your-email@example.com
 
-	# Usar el servidor de producción de Let's Encrypt
-	# Para testing, comenta esta línea y usa staging
+	# Usar el servidor de producciï¿½n de Let's Encrypt
+	# Para testing, comenta esta lï¿½nea y usa staging
 	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
@@ -19,7 +19,7 @@
 darwinyusef.com, www.darwinyusef.com {
 	# Reverse proxy al contenedor de Astro
 	reverse_proxy astro-portfolio:4321 {
-		# Headers para preservar información del cliente
+		# Headers para preservar informaciï¿½n del cliente
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -32,7 +32,7 @@ darwinyusef.com, www.darwinyusef.com {
 		format json
 	}
 
-	# Compresión
+	# Compresiï¿½n
 	encode gzip zstd
 
 	# Headers de seguridad
@@ -92,7 +92,7 @@ blog.darwinyusef.com {
 # Subdominio - API
 # ============================================
 api.darwinyusef.com {
-	reverse_proxy astro-portfolio:4321 {
+	reverse_proxy backend:3001 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -109,8 +109,9 @@ api.darwinyusef.com {
 	# CORS para API
 	header {
 		Access-Control-Allow-Origin "*"
-		Access-Control-Allow-Methods "GET, POST, OPTIONS"
+		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
 		Access-Control-Allow-Headers "Content-Type, Authorization"
+		-Server
 	}
 }
 
@@ -152,8 +153,8 @@ console.minio.darwinyusef.com {
 # Redirecciones y Manejo de Errores
 # ============================================
 
-# Redirect HTTP to HTTPS (automático en Caddy)
-# Caddy maneja esto automáticamente
+# Redirect HTTP to HTTPS (automï¿½tico en Caddy)
+# Caddy maneja esto automï¿½ticamente
 
 # Custom error pages (opcional)
 # handle_errors {

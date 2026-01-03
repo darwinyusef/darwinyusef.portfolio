@@ -1,103 +1,56 @@
-import type { APIRoute } from 'astro';
+import express from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 
-export const prerender = false;
+const router = express.Router();
 
-interface Message {
-  role: string;
-  content: string;
-}
-
-export const POST: APIRoute = async ({ request }) => {
+router.post('/', async (req, res) => {
   console.log('🔵 API /ask-ai llamada');
   try {
-    // Leer el body como texto primero para debugging
-    const bodyText = await request.text();
-    console.log('📝 Body raw:', bodyText.substring(0, 200));
+    const { serviceName, serviceDescription, conversationHistory, isInitialMessage } = req.body;
 
-    let body;
-    try {
-      body = JSON.parse(bodyText);
-    } catch (parseError) {
-      console.error('❌ Error al parsear JSON:', parseError);
-      return new Response(
-        JSON.stringify({ error: 'Invalid JSON in request body' }),
-        { status: 400, headers: { 'Content-Type': 'application/json' } }
-      );
-    }
-
-    console.log('📦 Body recibido:', { serviceName: body.serviceName, hasHistory: !!body.conversationHistory });
-    const { serviceName, serviceDescription, conversationHistory, isInitialMessage } = body;
-
-    // Validar que se recibieron los datos necesarios
     if (!serviceName || !serviceDescription) {
-      return new Response(
-        JSON.stringify({
-          error: 'Faltan datos requeridos: serviceName y serviceDescription',
-        }),
-        {
-          status: 400,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      return res.status(400).json({
+        error: 'Faltan datos requeridos: serviceName y serviceDescription',
+      });
     }
 
-    // Obtener la API key de OpenAI desde conf.json
-    let apiKey: string | null = null;
+    let apiKey = process.env.OPENAI_API_KEY;
 
-    try {
-      const confPath = join(process.cwd(), 'public', 'conf.json');
-      console.log('📁 Leyendo configuración desde:', confPath);
-      const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
-      apiKey = confData.openai;
-      console.log('✅ Token de OpenAI obtenido:', apiKey ? `${apiKey.substring(0, 20)}...` : 'null');
-    } catch (error) {
-      console.error('❌ Error al leer conf.json:', error);
-      // Si no se encuentra en conf.json, intentar con variables de entorno
-      apiKey = import.meta.env.OPENAI_API_KEY;
-      console.log('🔄 Intentando con variable de entorno:', apiKey ? 'encontrada' : 'no encontrada');
+    if (!apiKey) {
+      try {
+        const confPath = join(process.cwd(), 'data', 'conf.json');
+        const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
+        apiKey = confData.openai;
+        console.log('✅ Token de OpenAI obtenido');
+      } catch (error) {
+        console.error('❌ Error al leer conf.json:', error);
+      }
     }
 
     if (!apiKey) {
-      console.error('❌ OPENAI_API_KEY no está configurada');
-      return new Response(
-        JSON.stringify({
-          error: 'La API de IA no está configurada. Por favor, contacta al administrador.',
-        }),
-        {
-          status: 500,
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        }
-      );
+      return res.status(500).json({
+        error: 'La API de IA no está configurada. Por favor, contacta al administrador.',
+      });
     }
 
-    // Cargar el contexto de lenguajes/tecnologías en formato CSV compacto
     let techStack = '';
     try {
-      const languagesPath = join(process.cwd(), 'public', 'languages.json');
+      const languagesPath = join(process.cwd(), 'data', 'languages.json');
       const languagesData = JSON.parse(readFileSync(languagesPath, 'utf-8'));
 
-      // Convertir a CSV compacto: Nombre,Años,Proficiencia%
       const csvLines = languagesData
-        .filter((tech: any) => tech.is_active)
-        .map((tech: any) => `${tech.name},${tech.yearsOfExperience}y,${tech.proficiency}%`);
+        .filter((tech) => tech.is_active)
+        .map((tech) => `${tech.name},${tech.yearsOfExperience}y,${tech.proficiency}%`);
 
       techStack = csvLines.join('; ');
-
       console.log('📚 Stack tecnológico cargado:', languagesData.length, 'tecnologías en formato CSV');
     } catch (error) {
       console.error('⚠️ No se pudo cargar languages.json:', error);
     }
 
-    // Preparar mensajes para OpenAI
-    const messages: Message[] = [];
+    const messages = [];
 
-    // Sistema: definir el rol y contexto
     messages.push({
       role: 'system',
       content: `Eres un asistente técnico experto en tecnología y desarrollo de software representando a Yusef González. Tu ÚNICO rol es educar y aclarar dudas técnicas sobre el siguiente servicio:
@@ -150,7 +103,6 @@ Pautas adicionales:
 - Enfócate en aspectos técnicos, NO comerciales`
     });
 
-    // Si es el mensaje inicial, agregar prompt de introducción
     if (isInitialMessage) {
       messages.push({
         role: 'user',
@@ -173,9 +125,8 @@ Al final, SOLO menciona que para más información técnica y consultas pueden v
 - TODO debe estar en HTML, NO en markdown`
       });
     } else {
-      // Agregar el historial de conversación
       if (conversationHistory && Array.isArray(conversationHistory)) {
-        conversationHistory.forEach((msg: Message) => {
+        conversationHistory.forEach((msg) => {
           if (msg.role === 'user' || msg.role === 'assistant') {
             messages.push({
               role: msg.role,
@@ -186,7 +137,6 @@ Al final, SOLO menciona que para más información técnica y consultas pueden v
       }
     }
 
-    // Llamar a la API de OpenAI
     console.log('🚀 Llamando a OpenAI con', messages.length, 'mensajes');
     const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
@@ -210,32 +160,18 @@ Al final, SOLO menciona que para más información técnica y consultas pueden v
 
     const data = await openaiResponse.json();
     const aiResponse = data.choices?.[0]?.message?.content || 'No se pudo generar una respuesta.';
-    console.log('✅ Respuesta de OpenAI recibida:', aiResponse.substring(0, 100) + '...');
+    console.log('✅ Respuesta de OpenAI recibida');
 
-    return new Response(
-      JSON.stringify({
-        response: aiResponse,
-        serviceName,
-      }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    return res.json({
+      response: aiResponse,
+      serviceName,
+    });
   } catch (error) {
     console.error('Error en /api/ask-ai:', error);
-    return new Response(
-      JSON.stringify({
-        error: error instanceof Error ? error.message : 'Error interno del servidor',
-      }),
-      {
-        status: 500,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-    );
+    return res.status(500).json({
+      error: error.message || 'Error interno del servidor',
+    });
   }
-};
+});
+
+export default router;

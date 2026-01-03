@@ -434,6 +434,8 @@ const regions = [
 </style>
 
 <script>
+  import { getApiUrl } from '../config/api.js';
+
   // Carousel functionality
   let currentSlide = 0;
   const isMobile = window.innerWidth < 768;
@@ -795,7 +797,7 @@ const regions = [
         `;
 
         try {
-          const response = await fetch('/api/send-email', {
+          const response = await fetch(getApiUrl('/api/send-email'), {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
