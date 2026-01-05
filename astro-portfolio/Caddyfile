@@ -6,14 +6,17 @@
 # Configuración global
 {
 	# Email para notificaciones de Let's Encrypt
-	email your-email@example.com
+	email wsgestor@gmail.com
+	servers {
+		trusted_proxies static 0.0.0.0/0
+	}
 
 	# Usar el servidor de producción de Let's Encrypt
 	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
 # ============================================
-# Dominio Principal - darwinyusef.com
+# Dominio Principal - dArwinyusef.com
 # ============================================
 darwinyusef.com, www.darwinyusef.com {
 	# Reverse proxy al contenedor de Astro
