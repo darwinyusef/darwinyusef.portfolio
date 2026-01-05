@@ -98,8 +98,7 @@ services:
 
 networks:
   portfolio-network:
-    driver: bridge
-    name: portfolio-network
+    external: true
 
 volumes:
   # Volumen para datos de Caddy (certificados SSL)
