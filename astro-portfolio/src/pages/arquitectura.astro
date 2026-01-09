@@ -1206,11 +1206,23 @@ const lang = getLangFromUrl(Astro.url);
       submitBtn.textContent = t.sending;
 
       try {
-        // Aquí puedes agregar la lógica para enviar el formulario a tu backend
-        console.log('Form data:', formData);
+        const response = await fetch('https://api.darwinyusef.com/api/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            message: `Tipo de asesoría: ${formData.advisoryType}\n\nTeléfono: ${formData.phone}\n\nDescripción:\n${formData.description}`
+          })
+        });
 
-        // Simulación de envío (reemplazar con tu endpoint real)
-        await new Promise(resolve => setTimeout(resolve, 1000));
+        const result = await response.json();
+
+        if (!result.success) {
+          throw new Error(result.error || 'Error al enviar el formulario');
+        }
 
         // Mostrar mensaje de éxito
         const successMessage = document.createElement('div');

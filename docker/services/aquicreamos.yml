@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  aquicreamos:
+    build:
+      context: /opt/wpaqc
+      dockerfile: Dockerfile.ssr
+    container_name: aquicreamos
+    expose:
+      - "4321"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=4321
+      - NODE_ENV=production
+    env_file:
+      - /opt/wpaqc/.env
+    volumes:
+      - aquicreamos-db:/app/appointments.db
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    labels:
+      - "com.darwinyusef.app=aquicreamos"
+      - "com.darwinyusef.domain=aquicreamos.com"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:4321/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    external: true
+
+volumes:
+  aquicreamos-db:
+    name: aquicreamos-sqlite-data

@@ -5,10 +5,13 @@ import chatAssistantRouter from './routes/chat-assistant.js';
 import askAiRouter from './routes/ask-ai.js';
 import newsletterRouter from './routes/newsletter.js';
 import sendEmailRouter from './routes/send-email.js';
+import contactRouter from './routes/contact.js';
 import testimonialRouter from './routes/testimonial.js';
 import downloadCvRouter from './routes/download-cv.js';
 import downloadResourceRouter from './routes/download-resource.js';
 import minioAdminRouter from './routes/minio-admin.js';
+import calendarRouter from './routes/calendar.js';
+import youtubeRouter from './routes/youtube.js';
 import { initializeMinio } from './services/minio-storage.js';
 
 dotenv.config();
@@ -30,10 +33,14 @@ app.use('/api/chat-assistant', chatAssistantRouter);
 app.use('/api/ask-ai', askAiRouter);
 app.use('/api/newsletter', newsletterRouter);
 app.use('/api/send-email', sendEmailRouter);
+app.use('/api/contact', contactRouter);
 app.use('/api/testimonial', testimonialRouter);
 app.use('/api/download-cv', downloadCvRouter);
 app.use('/api/resources', downloadResourceRouter);
 app.use('/api/minio', minioAdminRouter);
+app.use('/api/calendar', calendarRouter);
+app.use('/api/oauth2callback', calendarRouter);
+app.use('/api/youtube', youtubeRouter);
 
 // Error handler
 app.use((err, req, res, next) => {

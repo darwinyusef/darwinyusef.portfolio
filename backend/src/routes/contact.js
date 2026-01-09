@@ -1,6 +1,7 @@
 import express from 'express';
 import { Resend } from 'resend';
 import { contactFormTemplate } from '../templates/email-templates.js';
+import { saveContact } from '../services/database.js';
 
 const router = express.Router();
 
@@ -21,6 +22,19 @@ router.post('/', async (req, res) => {
         success: false,
         error: 'Email inválido',
       });
+    }
+
+    // Guardar en SQLite
+    try {
+      saveContact({
+        name,
+        email,
+        message,
+        ip: req.ip || req.connection.remoteAddress
+      });
+      console.log(`💬 Contacto guardado en SQLite: ${email}`);
+    } catch (dbError) {
+      console.error('Error guardando contacto en SQLite:', dbError);
     }
 
     const resend = new Resend(process.env.RESEND_API_KEY);
@@ -45,7 +59,7 @@ router.post('/', async (req, res) => {
 
     return res.json({
       success: true,
-      message: 'Email enviado correctamente',
+      message: 'Mensaje enviado correctamente',
       data,
     });
   } catch (error) {

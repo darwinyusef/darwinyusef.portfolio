@@ -1,13 +1,28 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import localEvents from "../../public/data/home-events.json";
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
-// Cargar eventos desde JSON
-const response = await fetch(new URL('/data/home-events.json', Astro.url.origin));
-const events = await response.json();
----
+const GITHUB_EVENTS_URL =
+  "https://raw.githubusercontent.com/darwinyusef/darwinyusef/refs/heads/master/information/events.json";
 
+async function fetchRemoteEvents() {
+  try {
+    const res = await fetch(GITHUB_EVENTS_URL);
+    if (!res.ok) throw new Error("GitHub not available");
+    return await res.json();
+  } catch {
+    return null;
+  }
+}
+
+const remoteEvents = await fetchRemoteEvents();
+
+// prioridad: GitHub → local
+const events = Array.isArray(remoteEvents) ? remoteEvents : localEvents;
+---
 
 <div class="max-w-[1400px] mx-auto">
   <div class="text-center mb-12">
@@ -35,82 +50,82 @@ const events = await response.json();
   </div>
 
   <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    {events.map((event: any) => (
-      <div
-        class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800"
-      >
-        <div class={`bg-gradient-to-br ${event.gradient} p-6`}>
-          <div class="flex items-start justify-between">
-            <div>
-              <div
-                class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2"
-              >
-                {event.type[lang]}
+    {
+      events.map((event: any) => (
+        <div class="bg-[#1a1a1a] rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:-translate-y-2 border border-gray-800">
+          <div class={`bg-gradient-to-br ${event.gradient} p-6`}>
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="text-sm font-semibold uppercase tracking-wide opacity-90 mb-2">
+                  {event.type[lang]}
+                </div>
+                <h3
+                  class="text-2xl font-bold mb-2"
+                  style="font-family: 'Inter Tight', system-ui, sans-serif;"
+                >
+                  {event.title[lang]}
+                </h3>
               </div>
-              <h3
-                class="text-2xl font-bold mb-2"
-                style="font-family: 'Inter Tight', system-ui, sans-serif;"
-              >
-                {event.title[lang]}
-              </h3>
-            </div>
-            <div class="text-right">
-              <div class="text-3xl font-black">{event.date.day}</div>
-              <div class="text-sm uppercase">
-                {event.date.month[lang]}
+              <div class="text-right">
+                <div class="text-3xl font-black">{event.date.day}</div>
+                <div class="text-sm uppercase">{event.date.month[lang]}</div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="p-6">
-          <div class="space-y-3 mb-6">
-            <div class="flex items-center gap-3 text-gray-400">
-              <svg
-                class="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
-              </svg>
-              <span class="text-sm">{event.time}</span>
+          <div class="p-6">
+            <div class="space-y-3 mb-6">
+              <div class="flex items-center gap-3 text-gray-400">
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+                <span class="text-sm">{event.time}</span>
+              </div>
+              <div class="flex items-center gap-3 text-gray-400">
+                <svg
+                  class="h-5 w-5"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <span class="text-sm">
+                  {typeof event.location === "object"
+                    ? event.location[lang]
+                    : event.location}
+                </span>
+              </div>
             </div>
-            <div class="flex items-center gap-3 text-gray-400">
-              <svg
-                class="h-5 w-5"
-                fill="none"
-                stroke="currentColor"
-                stroke-width="2"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                ></path>
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-              </svg>
-              <span class="text-sm">
-                {typeof event.location === 'object' ? event.location[lang] : event.location}
-              </span>
-            </div>
+            <a
+              href="#"
+              class={`block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target ${event.buttonColor}`}
+              data-cursor-text={event.buttonText[lang]}
+            >
+              {event.buttonText[lang]}
+            </a>
           </div>
-          <a
-            href="#"
-            class={`block w-full text-center px-6 py-3 text-gray-900 rounded-xl font-bold hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-hover-target ${event.buttonColor}`}
-            data-cursor-text={event.buttonText[lang]}
-          >
-            {event.buttonText[lang]}
-          </a>
         </div>
-      </div>
-    ))}
+      ))
+    }
   </div>
 </div>
