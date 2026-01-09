@@ -117,7 +117,7 @@ minio.darwinyusef.com {
 # ============================================
 # Subdomain - MinIO Console
 # ============================================
-console.minio.darwinyusef.com {
+console.darwinyusef.com {
 	reverse_proxy portfolio-minio:9090 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}

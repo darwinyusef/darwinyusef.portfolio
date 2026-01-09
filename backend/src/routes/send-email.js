@@ -6,12 +6,12 @@ const router = express.Router();
 
 router.post('/', async (req, res) => {
   try {
-    const { name, email, message } = req.body;
+    const { name, email, phone, advisoryType, description, message } = req.body;
 
-    if (!name || !email || !message) {
+    if (!name || !email) {
       return res.status(400).json({
         success: false,
-        error: 'Todos los campos son requeridos',
+        error: 'Nombre y email son requeridos',
       });
     }
 
@@ -31,8 +31,15 @@ router.post('/', async (req, res) => {
       to: process.env.EMAIL_TO,
       replyTo: email,
       subject: `📬 Nueva solicitud de asesoría de ${name}`,
-      html: contactFormTemplate({ name, email, message }),
-      text: `Nuevo mensaje de contacto\n\nNombre: ${name}\nEmail: ${email}\n\nMensaje:\n${message}`
+      html: contactFormTemplate({
+        name,
+        email,
+        phone,
+        advisoryType,
+        description,
+        message
+      }),
+      text: `Nuevo mensaje de contacto\n\nNombre: ${name}\nEmail: ${email}\nTeléfono: ${phone || 'N/A'}\nTipo de Asesoría: ${advisoryType || 'N/A'}\n\nDescripción:\n${description || message || 'N/A'}`
     });
 
     if (adminError) {
@@ -50,8 +57,14 @@ router.post('/', async (req, res) => {
         from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
         to: email,
         subject: `✅ Solicitud de Asesoría Recibida - Yusef González`,
-        html: architectureConfirmationTemplate({ name, message }),
-        text: `Hola ${name},\n\nHemos recibido tu solicitud de asesoría en arquitectura.\n\nResumen de tu solicitud:\n${message}\n\nTe contactaremos en las próximas 24-48 horas para coordinar la fecha de la cita.\n\nGracias por confiar en nuestros servicios.\n\nYusef González\ndarwinyusef.com`
+        html: architectureConfirmationTemplate({
+          name,
+          phone,
+          advisoryType,
+          description,
+          message
+        }),
+        text: `Hola ${name},\n\nHemos recibido tu solicitud de asesoría en arquitectura.\n\nTipo: ${advisoryType || 'General'}\nDescripción: ${description || message || 'N/A'}\n\nTe contactaremos en las próximas 24-48 horas para coordinar la fecha de la cita.\n\nGracias por confiar en nuestros servicios.\n\nYusef González\ndarwinyusef.com`
       });
 
       if (userError) {

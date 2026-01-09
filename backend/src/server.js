@@ -12,6 +12,7 @@ import downloadResourceRouter from './routes/download-resource.js';
 import minioAdminRouter from './routes/minio-admin.js';
 import calendarRouter from './routes/calendar.js';
 import youtubeRouter from './routes/youtube.js';
+import appointmentsRouter from './routes/appointments.js';
 import { initializeMinio } from './services/minio-storage.js';
 
 dotenv.config();
@@ -41,6 +42,7 @@ app.use('/api/minio', minioAdminRouter);
 app.use('/api/calendar', calendarRouter);
 app.use('/api/oauth2callback', calendarRouter);
 app.use('/api/youtube', youtubeRouter);
+app.use('/api/appointments', appointmentsRouter);
 
 // Error handler
 app.use((err, req, res, next) => {

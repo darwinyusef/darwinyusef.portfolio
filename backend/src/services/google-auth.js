@@ -36,6 +36,7 @@ export function getAuthUrl() {
   const oAuth2Client = getOAuth2Client();
   return oAuth2Client.generateAuthUrl({
     access_type: 'offline',
+    prompt: 'consent', // Fuerza a Google a devolver un nuevo refresh_token
     scope: SCOPES,
   });
 }

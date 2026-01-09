@@ -232,7 +232,13 @@ export const emailStyles = `
 `;
 
 // Plantilla para formulario de contacto / asesoría
-export function contactFormTemplate({ name, email, message }) {
+export function contactFormTemplate({ name, email, phone, advisoryType, description, message }) {
+  const currentDate = new Date().toLocaleString('es-ES', {
+    timeZone: 'America/Bogota',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+
   return `
     <!DOCTYPE html>
     <html lang="es">
@@ -262,6 +268,12 @@ export function contactFormTemplate({ name, email, message }) {
             <!-- Content Section -->
             <div class="content-section">
 
+              <!-- Fecha de Solicitud -->
+              <div class="info-card">
+                <div class="info-label">📅 Fecha de Solicitud</div>
+                <div class="info-value">${currentDate}</div>
+              </div>
+
               <!-- Información del Cliente -->
               <div class="info-card">
                 <div class="info-label">👤 Cliente</div>
@@ -275,12 +287,28 @@ export function contactFormTemplate({ name, email, message }) {
                 </div>
               </div>
 
+              ${phone ? `
+              <div class="info-card">
+                <div class="info-label">📱 Teléfono</div>
+                <div class="info-value">
+                  <a href="tel:${phone}" style="color: #60a5fa; text-decoration: none; font-weight: 600;">${phone}</a>
+                </div>
+              </div>
+              ` : ''}
+
+              ${advisoryType ? `
+              <div class="info-card">
+                <div class="info-label">🎯 Tipo de Asesoría</div>
+                <div class="info-value">${advisoryType}</div>
+              </div>
+              ` : ''}
+
               <div class="divider"></div>
 
               <!-- Detalles de la Solicitud -->
               <div class="message-card">
-                <div class="message-title">💬 Detalles de la Solicitud</div>
-                <div class="message-content">${message}</div>
+                <div class="message-title">💬 Descripción del Proyecto</div>
+                <div class="message-content">${description || message}</div>
               </div>
 
             </div>
@@ -298,11 +326,7 @@ export function contactFormTemplate({ name, email, message }) {
               <p class="footer-info">darwinyusef.com/arquitectura</p>
               <div class="footer-brand">@DARWINYUSEF</div>
               <p class="footer-meta">
-                ${new Date().toLocaleString('es-ES', {
-                  timeZone: 'America/Bogota',
-                  dateStyle: 'long',
-                  timeStyle: 'short'
-                })} • Bogotá, Colombia
+                ${currentDate} • Bogotá, Colombia
               </p>
             </div>
 
@@ -728,7 +752,13 @@ export function testimonialTemplate({ name, role, company, email, content, ratin
 }
 
 // Plantilla de confirmación para usuario que solicita asesoría de arquitectura
-export function architectureConfirmationTemplate({ name, message }) {
+export function architectureConfirmationTemplate({ name, phone, advisoryType, description, message }) {
+  const currentDate = new Date().toLocaleString('es-ES', {
+    timeZone: 'America/Bogota',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+
   return `
     <!DOCTYPE html>
     <html lang="es">
@@ -763,15 +793,27 @@ export function architectureConfirmationTemplate({ name, message }) {
                 <div class="info-value">Hemos recibido tu solicitud de asesoría arquitectónica</div>
               </div>
 
+              <div class="info-card">
+                <div class="info-label">📅 Fecha de Recepción</div>
+                <div class="info-value">${currentDate}</div>
+              </div>
+
+              ${advisoryType ? `
+              <div class="info-card">
+                <div class="info-label">🎯 Tipo de Asesoría Solicitada</div>
+                <div class="info-value">${advisoryType}</div>
+              </div>
+              ` : ''}
+
               <div class="message-card">
                 <div class="message-title">📋 Resumen de tu Solicitud</div>
-                <div class="message-content">${message}</div>
+                <div class="message-content">${description || message}</div>
               </div>
 
               <div class="info-card">
                 <div class="info-label">⏰ Próximos Pasos</div>
                 <div class="info-value">
-                  Te contactaremos en las próximas 24-48 horas para coordinar la fecha de la cita y discutir los detalles de tu proyecto.
+                  Te contactaremos en las próximas 24-48 horas ${phone ? `al teléfono ${phone}` : 'por email'} para coordinar la fecha de la cita y discutir los detalles de tu proyecto.
                 </div>
               </div>
 
@@ -792,11 +834,7 @@ export function architectureConfirmationTemplate({ name, message }) {
               <p class="footer-info">Gracias por confiar en nuestros servicios</p>
               <div class="footer-brand">@DARWINYUSEF</div>
               <p class="footer-meta">
-                ${new Date().toLocaleString('es-ES', {
-                  timeZone: 'America/Bogota',
-                  dateStyle: 'long',
-                  timeStyle: 'short'
-                })} • Bogotá, Colombia
+                ${currentDate} • Bogotá, Colombia
               </p>
             </div>
 
