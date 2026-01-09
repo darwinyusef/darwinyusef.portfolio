@@ -726,3 +726,83 @@ export function testimonialTemplate({ name, role, company, email, content, ratin
     </html>
   `;
 }
+
+// Plantilla de confirmación para usuario que solicita asesoría de arquitectura
+export function architectureConfirmationTemplate({ name, message }) {
+  return `
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        ${emailStyles}
+      </head>
+      <body>
+        <div class="email-wrapper">
+          <div class="email-container">
+
+            <!-- Brand Header -->
+            <div class="brand-header">
+              <div class="brand-logo">PORTAFOLIO</div>
+              <div class="brand-name">@DARWINYUSEF</div>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+              <div class="hero-icon">✅</div>
+              <h1 class="hero-title">Solicitud Recibida</h1>
+              <p class="hero-subtitle">Asesoría en Arquitectura & Diseño de Espacios</p>
+            </div>
+
+            <!-- Content Section -->
+            <div class="content-section">
+
+              <div class="info-card">
+                <div class="info-label">👋 Hola ${name.split(' ')[0]}</div>
+                <div class="info-value">Hemos recibido tu solicitud de asesoría arquitectónica</div>
+              </div>
+
+              <div class="message-card">
+                <div class="message-title">📋 Resumen de tu Solicitud</div>
+                <div class="message-content">${message}</div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-label">⏰ Próximos Pasos</div>
+                <div class="info-value">
+                  Te contactaremos en las próximas 24-48 horas para coordinar la fecha de la cita y discutir los detalles de tu proyecto.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Action Section -->
+            <div class="action-section">
+              <p style="color: #9ca3af; font-size: 14px; margin-bottom: 16px;">
+                Mientras tanto, puedes explorar mi portafolio:
+              </p>
+              <a href="https://darwinyusef.com" class="cta-button">
+                🌐 Ver Portafolio
+              </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-section">
+              <p class="footer-info">Gracias por confiar en nuestros servicios</p>
+              <div class="footer-brand">@DARWINYUSEF</div>
+              <p class="footer-meta">
+                ${new Date().toLocaleString('es-ES', {
+                  timeZone: 'America/Bogota',
+                  dateStyle: 'long',
+                  timeStyle: 'short'
+                })} • Bogotá, Colombia
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+}
