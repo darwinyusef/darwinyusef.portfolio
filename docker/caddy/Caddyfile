@@ -1,61 +1,52 @@
 # ============================================
-# Caddy Configuration - Portfolio Multidominio
-# Soporte para múltiples dominios con HTTPS automático
+# Caddy - Reverse Proxy Multi-Domain
+# HTTPS with Let's Encrypt
 # ============================================
 
-# Configuración global
 {
-	# Email para notificaciones de Let's Encrypt
-	email wsgestor@gmail.com
+	email {$ACME_EMAIL}
 	servers {
 		trusted_proxies static 0.0.0.0/0
 	}
-
-	# Usar el servidor de producción de Let's Encrypt
-	# acme_ca https://acme-staging-v02.api.letsencrypt.org/directory
 }
 
 # ============================================
-# Dominio Principal - dArwinyusef.com
+# Main Domain - darwinyusef.com (es, en, pt)
 # ============================================
 darwinyusef.com, www.darwinyusef.com {
-	# Reverse proxy al contenedor de Astro
 	reverse_proxy astro-portfolio:8080 {
-		# Headers para preservar información del cliente
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
 		header_up X-Forwarded-Proto {scheme}
 	}
 
-	# Logs
+	@lang_en path /en /en/*
+	@lang_pt path /pt /pt/*
+
 	log {
 		output file /var/log/caddy/darwinyusef.log
 		format json
 	}
 
-	# Compresión
 	encode gzip zstd
 
-	# Headers de seguridad
 	header {
-		# Security headers
 		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 		X-Content-Type-Options "nosniff"
 		X-Frame-Options "SAMEORIGIN"
 		X-XSS-Protection "1; mode=block"
 		Referrer-Policy "strict-origin-when-cross-origin"
-
-		# Remove server header
+		Content-Language "es, en, pt"
 		-Server
 	}
 }
 
 # ============================================
-# Subdominio - Arquitectura
+# Domain - Aquicreamos.com
 # ============================================
-arquitectura.darwinyusef.com {
-	reverse_proxy astro-portfolio:8080 {
+aquicreamos.com, www.aquicreamos.com {
+	reverse_proxy aquicreamos:4321 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
@@ -63,37 +54,26 @@ arquitectura.darwinyusef.com {
 	}
 
 	log {
-		output file /var/log/caddy/arquitectura.log
+		output file /var/log/caddy/aquicreamos.log
 		format json
 	}
 
 	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
 }
 
 # ============================================
-# Subdominio - Blog
-# ============================================
-blog.darwinyusef.com {
-	reverse_proxy astro-portfolio:8080 {
-		header_up Host {host}
-		header_up X-Real-IP {remote_host}
-		header_up X-Forwarded-For {remote_host}
-		header_up X-Forwarded-Proto {scheme}
-	}
-
-	log {
-		output file /var/log/caddy/blog.log
-		format json
-	}
-
-	encode gzip zstd
-}
-
-# ============================================
-# Subdominio - API
+# Subdomain - API
 # ============================================
 api.darwinyusef.com {
-	# Usamos el nombre del contenedor ya que puede estar en otro proyecto de compose
 	reverse_proxy portfolio-backend:3001 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
@@ -108,7 +88,6 @@ api.darwinyusef.com {
 
 	encode gzip zstd
 
-	# CORS para API
 	header {
 		Access-Control-Allow-Origin "*"
 		Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
@@ -118,7 +97,7 @@ api.darwinyusef.com {
 }
 
 # ============================================
-# Subdominio - Minio (Storage)
+# Subdomain - MinIO (Storage)
 # ============================================
 minio.darwinyusef.com {
 	reverse_proxy portfolio-minio:9000 {
@@ -136,10 +115,14 @@ minio.darwinyusef.com {
 }
 
 # ============================================
-# Subdominio - Minio Console
+# Subdomain - MinIO Console
 # ============================================
 console.darwinyusef.com {
+<<<<<<< HEAD:astro-portfolio/Caddyfile
     reverse_proxy portfolio-minio:9090 {
+=======
+	reverse_proxy portfolio-minio:9090 {
+>>>>>>> 5110f27a7b45d600ea73ca9e45428cf4970cbc4d:docker/caddy/Caddyfile
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}

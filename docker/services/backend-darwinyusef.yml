@@ -1,0 +1,42 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ../../backend
+      dockerfile: Dockerfile
+    container_name: portfolio-backend
+    expose:
+      - "3001"
+    environment:
+      - PORT=3001
+      - NODE_ENV=production
+    env_file:
+      - ../../backend/.env
+    volumes:
+      - backend-data:/app/data
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    labels:
+      - "com.darwinyusef.app=backend"
+      - "com.darwinyusef.domain=darwinyusef.com"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    external: true
+
+volumes:
+  backend-data:
+    name: portfolio-backend-data

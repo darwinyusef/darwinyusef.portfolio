@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ../../astro-portfolio
+      dockerfile: Dockerfile
+      target: runtime
+    container_name: astro-portfolio
+    expose:
+      - "8080"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8080
+      - NODE_ENV=production
+      - SITE_URL=${SITE_URL}
+    env_file:
+      - ../../astro-portfolio/.env
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    labels:
+      - "com.darwinyusef.app=frontend"
+      - "com.darwinyusef.domain=darwinyusef.com"
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    external: true

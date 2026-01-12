@@ -1,9 +1,8 @@
 import express from 'express';
 import { Resend } from 'resend';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
-import { join } from 'path';
 import { newsletterWelcomeTemplate, newsletterAdminNotification } from '../templates/email-templates.js';
 import { appendLeadJsonl } from '../services/minio-storage.js';
+import { subscribeNewsletter, isSubscribedNewsletter, getNewsletterStats } from '../services/database.js';
 
 const router = express.Router();
 
@@ -15,36 +14,20 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'Email inválido' });
     }
 
-    const subscriptionsPath = join(process.cwd(), 'data', 'newsletter-subscriptions.json');
-    let subscriptions = [];
-
-    if (existsSync(subscriptionsPath)) {
-      try {
-        const fileContent = readFileSync(subscriptionsPath, 'utf-8');
-        subscriptions = JSON.parse(fileContent);
-      } catch (error) {
-        console.warn('No se pudo leer el archivo de suscripciones, creando uno nuevo');
-        subscriptions = [];
-      }
-    }
-
-    const alreadySubscribed = subscriptions.some(sub => sub.email === email);
-    if (alreadySubscribed) {
+    // Verificar si ya está suscrito
+    if (isSubscribedNewsletter(email)) {
       return res.json({
         success: true,
         message: 'Ya estás suscrito al newsletter'
       });
     }
 
-    subscriptions.push({
-      email,
-      subscribedAt: new Date().toISOString()
-    });
-
+    // Guardar en SQLite
     try {
-      writeFileSync(subscriptionsPath, JSON.stringify(subscriptions, null, 2));
-    } catch (error) {
-      console.error('Error al guardar la suscripción:', error);
+      subscribeNewsletter(email);
+      console.log(`📧 Nuevo suscriptor en SQLite: ${email}`);
+    } catch (dbError) {
+      console.error('Error guardando suscripción en SQLite:', dbError);
     }
 
     // Guardar también en MinIO
@@ -75,21 +58,23 @@ router.post('/', async (req, res) => {
           html: newsletterWelcomeTemplate(email)
         });
 
+        const stats = getNewsletterStats();
         await resend.emails.send({
           from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
-          to: [process.env.EMAIL_TO || 'wsgestor@gmail.com'],
+          to: [process.env.EMAIL_TO],
           subject: `📧 Nueva suscripción al newsletter: ${email}`,
-          html: newsletterAdminNotification(email, subscriptions.length)
+          html: newsletterAdminNotification(email, stats.totalSubscribers)
         });
       } catch (emailError) {
         console.error('Error al enviar email de confirmación:', emailError);
       }
     }
 
+    const stats = getNewsletterStats();
     return res.json({
       success: true,
       message: 'Suscripción exitosa',
-      subscribersCount: subscriptions.length
+      subscribersCount: stats.totalSubscribers
     });
 
   } catch (error) {

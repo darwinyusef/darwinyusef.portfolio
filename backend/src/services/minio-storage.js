@@ -1,26 +1,41 @@
 import { Client } from 'minio';
 import { Readable } from 'stream';
 
-// Configuración del cliente MinIO
-const minioClient = new Client({
-  endPoint: process.env.MINIO_ENDPOINT || '5.78.158.206',
-  port: parseInt(process.env.MINIO_PORT || '9000'),
-  useSSL: process.env.MINIO_USE_SSL === 'true',
-  accessKey: process.env.MINIO_ACCESS_KEY || 'minioadmin',
-  secretKey: process.env.MINIO_SECRET_KEY || 'minioadmin123',
-});
+let minioClient = null;
 
-const BUCKET_NAME = process.env.MINIO_BUCKET || 'leads';
+function getMinioClient() {
+  if (!minioClient) {
+    minioClient = new Client({
+      endPoint: process.env.MINIO_ENDPOINT,
+      port: parseInt(process.env.MINIO_PORT),
+      useSSL: true,
+      accessKey: process.env.MINIO_ACCESS_KEY,
+      secretKey: process.env.MINIO_SECRET_KEY,
+    });
+  }
+  return minioClient;
+}
+
+const BUCKET_NAME = process.env.MINIO_BUCKET;
 
 /**
  * Inicializar MinIO - Crear bucket si no existe
  */
 export async function initializeMinio() {
   try {
-    const bucketExists = await minioClient.bucketExists(BUCKET_NAME);
+    const client = getMinioClient();
+
+    console.log('🔵 Intentando conectar a MinIO:', {
+      endpoint: process.env.MINIO_ENDPOINT,
+      port: process.env.MINIO_PORT,
+      useSSL: 'true (forzado)',
+      bucket: BUCKET_NAME
+    });
+
+    const bucketExists = await client.bucketExists(BUCKET_NAME);
 
     if (!bucketExists) {
-      await minioClient.makeBucket(BUCKET_NAME, 'us-east-1');
+      await client.makeBucket(BUCKET_NAME, 'us-east-1');
       console.log(`✅ Bucket creado: ${BUCKET_NAME}`);
     } else {
       console.log(`✅ Bucket existe: ${BUCKET_NAME}`);
@@ -28,7 +43,12 @@ export async function initializeMinio() {
 
     return true;
   } catch (error) {
-    console.error('❌ Error inicializando MinIO:', error.message);
+    console.error('❌ Error inicializando MinIO:', {
+      message: error.message,
+      code: error.code,
+      statusCode: error.statusCode,
+      name: error.name
+    });
     return false;
   }
 }
@@ -39,6 +59,7 @@ export async function initializeMinio() {
  */
 export async function appendLeadJsonl(leadData) {
   try {
+    const client = getMinioClient();
     const {
       email,
       name = 'Anónimo',
@@ -72,7 +93,7 @@ export async function appendLeadJsonl(leadData) {
     const stream = Readable.from([buffer]);
 
     // Append al archivo (MinIO lo concatena automáticamente)
-    await minioClient.putObject(
+    await client.putObject(
       BUCKET_NAME,
       path,
       stream,
@@ -96,6 +117,7 @@ export async function appendLeadJsonl(leadData) {
  */
 export async function appendLeadCsv(leadData) {
   try {
+    const client = getMinioClient();
     const {
       email,
       name = 'Anónimo',
@@ -127,7 +149,7 @@ export async function appendLeadCsv(leadData) {
     const buffer = Buffer.from(line, 'utf-8');
     const stream = Readable.from([buffer]);
 
-    await minioClient.putObject(
+    await client.putObject(
       BUCKET_NAME,
       path,
       stream,
@@ -151,7 +173,8 @@ export async function appendLeadCsv(leadData) {
  */
 export async function readJsonlFile(objectPath) {
   try {
-    const dataStream = await minioClient.getObject(BUCKET_NAME, objectPath);
+    const client = getMinioClient();
+    const dataStream = await client.getObject(BUCKET_NAME, objectPath);
 
     return new Promise((resolve, reject) => {
       let data = '';
@@ -185,8 +208,9 @@ export async function readJsonlFile(objectPath) {
  */
 export async function listLeadFiles(prefix = 'raw/') {
   try {
+    const client = getMinioClient();
     const objectsList = [];
-    const stream = minioClient.listObjects(BUCKET_NAME, prefix, true);
+    const stream = client.listObjects(BUCKET_NAME, prefix, true);
 
     return new Promise((resolve, reject) => {
       stream.on('data', (obj) => {
@@ -311,7 +335,8 @@ export async function exportCampaignLeads(campaign, format = 'json') {
  */
 export async function checkMinioHealth() {
   try {
-    const bucketExists = await minioClient.bucketExists(BUCKET_NAME);
+    const client = getMinioClient();
+    const bucketExists = await client.bucketExists(BUCKET_NAME);
     return {
       status: 'ok',
       bucket: BUCKET_NAME,

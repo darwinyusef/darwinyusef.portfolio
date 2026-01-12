@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  caddy:
+    image: caddy:2-alpine
+    container_name: portfolio-caddy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+      - caddy-logs:/var/log/caddy
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    environment:
+      - ACME_AGREE=true
+      - ACME_EMAIL=${ACME_EMAIL}
+    labels:
+      - "com.darwinyusef.service=proxy"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    external: true
+
+volumes:
+  caddy-data:
+    name: portfolio-caddy-data
+  caddy-config:
+    name: portfolio-caddy-config
+  caddy-logs:
+    name: portfolio-caddy-logs

@@ -30,7 +30,7 @@ router.post('/', async (req, res) => {
     const resend = new Resend(resendApiKey);
 
     // URL del CV (puede ser S3, hosting, etc.)
-    const cvUrl = process.env.CV_URL || 'https://darwinyusef.com/cv/Yusef_Gonzalez_CV.pdf';
+    const cvUrl = process.env.CV_URL;
 
     // Enviar email al usuario con el CV
     const { data, error } = await resend.emails.send({

@@ -4,152 +4,332 @@
 
 export const emailStyles = `
   <style>
-    body {
+    @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300;400;500;600;700;800;900&display=swap');
+
+    * {
       margin: 0;
       padding: 0;
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-      line-height: 1.6;
-      color: #333;
-      background-color: #f4f4f4;
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Inter Tight', -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      background: #0a0a0a;
+      color: #e5e7eb;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .email-wrapper {
+      width: 100%;
+      background: #0a0a0a;
+      padding: 40px 20px;
+    }
+
     .email-container {
       max-width: 600px;
-      margin: 20px auto;
-      background: #ffffff;
-      border-radius: 12px;
+      margin: 0 auto;
+      background: #0f0f0f;
+      border-radius: 0;
       overflow: hidden;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     }
-    .header {
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 50%, #ec4899 100%);
-      color: white;
-      padding: 40px 30px;
+
+    .brand-header {
+      background: #0a0a0a;
+      padding: 30px 40px;
+      border-bottom: 1px solid rgba(59, 130, 246, 0.1);
       text-align: center;
     }
-    .header h1 {
-      margin: 0 0 10px 0;
-      font-size: 28px;
-      font-weight: 700;
-    }
-    .header p {
-      margin: 0;
+
+    .brand-logo {
       font-size: 14px;
-      opacity: 0.9;
-    }
-    .content {
-      padding: 40px 30px;
-    }
-    .field {
-      margin-bottom: 25px;
-      padding: 20px;
-      background: #f9fafb;
-      border-radius: 8px;
-      border-left: 4px solid #3b82f6;
-    }
-    .field-label {
-      font-weight: 600;
-      color: #3b82f6;
-      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 2px;
+      color: #6b7280;
       text-transform: uppercase;
-      letter-spacing: 0.5px;
       margin-bottom: 8px;
     }
-    .field-value {
-      color: #1f2937;
-      font-size: 16px;
-      word-wrap: break-word;
+
+    .brand-name {
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      background: linear-gradient(135deg, #3b82f6 0%, #9333ea 50%, #ec4899 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
     }
-    .message-box {
-      background: #ffffff;
-      padding: 25px;
-      border-radius: 8px;
-      border: 1px solid #e5e7eb;
-      border-left: 4px solid #8b5cf6;
+
+    .hero-section {
+      position: relative;
+      padding: 50px 40px;
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(147, 51, 234, 0.1) 100%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .hero-icon {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+    }
+
+    .hero-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #f9fafb;
+      text-align: center;
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: #9ca3af;
+      text-align: center;
+      font-weight: 500;
+    }
+
+    .content-section {
+      padding: 40px;
+      background: #0f0f0f;
+    }
+
+    .info-card {
+      background: rgba(30, 30, 30, 0.5);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .info-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #6b7280;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .info-value {
+      font-size: 16px;
+      color: #f3f4f6;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .message-card {
+      background: rgba(147, 51, 234, 0.05);
+      border: 1px solid rgba(147, 51, 234, 0.2);
+      border-left: 3px solid #9333ea;
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 24px;
+    }
+
+    .message-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: #9333ea;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 12px;
+    }
+
+    .message-content {
+      font-size: 15px;
+      color: #e5e7eb;
+      line-height: 1.8;
       white-space: pre-wrap;
       word-wrap: break-word;
-      line-height: 1.8;
     }
-    .footer {
+
+    .action-section {
       text-align: center;
-      padding: 30px;
-      background: #f9fafb;
-      border-top: 1px solid #e5e7eb;
+      padding: 30px 40px;
+      background: rgba(0, 0, 0, 0.3);
     }
-    .footer-text {
-      color: #6b7280;
-      font-size: 13px;
-      margin: 5px 0;
-    }
-    .footer-brand {
-      color: #3b82f6;
-      font-weight: 600;
-      font-size: 16px;
-      margin-top: 10px;
-    }
-    .button {
+
+    .cta-button {
       display: inline-block;
-      padding: 12px 30px;
-      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      padding: 16px 40px;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
       color: white;
       text-decoration: none;
-      border-radius: 6px;
-      font-weight: 600;
-      margin-top: 20px;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 10px 30px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
     }
+
+    .footer-section {
+      background: #0a0a0a;
+      padding: 30px 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+
+    .footer-info {
+      font-size: 13px;
+      color: #6b7280;
+      margin-bottom: 4px;
+    }
+
+    .footer-brand {
+      font-size: 18px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #3b82f6, #9333ea);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      display: inline-block;
+      margin: 12px 0;
+      letter-spacing: -0.02em;
+    }
+
+    .footer-meta {
+      font-size: 11px;
+      color: #4b5563;
+      margin-top: 12px;
+    }
+
     .divider {
       height: 1px;
-      background: linear-gradient(90deg, transparent, #e5e7eb, transparent);
-      margin: 30px 0;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+      margin: 24px 0;
+    }
+
+    @media only screen and (max-width: 600px) {
+      .email-wrapper {
+        padding: 20px 10px;
+      }
+      .content-section,
+      .brand-header,
+      .action-section,
+      .footer-section {
+        padding-left: 24px;
+        padding-right: 24px;
+      }
+      .hero-section {
+        padding: 40px 24px;
+      }
     }
   </style>
 `;
 
-// Plantilla para formulario de contacto
-export function contactFormTemplate({ name, email, message }) {
+// Plantilla para formulario de contacto / asesoría
+export function contactFormTemplate({ name, email, phone, advisoryType, description, message }) {
+  const currentDate = new Date().toLocaleString('es-ES', {
+    timeZone: 'America/Bogota',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+
   return `
     <!DOCTYPE html>
-    <html>
+    <html lang="es">
       <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         ${emailStyles}
       </head>
       <body>
-        <div class="email-container">
-          <div class="header">
-            <h1>📬 Nuevo Mensaje de Contacto</h1>
-            <p>Recibiste una nueva consulta desde tu portafolio</p>
-          </div>
+        <div class="email-wrapper">
+          <div class="email-container">
 
-          <div class="content">
-            <div class="field">
-              <div class="field-label">👤 Nombre</div>
-              <div class="field-value">${name}</div>
+            <!-- Brand Header -->
+            <div class="brand-header">
+              <div class="brand-logo">PORTAFOLIO</div>
+              <div class="brand-name">@DARWINYUSEF</div>
             </div>
 
-            <div class="field">
-              <div class="field-label">📧 Email de Contacto</div>
-              <div class="field-value">
-                <a href="mailto:${email}" style="color: #3b82f6; text-decoration: none;">${email}</a>
+            <!-- Hero Section -->
+            <div class="hero-section">
+              <div class="hero-icon">🏗️</div>
+              <h1 class="hero-title">Nueva Solicitud de Asesoría</h1>
+              <p class="hero-subtitle">Arquitectura & Diseño de Espacios</p>
+            </div>
+
+            <!-- Content Section -->
+            <div class="content-section">
+
+              <!-- Fecha de Solicitud -->
+              <div class="info-card">
+                <div class="info-label">📅 Fecha de Solicitud</div>
+                <div class="info-value">${currentDate}</div>
               </div>
+
+              <!-- Información del Cliente -->
+              <div class="info-card">
+                <div class="info-label">👤 Cliente</div>
+                <div class="info-value">${name}</div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-label">📧 Email de Contacto</div>
+                <div class="info-value">
+                  <a href="mailto:${email}" style="color: #60a5fa; text-decoration: none; font-weight: 600;">${email}</a>
+                </div>
+              </div>
+
+              ${phone ? `
+              <div class="info-card">
+                <div class="info-label">📱 Teléfono</div>
+                <div class="info-value">
+                  <a href="tel:${phone}" style="color: #60a5fa; text-decoration: none; font-weight: 600;">${phone}</a>
+                </div>
+              </div>
+              ` : ''}
+
+              ${advisoryType ? `
+              <div class="info-card">
+                <div class="info-label">🎯 Tipo de Asesoría</div>
+                <div class="info-value">${advisoryType}</div>
+              </div>
+              ` : ''}
+
+              <div class="divider"></div>
+
+              <!-- Detalles de la Solicitud -->
+              <div class="message-card">
+                <div class="message-title">💬 Descripción del Proyecto</div>
+                <div class="message-content">${description || message}</div>
+              </div>
+
             </div>
 
-            <div class="divider"></div>
-
-            <div class="field-label" style="margin-bottom: 15px;">💬 Mensaje</div>
-            <div class="message-box">${message}</div>
-
-            <div style="text-align: center; margin-top: 30px;">
-              <a href="mailto:${email}" class="button">Responder a ${name}</a>
+            <!-- Action Section -->
+            <div class="action-section">
+              <a href="mailto:${email}?subject=Re: Solicitud de Asesoría - ${name}" class="cta-button">
+                Responder a ${name.split(' ')[0]}
+              </a>
             </div>
-          </div>
 
-          <div class="footer">
-            <p class="footer-text">Este mensaje fue enviado desde el formulario de contacto</p>
-            <p class="footer-brand">Yusef González • Portfolio</p>
-            <p class="footer-text" style="font-size: 11px; color: #9ca3af; margin-top: 15px;">
-              ${new Date().toLocaleString('es-ES', { timeZone: 'America/Bogota' })}
-            </p>
+            <!-- Footer -->
+            <div class="footer-section">
+              <p class="footer-info">Formulario de Asesoría</p>
+              <p class="footer-info">darwinyusef.com/arquitectura</p>
+              <div class="footer-brand">@DARWINYUSEF</div>
+              <p class="footer-meta">
+                ${currentDate} • Bogotá, Colombia
+              </p>
+            </div>
+
           </div>
         </div>
       </body>
@@ -564,6 +744,100 @@ export function testimonialTemplate({ name, role, company, email, content, ratin
           <div class="footer">
             <p class="footer-brand">Sistema de Testimonios • Portfolio</p>
             <p class="footer-text">${new Date().toLocaleString('es-ES', { timeZone: 'America/Bogota' })}</p>
+          </div>
+        </div>
+      </body>
+    </html>
+  `;
+}
+
+// Plantilla de confirmación para usuario que solicita asesoría de arquitectura
+export function architectureConfirmationTemplate({ name, phone, advisoryType, description, message }) {
+  const currentDate = new Date().toLocaleString('es-ES', {
+    timeZone: 'America/Bogota',
+    dateStyle: 'full',
+    timeStyle: 'short'
+  });
+
+  return `
+    <!DOCTYPE html>
+    <html lang="es">
+      <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        ${emailStyles}
+      </head>
+      <body>
+        <div class="email-wrapper">
+          <div class="email-container">
+
+            <!-- Brand Header -->
+            <div class="brand-header">
+              <div class="brand-logo">PORTAFOLIO</div>
+              <div class="brand-name">@DARWINYUSEF</div>
+            </div>
+
+            <!-- Hero Section -->
+            <div class="hero-section">
+              <div class="hero-icon">✅</div>
+              <h1 class="hero-title">Solicitud Recibida</h1>
+              <p class="hero-subtitle">Asesoría en Arquitectura & Diseño de Espacios</p>
+            </div>
+
+            <!-- Content Section -->
+            <div class="content-section">
+
+              <div class="info-card">
+                <div class="info-label">👋 Hola ${name.split(' ')[0]}</div>
+                <div class="info-value">Hemos recibido tu solicitud de asesoría arquitectónica</div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-label">📅 Fecha de Recepción</div>
+                <div class="info-value">${currentDate}</div>
+              </div>
+
+              ${advisoryType ? `
+              <div class="info-card">
+                <div class="info-label">🎯 Tipo de Asesoría Solicitada</div>
+                <div class="info-value">${advisoryType}</div>
+              </div>
+              ` : ''}
+
+              <div class="message-card">
+                <div class="message-title">📋 Resumen de tu Solicitud</div>
+                <div class="message-content">${description || message}</div>
+              </div>
+
+              <div class="info-card">
+                <div class="info-label">⏰ Próximos Pasos</div>
+                <div class="info-value">
+                  Te contactaremos en las próximas 24-48 horas ${phone ? `al teléfono ${phone}` : 'por email'} para coordinar la fecha de la cita y discutir los detalles de tu proyecto.
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Action Section -->
+            <div class="action-section">
+              <p style="color: #9ca3af; font-size: 14px; margin-bottom: 16px;">
+                Mientras tanto, puedes explorar mi portafolio:
+              </p>
+              <a href="https://darwinyusef.com" class="cta-button">
+                🌐 Ver Portafolio
+              </a>
+            </div>
+
+            <!-- Footer -->
+            <div class="footer-section">
+              <p class="footer-info">Gracias por confiar en nuestros servicios</p>
+              <div class="footer-brand">@DARWINYUSEF</div>
+              <p class="footer-meta">
+                ${currentDate} • Bogotá, Colombia
+              </p>
+            </div>
+
           </div>
         </div>
       </body>
