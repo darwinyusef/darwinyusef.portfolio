@@ -138,8 +138,8 @@ minio.darwinyusef.com {
 # ============================================
 # Subdominio - Minio Console
 # ============================================
-console.minio.darwinyusef.com {
-	reverse_proxy portfolio-minio:9090 {
+console.darwinyusef.com {
+    reverse_proxy portfolio-minio:9090 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}

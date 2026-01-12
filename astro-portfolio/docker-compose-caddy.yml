@@ -84,8 +84,8 @@ services:
       - MINIO_ROOT_USER=${MINIO_ROOT_USER:-admin}
       - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-changeme123}
      # 🔑 OBLIGATORIAS con HTTPS + reverse proxy
-    MINIO_SERVER_URL: https://minio.darwinyusef.com
-    MINIO_BROWSER_REDIRECT_URL: https://console.minio.darwinyusef.com
+      - MINIO_SERVER_URL: https://minio.darwinyusef.com
+      - MINIO_BROWSER_REDIRECT_URL: https://console.minio.darwinyusef.com
     volumes:
       - minio-data:/data
     networks:
