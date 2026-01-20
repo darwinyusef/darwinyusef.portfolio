@@ -29,6 +29,35 @@ app.get('/health', (req, res) => {
   res.json({ status: 'ok', timestamp: new Date().toISOString() });
 });
 
+// API Documentation
+app.get('/docs', (req, res) => {
+  res.json({
+    name: 'DarwinYusef Portfolio API',
+    version: '1.0.0',
+    endpoints: {
+      '/health': 'GET - Health check',
+      '/docs': 'GET - API documentation',
+      '/api/chat-assistant': 'POST - Chat with AI assistant',
+      '/api/ask-ai': 'POST - Ask AI questions',
+      '/api/newsletter': 'POST - Subscribe to newsletter',
+      '/api/send-email': 'POST - Send email',
+      '/api/contact': 'POST - Contact form',
+      '/api/testimonial': 'POST - Submit testimonial',
+      '/api/download-cv': 'GET - Download CV',
+      '/api/resources': 'GET/POST - Download resources (lead capture)',
+      '/api/minio': 'GET - MinIO admin endpoints',
+      '/api/calendar': 'GET - Google Calendar integration',
+      '/api/youtube': 'GET - YouTube data',
+      '/api/appointments': 'GET/POST - Appointments management'
+    },
+    minio: {
+      endpoint: process.env.MINIO_ENDPOINT,
+      bucket: process.env.MINIO_BUCKET,
+      useSSL: process.env.MINIO_USE_SSL
+    }
+  });
+});
+
 // Routes
 app.use('/api/chat-assistant', chatAssistantRouter);
 app.use('/api/ask-ai', askAiRouter);

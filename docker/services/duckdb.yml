@@ -1,8 +1,8 @@
-version: '3.8'
-
 services:
   duckdb:
-    image: datacatering/duckdb:latest
+    build:
+      context: ../dockerfiles
+      dockerfile: Dockerfile.duckdb
     container_name: portfolio-duckdb
     command: >
       sh -c "

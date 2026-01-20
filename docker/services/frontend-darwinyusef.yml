@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   frontend:
     build:
@@ -15,7 +13,7 @@ services:
       - NODE_ENV=production
       - SITE_URL=${SITE_URL}
     env_file:
-      - /opt/darwinyusef.portfolio/backend/.env
+      - /opt/darwinyusef.portfolio/astro-portfolio/.env
     networks:
       - portfolio-network
     restart: unless-stopped

@@ -8,7 +8,7 @@ function getMinioClient() {
     minioClient = new Client({
       endPoint: process.env.MINIO_ENDPOINT,
       port: parseInt(process.env.MINIO_PORT),
-      useSSL: true,
+      useSSL: process.env.MINIO_USE_SSL === 'true',
       accessKey: process.env.MINIO_ACCESS_KEY,
       secretKey: process.env.MINIO_SECRET_KEY,
     });
@@ -28,7 +28,7 @@ export async function initializeMinio() {
     console.log('🔵 Intentando conectar a MinIO:', {
       endpoint: process.env.MINIO_ENDPOINT,
       port: process.env.MINIO_PORT,
-      useSSL: 'true (forzado)',
+      useSSL: process.env.MINIO_USE_SSL,
       bucket: BUCKET_NAME
     });
 

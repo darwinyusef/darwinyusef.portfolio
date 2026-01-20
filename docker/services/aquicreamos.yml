@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   aquicreamos:
     build:
@@ -13,7 +11,7 @@ services:
       - PORT=4321
       - NODE_ENV=production
     env_file:
-      - /opt/darwinyusef.portfolio/backend/.env
+      - /opt/aquicreamoswbp/.env
     volumes:
       - aquicreamos-data:/app/data
     networks:
