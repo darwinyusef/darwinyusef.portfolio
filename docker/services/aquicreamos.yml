@@ -3,8 +3,8 @@ version: '3.8'
 services:
   aquicreamos:
     build:
-      context: /opt/wpaqc
-      dockerfile: Dockerfile.ssr
+      context: /opt/aquicreamoswbp
+      dockerfile: Dockerfile
     container_name: aquicreamos
     expose:
       - "4321"
@@ -13,9 +13,9 @@ services:
       - PORT=4321
       - NODE_ENV=production
     env_file:
-      - /opt/wpaqc/.env
+      - /opt/darwinyusef.portfolio/backend/.env
     volumes:
-      - aquicreamos-db:/app/appointments.db
+      - aquicreamos-data:/app/data
     networks:
       - portfolio-network
     restart: unless-stopped
@@ -23,7 +23,7 @@ services:
       - "com.darwinyusef.app=aquicreamos"
       - "com.darwinyusef.domain=aquicreamos.com"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:4321/"]
+      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:4321/"]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -39,5 +39,5 @@ networks:
     external: true
 
 volumes:
-  aquicreamos-db:
-    name: aquicreamos-sqlite-data
+  aquicreamos-data:
+    name: aquicreamos-app-data

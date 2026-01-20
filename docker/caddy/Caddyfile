@@ -118,11 +118,7 @@ minio.darwinyusef.com {
 # Subdomain - MinIO Console
 # ============================================
 console.darwinyusef.com {
-<<<<<<< HEAD:astro-portfolio/Caddyfile
-    reverse_proxy portfolio-minio:9090 {
-=======
 	reverse_proxy portfolio-minio:9090 {
->>>>>>> 5110f27a7b45d600ea73ca9e45428cf4970cbc4d:docker/caddy/Caddyfile
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}

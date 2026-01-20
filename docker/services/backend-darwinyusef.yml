@@ -3,7 +3,7 @@ version: '3.8'
 services:
   backend:
     build:
-      context: ../../backend
+      context: /opt/darwinyusef.portfolio/backend
       dockerfile: Dockerfile
     container_name: portfolio-backend
     expose:
@@ -12,7 +12,7 @@ services:
       - PORT=3001
       - NODE_ENV=production
     env_file:
-      - ../../backend/.env
+      - /opt/darwinyusef.portfolio/backend/.env
     volumes:
       - backend-data:/app/data
     networks:
@@ -22,7 +22,7 @@ services:
       - "com.darwinyusef.app=backend"
       - "com.darwinyusef.domain=darwinyusef.com"
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3001/health"]
+      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:3001/health"]
       interval: 30s
       timeout: 3s
       retries: 3

@@ -21,7 +21,7 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /opt/portfolio
+            cd /opt/darwinyusef.portfolio
             git pull origin main
 
             docker compose -f docker/services/backend-darwinyusef.yml build --no-cache

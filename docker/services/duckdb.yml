@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  duckdb:
+    image: datacatering/duckdb:latest
+    container_name: portfolio-duckdb
+    command: >
+      sh -c "
+      mkdir -p /data/duckdb &&
+      tail -f /dev/null
+      "
+    volumes:
+      - duckdb-data:/data/duckdb
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    environment:
+      - DUCKDB_PATH=/data/duckdb/analytics.db
+    labels:
+      - "com.darwinyusef.service=database"
+      - "com.darwinyusef.type=analytics"
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+    healthcheck:
+      test: ["CMD", "test", "-f", "/data/duckdb/analytics.db"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+
+networks:
+  portfolio-network:
+    external: true
+
+volumes:
+  duckdb-data:
+    name: portfolio-duckdb-data

@@ -4,7 +4,6 @@ on:
   push:
     branches: [main]
     paths:
-      - '../wpaqc/**'
       - 'docker/services/aquicreamos.yml'
       - '.github/workflows/deploy-aquicreamos.yml'
   workflow_dispatch:
@@ -22,10 +21,10 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_KEY }}
           script: |
-            cd /opt/wpaqc
+            cd /opt/aquicreamoswbp
             git pull origin main
 
-            cd /opt/portfolio
+            cd /opt/darwinyusef.portfolio
             docker compose -f docker/services/aquicreamos.yml build --no-cache
             docker compose -f docker/services/aquicreamos.yml up -d
 
