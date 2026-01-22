@@ -1,0 +1,45 @@
+services:
+  backup:
+    build:
+      context: /opt/darwinyusef.portfolio
+      dockerfile: docker/backup/Dockerfile
+    container_name: portfolio-backup
+    environment:
+      - NODE_ENV=production
+      - DB_PATH=/app/data/portfolio.db
+      - BACKUP_DIR=/app/backups
+    env_file:
+      - /opt/darwinyusef.portfolio/backend/.env
+    volumes:
+      # Volumen de datos del backend (read-only)
+      - backend-data:/app/data:ro
+      # Volumen local para almacenar backups
+      - backup-data:/app/backups
+    networks:
+      - portfolio-network
+    restart: unless-stopped
+    labels:
+      - "com.darwinyusef.app=backup"
+      - "com.darwinyusef.domain=darwinyusef.com"
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/data/portfolio.db"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+networks:
+  portfolio-network:
+    external: true
+
+volumes:
+  backend-data:
+    external: true
+    name: portfolio-backend-data
+  backup-data:
+    name: portfolio-backup-data

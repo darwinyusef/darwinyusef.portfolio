@@ -1,7 +1,6 @@
 import express from 'express';
 import { Resend } from 'resend';
 import { newsletterWelcomeTemplate, newsletterAdminNotification } from '../templates/email-templates.js';
-import { appendLeadJsonl } from '../services/minio-storage.js';
 import { subscribeNewsletter, isSubscribedNewsletter, getNewsletterStats } from '../services/database.js';
 
 const router = express.Router();
@@ -25,24 +24,12 @@ router.post('/', async (req, res) => {
     // Guardar en SQLite
     try {
       subscribeNewsletter(email);
-      console.log(`📧 Nuevo suscriptor en SQLite: ${email}`);
+      console.log(`📧 Nuevo suscriptor guardado: ${email}`);
     } catch (dbError) {
-      console.error('Error guardando suscripción en SQLite:', dbError);
-    }
-
-    // Guardar también en MinIO
-    try {
-      await appendLeadJsonl({
-        email,
-        name: email.split('@')[0],
-        campaign: 'newsletter',
-        source: 'newsletter_subscription',
-        resourceId: 'newsletter',
-        resourceTitle: 'Newsletter Subscription',
-        ip: req.ip || req.connection.remoteAddress,
+      console.error('Error guardando suscripción:', dbError);
+      return res.status(500).json({
+        error: 'Error al guardar suscripción'
       });
-    } catch (minioError) {
-      console.error('Error guardando newsletter en MinIO:', minioError);
     }
 
     const resendApiKey = process.env.RESEND_API_KEY;

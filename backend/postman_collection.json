@@ -257,125 +257,173 @@
       ]
     },
     {
-      "name": "MinIO Admin",
+      "name": "Admin Panel (SQLite)",
       "item": [
         {
-          "name": "MinIO Health Check",
+          "name": "Health Check",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/health",
+              "raw": "{{base_url}}/api/admin/health",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "health"]
+              "path": ["api", "admin", "health"]
             }
           }
         },
         {
-          "name": "Get Lead Stats",
+          "name": "Get All Stats",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/stats",
+              "raw": "{{base_url}}/api/admin/stats",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "stats"]
+              "path": ["api", "admin", "stats"]
             }
           }
         },
         {
-          "name": "List Files",
+          "name": "Get All Leads",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/files?prefix=raw/",
+              "raw": "{{base_url}}/api/admin/leads",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "files"],
+              "path": ["api", "admin", "leads"]
+            }
+          }
+        },
+        {
+          "name": "Get Leads by Resource",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/leads/TensorFlow Developer Certificate",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "leads", "TensorFlow Developer Certificate"]
+            }
+          }
+        },
+        {
+          "name": "Get All Contacts",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/contacts",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "contacts"]
+            }
+          }
+        },
+        {
+          "name": "Get Newsletter Subscribers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/newsletter",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "newsletter"]
+            }
+          }
+        },
+        {
+          "name": "Get Email Logs",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/email-logs",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "email-logs"]
+            }
+          }
+        },
+        {
+          "name": "Get Email Logs by Service",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/api/admin/email-logs?service=contact",
+              "host": ["{{base_url}}"],
+              "path": ["api", "admin", "email-logs"],
               "query": [
                 {
-                  "key": "prefix",
-                  "value": "raw/"
+                  "key": "service",
+                  "value": "contact"
                 }
               ]
             }
           }
         },
         {
-          "name": "Export Campaign - JSON",
+          "name": "Export Leads (CSV)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/export/architecture-guide",
+              "raw": "{{base_url}}/api/admin/export/leads",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "export", "architecture-guide"]
+              "path": ["api", "admin", "export", "leads"]
             }
           }
         },
         {
-          "name": "Export Campaign - CSV",
+          "name": "Export Leads by Resource (CSV)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/export/architecture-guide?format=csv",
+              "raw": "{{base_url}}/api/admin/export/leads?resourceId=TensorFlow Developer Certificate",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "export", "architecture-guide"],
+              "path": ["api", "admin", "export", "leads"],
               "query": [
                 {
-                  "key": "format",
-                  "value": "csv"
+                  "key": "resourceId",
+                  "value": "TensorFlow Developer Certificate"
                 }
               ]
             }
           }
         },
         {
-          "name": "Export All Leads - JSON",
+          "name": "Export Contacts (CSV)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/export-all",
+              "raw": "{{base_url}}/api/admin/export/contacts",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "export-all"]
+              "path": ["api", "admin", "export", "contacts"]
             }
           }
         },
         {
-          "name": "Export All Leads - CSV",
+          "name": "Export Newsletter (CSV)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/export-all?format=csv",
+              "raw": "{{base_url}}/api/admin/export/newsletter",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "export-all"],
-              "query": [
-                {
-                  "key": "format",
-                  "value": "csv"
-                }
-              ]
+              "path": ["api", "admin", "export", "newsletter"]
             }
           }
         },
         {
-          "name": "Read JSONL File",
+          "name": "Export All Data (JSON)",
           "request": {
             "method": "GET",
             "header": [],
             "url": {
-              "raw": "{{base_url}}/api/minio/read?path=raw/campaign=newsletter/date=2026-01-03/leads.jsonl",
+              "raw": "{{base_url}}/api/admin/export/all",
               "host": ["{{base_url}}"],
-              "path": ["api", "minio", "read"],
-              "query": [
-                {
-                  "key": "path",
-                  "value": "raw/campaign=newsletter/date=2026-01-03/leads.jsonl"
-                }
-              ]
+              "path": ["api", "admin", "export", "all"]
             }
           }
         }

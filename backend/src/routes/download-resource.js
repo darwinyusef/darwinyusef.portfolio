@@ -1,7 +1,6 @@
 import express from 'express';
 import { Resend } from 'resend';
 import { leadMagnetTemplate, leadMagnetAdminNotification } from '../templates/email-templates.js';
-import { appendLeadJsonl, appendLeadCsv } from '../services/minio-storage.js';
 import { saveLead, getLeadsStats } from '../services/database.js';
 
 const router = express.Router();
@@ -74,36 +73,9 @@ router.post('/:resourceId/request', async (req, res) => {
         source: 'resource_download',
         ip: req.ip || req.connection.remoteAddress
       });
-      console.log(`💾 Lead guardado en SQLite: ${email} - ${resource.title}`);
+      console.log(`💾 Lead guardado: ${email} - ${resource.title}`);
     } catch (dbError) {
-      console.error('Error guardando en SQLite:', dbError);
-    }
-
-    // Guardar también en MinIO (backup)
-    try {
-      await appendLeadJsonl({
-        email,
-        name: name || 'Anónimo',
-        campaign: resourceId,
-        source: 'resource_download',
-        resourceId,
-        resourceTitle: resource.title,
-        ip: req.ip || req.connection.remoteAddress,
-      });
-
-      await appendLeadCsv({
-        email,
-        name: name || 'Anónimo',
-        campaign: resourceId,
-        source: 'resource_download',
-        resourceId,
-        resourceTitle: resource.title,
-        ip: req.ip || req.connection.remoteAddress,
-      });
-
-      console.log(`☁️ Lead backup en MinIO: ${email}`);
-    } catch (minioError) {
-      console.error('Error guardando backup en MinIO:', minioError);
+      console.error('Error guardando lead:', dbError);
     }
 
     // Enviar email al usuario con el recurso

@@ -9,11 +9,10 @@ import contactRouter from './routes/contact.js';
 import testimonialRouter from './routes/testimonial.js';
 import downloadCvRouter from './routes/download-cv.js';
 import downloadResourceRouter from './routes/download-resource.js';
-import minioAdminRouter from './routes/minio-admin.js';
 import calendarRouter from './routes/calendar.js';
 import youtubeRouter from './routes/youtube.js';
 import appointmentsRouter from './routes/appointments.js';
-import { initializeMinio } from './services/minio-storage.js';
+import adminRouter from './routes/admin.js';
 
 dotenv.config();
 
@@ -34,6 +33,7 @@ app.get('/docs', (req, res) => {
   res.json({
     name: 'DarwinYusef Portfolio API',
     version: '1.0.0',
+    storage: 'SQLite',
     endpoints: {
       '/health': 'GET - Health check',
       '/docs': 'GET - API documentation',
@@ -45,15 +45,10 @@ app.get('/docs', (req, res) => {
       '/api/testimonial': 'POST - Submit testimonial',
       '/api/download-cv': 'GET - Download CV',
       '/api/resources': 'GET/POST - Download resources (lead capture)',
-      '/api/minio': 'GET - MinIO admin endpoints',
       '/api/calendar': 'GET - Google Calendar integration',
       '/api/youtube': 'GET - YouTube data',
-      '/api/appointments': 'GET/POST - Appointments management'
-    },
-    minio: {
-      endpoint: process.env.MINIO_ENDPOINT,
-      bucket: process.env.MINIO_BUCKET,
-      useSSL: process.env.MINIO_USE_SSL
+      '/api/appointments': 'GET/POST - Appointments management',
+      '/api/admin': 'GET - Admin panel (SQLite data access)'
     }
   });
 });
@@ -67,11 +62,11 @@ app.use('/api/contact', contactRouter);
 app.use('/api/testimonial', testimonialRouter);
 app.use('/api/download-cv', downloadCvRouter);
 app.use('/api/resources', downloadResourceRouter);
-app.use('/api/minio', minioAdminRouter);
 app.use('/api/calendar', calendarRouter);
 app.use('/api/oauth2callback', calendarRouter);
 app.use('/api/youtube', youtubeRouter);
 app.use('/api/appointments', appointmentsRouter);
+app.use('/api/admin', adminRouter);
 
 // Error handler
 app.use((err, req, res, next) => {
@@ -79,15 +74,6 @@ app.use((err, req, res, next) => {
   res.status(500).json({
     error: err.message || 'Error interno del servidor'
   });
-});
-
-// Inicializar MinIO al arrancar
-initializeMinio().then((success) => {
-  if (success) {
-    console.log('✅ MinIO inicializado correctamente');
-  } else {
-    console.warn('⚠️ MinIO no disponible - usando fallback local');
-  }
 });
 
 app.listen(PORT, '0.0.0.0', () => {

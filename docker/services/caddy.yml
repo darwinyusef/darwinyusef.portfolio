@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   caddy:
     image: caddy:2-alpine
@@ -18,7 +16,7 @@ services:
     restart: unless-stopped
     environment:
       - ACME_AGREE=true
-      - ACME_EMAIL=${ACME_EMAIL}
+      - ACME_EMAIL=wsgestor@gmail.com
     labels:
       - "com.darwinyusef.service=proxy"
     logging:

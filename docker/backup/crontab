@@ -1,0 +1,8 @@
+# Ejecutar backup diario a las 3:00 AM
+0 3 * * * cd /app && node backup-runner.js >> /var/log/backup.log 2>&1
+
+# Ejecutar backup semanal los domingos a las 2:00 AM
+0 2 * * 0 cd /app && node backup-runner.js >> /var/log/backup-weekly.log 2>&1
+
+# Limpiar logs cada mes (primer día a las 4:00 AM)
+0 4 1 * * echo "" > /var/log/backup.log && echo "" > /var/log/backup-weekly.log

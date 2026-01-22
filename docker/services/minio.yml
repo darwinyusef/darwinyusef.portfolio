@@ -4,10 +4,10 @@ services:
     container_name: portfolio-minio
     command: server /data --console-address ":9090"
     environment:
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD}
-      - MINIO_SERVER_URL=${MINIO_SERVER_URL}
-      - MINIO_BROWSER_REDIRECT_URL=${MINIO_BROWSER_REDIRECT_URL}
+      - MINIO_ROOT_USER=adminminio
+      - MINIO_ROOT_PASSWORD=Tremendas25@
+      - MINIO_SERVER_URL=https://minio.darwinyusef.com
+      - MINIO_BROWSER_REDIRECT_URL=https://console.darwinyusef.com
     volumes:
       - minio-data:/data
     networks:

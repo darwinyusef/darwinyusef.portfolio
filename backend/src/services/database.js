@@ -54,6 +54,21 @@ db.exec(`
 
   CREATE INDEX IF NOT EXISTS idx_contacts_email ON contacts(email);
   CREATE INDEX IF NOT EXISTS idx_contacts_created ON contacts(created_at);
+
+  CREATE TABLE IF NOT EXISTS email_logs (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    service TEXT NOT NULL,
+    recipient TEXT NOT NULL,
+    subject TEXT,
+    status TEXT NOT NULL,
+    error_message TEXT,
+    response_data TEXT,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_email_logs_service ON email_logs(service);
+  CREATE INDEX IF NOT EXISTS idx_email_logs_status ON email_logs(status);
+  CREATE INDEX IF NOT EXISTS idx_email_logs_created ON email_logs(created_at);
 `);
 
 console.log('✅ Database initialized:', DB_PATH);
@@ -148,6 +163,40 @@ export function getContactsStats() {
   return {
     totalContacts: total.count,
     recentContacts: recent
+  };
+}
+
+// Funciones de email logs
+export function saveEmailLog({ service, recipient, subject, status, errorMessage, responseData }) {
+  const stmt = db.prepare(`
+    INSERT INTO email_logs (service, recipient, subject, status, error_message, response_data)
+    VALUES (?, ?, ?, ?, ?, ?)
+  `);
+
+  return stmt.run(service, recipient, subject, status, errorMessage, JSON.stringify(responseData));
+}
+
+export function getAllEmailLogs() {
+  return db.prepare('SELECT * FROM email_logs ORDER BY created_at DESC').all();
+}
+
+export function getEmailLogsByService(service) {
+  return db.prepare('SELECT * FROM email_logs WHERE service = ? ORDER BY created_at DESC').all(service);
+}
+
+export function getEmailLogsStats() {
+  const total = db.prepare('SELECT COUNT(*) as count FROM email_logs').get();
+  const byService = db.prepare(`
+    SELECT service, COUNT(*) as count,
+           SUM(CASE WHEN status = 'success' THEN 1 ELSE 0 END) as success_count,
+           SUM(CASE WHEN status = 'error' THEN 1 ELSE 0 END) as error_count
+    FROM email_logs
+    GROUP BY service
+  `).all();
+
+  return {
+    totalLogs: total.count,
+    byService
   };
 }
 
