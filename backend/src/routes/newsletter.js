@@ -22,6 +22,7 @@ router.post('/', async (req, res) => {
     }
 
     // Guardar en SQLite
+<<<<<<< HEAD
     try {
       subscribeNewsletter(email);
       console.log(`📧 Nuevo suscriptor guardado: ${email}`);
@@ -31,6 +32,10 @@ router.post('/', async (req, res) => {
         error: 'Error al guardar suscripción'
       });
     }
+=======
+    subscribeNewsletter(email);
+    console.log(`📧 Nuevo suscriptor: ${email}`);
+>>>>>>> aac598b (actualización en minio)
 
     const resendApiKey = process.env.RESEND_API_KEY;
 

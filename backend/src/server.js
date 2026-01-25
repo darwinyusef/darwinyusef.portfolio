@@ -12,7 +12,11 @@ import downloadResourceRouter from './routes/download-resource.js';
 import calendarRouter from './routes/calendar.js';
 import youtubeRouter from './routes/youtube.js';
 import appointmentsRouter from './routes/appointments.js';
+<<<<<<< HEAD
 import adminRouter from './routes/admin.js';
+=======
+import bugReportsRouter from './routes/bug-reports.js';
+>>>>>>> aac598b (actualización en minio)
 
 dotenv.config();
 
@@ -66,7 +70,11 @@ app.use('/api/calendar', calendarRouter);
 app.use('/api/oauth2callback', calendarRouter);
 app.use('/api/youtube', youtubeRouter);
 app.use('/api/appointments', appointmentsRouter);
+<<<<<<< HEAD
 app.use('/api/admin', adminRouter);
+=======
+app.use('/api/bug-reports', bugReportsRouter);
+>>>>>>> aac598b (actualización en minio)
 
 // Error handler
 app.use((err, req, res, next) => {

@@ -63,6 +63,7 @@ router.post('/:resourceId/request', async (req, res) => {
     }
 
     // Guardar lead en SQLite
+<<<<<<< HEAD
     try {
       saveLead({
         resourceId,
@@ -77,6 +78,18 @@ router.post('/:resourceId/request', async (req, res) => {
     } catch (dbError) {
       console.error('Error guardando lead:', dbError);
     }
+=======
+    saveLead({
+      resourceId,
+      resourceTitle: resource.title,
+      name: name || 'Anónimo',
+      email,
+      campaign: resourceId,
+      source: 'resource_download',
+      ip: req.ip || req.connection.remoteAddress
+    });
+    console.log(`💾 Lead guardado: ${email} - ${resource.title}`);
+>>>>>>> aac598b (actualización en minio)
 
     // Enviar email al usuario con el recurso
     const resendApiKey = process.env.RESEND_API_KEY;
