@@ -11,11 +11,7 @@ services:
       - PORT=4321
       - NODE_ENV=production
     env_file:
-<<<<<<< HEAD
       - /opt/darwinyusef.portfolio/backend/.env
-=======
-      - /opt/aquicreamoswbp/.env
->>>>>>> aac598b (actualización en minio)
     volumes:
       - aquicreamos-data:/app/data
     networks:

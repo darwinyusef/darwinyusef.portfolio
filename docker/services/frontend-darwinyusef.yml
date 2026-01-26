@@ -1,11 +1,7 @@
 services:
   frontend:
     build:
-<<<<<<< HEAD
-      context: /opt/darwinyusef.portfolio/astro-portfolio
-=======
       context: /opt/portfolio/astro-portfolio
->>>>>>> aac598b (actualización en minio)
       dockerfile: Dockerfile
       target: runtime
     container_name: astro-portfolio
@@ -17,11 +13,7 @@ services:
       - NODE_ENV=production
       - SITE_URL=${SITE_URL}
     env_file:
-<<<<<<< HEAD
-      - /opt/darwinyusef.portfolio/backend/.env
-=======
       - /opt/portfolio/astro-portfolio/.env
->>>>>>> aac598b (actualización en minio)
     networks:
       - portfolio-network
     restart: unless-stopped
