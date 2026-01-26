@@ -63,20 +63,16 @@ router.post('/:resourceId/request', async (req, res) => {
     }
 
     // Guardar lead en SQLite
-    try {
-      saveLead({
-        resourceId,
-        resourceTitle: resource.title,
-        name: name || 'Anónimo',
-        email,
-        campaign: resourceId,
-        source: 'resource_download',
-        ip: req.ip || req.connection.remoteAddress
-      });
-      console.log(`💾 Lead guardado: ${email} - ${resource.title}`);
-    } catch (dbError) {
-      console.error('Error guardando lead:', dbError);
-    }
+    saveLead({
+      resourceId,
+      resourceTitle: resource.title,
+      name: name || 'Anónimo',
+      email,
+      campaign: resourceId,
+      source: 'resource_download',
+      ip: req.ip || req.connection.remoteAddress
+    });
+    console.log(`💾 Lead guardado: ${email} - ${resource.title}`);
 
     // Enviar email al usuario con el recurso
     const resendApiKey = process.env.RESEND_API_KEY;
@@ -101,7 +97,7 @@ router.post('/:resourceId/request', async (req, res) => {
 
         // Email al admin
         await resend.emails.send({
-          from: process.env.EMAIL_FROM || 'onboarding@resend.dev',
+          from: process.env.EMAIL_FROM || 'wsgestor@gmail.com',
           to: [process.env.EMAIL_TO],
           subject: `📊 Nuevo Lead: ${resource.title}`,
           html: leadMagnetAdminNotification({
