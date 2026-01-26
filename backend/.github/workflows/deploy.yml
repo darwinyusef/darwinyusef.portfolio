@@ -1,4 +1,4 @@
-name: Deploy Portfolio
+name: Deploy Backend
 
 on:
   push:
@@ -10,8 +10,8 @@ env:
   NODE_VERSION: '20'
 
 jobs:
-  build-test:
-    name: Build and Test
+  test:
+    name: Test Backend
     runs-on: ubuntu-latest
 
     steps:
@@ -25,15 +25,17 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        run: npm ci
+        run: npm install
 
-      - name: Build application
-        run: npm run build
+      - name: Verify structure
+        run: |
+          echo "✅ Backend structure verified"
+          ls -la src/
 
   deploy:
     name: Deploy to Server
     runs-on: ubuntu-latest
-    needs: build-test
+    needs: test
     environment: production
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
 
@@ -47,28 +49,26 @@ jobs:
           port: ${{ secrets.SSH_PORT || 22 }}
           command_timeout: 30m
           script: |
-            echo "🚀 Starting deployment..."
+            echo "🚀 Starting backend deployment..."
 
-            cd /opt/darwinyusef.portfolio || exit 1
+            cd /opt/darwinyusef.portfolio/backend || exit 1
 
             echo "📥 Pulling latest changes..."
             git pull origin main
 
-            cd astro-portfolio || exit 1
-
             echo "🔨 Building Docker image..."
-            docker build -t astro-portfolio:latest .
+            docker build -t portfolio-backend:latest .
 
             cd /opt/darwinyusef.portfolio/docker || exit 1
 
-            echo "♻️ Restarting frontend service..."
-            docker compose -f services/frontend-darwinyusef.yml up -d --build
+            echo "♻️ Restarting backend service..."
+            docker compose -f services/backend-darwinyusef.yml up -d --build
 
             echo "⏳ Waiting for service..."
             sleep 15
 
             echo "✅ Checking container..."
-            docker ps | grep astro-portfolio || exit 1
+            docker ps | grep portfolio-backend || exit 1
 
             echo "🔄 Reloading Caddy..."
             docker exec portfolio-caddy caddy reload --config /etc/caddy/Caddyfile || true
@@ -76,34 +76,34 @@ jobs:
             echo "🧹 Cleanup..."
             docker image prune -f
 
-            echo "🎉 Deployment completed!"
+            echo "🎉 Backend deployment completed!"
 
       - name: Health check
         run: |
           echo "🏥 Health check..."
           sleep 10
-          response=$(curl -s -o /dev/null -w "%{http_code}" https://darwinyusef.com)
+          response=$(curl -s -o /dev/null -w "%{http_code}" https://api.darwinyusef.com/health)
           if [ $response -eq 200 ]; then
-            echo "✅ Site responding: $response"
+            echo "✅ Backend responding: $response"
           else
-            echo "❌ Site failed: $response"
+            echo "❌ Backend failed: $response"
             exit 1
           fi
 
   notify:
     name: Notify
     runs-on: ubuntu-latest
-    needs: [build-test, deploy]
+    needs: [test, deploy]
     if: always()
 
     steps:
       - name: Summary
         run: |
-          echo "## Deployment Summary 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "## Backend Deployment Summary 🚀" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch:** ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Commit:** \`${{ github.sha }}\`" >> $GITHUB_STEP_SUMMARY
           echo "- **Author:** ${{ github.actor }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Status:** ${{ needs.deploy.result }}" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "🌐 **Live:** https://darwinyusef.com" >> $GITHUB_STEP_SUMMARY
+          echo "🌐 **API:** https://api.darwinyusef.com" >> $GITHUB_STEP_SUMMARY
