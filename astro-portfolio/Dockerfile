@@ -16,6 +16,9 @@ RUN npm install && \
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+ARG PUBLIC_API_URL=https://api.darwinyusef.com
+ENV PUBLIC_API_URL=$PUBLIC_API_URL
+
 COPY --from=deps /app/node_modules ./node_modules
 COPY package.json package-lock.json* ./
 COPY . .

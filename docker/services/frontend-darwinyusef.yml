@@ -4,6 +4,8 @@ services:
       context: /opt/portfolio/astro-portfolio
       dockerfile: Dockerfile
       target: runtime
+      args:
+        PUBLIC_API_URL: https://api.darwinyusef.com
     container_name: astro-portfolio
     expose:
       - "8080"
