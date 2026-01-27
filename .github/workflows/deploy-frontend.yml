@@ -1,13 +1,30 @@
-- name: Deploy Frontend (DEBUG)
-  uses: appleboy/ssh-action@v1.0.0
-  with:
-    host: ${{ secrets.SSH_HOST }}
-    username: ${{ secrets.SSH_USER }}
-    key: ${{ secrets.SSH_KEY }}
-    port: 22
-    debug: true
-    script: |
-      echo "=== ENTRE AL SERVIDOR ==="
-      whoami
-      hostname
-      pwd
+name: Deploy Frontend (darwinyusef.com)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'astro-portfolio/**'
+      - 'docker/services/frontend-darwinyusef.yml'
+      - '.github/workflows/deploy-frontend.yml'
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy Frontend
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd /opt/darwinyusef.portfolio
+            git pull origin main
+
+            docker compose -f docker/services/frontend-darwinyusef.yml build --no-cache
+            docker compose -f docker/services/frontend-darwinyusef.yml up -d
+
+            docker image prune -f
