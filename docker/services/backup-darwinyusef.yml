@@ -1,7 +1,7 @@
 services:
   backup:
     build:
-      context: /opt/darwinyusef.portfolio
+      context: /opt/darwinyusef.portfolio/backend
       dockerfile: docker/backup/Dockerfile
     container_name: portfolio-backup
     environment:

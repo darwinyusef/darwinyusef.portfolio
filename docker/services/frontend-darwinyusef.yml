@@ -1,7 +1,7 @@
 services:
   frontend:
     build:
-      context: /opt/portfolio/astro-portfolio
+      context: /opt/darwinyusef.portfolio/astro-portfolio
       dockerfile: Dockerfile
       target: runtime
       args:
@@ -15,7 +15,7 @@ services:
       - NODE_ENV=production
       - SITE_URL=${SITE_URL}
     env_file:
-      - /opt/portfolio/astro-portfolio/.env
+      - /opt/darwinyusef.portfolio/backend/.env
     networks:
       - portfolio-network
     restart: unless-stopped
