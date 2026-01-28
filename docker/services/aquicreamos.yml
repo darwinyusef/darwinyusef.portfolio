@@ -20,6 +20,12 @@ services:
     labels:
       - "com.darwinyusef.app=aquicreamos"
       - "com.darwinyusef.domain=aquicreamos.com"
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
     healthcheck:
       test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:4321/"]
       interval: 30s

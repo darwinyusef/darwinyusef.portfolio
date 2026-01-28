@@ -19,6 +19,12 @@ services:
     labels:
       - "com.darwinyusef.service=database"
       - "com.darwinyusef.type=analytics"
+    deploy:
+      resources:
+        limits:
+          memory: 192m
+        reservations:
+          memory: 64m
     logging:
       driver: "json-file"
       options:

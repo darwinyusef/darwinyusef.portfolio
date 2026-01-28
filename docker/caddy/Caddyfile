@@ -11,8 +11,10 @@
 }
 
 # ============================================
-# Main Domain - darwinyusef.com (es, en, pt)
+# MAIN DOMAINS
 # ============================================
+
+# darwinyusef.com (es, en, pt)
 darwinyusef.com, www.darwinyusef.com {
 	reverse_proxy astro-portfolio:8080 {
 		header_up Host {host}
@@ -42,9 +44,7 @@ darwinyusef.com, www.darwinyusef.com {
 	}
 }
 
-# ============================================
-# Domain - Aquicreamos.com
-# ============================================
+# aquicreamos.com
 aquicreamos.com, www.aquicreamos.com {
 	reverse_proxy aquicreamos:4321 {
 		header_up Host {host}
@@ -71,8 +71,9 @@ aquicreamos.com, www.aquicreamos.com {
 }
 
 # ============================================
-# Subdomain - API
+# API BACKEND
 # ============================================
+
 api.darwinyusef.com {
 	reverse_proxy portfolio-backend:3001 {
 		header_up Host {host}
@@ -97,8 +98,10 @@ api.darwinyusef.com {
 }
 
 # ============================================
-# Subdomain - MinIO (Storage)
+# STORAGE
 # ============================================
+
+# MinIO S3 API
 minio.darwinyusef.com {
 	reverse_proxy portfolio-minio:9000 {
 		header_up Host {host}
@@ -109,14 +112,22 @@ minio.darwinyusef.com {
 
 	log {
 		output file /var/log/caddy/minio.log
+		format json
 	}
 
-	encode gzip
+	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
 }
 
-# ============================================
-# Subdomain - MinIO Console
-# ============================================
+# MinIO Console
 console.darwinyusef.com {
 	reverse_proxy portfolio-minio:9090 {
 		header_up Host {host}
@@ -127,5 +138,99 @@ console.darwinyusef.com {
 
 	log {
 		output file /var/log/caddy/minio-console.log
+		format json
+	}
+
+	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# ============================================
+# AUTOMATION & AI
+# ============================================
+
+# n8n Automation
+n8n.darwinyusef.com {
+	reverse_proxy n8n:5678 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/n8n.log
+		format json
+	}
+
+	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# Whisper API Transcription
+whisper.darwinyusef.com {
+	reverse_proxy whisper_api:8000 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/whisper.log
+		format json
+	}
+
+	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
+	}
+}
+
+# NATS Monitor Dashboard
+nats.darwinyusef.com {
+	reverse_proxy whisper_nats:8222 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+
+	log {
+		output file /var/log/caddy/nats.log
+		format json
+	}
+
+	encode gzip zstd
+
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		X-XSS-Protection "1; mode=block"
+		Referrer-Policy "strict-origin-when-cross-origin"
+		-Server
 	}
 }

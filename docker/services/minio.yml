@@ -18,6 +18,12 @@ services:
       - "9090"
     labels:
       - "com.darwinyusef.service=storage"
+    deploy:
+      resources:
+        limits:
+          memory: 256m
+        reservations:
+          memory: 128m
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:9000/minio/health/live"]
       interval: 30s

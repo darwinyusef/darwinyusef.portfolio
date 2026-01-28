@@ -10,6 +10,7 @@ $COMPOSE -f "$SERVICES_DIR/caddy.yml" down 2>/dev/null || true
 $COMPOSE -f "$SERVICES_DIR/aquicreamos.yml" down 2>/dev/null || true
 $COMPOSE -f "$SERVICES_DIR/frontend-darwinyusef.yml" down 2>/dev/null || true
 $COMPOSE -f "$SERVICES_DIR/backend-darwinyusef.yml" down 2>/dev/null || true
+$COMPOSE -f "$SERVICES_DIR/n8n.yml" down 2>/dev/null || true
 $COMPOSE -f "$SERVICES_DIR/duckdb.yml" down 2>/dev/null || true
 $COMPOSE -f "$SERVICES_DIR/minio.yml" down 2>/dev/null || true
 

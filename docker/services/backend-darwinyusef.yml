@@ -19,6 +19,12 @@ services:
     labels:
       - "com.darwinyusef.app=backend"
       - "com.darwinyusef.domain=darwinyusef.com"
+    deploy:
+      resources:
+        limits:
+          memory: 512m
+        reservations:
+          memory: 256m
     healthcheck:
       test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:3001/health"]
       interval: 30s

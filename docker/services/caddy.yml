@@ -19,6 +19,12 @@ services:
       - ACME_EMAIL=wsgestor@gmail.com
     labels:
       - "com.darwinyusef.service=proxy"
+    deploy:
+      resources:
+        limits:
+          memory: 128m
+        reservations:
+          memory: 64m
     logging:
       driver: "json-file"
       options:

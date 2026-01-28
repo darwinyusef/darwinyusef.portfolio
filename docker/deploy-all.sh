@@ -71,6 +71,12 @@ echo "📊 Desplegando DuckDB..."
 $COMPOSE -f "$SERVICES_DIR/duckdb.yml" up -d
 check_health "portfolio-duckdb"
 
+# n8n
+echo ""
+echo "🤖 Desplegando n8n..."
+$COMPOSE -f "$SERVICES_DIR/n8n.yml" up -d
+check_health "n8n"
+
 # 3. Backend (depende de MinIO)
 echo ""
 echo "🔌 Desplegando Backend..."
@@ -116,4 +122,5 @@ echo "🌐 URLs esperadas:"
 echo "  https://darwinyusef.com"
 echo "  https://aquicreamos.com"
 echo "  https://console.darwinyusef.com (MinIO Console)"
+echo "  https://n8n.darwinyusef.com (n8n Automation)"
 echo ""

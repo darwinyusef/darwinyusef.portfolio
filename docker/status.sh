@@ -12,7 +12,7 @@ echo ""
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo "💚 Health Checks:"
 
-for container in portfolio-minio portfolio-duckdb portfolio-backend astro-portfolio aquicreamos portfolio-caddy; do
+for container in portfolio-minio portfolio-duckdb n8n portfolio-backend astro-portfolio aquicreamos portfolio-caddy; do
     if docker ps --format '{{.Names}}' | grep -q "^${container}$"; then
         health=$(docker inspect --format='{{.State.Health.Status}}' "$container" 2>/dev/null || echo "no-healthcheck")
         status=$(docker inspect --format='{{.State.Status}}' "$container" 2>/dev/null)
