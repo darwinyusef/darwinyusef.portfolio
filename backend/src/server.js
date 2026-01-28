@@ -16,6 +16,7 @@ import appointmentsRouter from './routes/appointments.js';
 import adminRouter from './routes/admin.js';
 import bugReportsRouter from './routes/bug-reports.js';
 import classifyServiceRouter from './routes/classify-service.js';
+import assistantRagRouter from './routes/assistant-rag.js';
 
 dotenv.config();
 
@@ -54,6 +55,8 @@ app.get('/docs', (req, res) => {
       '/api/appointments': 'POST - Create appointment',
       '/api/appointments/occupied-slots': 'GET - Get occupied appointment slots',
       '/api/classify-service': 'POST - Classify service type using ML',
+      '/api/assistant-rag': 'POST - AI assistant with RAG (knowledge base)',
+      '/api/assistant-rag/knowledge': 'GET - Explore knowledge base',
       '/api/admin': 'GET - Admin panel (SQLite data access)',
       '/api/bug-reports': 'POST - Bug reports submission'
     }
@@ -75,6 +78,7 @@ app.use('/api/oauth2callback', calendarRouter);
 app.use('/api/youtube', youtubeRouter);
 app.use('/api/appointments', appointmentsRouter);
 app.use('/api/classify-service', classifyServiceRouter);
+app.use('/api/assistant-rag', assistantRagRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/bug-reports', bugReportsRouter);
 
