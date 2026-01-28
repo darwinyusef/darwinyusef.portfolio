@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import chatAssistantRouter from './routes/chat-assistant.js';
+import chatRouter from './routes/chat.js';
 import askAiRouter from './routes/ask-ai.js';
 import newsletterRouter from './routes/newsletter.js';
 import sendEmailRouter from './routes/send-email.js';
@@ -14,6 +15,7 @@ import youtubeRouter from './routes/youtube.js';
 import appointmentsRouter from './routes/appointments.js';
 import adminRouter from './routes/admin.js';
 import bugReportsRouter from './routes/bug-reports.js';
+import classifyServiceRouter from './routes/classify-service.js';
 
 dotenv.config();
 
@@ -39,6 +41,7 @@ app.get('/docs', (req, res) => {
       '/health': 'GET - Health check',
       '/docs': 'GET - API documentation',
       '/api/chat-assistant': 'POST - Chat with AI assistant',
+      '/api/chat': 'POST - Chat with AI assistant (alias)',
       '/api/ask-ai': 'POST - Ask AI questions',
       '/api/newsletter': 'POST - Subscribe to newsletter',
       '/api/send-email': 'POST - Send email',
@@ -48,7 +51,9 @@ app.get('/docs', (req, res) => {
       '/api/resources': 'GET/POST - Download resources (lead capture)',
       '/api/calendar': 'GET - Google Calendar integration',
       '/api/youtube': 'GET - YouTube data',
-      '/api/appointments': 'GET/POST - Appointments management',
+      '/api/appointments': 'POST - Create appointment',
+      '/api/appointments/occupied-slots': 'GET - Get occupied appointment slots',
+      '/api/classify-service': 'POST - Classify service type using ML',
       '/api/admin': 'GET - Admin panel (SQLite data access)',
       '/api/bug-reports': 'POST - Bug reports submission'
     }
@@ -57,6 +62,7 @@ app.get('/docs', (req, res) => {
 
 // Routes
 app.use('/api/chat-assistant', chatAssistantRouter);
+app.use('/api/chat', chatRouter);
 app.use('/api/ask-ai', askAiRouter);
 app.use('/api/newsletter', newsletterRouter);
 app.use('/api/send-email', sendEmailRouter);
@@ -68,6 +74,7 @@ app.use('/api/calendar', calendarRouter);
 app.use('/api/oauth2callback', calendarRouter);
 app.use('/api/youtube', youtubeRouter);
 app.use('/api/appointments', appointmentsRouter);
+app.use('/api/classify-service', classifyServiceRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/bug-reports', bugReportsRouter);
 

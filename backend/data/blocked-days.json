@@ -1,0 +1,12 @@
+{
+  "blocked_dates": [
+    "25/12/2026",
+    "01/01/2027",
+    "06/01/2027"
+  ],
+  "notes": {
+    "format": "dd/mm/YYYY",
+    "description": "Días bloqueados manualmente (vacaciones, festivos, etc)",
+    "weekends": "Sábados y domingos siempre están bloqueados automáticamente"
+  }
+}

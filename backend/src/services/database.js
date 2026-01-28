@@ -69,6 +69,37 @@ db.exec(`
   CREATE INDEX IF NOT EXISTS idx_email_logs_service ON email_logs(service);
   CREATE INDEX IF NOT EXISTS idx_email_logs_status ON email_logs(status);
   CREATE INDEX IF NOT EXISTS idx_email_logs_created ON email_logs(created_at);
+
+  CREATE TABLE IF NOT EXISTS appointments (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name TEXT NOT NULL,
+    email TEXT NOT NULL,
+    phone TEXT NOT NULL,
+    company TEXT,
+    date TEXT NOT NULL,
+    time TEXT NOT NULL,
+    service TEXT NOT NULL,
+    project_type TEXT,
+    project_stage TEXT,
+    budget TEXT,
+    timeline TEXT,
+    expected_users TEXT,
+    features TEXT,
+    tech_preferences TEXT,
+    has_team TEXT,
+    priority TEXT,
+    description TEXT,
+    calendar_event_id TEXT,
+    meet_link TEXT,
+    status TEXT DEFAULT 'confirmed',
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_appointments_date_time ON appointments(date, time);
+  CREATE INDEX IF NOT EXISTS idx_appointments_email ON appointments(email);
+  CREATE INDEX IF NOT EXISTS idx_appointments_status ON appointments(status);
+  CREATE INDEX IF NOT EXISTS idx_appointments_calendar ON appointments(calendar_event_id);
 `);
 
 console.log('✅ Database initialized:', DB_PATH);
@@ -198,6 +229,82 @@ export function getEmailLogsStats() {
     totalLogs: total.count,
     byService
   };
+}
+
+// Funciones de appointments
+export function saveAppointment(appointmentData) {
+  const stmt = db.prepare(`
+    INSERT INTO appointments (
+      name, email, phone, company, date, time, service,
+      project_type, project_stage, budget, timeline, expected_users,
+      features, tech_preferences, has_team, priority, description,
+      calendar_event_id, meet_link, status
+    )
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+  `);
+
+  return stmt.run(
+    appointmentData.name,
+    appointmentData.email,
+    appointmentData.phone,
+    appointmentData.company || null,
+    appointmentData.date,
+    appointmentData.time,
+    appointmentData.service,
+    appointmentData.project_type || null,
+    appointmentData.project_stage || null,
+    appointmentData.budget || null,
+    appointmentData.timeline || null,
+    appointmentData.expected_users || null,
+    typeof appointmentData.features === 'string' ? appointmentData.features : (appointmentData.features || []).join(', '),
+    appointmentData.tech_preferences || null,
+    appointmentData.has_team || null,
+    appointmentData.priority || null,
+    appointmentData.description || null,
+    appointmentData.calendar_event_id || null,
+    appointmentData.meet_link || null,
+    appointmentData.status || 'confirmed'
+  );
+}
+
+export function updateAppointmentCalendarInfo(id, calendarEventId, meetLink) {
+  const stmt = db.prepare(`
+    UPDATE appointments
+    SET calendar_event_id = ?, meet_link = ?, updated_at = CURRENT_TIMESTAMP
+    WHERE id = ?
+  `);
+
+  return stmt.run(calendarEventId, meetLink, id);
+}
+
+export function getOccupiedSlots() {
+  const stmt = db.prepare(`
+    SELECT date, time
+    FROM appointments
+    WHERE status = 'confirmed'
+    ORDER BY date, time
+  `);
+
+  return stmt.all();
+}
+
+export function isSlotAvailable(date, time) {
+  const stmt = db.prepare(`
+    SELECT COUNT(*) as count
+    FROM appointments
+    WHERE date = ? AND time = ? AND status = 'confirmed'
+  `);
+
+  const result = stmt.get(date, time);
+  return result.count === 0;
+}
+
+export function getAllAppointments() {
+  return db.prepare('SELECT * FROM appointments ORDER BY date DESC, time DESC').all();
+}
+
+export function getAppointmentsByDate(date) {
+  return db.prepare('SELECT * FROM appointments WHERE date = ? AND status = "confirmed" ORDER BY time').all(date);
 }
 
 // Cerrar conexión al finalizar

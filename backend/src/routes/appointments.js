@@ -2,6 +2,7 @@ import express from 'express';
 import { Resend } from 'resend';
 import { google } from 'googleapis';
 import { getOAuth2Client } from '../services/google-auth.js';
+import { saveAppointment, updateAppointmentCalendarInfo, isSlotAvailable } from '../services/database.js';
 
 const router = express.Router();
 
@@ -406,6 +407,150 @@ function appointmentConfirmationTemplate(data) {
   `;
 }
 
+// GET /api/appointments/occupied-slots - Obtener slots ocupados
+router.get('/occupied-slots', async (req, res) => {
+  try {
+    console.log('📅 GET /api/appointments/occupied-slots');
+
+    const { getOccupiedSlots } = await import('../services/database.js');
+    const { readFileSync } = await import('fs');
+    const { join } = await import('path');
+
+    // 1. Obtener slots de la base de datos SQLite
+    const slotsFromDB = getOccupiedSlots();
+    console.log(`📊 Slots desde BD: ${slotsFromDB.length}`);
+
+    // 2. Obtener slots de Google Calendar
+    let slotsFromCalendar = [];
+    try {
+      const auth = getOAuth2Client();
+      const calendar = google.calendar({ version: 'v3', auth });
+
+      // Obtener eventos de los próximos 3 meses
+      const now = new Date();
+      const threeMonthsLater = new Date();
+      threeMonthsLater.setMonth(threeMonthsLater.getMonth() + 3);
+
+      const response = await calendar.events.list({
+        calendarId: 'primary',
+        timeMin: now.toISOString(),
+        timeMax: threeMonthsLater.toISOString(),
+        singleEvents: true,
+        orderBy: 'startTime',
+      });
+
+      const events = response.data.items || [];
+
+      // Convertir eventos a formato dd/mm/YY hh:mm
+      slotsFromCalendar = events.map(event => {
+        const startDate = new Date(event.start.dateTime || event.start.date);
+        const day = String(startDate.getDate()).padStart(2, '0');
+        const month = String(startDate.getMonth() + 1).padStart(2, '0');
+        const year = String(startDate.getFullYear()).slice(-2);
+        const hours = String(startDate.getHours()).padStart(2, '0');
+        const minutes = String(startDate.getMinutes()).padStart(2, '0');
+
+        return {
+          date: `${day}/${month}/${year}`,
+          time: `${hours}:${minutes}`
+        };
+      });
+
+      console.log(`📅 Slots desde Google Calendar: ${slotsFromCalendar.length}`);
+    } catch (calendarError) {
+      console.warn('⚠️ No se pudo consultar Google Calendar:', calendarError.message);
+    }
+
+    // 3. Obtener días bloqueados manualmente del JSON
+    let blockedDates = [];
+    try {
+      const blockedDaysPath = join(process.cwd(), 'data', 'blocked-days.json');
+      const blockedDaysData = JSON.parse(readFileSync(blockedDaysPath, 'utf-8'));
+      blockedDates = blockedDaysData.blocked_dates || [];
+      console.log(`🚫 Días bloqueados manualmente: ${blockedDates.length}`);
+    } catch (jsonError) {
+      console.warn('⚠️ No se pudo leer blocked-days.json:', jsonError.message);
+    }
+
+    // 4. Formatear slots de BD a dd/mm/YY hh:mm
+    const formattedDBSlots = slotsFromDB.map(slot => {
+      // Convertir de YYYY-MM-DD a dd/mm/YY
+      const [year, month, day] = slot.date.split('-');
+      return {
+        date: `${day}/${month}/${year.slice(-2)}`,
+        time: slot.time
+      };
+    });
+
+    // 5. Combinar todos los slots (BD + Calendar)
+    const allSlots = [...formattedDBSlots, ...slotsFromCalendar];
+
+    // 6. Agregar días bloqueados manualmente (todo el día)
+    const blockedSlots = blockedDates.flatMap(blockedDate => {
+      // Generar slots de 8:00 a 18:00 cada hora
+      const slots = [];
+      for (let hour = 8; hour <= 18; hour++) {
+        slots.push({
+          date: blockedDate,
+          time: `${String(hour).padStart(2, '0')}:00`
+        });
+      }
+      return slots;
+    });
+
+    allSlots.push(...blockedSlots);
+
+    // 7. Agregar fines de semana (sábados y domingos) de los próximos 3 meses
+    const weekendSlots = [];
+    const today = new Date();
+    const endDate = new Date();
+    endDate.setMonth(endDate.getMonth() + 3);
+
+    for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dayOfWeek = d.getDay();
+      // 0 = Domingo, 6 = Sábado
+      if (dayOfWeek === 0 || dayOfWeek === 6) {
+        const day = String(d.getDate()).padStart(2, '0');
+        const month = String(d.getMonth() + 1).padStart(2, '0');
+        const year = String(d.getFullYear()).slice(-2);
+        const dateStr = `${day}/${month}/${year}`;
+
+        // Agregar slots de 8:00 a 18:00 cada hora para fines de semana
+        for (let hour = 8; hour <= 18; hour++) {
+          weekendSlots.push({
+            date: dateStr,
+            time: `${String(hour).padStart(2, '0')}:00`
+          });
+        }
+      }
+    }
+
+    allSlots.push(...weekendSlots);
+
+    // 8. Eliminar duplicados
+    const uniqueSlots = Array.from(
+      new Set(allSlots.map(s => `${s.date}|${s.time}`))
+    ).map(s => {
+      const [date, time] = s.split('|');
+      return { date, time };
+    });
+
+    console.log(`✅ Total slots ocupados: ${uniqueSlots.length} (BD: ${formattedDBSlots.length}, Calendar: ${slotsFromCalendar.length}, Bloqueados: ${blockedSlots.length}, Fines de semana: ${weekendSlots.length})`);
+
+    return res.json({
+      success: true,
+      data: uniqueSlots
+    });
+  } catch (error) {
+    console.error('❌ Error en /api/appointments/occupied-slots:', error);
+    return res.status(500).json({
+      success: false,
+      error: 'Error al obtener slots ocupados',
+      details: error.message
+    });
+  }
+});
+
 // Endpoint para crear asesoría
 router.post('/', async (req, res) => {
   try {
@@ -426,6 +571,14 @@ router.post('/', async (req, res) => {
       return res.status(400).json({
         success: false,
         error: 'Email inválido',
+      });
+    }
+
+    // Verificar disponibilidad del slot
+    if (!isSlotAvailable(appointmentData.date, appointmentData.time)) {
+      return res.status(409).json({
+        success: false,
+        error: 'Este horario ya no está disponible. Por favor, selecciona otro.',
       });
     }
 
@@ -451,7 +604,18 @@ router.post('/', async (req, res) => {
 
     console.log('✅ Email al admin enviado:', adminData?.id);
 
-    // 2. Enviar email de confirmación al cliente
+    // 2. Guardar en la base de datos SQLite
+    let appointmentId;
+    try {
+      const result = saveAppointment(appointmentData);
+      appointmentId = result.lastInsertRowid;
+      console.log(`✅ Cita guardada en BD con ID: ${appointmentId}`);
+    } catch (dbError) {
+      console.error('❌ Error al guardar en BD:', dbError);
+      // Continuamos aunque falle la BD
+    }
+
+    // 3. Enviar email de confirmación al cliente
     const { data: clientData, error: clientError } = await resend.emails.send({
       from: process.env.EMAIL_FROM,
       to: appointmentData.email,
@@ -466,7 +630,7 @@ router.post('/', async (req, res) => {
       console.log('✅ Email de confirmación enviado:', clientData?.id);
     }
 
-    // 3. Crear evento en Google Calendar
+    // 4. Crear evento en Google Calendar
     let calendarEventId = null;
     let meetLink = null;
 
@@ -543,6 +707,16 @@ ${appointmentData.description ? `\n═══════════════
 
       console.log('✅ Evento creado en Google Calendar:', calendarEventId);
       console.log('🔗 Google Meet:', meetLink);
+
+      // Actualizar BD con calendar_event_id y meet_link
+      if (appointmentId && calendarEventId) {
+        try {
+          updateAppointmentCalendarInfo(appointmentId, calendarEventId, meetLink);
+          console.log('✅ BD actualizada con info de Google Calendar');
+        } catch (updateError) {
+          console.error('⚠️ No se pudo actualizar BD con info de Calendar:', updateError.message);
+        }
+      }
     } catch (calendarError) {
       console.error('⚠️ Error al crear evento en Google Calendar:', calendarError.message);
       // Continuamos aunque falle el calendario
@@ -552,6 +726,7 @@ ${appointmentData.description ? `\n═══════════════
       success: true,
       message: 'Asesoría agendada exitosamente. Emails enviados y evento creado en calendario.',
       data: {
+        id: appointmentId,
         adminEmailId: adminData?.id,
         clientEmailId: clientData?.id,
         calendarEventId,

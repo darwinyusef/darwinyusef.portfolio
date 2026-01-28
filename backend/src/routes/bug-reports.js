@@ -235,14 +235,15 @@ router.post('/', async (req, res) => {
   console.log('🐛 POST /api/bug-reports - Nueva solicitud de reporte de bug');
 
   try {
-    const { bugReport } = req.body;
+    // El frontend envía los datos directamente en req.body
+    const bugReport = req.body;
 
     // Validaciones básicas
-    if (!bugReport) {
-      console.error('❌ Falta el objeto bugReport en el body');
+    if (!bugReport || typeof bugReport !== 'object') {
+      console.error('❌ Datos de bug report inválidos');
       return res.status(400).json({
         success: false,
-        error: 'Missing bugReport object'
+        error: 'Invalid bug report data'
       });
     }
 
