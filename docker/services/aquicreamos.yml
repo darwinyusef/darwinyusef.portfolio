@@ -8,7 +8,7 @@ services:
         PUBLIC_BACKEND_URL: https://api.darwinyusef.com
     container_name: aquicreamos
     expose:
-      - "8081"
+      - "80"
     environment:
       - NODE_ENV=production
     networks:
@@ -24,7 +24,7 @@ services:
         reservations:
           memory: 128m
     healthcheck:
-      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:8081/"]
+      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:80/"]
       interval: 30s
       timeout: 3s
       retries: 3
