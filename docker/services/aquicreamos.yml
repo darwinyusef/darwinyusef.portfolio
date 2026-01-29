@@ -1,19 +1,16 @@
 services:
   aquicreamos:
+    image: aquicreamos:latest
     build:
       context: /opt/aquicreamoswbp
       dockerfile: Dockerfile
+      args:
+        PUBLIC_BACKEND_URL: https://api.darwinyusef.com
     container_name: aquicreamos
     expose:
-      - "4321"
+      - "8081"
     environment:
-      - HOST=0.0.0.0
-      - PORT=4321
       - NODE_ENV=production
-    env_file:
-      - /opt/darwinyusef.portfolio/backend.env
-    volumes:
-      - aquicreamos-data:/app/data
     networks:
       - portfolio-network
     restart: unless-stopped
@@ -27,7 +24,7 @@ services:
         reservations:
           memory: 128m
     healthcheck:
-      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:4321/"]
+      test: ["CMD", "curl", "-f", "-s", "-o", "/dev/null", "http://localhost:8081/"]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -41,7 +38,3 @@ services:
 networks:
   portfolio-network:
     external: true
-
-volumes:
-  aquicreamos-data:
-    name: aquicreamos-app-data

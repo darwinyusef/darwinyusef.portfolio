@@ -48,7 +48,7 @@ darwinyusef.com, www.darwinyusef.com {
 aquicreamos.com, www.aquicreamos.com {
 	tls internal
 
-	reverse_proxy aquicreamos:4321 {
+	reverse_proxy aquicreamos:8081 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
 		header_up X-Forwarded-For {remote_host}
