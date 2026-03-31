@@ -4,8 +4,8 @@ const lang = getLangFromUrl(Astro.url);
 import UpcomingEvents from "../components/UpcomingEvents.astro";
 
 // Cargar proyectos desde JSON
-const response = await fetch(new URL('/data/projects.json', Astro.url.origin));
-const projects = await response.json();
+import projectsData from '../../public/data/projects.json';
+const projects = projectsData;
 const activeProjects = projects.filter((p: any) => p.is_active);
 ---
 
