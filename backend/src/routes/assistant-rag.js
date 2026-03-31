@@ -4,6 +4,8 @@ import { join } from 'path';
 import { buildRAGContext, searchKnowledge } from '../data/knowledge-base.js';
 import { chat } from '../services/ai.js';
 
+const router = express.Router();
+
 /**
  * Cargar contexto dinámico desde GitHub
  */
