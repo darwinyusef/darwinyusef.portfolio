@@ -249,7 +249,7 @@ ${dynamicPrompt}
           services: dynamicContext.services?.length || 0,
           events: dynamicContext.events?.length || 0
         },
-        model: completion.provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash-lite',
+        model: completion.provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash',
         tokensUsed: completion.totalTokens,
         context: context,
         route: route,

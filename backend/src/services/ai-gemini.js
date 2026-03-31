@@ -18,7 +18,7 @@ export async function chat({ systemPrompt, messages, temperature = 0.7, maxToken
     generationConfig: { temperature, maxOutputTokens: maxTokens }
   };
 
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key=${apiKey}`;
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
   const response = await fetch(url, {
     method: 'POST',
