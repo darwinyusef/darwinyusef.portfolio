@@ -1,20 +1,8 @@
 import express from 'express';
-import OpenAI from 'openai';
 import { readFileSync } from 'fs';
 import { join } from 'path';
 import { buildRAGContext, searchKnowledge } from '../data/knowledge-base.js';
-
-const router = express.Router();
-
-// Función para obtener instancia de OpenAI (lazy initialization)
-function getOpenAI() {
-  if (!process.env.OPENAI_API_KEY) {
-    return null;
-  }
-  return new OpenAI({
-    apiKey: process.env.OPENAI_API_KEY
-  });
-}
+import { chat } from '../services/ai.js';
 
 /**
  * Cargar contexto dinámico desde GitHub
@@ -142,14 +130,11 @@ router.post('/', async (req, res) => {
       });
     }
 
-    // Obtener instancia de OpenAI
-    const openai = getOpenAI();
-    if (!openai) {
-      console.error('❌ OpenAI no está configurado');
-      console.error('OPENAI_API_KEY:', process.env.OPENAI_API_KEY ? 'Existe' : 'No existe');
+    if (!process.env.GEMINI_API_KEY && !process.env.OPENAI_API_KEY) {
+      console.error('❌ Ningún proveedor de IA configurado');
       return res.status(503).json({
         success: false,
-        error: 'OpenAI service not configured'
+        error: 'AI service not configured'
       });
     }
 
@@ -237,32 +222,18 @@ ${dynamicPrompt}
 **IMPORTANTE:** Si la pregunta no puede responderse con la información proporcionada, NO INVENTES. Di que no tienes esa información y ofrece la primera sesión gratuita.`;
     }
 
-    // 5. Construir el array de mensajes para OpenAI
+    // 5. Construir el array de mensajes para Gemini
     const messages = [
-      {
-        role: 'system',
-        content: systemPrompt
-      },
       ...conversationHistory,
-      {
-        role: 'user',
-        content: question
-      }
+      { role: 'user', content: question }
     ];
 
-    // 6. Llamar a OpenAI
-    console.log('🚀 Enviando request a OpenAI...');
-    const completion = await openai.chat.completions.create({
-      model: 'gpt-4o-mini',
-      messages: messages,
-      temperature: 0.6,
-      max_tokens: 800,
-      presence_penalty: 0.1,
-      frequency_penalty: 0.1
-    });
+    // 6. Llamar al proveedor IA activo
+    console.log('🚀 Enviando request al proveedor IA...');
+    const completion = await chat({ systemPrompt, messages, temperature: 0.6, maxTokens: 800 });
 
-    const answer = completion.choices[0].message.content;
-    console.log('✅ Respuesta recibida de OpenAI');
+    const answer = completion.text;
+    console.log(`✅ Respuesta recibida de ${completion.provider}`);
 
     // 7. Construir respuesta con metadatos
     const response = {
@@ -276,8 +247,8 @@ ${dynamicPrompt}
           services: dynamicContext.services?.length || 0,
           events: dynamicContext.events?.length || 0
         },
-        model: 'gpt-4o-mini',
-        tokensUsed: completion.usage?.total_tokens || 0,
+        model: completion.provider === 'openai' ? 'gpt-4o-mini' : 'gemini-2.0-flash-lite',
+        tokensUsed: completion.totalTokens,
         context: context,
         route: route,
         assistantType: isServicesPage ? 'technical-services' : 'general-company'
@@ -290,18 +261,17 @@ ${dynamicPrompt}
   } catch (error) {
     console.error('❌ Error en assistant-rag:', error);
 
-    // Errores específicos de OpenAI
-    if (error.code === 'insufficient_quota') {
-      return res.status(503).json({
-        success: false,
-        error: 'OpenAI quota exceeded. Please try again later.'
-      });
-    }
-
-    if (error.code === 'rate_limit_exceeded') {
+    if (error.status === 429) {
       return res.status(429).json({
         success: false,
         error: 'Too many requests. Please try again in a moment.'
+      });
+    }
+
+    if (error.status === 503 || error.status === 429) {
+      return res.status(503).json({
+        success: false,
+        error: 'Gemini service unavailable. Please try again later.'
       });
     }
 

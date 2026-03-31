@@ -1,6 +1,7 @@
 import express from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { chat } from '../services/ai.js';
 
 const router = express.Router();
 
@@ -121,32 +122,15 @@ router.post('/', async (req, res) => {
       return res.status(400).json({ error: 'La pregunta es requerida' });
     }
 
-    let apiKey = process.env.OPENAI_API_KEY;
-
-    if (!apiKey) {
-      try {
-        const confPath = join(process.cwd(), 'data', 'conf.json');
-        const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
-        apiKey = confData.openai;
-        console.log('✅ Token de OpenAI obtenido');
-      } catch (error) {
-        console.error('❌ No se pudo leer conf.json');
-      }
-    }
-
-    if (!apiKey) {
-      return res.status(500).json({ error: 'La API de OpenAI no está configurada' });
+    if (!process.env.GEMINI_API_KEY && !process.env.OPENAI_API_KEY) {
+      return res.status(500).json({ error: 'Ningún proveedor de IA configurado' });
     }
 
     console.log('📚 Cargando contexto...');
     const context = await loadContext();
     const contextPrompt = buildContextPrompt(context);
 
-    const messages = [];
-
-    messages.push({
-      role: 'system',
-      content: `Eres un asistente virtual inteligente de Yusef González, arquitecto de software y desarrollador fullstack con más de 17 años de experiencia.
+    const systemPrompt = `Eres un asistente virtual inteligente de Yusef González, arquitecto de software y desarrollador fullstack con más de 17 años de experiencia.
 
 Tu personalidad es:
 - Amigable, cercano y profesional
@@ -192,49 +176,24 @@ ${contextPrompt}
 Si te preguntan sobre precios o aspectos comerciales:
 "Para información sobre presupuestos y servicios personalizados, te invito a contactar directamente a través del <a href='/#contact'>formulario de contacto</a> o visitar la sección de <a href='/arquitectura'>arquitectura</a>. Con gusto puedo ayudarte con cualquier duda técnica."
 
-Mantén un tono profesional pero cercano, como si fueras el asistente personal de Yusef que conoce todo sobre su trabajo y vida profesional.`
-    });
+Mantén un tono profesional pero cercano, como si fueras el asistente personal de Yusef que conoce todo sobre su trabajo y vida profesional.`;
+
+    const messages = [];
 
     if (conversationHistory && Array.isArray(conversationHistory)) {
       conversationHistory.forEach((msg) => {
         if (msg.role === 'user' || msg.role === 'assistant') {
-          messages.push({
-            role: msg.role,
-            content: msg.content
-          });
+          messages.push({ role: msg.role, content: msg.content });
         }
       });
     }
 
-    messages.push({
-      role: 'user',
-      content: question
-    });
+    messages.push({ role: 'user', content: question });
 
-    console.log('🚀 Llamando a OpenAI con', messages.length, 'mensajes');
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: messages,
-        max_tokens: 500,
-        temperature: 0.8,
-      }),
-    });
-
-    if (!openaiResponse.ok) {
-      const errorData = await openaiResponse.json().catch(() => ({}));
-      console.error('❌ Error de OpenAI:', errorData);
-      throw new Error('Error al obtener respuesta de OpenAI');
-    }
-
-    const data = await openaiResponse.json();
-    const aiResponse = data.choices?.[0]?.message?.content || 'No pude generar una respuesta.';
-    console.log('✅ Respuesta generada');
+    console.log('🚀 Llamando al proveedor IA con', messages.length, 'mensajes');
+    const result = await chat({ systemPrompt, messages, temperature: 0.8, maxTokens: 500 });
+    const aiResponse = result.text || 'No pude generar una respuesta.';
+    console.log(`✅ Respuesta generada por ${result.provider}`);
 
     return res.json({
       response: aiResponse,

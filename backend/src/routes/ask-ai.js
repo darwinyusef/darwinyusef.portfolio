@@ -1,6 +1,7 @@
 import express from 'express';
 import { readFileSync } from 'fs';
 import { join } from 'path';
+import { chat } from '../services/ai.js';
 
 const router = express.Router();
 
@@ -15,22 +16,9 @@ router.post('/', async (req, res) => {
       });
     }
 
-    let apiKey = process.env.OPENAI_API_KEY;
-
-    if (!apiKey) {
-      try {
-        const confPath = join(process.cwd(), 'data', 'conf.json');
-        const confData = JSON.parse(readFileSync(confPath, 'utf-8'));
-        apiKey = confData.openai;
-        console.log('✅ Token de OpenAI obtenido');
-      } catch (error) {
-        console.error('❌ Error al leer conf.json:', error);
-      }
-    }
-
-    if (!apiKey) {
+    if (!process.env.GEMINI_API_KEY && !process.env.OPENAI_API_KEY) {
       return res.status(500).json({
-        error: 'La API de IA no está configurada. Por favor, contacta al administrador.',
+        error: 'Ningún proveedor de IA configurado. Por favor, contacta al administrador.',
       });
     }
 
@@ -49,11 +37,7 @@ router.post('/', async (req, res) => {
       console.error('⚠️ No se pudo cargar languages.json:', error);
     }
 
-    const messages = [];
-
-    messages.push({
-      role: 'system',
-      content: `Eres un asistente técnico experto en tecnología y desarrollo de software representando a Yusef González. Tu ÚNICO rol es educar y aclarar dudas técnicas sobre el siguiente servicio:
+    const systemPrompt = `Eres un asistente técnico experto en tecnología y desarrollo de software representando a Yusef González. Tu ÚNICO rol es educar y aclarar dudas técnicas sobre el siguiente servicio:
 
 **Servicio:** ${serviceName}
 **Descripción:** ${serviceDescription}
@@ -100,13 +84,14 @@ Pautas adicionales:
 - Menciona tecnologías específicas del stack cuando sea relevante
 - Responde directamente a las preguntas técnicas del usuario
 - Mantén el contexto de la conversación
-- Enfócate en aspectos técnicos, NO comerciales`
-    });
+- Enfócate en aspectos técnicos, NO comerciales`;
+
+    const contents = [];
 
     if (isInitialMessage) {
-      messages.push({
+      contents.push({
         role: 'user',
-        content: `Dame una introducción técnica completa sobre este servicio. Estructura tu respuesta así:
+        parts: [{ text: `Dame una introducción técnica completa sobre este servicio. Estructura tu respuesta así:
 
 1. ¿Qué es exactamente? (usa <strong> para el nombre del servicio)
 2. ¿Para qué sirve y qué problemas técnicos resuelve?
@@ -122,45 +107,29 @@ Al final, SOLO menciona que para más información técnica y consultas pueden v
 - Usa <strong> para resaltar conceptos clave
 - Usa <ul><li> para las listas
 - Incluye emojis técnicos relevantes (📊, 🚀, ⚙️, 💻, etc.)
-- TODO debe estar en HTML, NO en markdown`
+- TODO debe estar en HTML, NO en markdown` }]
       });
-    } else {
-      if (conversationHistory && Array.isArray(conversationHistory)) {
-        conversationHistory.forEach((msg) => {
-          if (msg.role === 'user' || msg.role === 'assistant') {
-            messages.push({
-              role: msg.role,
-              content: msg.content
-            });
-          }
-        });
-      }
+    } else if (conversationHistory && Array.isArray(conversationHistory)) {
+      conversationHistory.forEach((msg) => {
+        if (msg.role === 'user' || msg.role === 'assistant') {
+          contents.push({
+            role: msg.role === 'assistant' ? 'model' : 'user',
+            parts: [{ text: msg.content }]
+          });
+        }
+      });
     }
 
-    console.log('🚀 Llamando a OpenAI con', messages.length, 'mensajes');
-    const openaiResponse = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${apiKey}`,
-      },
-      body: JSON.stringify({
-        model: 'gpt-4o-mini',
-        messages: messages,
-        max_tokens: 600,
-        temperature: 0.7,
-      }),
-    });
+    // Convertir contents (Gemini format) a messages (formato interno)
+    const messages = contents.map(c => ({
+      role: c.role === 'model' ? 'assistant' : 'user',
+      content: c.parts[0].text
+    }));
 
-    if (!openaiResponse.ok) {
-      const errorData = await openaiResponse.json().catch(() => ({}));
-      console.error('❌ Error de OpenAI:', errorData);
-      throw new Error('Error al obtener respuesta de OpenAI');
-    }
-
-    const data = await openaiResponse.json();
-    const aiResponse = data.choices?.[0]?.message?.content || 'No se pudo generar una respuesta.';
-    console.log('✅ Respuesta de OpenAI recibida');
+    console.log('🚀 Llamando al proveedor IA con', messages.length, 'mensajes');
+    const result = await chat({ systemPrompt, messages, temperature: 0.7, maxTokens: 600 });
+    const aiResponse = result.text || 'No se pudo generar una respuesta.';
+    console.log(`✅ Respuesta recibida de ${result.provider}`);
 
     return res.json({
       response: aiResponse,
