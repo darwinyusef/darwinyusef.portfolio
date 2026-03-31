@@ -3,7 +3,9 @@ import { getLangFromUrl } from "../i18n/utils";
 const lang = getLangFromUrl(Astro.url);
 
 // Cargar FAQ desde JSON
-import faqs from '../../public/data/faq.json';
+const baseUrl = `http://localhost:${import.meta.env.PORT || 8080}`;
+const response = await fetch(`${baseUrl}/data/faq.json`);
+const faqs = await response.json();
 ---
 
 <!-- FAQ Section - Contratación y Mentoring -->
